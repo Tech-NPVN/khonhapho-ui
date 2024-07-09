@@ -1,29 +1,78 @@
+@import 'antd/dist/reset.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  /* Light mode */
+  --background-l: #ecf1f2;
+  --background-l-2: #f3f4f6;
+  --primary-text-l: #344142;
+  --secondary-text-l: rgba(52, 65, 66, 0.5);
+  --link-text-l: #1677ff;
+  --color-l: #3fb44b;
+  --color-l-2: #a1ec02;
+  --color-l-3: #006941;
+  --mess-l: #d2e5d3;
+  --mess-l-2: #e4ffe7;
+  --primary-color-l: #ffffff;
+  --button-l: #e0ffe0;
+  --error-l: #e3223c;
+  --divider-l: rgba(0, 0, 0, 0.1);
+  --tiertiary-input-color-l: #e5e6e8;
+  --frame-blur-l: rgba(40, 40, 40, 0.7);
+
+  /* Dark mode */
+  --background-d: #151e2f;
+  --primary-text-d: #daefff;
+  --primary-text-d-2: #ffffff;
+  --secondary-text-d: rgba(218, 239, 255, 0.5);
+  --link-text-d: #5bb6e8;
+  --mess-d: #44722b;
+  --primary-color-d: #2f3643;
+  --error-d: #ff7d7f;
+  --divider-d: #6b6c6d;
+  --account-d: #374665;
+  --frame-blur-d: rgba(56, 56, 56, 0.6);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
   }
+} */
+
+.ant-menu-horizontal > .ant-menu-item-selected::after,
+.ant-menu-horizontal > .ant-menu-item-active:hover::after {
+  border-bottom-width: 2px;
+  border-bottom-color: var(--color-l) !important;
+}
+
+.ant-menu-item.ant-menu-item-selected {
+  color: unset;
+  background-color: var(--background-l);
+}
+
+.ant-menu li.ant-menu-item {
+  padding-left: 14px;
 }
 
 @layer base {
   body {
-    @apply min-h-screen;
+    @apply min-h-screen bg-background_l;
   }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+
+  .sidebar-menu {
+    @apply border-0 [&>li]:min-h-11 [&>li>div]:min-h-11 [&>li>div]:text-primary_text_l 
+    [&>li>ul>li.ant-menu-item-selected]:bg-background_l [&>li>ul>li.ant-menu-item-selected]:text-primary_text_l font-semibold [&>.ant-menu-item-selected]:text-primary_text_l [&>.ant-menu-item-selected]:bg-background_l [&>li>ul]:bg-transparent;
   }
 }

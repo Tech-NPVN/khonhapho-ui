@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
-import './globals.css';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import seGoeUiFont from '@/configs/font.config';
+import { LayoutClient } from '@/layouts';
+import AppProvider from '@/provider';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -15,8 +17,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={seGoeUiFont.className}>
-        <AntdRegistry>{children}</AntdRegistry>
+      <body className={seGoeUiFont.className} id='app'>
+        <AntdRegistry>
+          <AppProvider>
+            <LayoutClient>{children}</LayoutClient>
+          </AppProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
