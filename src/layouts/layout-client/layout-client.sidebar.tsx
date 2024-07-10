@@ -1,45 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { MenuClick, MenuType } from './layout-client.type';
 import { Layout, Menu } from 'antd';
-import { Navigations, Routes } from '@/constants/enums';
-import {
-  ActivityNewsIcon,
-  BuyUrgentlyIcon,
-  ListCompanyIcon,
-  RegulationIcon,
-  ResourceWarehouseIcon,
-} from '@/components/icons';
+import { DarkIcon } from '@/components/icons';
 import { usePathname, useRouter } from 'next/navigation';
-
-const getItem = (
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuType[],
-): MenuType => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-  } as MenuType;
-};
-
-const items: MenuType[] = [
-  getItem(Navigations.Warehouse, Routes.Warehouse, <ResourceWarehouseIcon className="w-7" />),
-  getItem(Navigations.Urgently, Routes.Urgently, <BuyUrgentlyIcon className="w-7" />),
-  getItem(Navigations.ActivityNews, Routes.ActivityNews, <ActivityNewsIcon className="w-7" />, [
-    getItem(Navigations.All, Routes.ActivityNewsAll),
-    getItem(Navigations.Deals, Routes.ActivityNewsDeals),
-    getItem(Navigations.Branch, Routes.ActivityNewsBranch),
-    getItem(Navigations.Department, Routes.ActivityNewsDepartment),
-    getItem(Navigations.Group, Routes.ActivityNewsGroup),
-  ]),
-  getItem(Navigations.Regulation, '', <RegulationIcon className="w-7" />),
-  getItem(Navigations.ListCompany, '', <ListCompanyIcon className="w-7" />),
-];
+import { getItem, items, itemsBottom } from './layout-client.const';
 
 const LayoutClientSidebar = () => {
   const router = useRouter();
@@ -47,28 +12,51 @@ const LayoutClientSidebar = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const handleMenuClick: MenuClick = (e) => {
-    const clickedItem = items.find((item) => item?.key === e.key);
-    if (clickedItem && !(clickedItem as any)?.children) {
-      router.push(e.key);
-    }
-  };
-
   return (
     <Layout.Sider
-      collapsible
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      className="bg-white"
+      className="bg-white h-[calc(100vh-64px)] overflow-auto fixed left-0 bottom-0"
       width={286}
     >
-      <div className="py-4 px-2">
+      <div className="flex flex-col py-4 px-3 h-full relative">
         <Menu
-          defaultSelectedKeys={[pathname ?? undefined]}
+          selectedKeys={[pathname ?? undefined]}
           mode="inline"
           items={items}
-          className="sidebar-menu"
-          onClick={handleMenuClick}
+          className={`border-0 flex-1 ${
+            collapsed ? 'sidebar-item-collapse sidebar-item-dropdown-collapse' : ''
+          }`}
+          onClick={(e) => {
+            e.domEvent.stopPropagation();
+            if (e.key === 'logout') {
+              return;
+            }
+            router.push(e.key);
+          }}
+        />
+
+        <Menu
+          defaultSelectedKeys={undefined}
+          mode="inline"
+          items={[
+            ...itemsBottom,
+            getItem(
+              'Chế độ tối',
+              'mode',
+              <DarkIcon className="w-7" />,
+              undefined,
+              'sidebar-item [&.ant-menu-item-selected]:bg-transparent flex-row-reverse',
+            ),
+          ]}
+          className={`border-0 sticky bottom-4 pt-5 ${collapsed ? 'sidebar-item-collapse' : ''}`}
+          onClick={(e) => {
+            if (e.key === 'collapse') {
+              setCollapsed((prev) => !prev);
+            } else if (e.key === 'mode') {
+              return;
+            }
+          }}
         />
       </div>
     </Layout.Sider>
