@@ -13,6 +13,7 @@ pnpm dev
 # or
 bun dev
 ```
+Link: https://khonhapho-q0iatymzd-khonhapho.vercel.app/
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
