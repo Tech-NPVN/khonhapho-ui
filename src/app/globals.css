@@ -45,7 +45,7 @@
 
 @layer base {
   body {
-    @apply min-h-screen bg-background_l dark:bg-background_d;
+    @apply min-h-screen main-bg;
   }
 }
 
@@ -62,6 +62,10 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  .main-bg {
+    @apply bg-background_l dark:bg-background_d;
   }
 
   /* Sidebar */
