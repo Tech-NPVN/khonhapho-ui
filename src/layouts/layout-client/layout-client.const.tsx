@@ -252,7 +252,7 @@ const items: MenuType[] = [
 
 const itemsBottom: MenuType[] = [
   getItem(
-    'Thu nhỏ lại',
+    'Thu gọn',
     'collapse',
     <CollapseIcon className="w-7" />,
     undefined,

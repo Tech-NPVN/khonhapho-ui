@@ -6,6 +6,7 @@ const BellIcon = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 20 20"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={`dark:[&>path]:fill-primary_text_d ${props.className}`}
       {...props}
     >
       <path

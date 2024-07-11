@@ -14,6 +14,7 @@ const BuyUrgentlyIcon = (props: React.SVGProps<SVGSVGElement>) => {
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className="dark:stroke-primary_text_d"
       />
       <path
         d="M0.94043 6.8584H1.16787H6.71316"
@@ -21,6 +22,7 @@ const BuyUrgentlyIcon = (props: React.SVGProps<SVGSVGElement>) => {
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className="dark:stroke-primary_text_d"
       />
       <path
         d="M2.42871 10.2803H4.46346H8.3818"
@@ -28,9 +30,10 @@ const BuyUrgentlyIcon = (props: React.SVGProps<SVGSVGElement>) => {
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
+        className="dark:stroke-primary_text_d"
       />
-      <circle cx="14.2236" cy="17.1601" r="1.48827" fill="#344142" />
-      <circle cx="23.0376" cy="17.1601" r="1.48827" fill="#344142" />
+      <circle cx="14.2236" cy="17.1601" r="1.48827" fill="#344142" className="dark:fill-primary_text_d"/>
+      <circle cx="23.0376" cy="17.1601" r="1.48827" fill="#344142" className="dark:fill-primary_text_d"/>
     </svg>
   );
 };

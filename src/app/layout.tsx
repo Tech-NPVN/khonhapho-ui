@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
       <head />
       <body className={seGoeUiFont.className} id="app">
         <AntdRegistry>

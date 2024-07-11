@@ -17,6 +17,7 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { MenuType } from './layout-client.type';
 import { IMAGE_SAMPLE } from '@/constants/data';
+import { useTheme } from 'next-themes';
 
 const generateMenuItem = (route: string, icon: JSX.Element, isActive: boolean) => ({
   key: route,
@@ -35,24 +36,24 @@ const renderMenu = (pathname: string): MenuType[] => {
   const menuItems = [
     {
       route: Routes.Home,
-      icon: <HomeIcon className="[&>path]:fill-color_l" />,
+      icon: <HomeIcon className="[&>path]:!fill-color_l" />,
     },
     {
       route: Routes.UserCollection,
-      icon: <CollectionIcon className="[&>rect]:stroke-color_l [&>path]:stroke-color_l" />,
+      icon: <CollectionIcon className="[&>rect]:!stroke-color_l [&>path]:!stroke-color_l" />,
     },
     {
       route: Routes.Warehouse,
       icon: (
-        <PersonalWarehouseIcon className="[&>path]:stroke-color_l [&>path[data-path='3']]:fill-color_l" />
+        <PersonalWarehouseIcon className="[&>path]:!stroke-color_l [&>path[data-path='3']]:!fill-color_l" />
       ),
     },
     {
       route: Routes.StockConsignment,
       icon: (
         <MainInfoWarehouseIcon
-          className="[&>circle]:fill-color_l [&>rect]:fill-color_l [&>path[data-path='4']]:fill-color_l
-        [&>path[data-path='2']]:stroke-color_l first:[&>path]:fill-color_l"
+          className="[&>circle]:!fill-color_l [&>rect]:!fill-color_l [&>path[data-path='4']]:!fill-color_l
+        [&>path[data-path='2']]:!stroke-color_l first:[&>path]:!fill-color_l"
         />
       ),
     },
@@ -60,8 +61,8 @@ const renderMenu = (pathname: string): MenuType[] => {
       route: Routes.StockNovendors,
       icon: (
         <FreeWarehouseIcon
-          className="[&>circle]:fill-color_l [&>rect]:fill-color_l [&>rect[data-rect='1']]:fill-white 
-          [&>path[data-path='3']]:fill-color_l [&>path[data-path='2']]:stroke-color_l first:[&>path]:fill-color_l"
+          className="[&>circle]:!fill-color_l [&>rect]:!fill-color_l [&>rect[data-rect='1']]:!fill-primary_color_l 
+          [&>path[data-path='3']]:!fill-color_l [&>path[data-path='2']]:!stroke-color_l first:[&>path]:!fill-color_l"
         />
       ),
     },
@@ -71,6 +72,7 @@ const renderMenu = (pathname: string): MenuType[] => {
 };
 
 const LayoutClientHeader = () => {
+  const { theme } = useTheme();
   const pathname = usePathname();
   const [current, setCurrent] = useState<string>(pathname);
 
@@ -79,17 +81,21 @@ const LayoutClientHeader = () => {
   }, [pathname]);
 
   return (
-    <Layout.Header className="px-3 shadow-lg bg-white grid grid-cols-3 z-10 fixed top-0 w-full">
+    <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-3 z-10 fixed top-0 w-full">
       <Link href={Routes.Home} className="w-min">
-        <Image src="/logo-white-mode.jpg" height={40} width={43} alt="logo" />
+        {theme === 'light' ? (
+          <Image src="/logo-white.png" height={40} width={43} alt="logo" />
+        ) : (
+          <Image src="/logo-dark.png" height={40} width={43} alt="logo" />
+        )}
       </Link>
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center dark:bg-primary_color_d">
         <Menu
           onClick={(e) => setCurrent(e.key)}
           selectedKeys={[current]}
           mode="horizontal"
           items={renderMenu(pathname)}
-          className="[&>li]:w-28 [&>li]:flex [&>li]:justify-center [&>li>span]:hidden"
+          className="[&>li]:w-28 [&>li]:flex [&>li]:justify-center [&>li>span]:hidden dark:bg-primary_color_d"
         />
       </div>
 
@@ -99,18 +105,18 @@ const LayoutClientHeader = () => {
           type="text"
           shape="round"
           size="large"
-          className="w-10 h-10 shadow-sm"
+          className="w-10 h-10 shadow-sm dark:bg-background_d"
         />
         <Button
           icon={<BellIcon />}
           type="text"
           shape="round"
           size="large"
-          className="w-10 h-10 shadow-sm"
+          className="w-10 h-10 shadow-sm dark:bg-background_d"
         />
         <Button
           type="text"
-          shape="round" 
+          shape="round"
           size="large"
           className="w-10 h-10 shadow-sm overflow-hidden"
         >

@@ -2,12 +2,20 @@
 
 import { StyleProvider } from '@ant-design/cssinjs';
 import { ConfigProvider } from 'antd';
+import ThemeProvider from './theme.provider';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
     <ConfigProvider>
       <StyleProvider hashPriority="high">
-        {children}
+        <ThemeProvider
+          attribute="class"
+          themes={['light', 'dark']}
+          defaultTheme="light"
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </StyleProvider>
     </ConfigProvider>
   );
