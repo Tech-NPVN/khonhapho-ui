@@ -13,9 +13,10 @@ const PersonalIcon = (props: React.SVGProps<SVGSVGElement>) => {
         stroke="#344142"
         strokeMiterlimit="10"
         strokeLinecap="round"
+        className="dark:stroke-primary_text_d"
       />
-      <circle cx="11.2093" cy="9.16923" r="3.16923" stroke="#344142" />
-      <circle cx="11" cy="11" r="10.5" stroke="#344142" />
+      <circle cx="11.2093" cy="9.16923" r="3.16923" stroke="#344142" className="dark:stroke-primary_text_d"/>
+      <circle cx="11" cy="11" r="10.5" stroke="#344142" className="dark:stroke-primary_text_d"/>
     </svg>
   );
 };

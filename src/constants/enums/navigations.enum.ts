@@ -29,6 +29,14 @@ enum Navigations {
   StockAppointment = 'Lịch sử Đầu khách đặt lịch',
   StockReview = 'Lịch sử Đầu khách báo cáo',
 
+  // User
+  User = 'Tài khoản cá nhân',
+  UserCustomers = 'QL khách - Tự khớp khách',
+  UserAppointment = 'Lịch sử đặt lịch',
+  UserReview = 'Lịch sử báo cáo',
+  UserCollection = 'Bộ sưu tập',
+  UserProfile = 'Trang cá nhân',
+
   Admin = 'Trang quản trị',
 }
 
