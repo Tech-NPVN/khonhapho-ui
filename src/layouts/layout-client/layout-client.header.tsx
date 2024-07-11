@@ -38,7 +38,7 @@ const renderMenu = (pathname: string): MenuType[] => {
       icon: <HomeIcon className="[&>path]:fill-color_l" />,
     },
     {
-      route: Routes.Collection,
+      route: Routes.UserCollection,
       icon: <CollectionIcon className="[&>rect]:stroke-color_l [&>path]:stroke-color_l" />,
     },
     {
@@ -110,7 +110,7 @@ const LayoutClientHeader = () => {
         />
         <Button
           type="text"
-          shape="round"
+          shape="round" 
           size="large"
           className="w-10 h-10 shadow-sm overflow-hidden"
         >

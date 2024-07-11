@@ -49,7 +49,7 @@ const LayoutClientSidebar = () => {
               'sidebar-item [&.ant-menu-item-selected]:bg-transparent flex-row-reverse',
             ),
           ]}
-          className={`border-0 sticky bottom-4 pt-5 ${collapsed ? 'sidebar-item-collapse' : ''}`}
+          className={`border-0 sticky bottom-4 ${collapsed ? 'sidebar-item-collapse' : ''}`}
           onClick={(e) => {
             if (e.key === 'collapse') {
               setCollapsed((prev) => !prev);

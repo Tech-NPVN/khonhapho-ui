@@ -5,7 +5,7 @@ enum Routes {
 
   // (client)
   Home = '/',
-  Collection = '/collection',
+  // Collection = '/collection',
   Warehouse = '/warehouse',
   // MainInformationWarehouse = '/main-information-warehouse',
   FreeNewsWarehouse = '/free-news-warehouse',
@@ -34,6 +34,13 @@ enum Routes {
   StockNovendors = '/stock/novendors',
   StockAppointment = '/stock/appointment',
   StockReview = '/stock/review',
+
+  User = '/user',
+  UserCustomers = '/user/customers',
+  UserAppointment = '/user/appointment',
+  UserReview = '/user/review',
+  UserCollection = '/user/collection',
+  UserProfile = '/user/profile',
 
   // (admin)
   AdminHome = '/admin',
