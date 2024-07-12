@@ -65,9 +65,9 @@
   }
 
   .main-bg {
-    @apply bg-background_l dark:bg-background_d;
+    @apply bg-background_l dark:bg-background_d text-primary_text_l dark:text-primary_text_d;
   }
-  
+
   /* Sidebar */
   .sidebar-item {
     @apply relative min-h-12 font-semibold text-primary_text_l dark:text-primary_text_d 
