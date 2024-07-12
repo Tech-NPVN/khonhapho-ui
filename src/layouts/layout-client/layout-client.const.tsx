@@ -8,6 +8,7 @@ import {
   LibraryIcon,
   ListCompanyIcon,
   LogoutIcon,
+  PersonalIcon,
   RegulationIcon,
   ResourceWarehouseIcon,
   WarehouseManagementIcon,
@@ -196,6 +197,49 @@ const items: MenuType[] = [
     ],
     'sidebar-item-dropdown',
   ),
+  getItem(
+    Navigations.User,
+    Routes.UserCustomers,
+    <PersonalIcon className="w-7" />,
+    [
+      getItem(
+        <MenuLabel label={Navigations.UserCustomers} />,
+        Routes.UserCustomers,
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label={Navigations.UserAppointment} />,
+        Routes.UserAppointment,
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label={Navigations.UserReview} />,
+        Routes.UserReview,
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label={Navigations.UserCollection} />,
+        Routes.UserCollection,
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label={Navigations.UserProfile} />,
+        Routes.UserProfile,
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+    ],
+    'sidebar-item-dropdown',
+  ),
   getItem('Đăng xuất', 'logout', <LogoutIcon className="w-7" />, undefined, 'sidebar-item'),
   getItem(
     Navigations.Admin,
@@ -208,7 +252,7 @@ const items: MenuType[] = [
 
 const itemsBottom: MenuType[] = [
   getItem(
-    'Thu nhỏ lại',
+    'Thu gọn',
     'collapse',
     <CollapseIcon className="w-7" />,
     undefined,
