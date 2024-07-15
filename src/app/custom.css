@@ -1,0 +1,31 @@
+/* Table */
+.ant-table-wrapper .ant-table-container table > thead > tr:first-child > *:first-child,
+.ant-table-wrapper .ant-table-container table > thead > tr:first-child > *:last-child {
+  @apply !rounded-s-none !rounded-e-none;
+}
+
+.ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell {
+  @apply bg-tiertiary_input_color_l dark:bg-background_d border-b-0 uppercase dark:text-primary_text_d;
+}
+
+.ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell::before {
+  display: none;
+}
+
+.ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell {
+  @apply border-b-0 dark:text-primary_text_d;
+}
+
+.ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {
+  @apply dark:bg-background_d;
+}
+
+/* Select */
+.ant-select > .ant-select-selector {
+  @apply dark:!border-divider_d dark:!bg-primary_color_d !rounded-xl;
+}
+
+.ant-select > .ant-select-selector > .ant-select-selection-search,
+.ant-select > .ant-select-selector > .ant-select-selection-placeholder {
+  @apply dark:text-primary_text_d;
+}

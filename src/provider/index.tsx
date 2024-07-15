@@ -1,12 +1,18 @@
 'use client';
 
 import { StyleProvider } from '@ant-design/cssinjs';
-import { ConfigProvider } from 'antd';
+import { ConfigProvider, type ThemeConfig } from 'antd';
 import ThemeProvider from './theme.provider';
+
+const themeConfig: ThemeConfig = {
+  token: {
+    colorPrimary: '#3FB44B',
+  },
+};
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
-    <ConfigProvider>
+    <ConfigProvider theme={themeConfig}>
       <StyleProvider hashPriority="high">
         <ThemeProvider
           attribute="class"

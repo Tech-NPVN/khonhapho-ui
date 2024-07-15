@@ -37,17 +37,15 @@
   --frame-blur-d: rgba(56, 56, 56, 0.6);
 }
 
-.ant-menu-horizontal > .ant-menu-item-selected::after,
-.ant-menu-horizontal > .ant-menu-item-active:hover::after {
-  border-bottom-width: 2px;
-  border-bottom-color: var(--color-l) !important;
-}
-
 @layer base {
   body {
     @apply min-h-screen main-bg;
   }
 }
+
+/* .ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell {
+  @apply !bg-tiertiary_input_color_l;
+} */
 
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -64,10 +62,14 @@
     text-wrap: balance;
   }
 
-  .main-bg {
-    @apply bg-background_l dark:bg-background_d;
+  .shadow-btn {
+    @apply shadow-[0_4px_15px_0_#0000000F];
   }
-  
+
+  .main-bg {
+    @apply bg-background_l dark:bg-background_d text-primary_text_l dark:text-primary_text_d;
+  }
+
   /* Sidebar */
   .sidebar-item {
     @apply relative min-h-12 font-semibold text-primary_text_l dark:text-primary_text_d 

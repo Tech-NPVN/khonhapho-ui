@@ -20,7 +20,7 @@ const LayoutClientSidebar = () => {
     <Layout.Sider
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] overflow-auto mt-16"
+      className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] overflow-auto mt-16 sticky top-16 bottom-0 left-0"
       width={286}
     >
       <div className="flex flex-col py-4 px-3 h-full relative">
