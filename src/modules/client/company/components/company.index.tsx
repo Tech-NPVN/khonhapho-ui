@@ -4,6 +4,7 @@ import { SectionBody } from '@/components/common';
 import { ReloadDownIcon, SearchIcon } from '@/components/icons';
 import { IMAGE_SAMPLE } from '@/constants/data';
 import { Avatar, Button, Col, Input, Row, Select } from 'antd';
+import { CompanyTable } from './company-table';
 
 export const CompanyIndex = () => {
   return (
@@ -37,9 +38,17 @@ export const CompanyIndex = () => {
             <Select placeholder="Chức danh" size="large" className="w-full" />
           </Col>
           <Col span={6}>
-            <Button icon={<ReloadDownIcon />} size="large" className="w-full">Đặt lại</Button>
+            <Button
+              icon={<ReloadDownIcon />}
+              size="large"
+              className="w-full dark:bg-primary_color_d dark:border-divider_d dark:text-primary_text_d rounded-xl "
+            >
+              Đặt lại
+            </Button>
           </Col>
         </Row>
+
+        <CompanyTable />
       </SectionBody>
     </div>
   );

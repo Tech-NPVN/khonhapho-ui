@@ -37,17 +37,15 @@
   --frame-blur-d: rgba(56, 56, 56, 0.6);
 }
 
-.ant-menu-horizontal > .ant-menu-item-selected::after,
-.ant-menu-horizontal > .ant-menu-item-active:hover::after {
-  border-bottom-width: 2px;
-  border-bottom-color: var(--color-l) !important;
-}
-
 @layer base {
   body {
     @apply min-h-screen main-bg;
   }
 }
+
+/* .ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell {
+  @apply !bg-tiertiary_input_color_l;
+} */
 
 @layer utilities {
   /* Hide scrollbar for Chrome, Safari and Opera */
@@ -62,6 +60,10 @@
 
   .text-balance {
     text-wrap: balance;
+  }
+
+  .shadow-btn {
+    @apply shadow-[0_4px_15px_0_#0000000F];
   }
 
   .main-bg {

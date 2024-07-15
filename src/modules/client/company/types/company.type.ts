@@ -3,7 +3,7 @@ type CompanyType = {
   full_name: string;
   role: string;
   achievement?: string[];
-  birth_date: Date | string;
+  birth_year: Date | string;
   phone_number: string;
   contact?: ContactType[];
   department: string;
