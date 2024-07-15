@@ -2,7 +2,7 @@ import PostDetail from '@/components/reuse/data-display/post';
 
 function page() {
   return (
-    <div className="p-5 bg-gray-400">
+    <div className="ms-[300px] mt-[60px] p-6 bg-gray-400">
       <div className="flex gap-5">
         <PostDetail
           post={{
@@ -13,7 +13,7 @@ function page() {
               '/images/post-2.jpeg',
               '/images/post-3.jpeg',
               '/images/post-4.jpeg',
-              // '/images/post-5.jpeg',
+              '/images/post-5.jpeg',
               // '/images/post-6.jpeg',
             ],
           }}
