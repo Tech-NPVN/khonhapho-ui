@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
-import seGoeUiFont from '@/configs/font.config';
+import { sfProPlayFont } from '@/configs/font.config';
 import { LayoutClient } from '@/layouts';
 import AppProvider from '@/provider';
 import Favicon from '~public/favicon.ico';
 import './globals.css';
+import './custom.css';
 
 export const metadata: Metadata = {
   title: 'Nhà Phố Việt Nam',
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
       <head />
-      <body className={seGoeUiFont.className} id="app">
+      <body className={sfProPlayFont.className} id="app">
         <AntdRegistry>
           <AppProvider>
             <LayoutClient>{children}</LayoutClient>

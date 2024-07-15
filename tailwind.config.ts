@@ -31,7 +31,7 @@ const config: Config = {
         button_l: '#E0FFE0',
         error_l: '#E3223C',
         divider_l: 'rgba(0, 0, 0, 0.1)',
-        tiertiary_input_color_l: '##E5E6E8',
+        tiertiary_input_color_l: '#E5E6E8',
         frame_blur_l: 'rgba(40, 40, 40, 0.7)',
 
         // Dark mode

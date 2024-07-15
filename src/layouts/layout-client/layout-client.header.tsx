@@ -105,20 +105,20 @@ const LayoutClientHeader = () => {
           type="text"
           shape="round"
           size="large"
-          className="w-10 h-10 shadow-sm dark:bg-background_d"
+          className="w-10 h-10 dark:bg-background_d shadow-btn"
         />
         <Button
           icon={<BellIcon />}
           type="text"
           shape="round"
           size="large"
-          className="w-10 h-10 shadow-sm dark:bg-background_d"
+          className="w-10 h-10 dark:bg-background_d shadow-btn"
         />
         <Button
           type="text"
           shape="round"
           size="large"
-          className="w-10 h-10 shadow-sm overflow-hidden"
+          className="w-10 h-10 overflow-hidden shadow-btn"
         >
           <Image src={IMAGE_SAMPLE} height={40} width={40} alt="avatar" />
         </Button>
