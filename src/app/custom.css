@@ -29,3 +29,22 @@
 .ant-select > .ant-select-selector > .ant-select-selection-placeholder {
   @apply dark:text-primary_text_d;
 }
+
+/* Spin */
+.ant-spin-dot-item {
+  @apply !text-color_l;
+}
+
+/* Input */
+.ant-input-prefix {
+  margin-inline-end: 10px !important;
+}
+
+.ant-input {
+  @apply placeholder:!text-primary_text_l !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+/* Form */
+.ant-form-item-explain {
+  @apply mb-3 mt-1;
+}

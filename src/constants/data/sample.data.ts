@@ -24,15 +24,15 @@ const CHAT_PREVIEW_SAMPLE: {
   ],
   groups_default: [
     {
-      user: { name: 'THÔNG BÁO TẬP ĐOÀN', avatar: '/logo-white.png' },
+      user: { name: 'THÔNG BÁO TẬP ĐOÀN', avatar: '/logo-light.png' },
       online: false,
     },
     {
-      user: { name: 'TRÒ CHUYỆN NPVN', avatar: '/logo-white.png' },
+      user: { name: 'TRÒ CHUYỆN NPVN', avatar: '/logo-light.png' },
       online: true,
     },
     {
-      user: { name: 'THÔNG BÁO NPVN', avatar: '/logo-white.png' },
+      user: { name: 'THÔNG BÁO NPVN', avatar: '/logo-light.png' },
       online: false,
     },
   ],

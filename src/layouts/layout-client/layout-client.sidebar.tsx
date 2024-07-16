@@ -6,6 +6,7 @@ import { DarkIcon, LightIcon } from '@/components/icons';
 import { usePathname, useRouter } from 'next/navigation';
 import { getItem, items, itemsBottom } from './layout-client.const';
 import { useTheme } from 'next-themes';
+import { Routes } from '@/constants/enums';
 
 const LayoutClientSidebar = () => {
   const router = useRouter();
@@ -34,8 +35,10 @@ const LayoutClientSidebar = () => {
           }`}
           onClick={(e) => {
             e.domEvent.stopPropagation();
+            
             if (e.key === 'logout') {
-              return;
+              // call logout function...
+              return router.push(Routes.Login);
             }
             router.push(e.key);
           }}
