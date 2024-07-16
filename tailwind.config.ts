@@ -42,6 +42,8 @@ const config: Config = {
         link_text_d: '#5BB6E8',
         mess_d: '#44722B',
         primary_color_d: '#2F3643',
+        primary_color_d_2: '#242526',
+        primary_color_d_3: '#3A3B3C',
         error_d: '#FF7D7F',
         divider_d: '#6B6C6D',
         account_d: '#374665',
