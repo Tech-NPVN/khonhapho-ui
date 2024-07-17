@@ -81,7 +81,7 @@ const LayoutClientHeader = () => {
   }, [pathname]);
 
   return (
-    <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-3 z-10 fixed top-0 w-full">
+    <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-3 z-50 fixed top-0 w-full">
       <Link href={Routes.Home} className="w-min">
         {theme === 'light' ? (
           <Image src="/logo-light.png" height={40} width={43} alt="logo" />
