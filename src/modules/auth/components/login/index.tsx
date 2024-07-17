@@ -70,14 +70,14 @@ export const LoginIndex = () => {
         </Checkbox>
 
         <Button
-          className="flex justify-center w-full text-base font-medium py-5 mt-4 rounded-lg"
+          className="flex justify-center w-full text-base py-5 mt-4 rounded-lg"
           type="primary"
           htmlType="submit"
         >
           Đăng nhập
         </Button>
         <Button
-          className="flex justify-center w-full text-base font-medium py-5 mt-1 text-link_text_l dark:text-link_text_d"
+          className="flex justify-center w-full text-base py-5 mt-1 text-link_text_l dark:text-link_text_d"
           type="text"
           htmlType="button"
           onClick={() => router.push(Routes.ForgotPassword)}
@@ -88,7 +88,7 @@ export const LoginIndex = () => {
         <Divider className="bg-background_l dark:bg-background_d mt-10 mb-6" />
 
         <Button
-          className="flex justify-center w-full text-base rounded-lg font-medium py-5 mt-1 text-error_l border-error_l 
+          className="flex justify-center w-full text-base rounded-lg py-5 mt-1 text-error_l border-error_l 
           dark:bg-primary_color_d_3"
           type="default"
           htmlType="button"

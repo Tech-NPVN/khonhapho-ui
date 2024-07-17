@@ -3,10 +3,12 @@
 import { StyleProvider } from '@ant-design/cssinjs';
 import { ConfigProvider, type ThemeConfig } from 'antd';
 import ThemeProvider from './theme.provider';
+import { sfProPlayFont } from '@/configs/font.config';
 
 const themeConfig: ThemeConfig = {
   token: {
     colorPrimary: '#3FB44B',
+    fontFamily: sfProPlayFont.style.fontFamily,
   },
 };
 

@@ -44,6 +44,11 @@
   @apply placeholder:!text-primary_text_l !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
 }
 
+/* Select */
+.ant-select-arrow {
+  @apply dark:!text-primary_text_d;
+}
+
 /* Form */
 .ant-form-item-explain {
   @apply mb-3 mt-1;

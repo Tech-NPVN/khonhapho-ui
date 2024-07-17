@@ -1,31 +1,5 @@
 import localFont from 'next/font/local';
 
-const seGoeUiFont = localFont({
-  src: [
-    {
-      path: '../../public/fonts/Segoe-UI.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/Segoe-UI-Italic.ttf',
-      weight: '400',
-      style: 'italic',
-    },
-    {
-      path: '../../public/fonts/Segoe-UI-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../../public/fonts/Segoe-UI-Bold-Italic.ttf',
-      weight: '700',
-      style: 'italic',
-    },
-  ],
-  variable: '--font-segue-ui',
-});
-
 const sfProPlayFont = localFont({
   src: [
     {
@@ -38,11 +12,11 @@ const sfProPlayFont = localFont({
       weight: '700',
       style: 'normal',
     },
-    {
-      path: '../../public/fonts/SFPro-Display-Heavy-Italic.otf',
-      weight: '700',
-      style: 'heavy',
-    },
+    // {
+    //   path: '../../public/fonts/SFPro-Display-Heavy-Italic.otf',
+    //   weight: '700',
+    //   style: 'heavy',
+    // },
     {
       path: '../../public/fonts/SFPro-Display-Light-Italic.otf',
       weight: '300',
@@ -74,6 +48,7 @@ const sfProPlayFont = localFont({
       style: 'italic',
     },
   ],
+  variable: '--font-sf-pro-display',
 });
 
-export { seGoeUiFont, sfProPlayFont };
+export { sfProPlayFont };
