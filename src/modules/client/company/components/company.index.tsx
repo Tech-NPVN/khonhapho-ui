@@ -23,7 +23,7 @@ export const CompanyIndex = () => {
             size="large"
             placeholder="Nhập nội dung tìm kiếm"
             prefix={<SearchIcon className="w-4 h-4" />}
-            className="w-[300px] border-0 shadow-sm"
+            className="w-[300px] border-0 shadow-md bg-transparent"
           />
         </div>
 
@@ -41,7 +41,7 @@ export const CompanyIndex = () => {
             <Button
               icon={<ReloadDownIcon />}
               size="large"
-              className="w-full dark:bg-primary_color_d dark:border-divider_d dark:text-primary_text_d rounded-xl "
+              className="w-full bg-transparent dark:border-divider_d dark:text-primary_text_d rounded-xl "
             >
               Đặt lại
             </Button>
