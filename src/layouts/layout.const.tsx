@@ -4,7 +4,9 @@ import {
   AdminPageIcon,
   BuyUrgentlyIcon,
   CollapseIcon,
+  DarkIcon,
   LibraryIcon,
+  LightIcon,
   ListCompanyIcon,
   LogoutIcon,
   PersonalIcon,
@@ -12,8 +14,8 @@ import {
   ResourceWarehouseIcon,
   WarehouseManagementIcon,
 } from '@/components/icons';
-import { MenuType } from '../layout.type';
-import { getItem } from '../layout.util';
+import { MenuType } from './layout.type';
+import { getItem } from './layout.util';
 
 const MenuLabel = ({ label }: { label: string }) => {
   return (
@@ -235,14 +237,25 @@ const itemsClient: MenuType[] = [
   ),
 ];
 
-const itemsBottom: MenuType[] = [
-  getItem(
-    'Thu gọn',
-    'collapse',
-    <CollapseIcon className="w-7" />,
-    undefined,
-    'sidebar-item [&.ant-menu-item-selected]:bg-transparent',
-  ),
-];
+const itemsAdmin: MenuType[] = [];
 
-export { itemsClient, itemsBottom };
+const itemsBottom = (isLightMode: boolean): MenuType[] => {
+  return [
+    getItem(
+      'Thu gọn',
+      'collapse',
+      <CollapseIcon className="w-7" />,
+      undefined,
+      'sidebar-item [&.ant-menu-item-selected]:bg-transparent',
+    ),
+    getItem(
+      `Chế độ ${isLightMode ? 'tối' : 'sáng'}`,
+      'mode',
+      isLightMode ? <DarkIcon className="w-7" /> : <LightIcon className="w-7" />,
+      undefined,
+      'sidebar-item [&.ant-menu-item-selected]:bg-transparent flex-row-reverse',
+    ),
+  ];
+};
+
+export { itemsClient, itemsAdmin, itemsBottom };

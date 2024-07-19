@@ -38,6 +38,34 @@ enum Navigations {
   UserProfile = 'Trang cá nhân',
 
   Admin = 'Trang quản trị',
+
+  ChatGroup = 'Nhóm chat',
+  ChatSettingGroup = 'Cài đặt nhóm chat',
+  TrainingSchedule = 'Lịch đào tạo',
+  MeetingSchedule = 'Lịch họp',
+
+  Feeds = 'Quản lý feeds',
+  // FeedsDeal = 'Vụ chốt',
+  // FeedsUrgently = 'Khách cần mua gấp',
+  // FeedsSkill = 'Chia sẻ Kỹ năng',
+  // FeedsLibKnowledge = 'Thư viện Kiến thức',
+  // FeedsLibOwner = 'Thư viện Đầu chủ',
+  // FeedsLibAssist = 'Thư viện Trợ lý',
+  // FeedsLibManager = 'Thư viện Trưởng phòng',
+  FeedsCategories = 'Danh mục',
+
+  AdminWarehouse = 'Kho hàng',
+  AdminConsignment = 'Tin chính chủ',
+  AdminUsers = 'Thành viên',
+  AdminCandidate = 'QL Ứng viên vòng 0',
+  AdminRefferal = 'Mã giới thiệu',
+
+  DataWarehouse = 'Dữ liệu kho hàng',
+
+  DataUsers = 'Dữ liệu thành viên',
+
+  CompanySetting = 'Cài đặt công ty',
+  Stickers = 'Stikers',
 }
 
 export { Navigations };
