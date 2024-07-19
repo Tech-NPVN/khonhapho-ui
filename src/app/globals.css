@@ -80,7 +80,7 @@
     @apply relative font-medium [&>div]:!pl-[14px] dark:[&>div]:text-primary_text_d [&>div>span]:text-primary_text_l 
     dark:[&>div>span]:text-primary_text_d [&>div]:min-h-12 [&>ul]:bg-transparent 
     [&.ant-menu-submenu-selected>div]:text-primary_text_l dark:[&.ant-menu-submenu-selected>div]:text-primary_text_d 
-    [&.ant-menu-submenu-selected>div]:bg-background_l dark:[&.ant-menu-submenu-selected>div]:bg-background_d [&>ul>li]:!pl-6;
+    [&.ant-menu-submenu-selected>div]:bg-background_l dark:[&.ant-menu-submenu-selected>div]:bg-background_d [&>ul>li]:!pl-7;
   }
 
   .sidebar-item-dropdown-collapse {

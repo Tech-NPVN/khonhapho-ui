@@ -1,18 +1,35 @@
 import { Navigations, Routes } from '@/constants/enums';
-import { MenuType } from './layout-client.type';
 import {
   ActivityNewsIcon,
   AdminPageIcon,
+  AdminWarehouseIcon,
   BuyUrgentlyIcon,
+  CandidateIcon,
+  ChatGroupIcon,
+  ChatSettingGroupIcon,
   CollapseIcon,
+  ConsignmentIcon,
+  DarkIcon,
+  DataUsersIcon,
+  DataWarehouseIcon,
+  FeedsIcon,
   LibraryIcon,
+  LightIcon,
   ListCompanyIcon,
   LogoutIcon,
+  MeetingScheduleIcon,
+  NewsIcon,
   PersonalIcon,
+  RefferalIcon,
   RegulationIcon,
   ResourceWarehouseIcon,
+  TrainingScheduleIcon,
   WarehouseManagementIcon,
 } from '@/components/icons';
+import { MenuType } from './layout.type';
+import { getItem } from './layout.util';
+import { SettingCompanyIcon } from '@/components/icons/setting-company.icon';
+import { StickerIcon } from '@/components/icons/sticker.icon';
 
 const MenuLabel = ({ label }: { label: string }) => {
   return (
@@ -23,41 +40,25 @@ const MenuLabel = ({ label }: { label: string }) => {
   );
 };
 
-const getItem = (
-  label: React.ReactNode,
-  key: React.Key,
-  icon?: React.ReactNode,
-  children?: MenuType[],
-  className?: string,
-): MenuType => {
-  return {
-    key,
-    icon,
-    children,
-    label,
-    className,
-  } as MenuType;
-};
-
-const items: MenuType[] = [
+const itemsClient: MenuType[] = [
   getItem(
     Navigations.Warehouse,
     Routes.Warehouse,
-    <ResourceWarehouseIcon className="w-7" />,
+    <ResourceWarehouseIcon className="w-10" />,
     undefined,
     'sidebar-item',
   ),
   getItem(
     Navigations.Urgently,
     Routes.Urgently,
-    <BuyUrgentlyIcon className="w-7" />,
+    <BuyUrgentlyIcon className="w-10" />,
     undefined,
     'sidebar-item',
   ),
   getItem(
     Navigations.ActivityNews,
     Routes.ActivityNews,
-    <ActivityNewsIcon className="w-7" />,
+    <ActivityNewsIcon className="w-10" />,
     [
       getItem(
         <MenuLabel label={Navigations.All} />,
@@ -100,21 +101,21 @@ const items: MenuType[] = [
   getItem(
     Navigations.Regulation,
     Routes.Regulation,
-    <RegulationIcon className="w-7" />,
+    <RegulationIcon className="w-10" />,
     undefined,
     'sidebar-item',
   ),
   getItem(
     Navigations.ListCompany,
     Routes.ListCompany,
-    <ListCompanyIcon className="w-7" />,
+    <ListCompanyIcon className="w-10" />,
     undefined,
     'sidebar-item',
   ),
   getItem(
     Navigations.LibNhaPho,
     Routes.LibNhaPho,
-    <LibraryIcon className="w-7" />,
+    <LibraryIcon className="w-10" />,
     [
       getItem(
         <MenuLabel label={Navigations.LibKnowledge} />,
@@ -157,7 +158,7 @@ const items: MenuType[] = [
   getItem(
     Navigations.Stock,
     Routes.Stock,
-    <WarehouseManagementIcon className="w-7" />,
+    <WarehouseManagementIcon className="w-10" />,
     [
       getItem(
         <MenuLabel label={Navigations.StockOwn} />,
@@ -200,7 +201,7 @@ const items: MenuType[] = [
   getItem(
     Navigations.User,
     Routes.UserCustomers,
-    <PersonalIcon className="w-7" />,
+    <PersonalIcon className="w-10" />,
     [
       getItem(
         <MenuLabel label={Navigations.UserCustomers} />,
@@ -240,24 +241,142 @@ const items: MenuType[] = [
     ],
     'sidebar-item-dropdown',
   ),
-  getItem('Đăng xuất', 'logout', <LogoutIcon className="w-7" />, undefined, 'sidebar-item'),
+  getItem('Đăng xuất', 'logout', <LogoutIcon className="w-10" />, undefined, 'sidebar-item'),
   getItem(
     Navigations.Admin,
     Routes.AdminHome,
-    <AdminPageIcon className="w-7" />,
+    <AdminPageIcon className="w-10" />,
     undefined,
     'sidebar-item',
   ),
 ];
 
-const itemsBottom: MenuType[] = [
+const itemsAdmin: MenuType[] = [
   getItem(
-    'Thu gọn',
-    'collapse',
-    <CollapseIcon className="w-7" />,
+    Navigations.Admin,
+    Routes.AdminHome,
+    <AdminPageIcon className="w-10" />,
     undefined,
-    'sidebar-item [&.ant-menu-item-selected]:bg-transparent',
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.ChatGroup,
+    Routes.ChatGroup,
+    <ChatGroupIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.ChatSettingGroup,
+    Routes.ChatSettingGroup,
+    <ChatSettingGroupIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.TrainingSchedule,
+    Routes.TrainingSchedule,
+    <TrainingScheduleIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.MeetingSchedule,
+    Routes.MeetingSchedule,
+    <MeetingScheduleIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem('Bảng tin', Routes.Home, <NewsIcon className="w-10" />, undefined, 'sidebar-item'),
+  getItem(
+    Navigations.Feeds,
+    Routes.Feeds,
+    <FeedsIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.AdminWarehouse,
+    Routes.AdminWarehouse,
+    <AdminWarehouseIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.AdminConsignment,
+    Routes.AdminConsignment,
+    <ConsignmentIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.AdminUsers,
+    Routes.AdminUsers,
+    <ListCompanyIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.AdminCandidate,
+    Routes.AdminCandidate,
+    <CandidateIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.AdminRefferal,
+    Routes.AdminRefferal,
+    <RefferalIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.DataWarehouse,
+    Routes.DataWarehouse,
+    <DataWarehouseIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.DataUsers,
+    Routes.DataUsers,
+    <DataUsersIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.CompanySetting,
+    Routes.CompanySetting,
+    <SettingCompanyIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
+    Navigations.Stickers,
+    Routes.Stickers,
+    <StickerIcon className="w-10" />,
+    undefined,
+    'sidebar-item',
   ),
 ];
 
-export { items, itemsBottom, getItem };
+const itemsBottom = (isLightMode: boolean): MenuType[] => {
+  return [
+    getItem(
+      'Thu gọn',
+      'collapse',
+      <CollapseIcon className="w-10" />,
+      undefined,
+      'sidebar-item [&.ant-menu-item-selected]:bg-transparent',
+    ),
+    getItem(
+      `Chế độ ${isLightMode ? 'tối' : 'sáng'}`,
+      'mode',
+      isLightMode ? <DarkIcon className="w-10" /> : <LightIcon className="w-10" />,
+      undefined,
+      'sidebar-item [&.ant-menu-item-selected]:bg-transparent flex-row-reverse',
+    ),
+  ];
+};
+
+export { itemsClient, itemsAdmin, itemsBottom };

@@ -6,10 +6,7 @@ enum Routes {
 
   // (client)
   Home = '/',
-  // Collection = '/collection',
   Warehouse = '/warehouse',
-  // MainInformationWarehouse = '/main-information-warehouse',
-  FreeNewsWarehouse = '/free-news-warehouse',
   Urgently = '/urgently',
 
   ActivityNews = '/activity-news',
@@ -45,6 +42,34 @@ enum Routes {
 
   // (admin)
   AdminHome = '/admin',
+
+  ChatGroup = '/admin/chat-group',
+  ChatSettingGroup = '/admin/chat-setting-group',
+  TrainingSchedule = '/admin/training-schedule',
+  MeetingSchedule = '/admin/meeting-schedule',
+
+  Feeds = '/admin/feeds',
+  FeedsDeal = '/admin/feeds/deal',
+  FeedsUrgently = '/admin/feeds/urgently',
+  FeedsSkill = '/admin/feeds/skill',
+  FeedsLibKnowledge = '/admin/feeds/lib-knowledge',
+  FeedsLibOwner = '/admin/feeds/lib-owner',
+  FeedsLibAssist = '/admin/feeds/lib-assist',
+  FeedsLibManager = '/admin/feeds/lib-manager',
+  FeedsCategories = '/admin/feeds/categories',
+
+  AdminWarehouse = '/admin/warehouse',
+  AdminConsignment = '/admin/consignment',
+  AdminUsers = '/admin/users',
+  AdminCandidate = '/admin/candidate',
+  AdminRefferal = '/admin/referral',
+
+  DataWarehouse = '/admin/data-warehouse',
+
+  DataUsers = '/admin/data-users',
+
+  CompanySetting = '/admin/company-setting',
+  Stickers = '/admin/stickers',
 }
 
 export { Routes };
