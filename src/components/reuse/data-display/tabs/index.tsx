@@ -48,7 +48,7 @@ export function TabList({
     <div className="w-full">
       <ul
         className={clsx(
-          'relative flex p-1 list-none rounded-xl bg-secondaryColorLightD2 dark:bg-primary_color_d',
+          'relative flex p-1 list-none rounded-xl dark:bg-primary_color_d',
           className,
         )}
         data-tabs="tabs"
@@ -68,7 +68,7 @@ export function TabList({
             style={{ width: `calc(100% / ${items.length}` }}
           >
             <span
-              className={`flex items-center justify-center w-full px-0 py-1 mb-0 border-0 rounded-lg dark:text-white font-semibold ${
+              className={`flex items-center justify-center w-full px-0 py-1 mb-0 border-0 rounded-lg dark:text-primary_text_d font-normal ${
                 classNames?.tab ?? ''
               }`}
             >
@@ -78,8 +78,8 @@ export function TabList({
         ))}
         <li
           className={clsx(
-            'flex-auto text-center absolute transition-all duration-500  dark:bg-[#3FB44B] rounded-lg',
-            classNames?.tabActive ?? 'bg-white',
+            'flex-auto text-center absolute transition-all duration-500  bg-color_l rounded-lg',
+            classNames?.tabActive ?? 'bg-color_l',
           )}
           style={{
             width: `calc(100% / ${items.length} - 8px)`,
