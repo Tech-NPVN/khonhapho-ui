@@ -1,14 +1,13 @@
 'use client';
 
-import { useState } from 'react';
 import { Layout, Menu, type MenuTheme } from 'antd';
-import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
-import { Routes } from '@/constants/enums';
-import { itemsBottom, itemsClient } from '../layout.const';
+import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import { itemsAdmin, itemsBottom } from '../layout.const';
 import ScrollContainer from 'react-indiana-drag-scroll';
 
-const LayoutClientSidebar = () => {
+const LayoutAdminSidebar = () => {
   const router = useRouter();
   const pathname = usePathname();
   const { theme, setTheme } = useTheme();
@@ -21,7 +20,7 @@ const LayoutClientSidebar = () => {
     <Layout.Sider
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] overflow-hidden mt-16 sticky top-16 bottom-0 left-0"
+      className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] mt-16 sticky top-16 bottom-0 left-0"
       width={286}
     >
       <div className="flex flex-col py-2 px-3 h-full relative">
@@ -30,17 +29,12 @@ const LayoutClientSidebar = () => {
             theme={theme as MenuTheme}
             selectedKeys={[pathname ?? undefined]}
             mode="inline"
-            items={itemsClient}
+            items={itemsAdmin}
             className={`border-0 bg-transparent pb-2 ${
               collapsed ? 'sidebar-item-collapse sidebar-item-dropdown-collapse' : ''
             }`}
             onClick={(e) => {
               e.domEvent.stopPropagation();
-
-              if (e.key === 'logout') {
-                // call logout function...
-                return router.push(Routes.Login);
-              }
               router.push(e.key);
             }}
           />
@@ -67,4 +61,4 @@ const LayoutClientSidebar = () => {
   );
 };
 
-export default LayoutClientSidebar;
+export default LayoutAdminSidebar;

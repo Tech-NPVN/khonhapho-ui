@@ -15,9 +15,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import { MenuType } from './layout-client.type';
 import { IMAGE_SAMPLE } from '@/constants/data';
 import { useTheme } from 'next-themes';
+import { MenuType } from '../layout.type';
 
 const generateMenuItem = (route: string, icon: JSX.Element, isActive: boolean) => ({
   key: route,
