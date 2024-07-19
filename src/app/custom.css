@@ -29,3 +29,51 @@
 .ant-select > .ant-select-selector > .ant-select-selection-placeholder {
   @apply dark:text-primary_text_d;
 }
+
+.ant-select-arrow {
+  @apply dark:!text-primary_text_d;
+}
+
+/* Spin */
+.ant-spin-dot-item {
+  @apply !text-color_l;
+}
+
+/* Input */
+.ant-input-prefix {
+  margin-inline-end: 10px !important;
+}
+
+.ant-input {
+  @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+/* Date picker */
+.ant-picker {
+  @apply w-full;
+}
+
+.ant-picker > .ant-picker-input > input {
+  @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+.ant-picker > .ant-picker-input > .ant-picker-suffix > span {
+  @apply dark:text-primary_color_l;
+}
+
+/* Form */
+.ant-form-item-explain {
+  @apply mb-3 mt-1;
+}
+
+label {
+  @apply dark:!text-primary_color_l;
+}
+
+/* Common */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select,
+.ant-picker {
+  @apply dark:!border-divider_d;
+}

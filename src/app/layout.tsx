@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { sfProPlayFont } from '@/configs/font.config';
-import { LayoutClient } from '@/layouts';
 import AppProvider from '@/provider';
 import Favicon from '~public/favicon.ico';
 import './globals.css';
@@ -29,9 +28,7 @@ export default function RootLayout({
       <head />
       <body className={sfProPlayFont.className} id="app">
         <AntdRegistry>
-          <AppProvider>
-            <LayoutClient>{children}</LayoutClient>
-          </AppProvider>
+          <AppProvider>{children}</AppProvider>
         </AntdRegistry>
       </body>
     </html>

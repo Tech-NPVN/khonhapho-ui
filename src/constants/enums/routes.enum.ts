@@ -2,6 +2,7 @@ enum Routes {
   // (auth)
   Login = '/login',
   Register = '/register',
+  ForgotPassword = '/forgot-password',
 
   // (client)
   Home = '/',
