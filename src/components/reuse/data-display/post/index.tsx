@@ -54,8 +54,10 @@ const PostDetail = ({ post }: IPostDetailProps) => {
           />
         </div>
         <div>
-          <div className="font-semibold text-black dark:text-[#daefff]">Nhà Phố Việt Nam</div>
-          <div className="[&_span]:text-sm text-black/50 dark:text-[#DAEFFF]/50 flex gap-[10px]">
+          <div className="font-semibold text-primary_text_l dark:text-primary_text_d">
+            Nhà Phố Việt Nam
+          </div>
+          <div className="[&_span]:text-sm text-secondary_text_l dark:text-primary_text_d flex gap-[10px]">
             <span>10 phút trước</span>
             <span>•</span>
             <span>Quy định và hướng dẫn</span>
@@ -67,7 +69,7 @@ const PostDetail = ({ post }: IPostDetailProps) => {
           <div
             ref={contentRef}
             className={clsx(
-              'text-base dark:text-[#daefff]',
+              'text-base dark:text-primary_text_d',
               isShowMore
                 ? ''
                 : imageCount === 0
@@ -79,7 +81,7 @@ const PostDetail = ({ post }: IPostDetailProps) => {
           </div>
         </div>
         <div className="mt-1 flex">
-          <button className="border cursor-pointer border-black/50 bg-transparent px-2 text-[12px] rounded-lg font-normal">
+          <button className="border cursor-pointer border-black/50 bg-transparent px-2 text-[12px] rounded-lg font-normal hidden">
             Sao chép
           </button>
           <button
@@ -88,16 +90,18 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             }}
             className={clsx(
               isHidden ? 'block' : 'hidden',
-              'py-[2px] px-2 text-base rounded-lg font-medium text-blue-600 hover:underline bg-transparent border-0',
+              'py-[2px] px-2 text-base rounded-lg font-medium text-link_text_l hover:underline bg-transparent border-0',
             )}
           >
             {isShowMore ? 'Thu gọn' : 'Xem thêm'}
           </button>
         </div>
         <div className="mt-3 flex flex-wrap gap-2">
-          <span className="text-[#1677FF] cursor-pointer hover:underline lowercase">#NPVN</span>
-          <span className="text-[#1677FF] cursor-pointer hover:underline lowercase">#NP781</span>
-          <span className="text-[#1677FF] cursor-pointer hover:underline lowercase">#NP92193</span>
+          <span className="text-link_text_l cursor-pointer hover:underline lowercase">#NPVN</span>
+          <span className="text-link_text_l cursor-pointer hover:underline lowercase">#NP781</span>
+          <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+            #NP92193
+          </span>
         </div>
       </div>
       <div className={clsx('mt-4', (post?.images || []).length > 0 ? '' : 'hidden')}>
@@ -108,19 +112,19 @@ const PostDetail = ({ post }: IPostDetailProps) => {
       <div className={clsx((post?.images || []).length > 0 ? 'mt-4' : 'mt-2')}>
         <div className="flex justify-between">
           <div className="flex gap-3">
-            <div className="flex gap-1 items-center dark:text-[#DAEFFF]/50">
+            <div className="flex gap-1 items-center dark:text-primary_text_d">
               <svg
                 width={16}
                 height={16}
                 viewBox="0 0 16 16"
-                className="fill-[#1677FF]"
+                className="fill-link_text_l"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M6.1871 8C6.1871 8.46413 6.37148 8.90925 6.69967 9.23744C7.02785 9.56563 7.47297 9.75 7.9371 9.75C8.40123 9.75 8.84635 9.56563 9.17454 9.23744C9.50273 8.90925 9.6871 8.46413 9.6871 8C9.6871 7.53587 9.50273 7.09075 9.17454 6.76256C8.84635 6.43437 8.40123 6.25 7.9371 6.25C7.47297 6.25 7.02785 6.43437 6.69967 6.76256C6.37148 7.09075 6.1871 7.53587 6.1871 8ZM14.7215 7.59688C13.2402 4.47656 11.0012 2.90625 7.9996 2.90625C4.99648 2.90625 2.75898 4.47656 1.27773 7.59844C1.21831 7.72425 1.1875 7.86165 1.1875 8.00078C1.1875 8.13991 1.21831 8.27732 1.27773 8.40312C2.75898 11.5234 4.99804 13.0938 7.9996 13.0938C11.0027 13.0938 13.2402 11.5234 14.7215 8.40156C14.8418 8.14844 14.8418 7.85469 14.7215 7.59688ZM7.9371 10.75C6.41835 10.75 5.1871 9.51875 5.1871 8C5.1871 6.48125 6.41835 5.25 7.9371 5.25C9.45585 5.25 10.6871 6.48125 10.6871 8C10.6871 9.51875 9.45585 10.75 7.9371 10.75Z" />
               </svg>
               <span className="text-sm">3131</span>
             </div>
-            <div className="flex gap-1 items-center dark:text-[#DAEFFF]/50">
+            <div className="flex gap-1 items-center dark:text-primary_text_d">
               <svg
                 width={16}
                 height={16}
@@ -154,13 +158,13 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             <a
               href="tel:0391398381"
               target="_blank"
-              className="flex gap-1 items-center hover:bg-black/10 rounded p-2 text-sm dark:text-[#DAEFFF]/50 text-black/50 dark:hover:text-[#DAEFFF] dark:hover:bg-[#151e2f]"
+              className="flex gap-1 items-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
             >
               <svg
                 width={20}
                 height={20}
                 viewBox="0 0 16 16"
-                className="fill-[#3FB44B]"
+                className="fill-color_l"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M13.8375 3.59687L12.1734 1.93438C12.0561 1.81647 11.9165 1.72293 11.7629 1.65911C11.6092 1.59529 11.4445 1.56246 11.2781 1.5625C10.9391 1.5625 10.6203 1.69531 10.3813 1.93438L8.59063 3.725C8.47272 3.84238 8.37918 3.98191 8.31536 4.13555C8.25154 4.2892 8.21871 4.45394 8.21875 4.62031C8.21875 4.95938 8.35156 5.27813 8.59063 5.51719L9.9 6.82656C9.59351 7.50213 9.16738 8.1167 8.64219 8.64062C8.11831 9.16709 7.50379 9.59477 6.82813 9.90312L5.51875 8.59375C5.40137 8.47585 5.26184 8.3823 5.1082 8.31849C4.95455 8.25467 4.78981 8.22184 4.62344 8.22188C4.28438 8.22188 3.96563 8.35469 3.72656 8.59375L1.93438 10.3828C1.81633 10.5004 1.7227 10.6402 1.65888 10.7941C1.59506 10.948 1.56231 11.1131 1.5625 11.2797C1.5625 11.6188 1.69531 11.9375 1.93438 12.1766L3.59531 13.8375C3.97656 14.2203 4.50313 14.4375 5.04375 14.4375C5.15781 14.4375 5.26719 14.4281 5.375 14.4094C7.48125 14.0625 9.57031 12.9422 11.2563 11.2578C12.9406 9.575 14.0594 7.4875 14.4109 5.375C14.5172 4.72969 14.3031 4.06562 13.8375 3.59687Z" />
@@ -170,7 +174,7 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             <a
               href="https://zalo.me/0391398381"
               target="_blank"
-              className="flex gap-1 items-center hover:bg-black/10 rounded p-2 text-sm dark:text-[#DAEFFF]/50 text-black/50 dark:hover:text-[#DAEFFF] dark:hover:bg-[#151e2f]"
+              className="flex gap-1 items-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
             >
               <Image width={16} height={16} src={'/images/zalo.png'} alt="/images/zalo.png" />
               <span>Zalo</span>
@@ -178,7 +182,7 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             <a
               href="/m"
               target="_blank"
-              className="flex gap-1 items-center hover:bg-black/10 rounded p-2 text-sm dark:text-[#DAEFFF]/50 text-black/50 dark:hover:text-[#DAEFFF] dark:hover:bg-[#151e2f]"
+              className="flex gap-1 items-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
             >
               <Image
                 width={19}
@@ -193,12 +197,12 @@ const PostDetail = ({ post }: IPostDetailProps) => {
       </div>
 
       <div className="mt-2">
-        <div className="w-full h-[1px] bg-black/10 dark:bg-[#6B6C6D]/40"></div>
+        <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
         <div className="w-full flex justify-between items-center ">
-          <button className="cursor-pointer flex border-transparent bg-transparent items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-[#DAEFFF]/50 dark:hover:text-[#DAEFFF] dark:hover:hover:bg-[#151e2f] dark:[&_svg]:hover:fill-[#DAEFFF]">
+          <button className="cursor-pointer flex border-transparent bg-transparent items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:hover:hover:bg-background_d dark:[&_svg]:hover:fill-primary_text_d">
             <span className="inline-block w-4 h-4">
               <svg
-                className="w-full h-full fill-[#6B6C6D]"
+                className="w-full h-full fill-divider_d"
                 id="Capa_1"
                 xmlns="http://www.w3.org/2000/svg"
                 xmlnsXlink="http://www.w3.org/1999/xlink"
@@ -220,10 +224,10 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             </span>
             <span>Thích</span>
           </button>
-          <button className="cursor-pointer flex border-transparent bg-transparent items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-[#DAEFFF]/50 dark:hover:text-[#DAEFFF] dark:hover:hover:bg-[#151e2f] dark:[&_svg]:hover:fill-[#DAEFFF]">
+          <button className="cursor-pointer flex border-transparent bg-transparent items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:hover:hover:bg-background_d dark:[&_svg]:hover:fill-primary_text_d">
             <span className="inline-block w-5 h-5">
               <svg
-                className="w-full h-full fill-[#6B6C6D]"
+                className="w-full h-full fill-divider_d"
                 viewBox="0 0 22 22"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -232,12 +236,12 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             </span>
             <span>Bình luận</span>
           </button>
-          <button className="cursor-pointer flex border-transparent bg-transparent items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-[#DAEFFF]/50 dark:hover:text-[#DAEFFF] dark:hover:hover:bg-[#151e2f] dark:[&_svg]:hover:fill-[#DAEFFF]">
+          <button className="cursor-pointer flex border-transparent bg-transparent items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:hover:hover:bg-background_d dark:[&_svg]:hover:fill-primary_text_d">
             <span className="inline-block w-5 h-5">
               <svg
                 viewBox="0 0 23 22"
                 fill="none"
-                className="w-full h-full fill-[#6B6C6D]"
+                className="w-full h-full fill-divider_d"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path d="M20.1585 9.12577C20.3772 9.3758 20.5022 9.68834 20.5022 10.0009C20.5022 10.3447 20.3772 10.626 20.1585 10.876L14.6578 16.6267C14.4077 16.8767 14.0952 17.0017 13.7514 17.0017C13.4076 17.0017 13.1263 16.908 12.8763 16.658C12.6263 16.4079 12.5012 16.1266 12.5012 15.7516V13.0012C10.6885 13.0325 9.40711 13.1263 8.62576 13.3138C7.62564 13.5638 6.96931 14.0326 6.68802 14.689C6.37548 15.3765 6.43799 16.3767 6.84429 17.7206C6.9068 18.0331 6.87555 18.2832 6.71928 18.5332C6.56301 18.7832 6.34423 18.9082 6.06294 18.9707C5.78166 19.0333 5.53163 19.002 5.2816 18.8145C4.5315 18.2832 3.93768 17.6581 3.50012 16.908C2.81254 15.8454 2.5 14.6577 2.5 13.345C2.5 11.6573 2.96881 10.3447 3.93768 9.34454C4.75028 8.50069 6.00044 7.87561 7.62564 7.50056C8.8758 7.18802 10.501 7.03175 12.5012 7.0005V4.25016C12.5012 3.90636 12.6263 3.62508 12.8763 3.37505C13.1263 3.12502 13.4076 3 13.7514 3C14.0952 3 14.4077 3.12502 14.6578 3.37505L20.1585 9.12577ZM19.4396 10.1884C19.4709 10.1259 19.5021 10.0634 19.5021 10.0009C19.5021 9.93837 19.4709 9.87586 19.4396 9.81335L13.9389 4.06263C13.8452 4.00012 13.7514 4.00012 13.6576 4.03138C13.5326 4.09389 13.5014 4.15639 13.5014 4.25016V8.00062C11.4386 8.00062 9.84467 8.09439 8.71953 8.28191C7.09432 8.53194 5.84417 9.032 5.00031 9.75084C4.00019 10.5947 3.50012 11.7823 3.50012 13.345C3.50012 14.4077 3.75016 15.3765 4.28147 16.2204C4.65652 16.908 5.18784 17.5018 5.87542 18.0019C5.37536 16.1891 5.37536 14.8452 5.93793 13.9076C6.43799 13.095 7.37561 12.5637 8.78203 12.2824C9.78216 12.0949 11.3449 12.0011 13.5014 12.0011V15.7516C13.5014 15.8766 13.5326 15.9391 13.6576 15.9704C13.7514 16.0329 13.8452 16.0016 13.9389 15.9391L19.4396 10.1884Z" />
@@ -246,7 +250,7 @@ const PostDetail = ({ post }: IPostDetailProps) => {
             <span>Chia sẻ</span>
           </button>
         </div>
-        <div className="w-full h-[1px] bg-black/10 dark:bg-[#6B6C6D]/40"></div>
+        <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
       </div>
       <div className="mt-4">
         <div className="w-full flex flex-col">

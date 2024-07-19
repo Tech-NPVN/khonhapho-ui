@@ -34,6 +34,10 @@
   @apply dark:!text-primary_text_d;
 }
 
+/* .ant-select-selection-item {
+  @apply !bg-background_l;
+} */
+
 /* Spin */
 .ant-spin-dot-item {
   @apply !text-color_l;
@@ -76,4 +80,8 @@ label {
 .ant-select,
 .ant-picker {
   @apply dark:!border-divider_d;
+}
+
+.ant-collapse-header {
+  @apply dark:!text-primary_text_d;
 }
