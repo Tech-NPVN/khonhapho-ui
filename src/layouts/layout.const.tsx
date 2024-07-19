@@ -23,13 +23,13 @@ import {
   RefferalIcon,
   RegulationIcon,
   ResourceWarehouseIcon,
+  SettingCompanyIcon,
+  StickerIcon,
   TrainingScheduleIcon,
   WarehouseManagementIcon,
 } from '@/components/icons';
 import { MenuType } from './layout.type';
 import { getItem } from './layout.util';
-import { SettingCompanyIcon } from '@/components/icons/setting-company.icon';
-import { StickerIcon } from '@/components/icons/sticker.icon';
 
 const MenuLabel = ({ label }: { label: string }) => {
   return (
