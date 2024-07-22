@@ -1,3 +1,5 @@
+'use client';
+
 import { Segmented, SegmentedOptionProps } from '@/components/reuse/data-display';
 import { OnlAccount } from '../onl-account';
 import { RoomStats } from '../room-stats';

@@ -52,6 +52,7 @@ export * from './resource-warehouse.icon';
 
 export * from './search.icon';
 
+export * from './three-dot.icon';
 export * from './training-schedule.icon';
 
 export * from './user.icon';
