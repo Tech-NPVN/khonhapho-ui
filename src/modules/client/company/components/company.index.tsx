@@ -5,6 +5,7 @@ import { ReloadDownIcon, SearchIcon } from '@/components/icons';
 import { IMAGE_SAMPLE } from '@/constants/data';
 import { Avatar, Button, Col, Input, Row, Select } from 'antd';
 import { CompanyTable } from './company-table';
+import Image from 'next/image';
 
 export const CompanyIndex = () => {
   return (
@@ -14,7 +15,14 @@ export const CompanyIndex = () => {
           <div className="flex items-center gap-3">
             <Avatar.Group size="large">
               {Array.from({ length: 8 }).map((_) => (
-                <Avatar key={IMAGE_SAMPLE} src={IMAGE_SAMPLE} />
+                <Image
+                  key={IMAGE_SAMPLE}
+                  src={IMAGE_SAMPLE}
+                  width={40}
+                  height={40}
+                  alt="avatar"
+                  className="rounded-full border"
+                />
               ))}
             </Avatar.Group>
             <span className="font-semibold">+ 758 thành viên</span>
