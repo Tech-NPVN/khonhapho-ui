@@ -62,6 +62,10 @@
     @apply shadow-[0_4px_15px_0_#0000000F];
   }
 
+  .badge-error {
+    @apply [&>sup]:bg-error_l dark:[&>sup]:bg-error_d;
+  }
+
   .main-bg {
     @apply bg-background_l dark:bg-background_d text-primary_text_l dark:text-primary_text_d;
   }
@@ -80,7 +84,7 @@
     @apply relative font-medium [&>div]:!pl-[14px] dark:[&>div]:text-primary_text_d [&>div>span]:text-primary_text_l 
     dark:[&>div>span]:text-primary_text_d [&>div]:min-h-12 [&>ul]:bg-transparent 
     [&.ant-menu-submenu-selected>div]:text-primary_text_l dark:[&.ant-menu-submenu-selected>div]:text-primary_text_d 
-    [&.ant-menu-submenu-selected>div]:bg-background_l dark:[&.ant-menu-submenu-selected>div]:bg-background_d [&>ul>li]:!pl-7;
+    [&.ant-menu-submenu-selected>div]:bg-background_l dark:[&.ant-menu-submenu-selected>div]:bg-background_d [&>ul>li]:!pl-6;
   }
 
   .sidebar-item-dropdown-collapse {

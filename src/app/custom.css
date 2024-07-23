@@ -1,4 +1,8 @@
 /* Table */
+.ant-table-container {
+  border: 0 !important;
+}
+
 .ant-table-wrapper .ant-table-container table > thead > tr:first-child > *:first-child,
 .ant-table-wrapper .ant-table-container table > thead > tr:first-child > *:last-child {
   @apply !rounded-s-none !rounded-e-none;
@@ -27,15 +31,21 @@
 
 .ant-select > .ant-select-selector > .ant-select-selection-search,
 .ant-select > .ant-select-selector > .ant-select-selection-placeholder {
-  @apply dark:text-primary_text_d;
+  @apply !text-sm dark:text-primary_text_d dark:!text-primary_text_d/50;
 }
 
+.ant-select-selection-item,
 .ant-select-arrow {
-  @apply dark:!text-primary_text_d;
+  @apply dark:!text-primary_text_d text-sm;
 }
 
-/* .ant-select-selection-item {
-  @apply !bg-background_l;
+/* Dropdown */
+/* .ant-select-dropdown {
+  @apply dark:!bg-primary_color_d dark:!text-primary_text_d;
+}
+
+.ant-empty-description {
+  @apply dark:!text-primary_text_d;
 } */
 
 /* Spin */
@@ -72,6 +82,29 @@
 
 label {
   @apply dark:!text-primary_color_l;
+}
+
+/* Segmented */
+.ant-segmented {
+  @apply !px-1 !py-1 !bg-primary_color_l dark:!bg-primary_color_d !rounded-[10px];
+  box-shadow: 0px 4px 15px 0px #0000000f;
+}
+
+.ant-segmented-item {
+  @apply !rounded-[10px] px-6 py-[2px] font-medium;
+}
+
+.ant-segmented-thumb,
+.ant-segmented-item.ant-segmented-item-selected {
+  @apply !rounded-[10px] !bg-color_l;
+}
+
+.ant-segmented-item.ant-segmented-item-selected .ant-segmented-item-label {
+  @apply text-primary_color_l;
+}
+
+.ant-segmented-item-label {
+  @apply text-[13px];
 }
 
 /* Common */

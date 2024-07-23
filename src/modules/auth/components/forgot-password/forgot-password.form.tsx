@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { ForgotPasswordSchema, ForgotPasswordSchemaType } from './forgot-password.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Routes } from '@/constants/enums';
+import { AuthForgotPassword } from '../../auth.model';
 
 const rule = createSchemaFieldRule(ForgotPasswordSchema);
 
@@ -31,7 +32,7 @@ export const ForgotPasswordIndex = () => {
         )}
       </div>
 
-      <Form form={form} onFinish={handleSubmit}>
+      <Form form={form} initialValues={new AuthForgotPassword()} onFinish={handleSubmit}>
         <Form.Item name="email" className="mb-2" rules={[rule]}>
           <Input
             size="large"
@@ -40,9 +41,9 @@ export const ForgotPasswordIndex = () => {
             placeholder="Email"
           />
         </Form.Item>
-          <span className="text-secondary_text_l dark:text-secondary_text_d">
-            Bạn sẽ nhận link xác thực lấy lại mật khẩu qua email này
-          </span>
+        <span className="text-secondary_text_l dark:text-secondary_text_d">
+          Bạn sẽ nhận link xác thực lấy lại mật khẩu qua email này
+        </span>
 
         <Button
           className="flex justify-center w-full text-base font-medium py-5 my-6 rounded-lg"

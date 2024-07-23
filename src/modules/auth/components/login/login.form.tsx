@@ -9,6 +9,7 @@ import { LoginSchema, LoginSchemaType } from './login.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enums';
+import { AuthLogin } from '../../auth.model';
 
 const rule = createSchemaFieldRule(LoginSchema);
 
@@ -39,7 +40,7 @@ export const LoginIndex = () => {
         )}
       </div>
 
-      <Form form={form} onFinish={handleSubmit}>
+      <Form form={form} initialValues={new AuthLogin()} onFinish={handleSubmit}>
         <Form.Item name="phone_number_or_identify" className="mb-4" rules={[rule]}>
           <Input
             size="large"
