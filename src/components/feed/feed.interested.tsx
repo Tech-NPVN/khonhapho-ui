@@ -10,7 +10,7 @@ type FieldType = {
   status: string[];
 };
 const FeedInterested = () => {
-  const [activeKey, setActiveKey] = useState(['1']);
+  const [activeKey, setActiveKey] = useState<string[]>([]);
   return (
     <>
       <div className="mt-6 rounded-md bg-primary_color_l dark:bg-primary_color_d px-4">
@@ -24,7 +24,7 @@ const FeedInterested = () => {
             <Collapse.Panel
               className="dark:text-primary_text_d_2"
               header="Chọn tiêu chí nhận thông báo kho hàng"
-              key="1"
+              key="0"
               style={{
                 color: 'white',
               }}
@@ -126,8 +126,15 @@ const FeedInterested = () => {
                               em tìm hộ giúp tôi. Tiêu chí khách:<br/>
                               <b>Khu vực</b>: Hà Nội
                               `,
-              images: [],
+              images: [
+                // '/images/post-1.jpeg',
+                // '/images/post-2.jpeg',
+                // '/images/post-3.jpeg',
+                // '/images/post-4.jpeg',
+                // '/images/post-5.jpeg',
+              ],
             }}
+            isWarehouse
           />
         ))}
       </div>
