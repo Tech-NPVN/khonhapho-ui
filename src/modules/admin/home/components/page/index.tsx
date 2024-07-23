@@ -2,18 +2,18 @@
 
 import { Segmented, SegmentedOptionProps } from '@/components/reuse/data-display';
 import { OnlAccount } from '../onl-account';
-import { RoomStats } from '../room-stats';
+import { DepartmentStats } from '../department-stats';
 
 const TABS: SegmentedOptionProps[] = [
   {
-    label: 'Tài khoản online',
+    label: 'Tài khoản Online',
     value: 'onl-account',
     component: <OnlAccount />,
   },
   {
     label: 'Thống kê phòng',
     value: 'room-stats',
-    component: <RoomStats />,
+    component: <DepartmentStats />,
   },
 ];
 

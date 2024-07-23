@@ -1,4 +1,8 @@
 /* Table */
+.ant-table-container {
+  border: 0 !important;
+}
+
 .ant-table-wrapper .ant-table-container table > thead > tr:first-child > *:first-child,
 .ant-table-wrapper .ant-table-container table > thead > tr:first-child > *:last-child {
   @apply !rounded-s-none !rounded-e-none;
