@@ -69,6 +69,7 @@ export * from './search.icon';
 export * from './share-message.icon';
 export * from './share.icon';
 
+export * from './three-dot.icon';
 export * from './training-schedule.icon';
 
 export * from './user.icon';

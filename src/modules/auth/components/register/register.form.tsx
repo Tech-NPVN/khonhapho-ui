@@ -10,6 +10,7 @@ import { RegisterSchema, RegisterSchemaType } from './register.schema';
 import { useCallback, useState } from 'react';
 import { createSchemaFieldRule } from 'antd-zod';
 import { DATE_FORMAT } from '@/constants/data';
+import { AuthRegister } from '../../auth.model';
 
 const rule = createSchemaFieldRule(RegisterSchema);
 
@@ -45,7 +46,12 @@ export const RegisterIndex = () => {
         )}
       </div>
 
-      <Form form={form} onFinish={handleSubmit} layout="vertical">
+      <Form
+        form={form}
+        initialValues={new AuthRegister()}
+        onFinish={handleSubmit}
+        layout="vertical"
+      >
         <Row gutter={16}>
           <Col span={12}>
             <Form.Item<RegisterSchemaType>

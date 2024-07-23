@@ -20,12 +20,14 @@ const RegisterSchema = z
       .min(12, { message: 'Căn cước công dân bao gồm 12 số' })
       .max(12, { message: 'Căn cước công dân bao gồm 12 số' })
       .optional(),
-    date_of_issuance: z.preprocess((arg) => {
-      if (dayjs.isDayjs(arg)) {
-        return arg.toDate();
-      }
-      return arg;
-    }, z.date({ message: 'Vui lòng chọn ngày cấp' })),
+    date_of_issuance: z
+      .preprocess((arg) => {
+        if (dayjs.isDayjs(arg)) {
+          return arg.toDate();
+        }
+        return arg;
+      }, z.date({ message: 'Vui lòng chọn ngày cấp' }))
+      .nullable(),
     address: z
       .string({ message: 'Vui lòng nhập địa chỉ thường trú' })
       .min(1, { message: 'Vui lòng nhập địa chỉ thường trú' }),
@@ -40,13 +42,15 @@ const RegisterSchema = z
     password_confirm: z
       .string({ message: 'Vui lòng xác nhận mật khẩu' })
       .min(6, { message: 'Nhập ít nhất 6 ký tự' }),
-    date_of_birth: z.preprocess((arg) => {
-      if (dayjs.isDayjs(arg)) {
-        return arg.toDate();
-      }
-      return arg;
-    }, z.date({ message: 'Vui lòng chọn ngày sinh' })),
-    url_facebook: z.string().url().optional(),
+    date_of_birth: z
+      .preprocess((arg) => {
+        if (dayjs.isDayjs(arg)) {
+          return arg.toDate();
+        }
+        return arg;
+      }, z.date({ message: 'Vui lòng chọn ngày sinh' }))
+      .nullable(),
+    url_facebook: z.string().url({ message: 'URL không hợp lệ' }).optional(),
   })
   .refine((data) => data.password === data.password_confirm, {
     message: 'Mật khẩu không khớp',
