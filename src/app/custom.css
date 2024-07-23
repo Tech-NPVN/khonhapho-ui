@@ -107,6 +107,12 @@ label {
   @apply text-[13px];
 }
 
+/* Button */
+.ant-btn-icon,
+.ant-btn.ant-btn-icon-only {
+  @apply !flex !items-center !justify-center;
+}
+
 /* Common */
 .ant-input,
 .ant-input-affix-wrapper,
