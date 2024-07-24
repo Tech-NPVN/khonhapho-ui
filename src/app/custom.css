@@ -39,13 +39,8 @@
   @apply dark:!text-primary_text_d text-sm;
 }
 
-/* Dropdown */
-/* .ant-select-dropdown {
-  @apply dark:!bg-primary_color_d dark:!text-primary_text_d;
-}
-
-.ant-empty-description {
-  @apply dark:!text-primary_text_d;
+/* .ant-select-selection-item {
+  @apply !bg-background_l;
 } */
 
 /* Spin */
