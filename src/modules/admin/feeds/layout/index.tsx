@@ -16,10 +16,7 @@ export const AdminFeedsLayout = ({ children }: { children: React.ReactNode }) =>
   const { collapsed, toggleCollapse } = useFeeds();
 
   return (
-    <Layout
-      className={`${!collapsed ? 'gap-5' : ''} flex bg-transparent mt-5 pr-4`}
-      hasSider
-    >
+    <Layout className={`${!collapsed ? 'gap-5' : ''} flex bg-transparent mt-5 pr-4`} hasSider>
       <Layout.Sider
         collapsed={collapsed}
         className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-100px)] sticky top-[84px] bottom-0 left-0 rounded-md"
@@ -27,8 +24,8 @@ export const AdminFeedsLayout = ({ children }: { children: React.ReactNode }) =>
         collapsedWidth={0}
       >
         <div className="flex flex-col gap-2 py-2 px-3">
-          <div className="flex justify-between items-center">
-            <span>Thu gọn</span>
+          <div className="flex justify-between items-center px-1">
+            <span className="flex-shrink-0">Thu gọn</span>
             <Button type="text" icon={<CollapseIcon />} onClick={toggleCollapse} />
           </div>
           <ScrollContainer className="overflow-y-scroll flex-1">
@@ -37,7 +34,9 @@ export const AdminFeedsLayout = ({ children }: { children: React.ReactNode }) =>
               selectedKeys={[pathname ?? undefined]}
               mode="inline"
               items={itemsAdminFeeds}
-              className={`border-0 bg-transparent ${collapsed ? 'sidebar-item-collapse' : ''}`}
+              className={`border-0 bg-transparent ${
+                collapsed ? 'sidebar-item-collapse sidebar-item-dropdown-collapse' : ''
+              }`}
               onClick={(e) => {
                 e.domEvent.stopPropagation();
                 router.push(e.key);

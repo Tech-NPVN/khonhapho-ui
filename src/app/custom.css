@@ -86,7 +86,7 @@ label {
 }
 
 .ant-segmented-item {
-  @apply !rounded-[10px] px-6 py-[2px] font-medium;
+  @apply !rounded-[10px] px-6 py-[3px] font-medium;
 }
 
 .ant-segmented-thumb,

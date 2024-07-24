@@ -1,27 +1,30 @@
 'use client';
 
-import { SectionBody } from '@/components/common';
+import { SectionBody, TabLabelWithBadge } from '@/components/common';
 import { useFeeds } from '../../context';
 import { useCallback } from 'react';
-import { Button, Tooltip, Segmented as SegmentedAntd } from 'antd';
+import { Button, Tooltip, Segmented } from 'antd';
 import { CollapseIcon } from '@/components/icons';
 import { SegmentedOptionProps, useSegmented } from '@/components/reuse/data-display';
+import DealsRejectIndex from './deals-reject/page';
+import DealsApprovedIndex from './deals-approved';
+import DealsPendingIndex from './deals-pending/page';
 
 const DEAL_TABS: SegmentedOptionProps[] = [
   {
-    label: 'Chờ duyệt',
+    label: <TabLabelWithBadge title="Chờ duyệt" count={2} />,
     value: 'pending',
-    component: <>1</>,
+    component: <DealsPendingIndex />,
   },
   {
-    label: 'Đã duyệt',
+    label: <TabLabelWithBadge title="Đã duyệt" count={2002} />,
     value: 'approved',
-    component: <>2</>,
+    component: <DealsApprovedIndex />,
   },
   {
-    label: 'Đã duyệt',
+    label: <TabLabelWithBadge title="Từ chối" count={17902} />,
     value: 'reject',
-    component: <>3</>,
+    component: <DealsRejectIndex />,
   },
 ];
 
@@ -51,7 +54,12 @@ export const DealsIndex = () => {
   return (
     <>
       <SectionBody title={renderTitle()}>
-        <SegmentedAntd options={DEAL_TABS} value={value} onChange={handleChange} />
+        <Segmented
+          options={DEAL_TABS}
+          value={value}
+          onChange={handleChange}
+          className="dark:!bg-background_d"
+        />
       </SectionBody>
       <div className="rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 mt-5">
         {DEAL_TABS.find((option) => option.value === value)?.component}
