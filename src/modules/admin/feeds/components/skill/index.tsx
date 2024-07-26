@@ -62,7 +62,7 @@ export const SkillIndex = () => {
             className="dark:!bg-background_d"
           />
           <div className="flex items-center gap-4">
-            <Select placeholder="Chi nhánh" size="large" className="w-64" />
+            <Select placeholder="Danh mục" size="large" className="w-64" />
             <Input
               size="large"
               placeholder="Nhập nội dung tìm kiếm"
@@ -72,6 +72,7 @@ export const SkillIndex = () => {
           </div>
         </div>
       </SectionBody>
+      
       <div className="rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 mt-5">
         {SKILL_TABS.find((option) => option.value === value)?.component}
       </div>

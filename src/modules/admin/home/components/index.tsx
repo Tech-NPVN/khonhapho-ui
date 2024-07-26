@@ -1,8 +1,8 @@
 'use client';
 
 import { Segmented, SegmentedOptionProps } from '@/components/reuse/data-display';
-import { OnlAccount } from '../onl-account';
-import { DepartmentStats } from '../department-stats';
+import { OnlAccount } from './onl-account';
+import { DepartmentStats } from './department-stats';
 
 const TABS: SegmentedOptionProps[] = [
   {

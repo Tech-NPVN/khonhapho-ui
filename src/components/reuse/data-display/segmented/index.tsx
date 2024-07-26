@@ -8,6 +8,7 @@ type SegmentedProps = {
   options: SegmentedOptionProps[];
   block?: boolean;
   size?: 'small' | 'middle' | 'large';
+  children?: React.ReactNode;
 };
 
 type SegmentedOptionProps = {
@@ -35,7 +36,7 @@ const useSegmented = (options: SegmentedOptionProps[]) => {
   return { value, handleChange };
 };
 
-const Segmented = ({ options, block = false, size = 'middle' }: SegmentedProps) => {
+const Segmented = ({ options, block = false, size = 'middle', children }: SegmentedProps) => {
   const { value, handleChange } = useSegmented(options);
 
   return (
@@ -49,6 +50,7 @@ const Segmented = ({ options, block = false, size = 'middle' }: SegmentedProps) 
           onChange={handleChange}
         />
       </div>
+      {children}
       {options.find((option) => option.value === value)?.component}
     </>
   );
