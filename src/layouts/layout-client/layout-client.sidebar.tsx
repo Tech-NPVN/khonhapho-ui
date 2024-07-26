@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Layout, Menu, type MenuTheme } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
@@ -15,7 +15,9 @@ const LayoutClientSidebar = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const isLightMode = theme === 'light';
+  const isLightMode = useMemo(() => {
+    return theme === 'light';
+  }, [theme]);
 
   return (
     <Layout.Sider

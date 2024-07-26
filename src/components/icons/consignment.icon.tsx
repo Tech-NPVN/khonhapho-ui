@@ -20,7 +20,13 @@ const ConsignmentIcon = (props: React.SVGProps<SVGSVGElement>) => {
         strokeLinejoin="round"
         className="dark:stroke-primary_text_d"
       />
-      <circle cx="20.0499" cy="19.5799" r="4.67" stroke="#344142" />
+      <circle
+        cx="20.0499"
+        cy="19.5799"
+        r="4.67"
+        stroke="#344142"
+        className="dark:stroke-primary_text_d"
+      />
       <path
         d="M18.2266 19.2979L18.8442 19.9828L19.7426 20.8959L21.9866 18.1699"
         stroke="#344142"

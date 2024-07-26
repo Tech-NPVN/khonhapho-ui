@@ -54,13 +54,8 @@ const columns: TableProps<OnlAccountType>['columns'] = [
     title: 'T.Tác',
     key: 'action',
     align: 'center',
-    render: () => (
-      <Button
-        type="text"
-        icon={<ThreeDotIcon />}
-        className="[&>.ant-btn-icon]:flex [&>.ant-btn-icon]:items-center"
-      />
-    ),
+    className: 'flex justify-center',
+    render: () => <Button type="text" icon={<ThreeDotIcon />} />,
   },
 ];
 

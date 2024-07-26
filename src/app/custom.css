@@ -39,10 +39,6 @@
   @apply dark:!text-primary_text_d text-sm;
 }
 
-/* .ant-select-selection-item {
-  @apply !bg-background_l;
-} */
-
 /* Spin */
 .ant-spin-dot-item {
   @apply !text-color_l;
@@ -53,8 +49,28 @@
   margin-inline-end: 10px !important;
 }
 
-.ant-input {
+.ant-input,
+.ant-input-number-input {
   @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+.ant-input-number {
+  @apply !bg-transparent dark:!border-divider_d;
+}
+
+.ant-input,
+.ant-input-number,
+.ant-input-wrapper.ant-input-group {
+  @apply h-full !rounded-s-xl;
+}
+
+.ant-input-number-group-addon,
+.ant-input-group-addon {
+  @apply !rounded-e-xl dark:!border-divider_d;
+}
+
+.ant-input-number-group-addon > .ant-select > .ant-select-selector {
+  @apply !border-0;
 }
 
 /* Date picker */
@@ -86,7 +102,7 @@ label {
 }
 
 .ant-segmented-item {
-  @apply !rounded-[10px] px-6 py-[2px] font-medium;
+  @apply !rounded-[10px] px-6 py-[3px] font-medium;
 }
 
 .ant-segmented-thumb,
@@ -102,6 +118,21 @@ label {
   @apply text-[13px];
 }
 
+/* Button */
+.ant-btn-icon,
+.ant-btn.ant-btn-icon-only {
+  @apply !flex !items-center !justify-center;
+}
+
+/* Collapse */
+.ant-collapse-content-box {
+  @apply !p-0;
+}
+
+.ant-collapse-header {
+  @apply !px-0 !py-4 dark:!text-primary_text_d
+}
+
 /* Common */
 .ant-input,
 .ant-input-affix-wrapper,
@@ -110,6 +141,3 @@ label {
   @apply dark:!border-divider_d;
 }
 
-.ant-collapse-header {
-  @apply dark:!text-primary_text_d;
-}

@@ -3,9 +3,10 @@
 import { Layout, Menu, type MenuTheme } from 'antd';
 import { useTheme } from 'next-themes';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { itemsAdmin, itemsBottom } from '../layout.const';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { Routes } from '@/constants/enums';
 
 const LayoutAdminSidebar = () => {
   const router = useRouter();
@@ -14,7 +15,16 @@ const LayoutAdminSidebar = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const isLightMode = theme === 'light';
+  const isLightMode = useMemo(() => {
+    return theme === 'light';
+  }, [theme]);
+
+  const getSelectedKey = useCallback(() => {
+    if (pathname.includes(Routes.Feeds)) {
+      return Routes.Feeds;
+    }
+    return pathname;
+  }, [pathname]);
 
   return (
     <Layout.Sider
@@ -24,10 +34,10 @@ const LayoutAdminSidebar = () => {
       width={286}
     >
       <div className="flex flex-col py-2 px-3 h-full relative">
-        <ScrollContainer className='overflow-y-scroll flex-1'>
+        <ScrollContainer className="overflow-y-scroll flex-1">
           <Menu
             theme={theme as MenuTheme}
-            selectedKeys={[pathname ?? undefined]}
+            selectedKeys={[getSelectedKey()]}
             mode="inline"
             items={itemsAdmin}
             className={`border-0 bg-transparent pb-2 ${
@@ -35,6 +45,9 @@ const LayoutAdminSidebar = () => {
             }`}
             onClick={(e) => {
               e.domEvent.stopPropagation();
+              if (e.key === Routes.Feeds) {
+                return router.push(Routes.FeedsDeal);
+              }
               router.push(e.key);
             }}
           />
