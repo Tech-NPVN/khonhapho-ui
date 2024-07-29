@@ -54,7 +54,7 @@ export const SkillIndex = () => {
   return (
     <>
       <SectionBody title={renderTitle()}>
-        <div className="flex justify-between ">
+        <div className="flex justify-between">
           <Segmented
             options={SKILL_TABS}
             value={value}

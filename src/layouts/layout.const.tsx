@@ -360,12 +360,12 @@ const itemsAdmin: MenuType[] = [
   ),
 ];
 
-const itemsBottom = (isLightMode: boolean): MenuType[] => {
+const itemsBottom = (isLightMode: boolean, collapsed: boolean): MenuType[] => {
   return [
     getItem(
-      'Thu gọn',
+      collapsed ? 'Mở rộng' : 'Thu gọn',
       'collapse',
-      <CollapseIcon className="w-8" />,
+      <CollapseIcon className={`w-8 ${collapsed ? 'rotate-180' : ''}`} />,
       undefined,
       'sidebar-item [&.ant-menu-item-selected]:bg-transparent',
     ),

@@ -27,7 +27,7 @@ const LayoutClientSidebar = () => {
       width={286}
     >
       <div className="flex flex-col py-2 px-3 h-full relative">
-        <ScrollContainer className='overflow-y-scroll flex-1'>
+        <ScrollContainer className="overflow-y-scroll flex-1">
           <Menu
             theme={theme as MenuTheme}
             selectedKeys={[pathname ?? undefined]}
@@ -52,7 +52,7 @@ const LayoutClientSidebar = () => {
           theme={theme as MenuTheme}
           defaultSelectedKeys={undefined}
           mode="inline"
-          items={itemsBottom(isLightMode)}
+          items={itemsBottom(isLightMode, collapsed)}
           className={`border-0 bg-primary_color_l dark:bg-primary_color_d sticky bottom-4 ${
             collapsed ? 'sidebar-item-collapse' : ''
           }`}

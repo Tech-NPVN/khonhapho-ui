@@ -39,8 +39,6 @@ const ADMIN_WAREHOUSE_TABS: SegmentedOptionProps[] = [
 export const AdminWarehouseIndex = () => {
   const [collapse, setCollapse] = useState<string | undefined>(undefined);
 
-  console.log(collapse)
-
   return (
     <div className="pr-3 pt-5">
       <Segmented options={ADMIN_WAREHOUSE_TABS}>

@@ -9,6 +9,7 @@ type SegmentedProps = {
   block?: boolean;
   size?: 'small' | 'middle' | 'large';
   children?: React.ReactNode;
+  className?: string;
 };
 
 type SegmentedOptionProps = {
@@ -36,7 +37,13 @@ const useSegmented = (options: SegmentedOptionProps[]) => {
   return { value, handleChange };
 };
 
-const Segmented = ({ options, block = false, size = 'middle', children }: SegmentedProps) => {
+const Segmented = ({
+  options,
+  block = false,
+  size = 'middle',
+  children,
+  className,
+}: SegmentedProps) => {
   const { value, handleChange } = useSegmented(options);
 
   return (
@@ -48,6 +55,7 @@ const Segmented = ({ options, block = false, size = 'middle', children }: Segmen
           size={size}
           value={value}
           onChange={handleChange}
+          className={className}
         />
       </div>
       {children}
@@ -56,4 +64,39 @@ const Segmented = ({ options, block = false, size = 'middle', children }: Segmen
   );
 };
 
-export { Segmented, useSegmented, type SegmentedProps, type SegmentedOptionProps };
+const SegmentedWithNode = ({
+  options,
+  block = false,
+  size = 'middle',
+  children,
+  className,
+  element,
+}: SegmentedProps & { element: React.ReactNode }) => {
+  const { value, handleChange } = useSegmented(options);
+
+  return (
+    <>
+      <div className="flex w-full justify-between">
+        <SegmentedAntd
+          options={options}
+          block={block}
+          size={size}
+          value={value}
+          onChange={handleChange}
+          className={className}
+        />
+        {element}
+      </div>
+      {children}
+      {options.find((option) => option.value === value)?.component}
+    </>
+  );
+};
+
+export {
+  Segmented,
+  SegmentedWithNode,
+  useSegmented,
+  type SegmentedProps,
+  type SegmentedOptionProps,
+};

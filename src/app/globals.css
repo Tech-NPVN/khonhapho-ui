@@ -66,6 +66,10 @@
     @apply [&>sup]:bg-error_l dark:[&>sup]:bg-error_d;
   }
 
+  .text-link {
+    @apply text-sm cursor-pointer hover:underline;
+  }
+
   .main-bg {
     @apply bg-background_l dark:bg-background_d text-primary_text_l dark:text-primary_text_d;
   }

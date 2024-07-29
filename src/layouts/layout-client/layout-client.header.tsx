@@ -1,6 +1,7 @@
 'use client';
 
 import {
+  AlarmIcon,
   BellIcon,
   CollectionIcon,
   FreeWarehouseIcon,
@@ -100,6 +101,13 @@ const LayoutClientHeader = () => {
       </div>
 
       <div className="flex items-center justify-end gap-3">
+        <Button
+          icon={<AlarmIcon />}
+          type="text"
+          shape="round"
+          size="large"
+          className="w-10 h-10 dark:bg-background_d shadow-btn"
+        />
         <Button
           icon={<MessengerIcon />}
           type="text"

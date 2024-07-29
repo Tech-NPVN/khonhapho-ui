@@ -1,4 +1,5 @@
 export * from './activity-news.icon';
+export * from './add.icon';
 export * from './admin-page.icon';
 export * from './admin-warehouse.icon';
 export * from './alarm.icon';
@@ -11,6 +12,7 @@ export * from './bookmark.icon';
 export * from './buy-urgently.icon';
 
 export * from './candidate.icon';
+export * from './change.icon';
 export * from './chat-group.icon';
 export * from './chat-setting-group.icon';
 export * from './clock.icon';

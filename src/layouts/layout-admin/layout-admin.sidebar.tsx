@@ -57,7 +57,7 @@ const LayoutAdminSidebar = () => {
           theme={theme as MenuTheme}
           defaultSelectedKeys={undefined}
           mode="inline"
-          items={itemsBottom(isLightMode)}
+          items={itemsBottom(isLightMode, collapsed)}
           className={`border-0 bg-primary_color_l dark:bg-primary_color_d sticky bottom-4 ${
             collapsed ? 'sidebar-item-collapse' : ''
           }`}
