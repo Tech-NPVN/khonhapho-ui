@@ -2,12 +2,12 @@ import { DoubleArrowBottomIcon, ReloadDownIcon } from '@/components/icons';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import { SELECT_PRICE_UNIT } from '@/constants/data';
 import { Button, Col, Collapse, InputNumber, Row, Select } from 'antd';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 const WarehouseSearch = () => {
   const [expand, setExpand] = useState<string[]>([]);
 
-  const renderExpanding = () => {
+  const renderExpanding = useCallback(() => {
     return (
       <Row gutter={[6, 6]}>
         <Col flex="20%">
@@ -30,7 +30,7 @@ const WarehouseSearch = () => {
         </Col>
       </Row>
     );
-  };
+  }, []);
 
   return (
     <Row gutter={[6, 6]} className="mt-5">

@@ -17,7 +17,7 @@
 }
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell {
-  @apply border-b-0 dark:text-primary_text_d;
+  @apply border-b-0 dark:text-primary_text_d text-[13px];
 }
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {
