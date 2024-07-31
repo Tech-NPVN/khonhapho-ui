@@ -9,7 +9,7 @@ import Image from 'next/image';
 
 export const CompanyIndex = () => {
   return (
-    <div className="pr-4">
+    <div className="pr-4 pt-4">
       <SectionBody title="Danh sách nhân sự tập đoàn nhà phố việt nam">
         <div className="flex justify-between">
           <div className="flex items-center gap-3">
@@ -31,7 +31,7 @@ export const CompanyIndex = () => {
             size="large"
             placeholder="Nhập nội dung tìm kiếm"
             prefix={<SearchIcon className="w-4 h-4" />}
-            className="w-[300px] border-0 shadow-md bg-transparent"
+            className="w-[300px] border-0 shadow-btn bg-transparent"
           />
         </div>
 

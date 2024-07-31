@@ -23,13 +23,13 @@ import {
   RefferalIcon,
   RegulationIcon,
   ResourceWarehouseIcon,
+  SettingCompanyIcon,
+  StickerIcon,
   TrainingScheduleIcon,
   WarehouseManagementIcon,
 } from '@/components/icons';
 import { MenuType } from './layout.type';
 import { getItem } from './layout.util';
-import { SettingCompanyIcon } from '@/components/icons/setting-company.icon';
-import { StickerIcon } from '@/components/icons/sticker.icon';
 
 const MenuLabel = ({ label }: { label: string }) => {
   return (
@@ -360,12 +360,12 @@ const itemsAdmin: MenuType[] = [
   ),
 ];
 
-const itemsBottom = (isLightMode: boolean): MenuType[] => {
+const itemsBottom = (isLightMode: boolean, collapsed: boolean): MenuType[] => {
   return [
     getItem(
-      'Thu gọn',
+      collapsed ? 'Mở rộng' : 'Thu gọn',
       'collapse',
-      <CollapseIcon className="w-8" />,
+      <CollapseIcon className={`w-8 ${collapsed ? 'rotate-180' : ''}`} />,
       undefined,
       'sidebar-item [&.ant-menu-item-selected]:bg-transparent',
     ),

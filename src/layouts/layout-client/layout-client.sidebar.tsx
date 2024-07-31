@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Layout, Menu, type MenuTheme } from 'antd';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
@@ -15,7 +15,9 @@ const LayoutClientSidebar = () => {
 
   const [collapsed, setCollapsed] = useState(false);
 
-  const isLightMode = theme === 'light';
+  const isLightMode = useMemo(() => {
+    return theme === 'light';
+  }, [theme]);
 
   return (
     <Layout.Sider
@@ -24,8 +26,8 @@ const LayoutClientSidebar = () => {
       className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] overflow-hidden mt-16 sticky top-16 bottom-0 left-0"
       width={286}
     >
-      <div className="flex flex-col py-2 px-3 h-full relative">
-        <ScrollContainer className='overflow-y-scroll flex-1'>
+      <div className="flex flex-col pt-3 pb-2 px-3 h-full relative">
+        <ScrollContainer className="overflow-y-scroll flex-1">
           <Menu
             theme={theme as MenuTheme}
             selectedKeys={[pathname ?? undefined]}
@@ -50,7 +52,7 @@ const LayoutClientSidebar = () => {
           theme={theme as MenuTheme}
           defaultSelectedKeys={undefined}
           mode="inline"
-          items={itemsBottom(isLightMode)}
+          items={itemsBottom(isLightMode, collapsed)}
           className={`border-0 bg-primary_color_l dark:bg-primary_color_d sticky bottom-4 ${
             collapsed ? 'sidebar-item-collapse' : ''
           }`}

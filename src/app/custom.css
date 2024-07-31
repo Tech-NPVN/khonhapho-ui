@@ -17,7 +17,7 @@
 }
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell {
-  @apply border-b-0 dark:text-primary_text_d;
+  @apply border-b-0 dark:text-primary_text_d text-[13px];
 }
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {
@@ -26,12 +26,16 @@
 
 /* Select */
 .ant-select > .ant-select-selector {
-  @apply dark:!border-divider_d dark:!bg-primary_color_d !rounded-xl;
+  @apply dark:!border-divider_d dark:!bg-primary_color_d !rounded-lg;
 }
+
+/* .ant-select > .ant-select-selector {
+  @apply dark:!border-0 dark:!bg-background_d !rounded-lg;
+} */
 
 .ant-select > .ant-select-selector > .ant-select-selection-search,
 .ant-select > .ant-select-selector > .ant-select-selection-placeholder {
-  @apply !text-sm dark:text-primary_text_d dark:!text-primary_text_d/50;
+  @apply !text-sm dark:text-primary_text_d dark:!text-primary_text_d/50 text-left;
 }
 
 .ant-select-selection-item,
@@ -53,8 +57,32 @@
   margin-inline-end: 10px !important;
 }
 
-.ant-input {
+.ant-input,
+.ant-input-number-input {
   @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+.ant-input-number {
+  @apply !bg-transparent dark:!border-divider_d;
+}
+
+.ant-input,
+.ant-input-number,
+.ant-input-wrapper.ant-input-group {
+  @apply h-full !rounded-s-lg;
+}
+
+.ant-input-number-group-addon,
+.ant-input-group-addon {
+  @apply !rounded-e-lg dark:!border-divider_d;
+}
+
+.ant-input-number-group-addon > .ant-select > .ant-select-selector {
+  @apply !border-0;
+}
+
+.ant-input-affix-wrapper {
+  @apply items-center;
 }
 
 /* Date picker */
@@ -86,7 +114,7 @@ label {
 }
 
 .ant-segmented-item {
-  @apply !rounded-[10px] px-6 py-[2px] font-medium;
+  @apply !rounded-[10px] px-6 py-[3px] font-medium;
 }
 
 .ant-segmented-thumb,
@@ -102,14 +130,29 @@ label {
   @apply text-[13px];
 }
 
+/* Button */
+.ant-btn-icon,
+.ant-btn.ant-btn-icon-only {
+  @apply !flex !items-center !justify-center;
+}
+
+.ant-btn.ant-btn-text {
+  @apply dark:!text-primary_text_d;
+}
+
+/* Collapse */
+.ant-collapse-content-box {
+  @apply !p-0;
+}
+
+.ant-collapse-header {
+  @apply !px-0 !py-4 dark:!text-primary_text_d;
+}
+
 /* Common */
 .ant-input,
 .ant-input-affix-wrapper,
 .ant-select,
 .ant-picker {
   @apply dark:!border-divider_d;
-}
-
-.ant-collapse-header {
-  @apply dark:!text-primary_text_d;
 }

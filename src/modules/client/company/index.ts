@@ -1,1 +1,1 @@
-export * from './components/company.index';
+export * from './components';

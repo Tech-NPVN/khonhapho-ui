@@ -1,4 +1,5 @@
 export * from './activity-news.icon';
+export * from './add.icon';
 export * from './admin-page.icon';
 export * from './admin-warehouse.icon';
 export * from './alarm.icon';
@@ -11,6 +12,7 @@ export * from './bookmark.icon';
 export * from './buy-urgently.icon';
 
 export * from './candidate.icon';
+export * from './change.icon';
 export * from './chat-group.icon';
 export * from './chat-setting-group.icon';
 export * from './clock.icon';
@@ -59,6 +61,8 @@ export * from './open-full.icon';
 
 export * from './password.icon';
 export * from './pen.icon';
+
+export * from './password.icon';
 export * from './people-group';
 export * from './personal-warehouse.icon';
 export * from './personal.icon';
@@ -71,13 +75,18 @@ export * from './reload-right.icon';
 export * from './resource-warehouse.icon';
 
 export * from './search.icon';
+export * from './setting-company.icon';
+export * from './share-arrow.icon';
 export * from './share-message.icon';
 export * from './share.icon';
+export * from './sticker.icon';
 
 export * from './three-dot.icon';
 export * from './training-schedule.icon';
 export * from './trash.icon';
 
 export * from './user.icon';
+
+export * from './view.icon';
 
 export * from './warehouse-management.icon';
