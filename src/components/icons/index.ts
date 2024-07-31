@@ -79,4 +79,6 @@ export * from './training-schedule.icon';
 
 export * from './user.icon';
 
+export * from './view.icon';
+
 export * from './warehouse-management.icon';

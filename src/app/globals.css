@@ -63,7 +63,7 @@
   }
 
   .badge-error {
-    @apply [&>sup]:bg-error_l dark:[&>sup]:bg-error_d;
+    @apply [&>sup]:bg-error_l dark:[&>sup]:bg-error_d [&>sup]:text-primary_color_l;
   }
 
   .text-link {

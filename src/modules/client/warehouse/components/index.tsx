@@ -3,35 +3,45 @@
 import { SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, SearchIcon } from '@/components/icons';
 import { SegmentedOptionProps, SegmentedWithNode } from '@/components/reuse/data-display';
-import { Button, Divider, Input, Modal } from 'antd';
-import { useRouter } from 'next/navigation';
+import { Button, Input } from 'antd';
+import { useRouter, useSearchParams } from 'next/navigation';
 import WarehouseSearch from './warehouse.search';
-import { WarehouseTable } from './warehouse.table';
 import { Routes } from '@/constants/enums';
-import { useCallback, useState } from 'react';
-import { WAREHOUSE_REASON_CONTENT_SAMPLE } from '@/constants/data';
+import { useCallback, useMemo, useState } from 'react';
+import {
+  WarehouseTabsDetails,
+  WarehouseTabsDetailsFilter,
+  WarehouseTabsList,
+  WarehouseTabsSaved,
+} from './warehouse-tabs';
+import { ModalReasonDecs } from './modals';
 
 const WAREHOUSE_TABS: SegmentedOptionProps[] = [
   {
     label: 'Danh sách',
     value: 'list',
-    component: <></>,
+    component: <WarehouseTabsList />,
   },
   {
     label: 'Chi tiết',
     value: 'details',
-    component: <></>,
+    component: <WarehouseTabsDetailsFilter />,
   },
   {
     label: 'Đã lưu',
     value: 'saved',
-    component: <></>,
+    component: <WarehouseTabsSaved />,
   },
 ];
 
 export const WarehouseIndex = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
+  const tab = useSearchParams().get('tab');
+
+  const isDetailsTab = useMemo(() => {
+    return tab === 'details';
+  }, [tab]);
 
   const renderAddButton = useCallback(() => {
     return (
@@ -72,30 +82,13 @@ export const WarehouseIndex = () => {
             }
           >
             <WarehouseSearch />
-            <WarehouseTable />
           </SegmentedWithNode>
         </SectionBodyWithDescButton>
+
+        {isDetailsTab && <WarehouseTabsDetails />}
       </div>
 
-      <ModalReason open={showModal} handleCancel={() => setShowModal(false)} />
+      <ModalReasonDecs open={showModal} handleCancel={() => setShowModal(false)} />
     </>
-  );
-};
-
-const ModalReason = ({ open, handleCancel }: { open: boolean; handleCancel: () => void }) => {
-  return (
-    <Modal
-      title="Lý do không lọc Diện tích/Mặt tiền/Hướng"
-      open={open}
-      onCancel={handleCancel}
-      width={650}
-      footer={null}
-    >
-      <Divider className="bg-background_l dark:bg-background_d my-4" />
-      <div
-        dangerouslySetInnerHTML={{ __html: WAREHOUSE_REASON_CONTENT_SAMPLE }}
-        style={{ fontSize: '15px' }}
-      ></div>
-    </Modal>
   );
 };

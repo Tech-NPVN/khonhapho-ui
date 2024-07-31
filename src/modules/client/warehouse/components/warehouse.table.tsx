@@ -1,50 +1,15 @@
-import {
-  AlarmSmallIcon,
-  BookmarkOutlineIcon,
-  ChangeIcon,
-  EyeSlashIcon,
-  ShareArrowIcon,
-} from '@/components/icons';
+import { ChangeIcon, EyeSlashIcon, ShareArrowIcon } from '@/components/icons';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
-import { Button, Select, Table, Tag, type TableProps } from 'antd';
+import { Badge, Button, Select, Table, Tag, type TableProps } from 'antd';
 import { WarehouseStatusEnum, WarehouseType } from './warehouse.type';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
 import { compareWarehouseStatus } from './warehouse.util';
-import { PopoverHiddenColumns } from '@/components/common';
+import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { useState } from 'react';
+import ScrollContainer from 'react-indiana-drag-scroll';
 
-const columns: TableProps<WarehouseType>['columns'] = [
-  {
-    title: 'Lưu',
-    key: 'saved',
-    dataIndex: 'saved',
-    width: 50,
-    align: 'center',
-    className: 'border-0',
-    render: (saved: boolean) => {
-      return (
-        <div className="flex justify-center">
-          <Button type="text" icon={<BookmarkOutlineIcon />} />
-        </div>
-      );
-    },
-  },
-  {
-    title: 'Đặt lịch',
-    key: 'booking',
-    width: 100,
-    align: 'center',
-    className: 'border-0',
-    render: () => {
-      return (
-        <div className="flex justify-center">
-          <Button type="text" icon={<AlarmSmallIcon />} />
-        </div>
-      );
-    },
-  },
+export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {
     title: 'T.Gian',
     key: 'date',
@@ -58,6 +23,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     dataIndex: 'status',
     align: 'center',
     className: 'border-0',
+
     render: (status: string) => <Tag>{compareWarehouseStatus[status]}</Tag>,
   },
   {
@@ -65,6 +31,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'address',
     dataIndex: 'address',
     className: 'border-0',
+
     render: (address: string) => <span className="font-medium">{address}</span>,
   },
   {
@@ -72,6 +39,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'city',
     dataIndex: 'city',
     className: 'border-0',
+
     render: (city: string) => <span className="font-medium">{city}</span>,
   },
   {
@@ -79,6 +47,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'district',
     dataIndex: 'district',
     className: 'border-0',
+
     render: (district: string) => <span className="font-medium">{district}</span>,
   },
   {
@@ -92,6 +61,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'price',
     dataIndex: 'price',
     className: 'border-0',
+
     render: (price: WarehouseType['price']) => {
       return (
         <span className="font-medium">
@@ -105,6 +75,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'million_per_square_meters',
     dataIndex: 'million_per_square_meters',
     className: 'border-0',
+
     render: (value: number) => {
       return <Tag color={value < 100 ? '#3FB44B' : ''}>{value}tr/m²</Tag>;
     },
@@ -114,6 +85,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'owner.name',
     dataIndex: 'owner',
     className: 'border-0',
+
     render: (owner: WarehouseType['owner']) => (
       <a href={owner.profile_url} className="text-primary_text_l dark:text-primary_text_d">
         {owner.name}
@@ -125,6 +97,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
     key: 'owner.phone_number',
     dataIndex: 'owner',
     className: 'border-0',
+
     render: (owner: WarehouseType['owner']) => {
       const { phone_number, contact } = owner;
 
@@ -171,12 +144,14 @@ const columns: TableProps<WarehouseType>['columns'] = [
     title: 'Đặc điểm',
     key: 'feature',
     dataIndex: 'feature',
-    className: 'border-r-divider_l dark:border-r-divider_d',
+    className: 'border-0',
   },
   {
     title: 'Xem',
     align: 'center',
     key: 'view',
+    fixed: 'right',
+    width: 50,
     render: () => {
       return (
         <div className="flex justify-center">
@@ -187,7 +162,7 @@ const columns: TableProps<WarehouseType>['columns'] = [
   },
 ];
 
-const data: WarehouseType = {
+export const data: WarehouseType = {
   saved: false,
   date: '22/02/23',
   status: WarehouseStatusEnum.BanManh,
@@ -222,32 +197,41 @@ const data: WarehouseType = {
   feature: 'Mặt phố',
 };
 
-const dataSource: WarehouseType[] = Array.from({ length: 15 }, () => ({ ...data }));
-
-export const WarehouseTable = () => {
+export const WarehouseTable = ({
+  columns,
+  data,
+}: {
+  columns: TableProps<WarehouseType>['columns'];
+  data: WarehouseType[];
+}) => {
   const [openPopoverHidden, setOpenPopoverHidden] = useState<boolean>(false);
-  const tab = useSearchParams().get('tab');
+
+  const { columnsVisibility, toggleColumnVisibility, visibleColumns, hiddenColumnsCount } =
+    useColumnVisibility(columns);
 
   return (
     <>
       <div className="flex justify-between">
-        <PopoverHiddenColumns
+        <PopoverVisibilityColumns
           open={openPopoverHidden}
           setOpen={setOpenPopoverHidden}
           columns={columns}
-          placement='bottom'
-          trigger='click'
+          columnsVisibility={columnsVisibility}
+          toggleColumnVisibility={toggleColumnVisibility}
+          placement="bottomLeft"
+          trigger="click"
         >
           <Button
             icon={<EyeSlashIcon />}
             size="large"
-            className={`dark:bg-background_d dark:border-0 dark:text-primary_text_d px-5 py-2 ${
-              tab === 'details' ? 'invisible' : ''
-            }`}
+            className={`dark:bg-background_d dark:border-0 dark:text-primary_text_d px-5 py-2`}
           >
-            Ẩn cột
+            Ẩn cột{' '}
+            {hiddenColumnsCount > 0 && (
+              <Badge count={hiddenColumnsCount} className="badge-error ml-1" />
+            )}
           </Button>
-        </PopoverHiddenColumns>
+        </PopoverVisibilityColumns>
 
         <Select
           size="large"
@@ -261,8 +245,9 @@ export const WarehouseTable = () => {
       <Table
         bordered
         className="mt-6"
-        dataSource={dataSource}
-        columns={columns}
+        scroll={{ x: 'max-content' }}
+        dataSource={data}
+        columns={visibleColumns}
         size="small"
         pagination={false}
         rowClassName={(_, index) =>
