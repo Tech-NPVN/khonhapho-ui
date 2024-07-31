@@ -25,6 +25,7 @@ export * from './dark.icon';
 export * from './data-users.icon';
 export * from './data-warehouse.icon';
 export * from './double-arrow-bottom.icon';
+export * from './duplicate.icon';
 
 export * from './eye-slash.icon';
 export * from './eye.icon';
@@ -39,6 +40,7 @@ export * from './home.icon';
 export * from './library.icon';
 export * from './light.icon';
 export * from './list-company.icon';
+export * from './lock.icon';
 export * from './logout.icon';
 
 export * from './heart-red.icon';
@@ -53,7 +55,10 @@ export * from './messenger.icon';
 export * from './news.icon';
 export * from './note.icon';
 
+export * from './open-full.icon';
+
 export * from './password.icon';
+export * from './pen.icon';
 export * from './people-group';
 export * from './personal-warehouse.icon';
 export * from './personal.icon';
@@ -71,6 +76,7 @@ export * from './share.icon';
 
 export * from './three-dot.icon';
 export * from './training-schedule.icon';
+export * from './trash.icon';
 
 export * from './user.icon';
 

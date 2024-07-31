@@ -16,8 +16,8 @@ const HeartRedIcon = (props: React.SVGProps<SVGSVGElement>) => {
       />
       <defs>
         <linearGradient id={id} x1="8.5" y1="0" x2="8.5" y2="16" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#F95E73" />
-          <stop offset="1" stop-color="#E3223C" />
+          <stop stopColor="#F95E73" />
+          <stop offset="1" stopColor="#E3223C" />
         </linearGradient>
       </defs>{' '}
     </svg>
