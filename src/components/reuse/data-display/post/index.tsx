@@ -10,13 +10,19 @@ import { NoteIcon } from '@/components/icons/note.icon';
 import { Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import CommentInput from '../../data-entry/comment-input';
 import Comment from '../comment';
 import ImageGrid from '../image-grid';
 import LikeComponent from '../like';
+import FormReportPopup from '../popup/form-report';
+import ListOfReportsPopup from '../popup/list-of-reports';
+import NotePopup from '../popup/note';
+import SuitableCustomerPopup from '../popup/suitable-customer';
 import Rating from '../rating';
 import ShareComponent from '../share';
+import ThreeDot from './three-dot';
 
 export interface IPostDetail {
   id?: string;
@@ -48,6 +54,13 @@ const isTextClamped = (elm: HTMLDivElement) => elm?.scrollHeight > elm?.clientHe
 const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
   const [isShowMore, setIsShowMore] = useState<boolean>(false);
   const [isHidden, setIsHidden] = useState<boolean>(false);
+  const [isShowReportPopup, setIsShowReportPopup] = useState<boolean>(false);
+  const [isShowModalSuitableCustomerPopup, setIsShowModalSuitableCustomerPopup] =
+    useState<boolean>(false);
+  const [isShowNotePopup, setIsShowNotePopup] = useState<boolean>(false);
+  const [isShowReport, setIsShowReport] = useState<boolean>(false);
+
+  //
   const imageCount = post?.images?.length || 0;
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -56,7 +69,7 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
   return (
     <div
       className={clsx(
-        'bg-white dark:bg-primary_color_d p-8 rounded-lg w-full',
+        'bg-white dark:bg-primary_color_d p-6 rounded-lg w-full',
         isWarehouse ? 'pt-0' : '',
       )}
     >
@@ -71,9 +84,9 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
             <span className="inline-block leading-4  text-[12px]">Lịch sử chỉnh sửa</span>
           </button>
         </div>
-        <div className="w-[calc(100%_+_64px)] -mx-8 h-[1px] bg-divider_l dark:bg-divider_d"></div>
+        <div className="w-[calc(100%_+_64px)] -mx-8 h-[1px] bg-background_l dark:bg-background_d"></div>
       </div>
-      <div className="flex justify-between items-end">
+      <div className="flex justify-between items-end relative">
         <div className="flex">
           <div>
             <Image
@@ -85,9 +98,9 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
             />
           </div>
           <div>
-            <div className="font-semibold text-primary_text_l dark:text-primary_text_d">
+            <Link className="font-semibold text-primary_text_l dark:text-primary_text_d" href={'/'}>
               Nhà Phố Việt Nam
-            </div>
+            </Link>
             <div className="[&_span]:text-sm text-secondary_text_l dark:text-primary_text_d flex gap-[10px]">
               <span className={clsx('gap-[10px]', isWarehouse ? 'hidden' : 'flex')}>
                 <span>10 phút trước</span>
@@ -130,6 +143,9 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
         </div>
         <div className={clsx(isWarehouse ? 'flex' : 'hidden')}>
           <Tag className="!text-[12px] font-semibold bg-background_l border-none">Bán mạnh</Tag>
+        </div>
+        <div className={clsx('absolute top-0 right-0', isWarehouse ? 'hidden' : '')}>
+          <ThreeDot />
         </div>
       </div>
       <div className="mt-4">
@@ -212,15 +228,25 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
           </div>
         </div>
         <div className="flex gap-1">
-          <div className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d relative cursor-pointer">
+          <div
+            className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d relative cursor-pointer"
+            onClick={() => {
+              setIsShowModalSuitableCustomerPopup(true);
+            }}
+          >
             <PeopleGroup />
-            <span className="flex items-center justify-center absolute text-[8px] bg-red-500 text-white rounded-full w-3 h-3 top-0 right-0">
+            <span className="flex items-center justify-center absolute text-[8px] bg-red-500 text-white rounded-full w-3 h-3 top-0 right-0 select-none">
               10
             </span>
           </div>
-          <div className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d relative cursor-pointer">
+          <div
+            className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d relative cursor-pointer"
+            onClick={() => {
+              setIsShowReportPopup(true);
+            }}
+          >
             <CopyDocumentIcon />
-            <span className="flex items-center justify-center absolute text-[8px] bg-red-500 text-white rounded-full w-3 h-3 top-0 right-0">
+            <span className="flex items-center justify-center absolute text-[8px] bg-red-500 text-white rounded-full w-3 h-3 top-0 right-0 select-none">
               10
             </span>
           </div>
@@ -303,25 +329,25 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
             <a
               href="#"
               target="_blank"
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d button"
             >
               <BookmarkIcon className="fill-[#FF4D4F]" />
             </a>
-            <a
-              href="#"
-              target="_blank"
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+            <div
+              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
+              onClick={() => setIsShowNotePopup(true)}
             >
               <NoteIcon className="fill-[#FFB547]" />
               <span className="ms-1">Ghi chú</span>
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+            </div>
+            <div
+              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer"
+              onClick={() => {
+                setIsShowReport(true);
+              }}
             >
               <CopyDocumentIcon />
-            </a>
+            </div>
           </div>
         </div>
       </div>
@@ -353,6 +379,41 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
       <div className="mt-4">
         <CommentInput></CommentInput>
       </div>
+      <ListOfReportsPopup
+        open={isShowReportPopup}
+        onCancel={() => {
+          setIsShowReportPopup(false);
+        }}
+        onOk={() => {
+          setIsShowReportPopup(false);
+        }}
+        setOpen={() => {
+          setIsShowReportPopup(false);
+        }}
+      />
+      <SuitableCustomerPopup
+        open={isShowModalSuitableCustomerPopup}
+        onCancel={() => {
+          setIsShowModalSuitableCustomerPopup(false);
+        }}
+        onOk={() => {
+          setIsShowModalSuitableCustomerPopup(false);
+        }}
+        setOpen={() => {
+          setIsShowModalSuitableCustomerPopup(false);
+        }}
+      />
+      <NotePopup
+        open={isShowNotePopup}
+        onCancel={() => setIsShowNotePopup(false)}
+        onOk={() => {
+          setIsShowNotePopup(false);
+        }}
+        setOpen={() => {
+          setIsShowNotePopup(false);
+        }}
+      />
+      <FormReportPopup open={isShowReport} setOpen={setIsShowReport} />
     </div>
   );
 };
