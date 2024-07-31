@@ -6,7 +6,10 @@ enum Routes {
 
   // (client)
   Home = '/',
+
   Warehouse = '/warehouse',
+  WarehouseCreate = '/warehouse/create',
+
   Urgently = '/urgently',
 
   ActivityNews = '/activity-news',

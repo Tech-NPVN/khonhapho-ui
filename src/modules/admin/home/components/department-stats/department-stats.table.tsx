@@ -132,6 +132,7 @@ export const DepartmentStatsTable = () => {
       <p className='mt-5'>
         Tổng số lượng phòng: <span className="font-semibold">177</span>
       </p>
+      
       <Table
         bordered
         className="mt-5"
