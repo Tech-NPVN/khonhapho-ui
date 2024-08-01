@@ -7,6 +7,7 @@ import { CommentIcon } from '@/components/icons/comment.icon';
 import { CopyDocumentIcon } from '@/components/icons/copy-document.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { NoteIcon } from '@/components/icons/note.icon';
+import { ModalBooking } from '@/modules/client/warehouse/components/modals';
 import { Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -59,6 +60,7 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
     useState<boolean>(false);
   const [isShowNotePopup, setIsShowNotePopup] = useState<boolean>(false);
   const [isShowReport, setIsShowReport] = useState<boolean>(false);
+  const [isShowBooking, setIsShowBooking] = useState<boolean>(false);
 
   //
   const imageCount = post?.images?.length || 0;
@@ -142,7 +144,9 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
           </div>
         </div>
         <div className={clsx(isWarehouse ? 'flex' : 'hidden')}>
-          <Tag className="!text-[12px] font-semibold bg-background_l border-none">Bán mạnh</Tag>
+          <Tag className="!text-[12px] font-semibold bg-background_l dark:bg-background_d border-none">
+            Bán mạnh
+          </Tag>
         </div>
         <div className={clsx('absolute top-0 right-0', isWarehouse ? 'hidden' : '')}>
           <ThreeDot />
@@ -157,7 +161,7 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
             <span>·</span>
             <span>255.152tr/m</span>
           </div>
-          <Tag className="!text-[12px] font-normal bg-background_l border-none">
+          <Tag className="!text-[12px] font-normal bg-background_l dark:bg-background_d border-none">
             Mặt phố, kinh doanh, có tầng thượn
           </Tag>
         </div>
@@ -319,20 +323,17 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
               isWarehouse ? '' : 'hidden',
             )}
           >
-            <a
-              href="#"
-              target="_blank"
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+            <div
+              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
+              onClick={() => {
+                setIsShowBooking(true);
+              }}
             >
               <AlarmIcon />
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d button"
-            >
+            </div>
+            <div className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d button cursor-pointer select-none ">
               <BookmarkIcon className="fill-[#FF4D4F]" />
-            </a>
+            </div>
             <div
               className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
               onClick={() => setIsShowNotePopup(true)}
@@ -414,6 +415,12 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
         }}
       />
       <FormReportPopup open={isShowReport} setOpen={setIsShowReport} />
+      <ModalBooking
+        open={isShowBooking}
+        handleCancel={() => {
+          setIsShowBooking(false);
+        }}
+      />
     </div>
   );
 };

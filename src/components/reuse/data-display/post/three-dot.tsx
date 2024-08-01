@@ -23,7 +23,7 @@ const ThreeDot = () => {
         <ThreeDotIcon width={16} height={3} />
       </div>
       <div className={clsx('relative ', isShowMenu ? 'block' : 'hidden')}>
-        <div className="absolute top-2 right-0 min-w-48 min-h-32 border-t border-black/5  border-solid dark:border-divider_d bg-white dark:bg-background_d shadow-md z-10 rounded-lg flex flex-col py-2 px-1">
+        <div className="absolute top-2 right-0 min-w-48 min-h-32 border-t dark:border-t-0 border-black/5 border-0  border-solid dark:border-divider_d bg-white dark:bg-background_d shadow-md z-10 rounded-lg flex flex-col py-2 px-1">
           <div className="flex gap-4 px-2 py-2 items-center rounded-md cursor-pointer hover:bg-black/5 dark:hover:bg-divider_d">
             <div className="flex justify-center w-4">
               <PenIcon />

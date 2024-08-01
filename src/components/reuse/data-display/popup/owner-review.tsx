@@ -1,32 +1,23 @@
 'use client';
 
 import { Modal } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
 import { ModalProps } from 'antd/lib';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 interface IProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
-const NotePopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
+const OwnerReview = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
   const [isOpen, setIsOpen] = useState(open);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
     setIsOpen(open);
   }, [open]);
-  useEffect(() => {
-    if (isOpen && textareaRef.current) {
-      setTimeout(() => {
-        textareaRef?.current?.focus();
-      }, 100);
-    }
-  }, [isOpen]);
   return (
     <div>
       <Modal
-        title="Ghi chú"
+        title="Đánh giá đầu chủ"
         centered
-        okText="Lưu"
         cancelButtonProps={{ style: { display: 'none' } }}
+        okButtonProps={{ style: { display: 'none' } }}
         open={isOpen}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
         classNames={{
@@ -48,12 +39,10 @@ const NotePopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) =
         }}
         width={'auto'}
       >
-        <div className="w-[550px]">
-          <TextArea ref={textareaRef} rows={10} placeholder="Nhập ghi chú"></TextArea>
-        </div>
+        <div className="w-[550px]"></div>
       </Modal>
     </div>
   );
 };
 
-export default NotePopup;
+export default OwnerReview;

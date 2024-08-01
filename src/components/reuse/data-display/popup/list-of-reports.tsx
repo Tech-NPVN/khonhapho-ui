@@ -128,12 +128,15 @@ const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
               />
             </div>
           </div>
-          <div className="w-full mt-5 even:">
+          <div className="w-full mt-5 !rounded-lg overflow-hidden ">
             <Table
               columns={columns}
               dataSource={data}
               pagination={false}
-              rowClassName={'even:bg-black/5 dark:even:bg-background_d dark:bg-primary_color_d'}
+              rowClassName={
+                'even:bg-white dark:even:bg-[#151e2f] dark:bg-primary_color_d even:dark:bg-transparent'
+              }
+              className="dark:[&_thead_tr_th]:!bg-divider_d "
             />
           </div>
         </div>

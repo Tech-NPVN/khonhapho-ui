@@ -3,7 +3,6 @@
 import { OpenFullIcon, SearchIcon } from '@/components/icons';
 import { Button, Modal, Select, Table, TableProps } from 'antd';
 import { ModalProps } from 'antd/lib';
-import { Option } from 'antd/lib/mentions';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -190,10 +189,10 @@ const SuitableCustomerPopup = ({ open = false, onClose, onCancel, setOpen }: Lis
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
         open={isOpen}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
+        className="dark:bg-primary_color_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
         classNames={{
-          content: 'dark:bg-background_d dark:text-primary_text_d',
-          header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-xl',
+          content: 'dark:bg-primary_color_d dark:text-primary_text_d',
+          header: 'dark:bg-primary_color_d dark:[&>div]:!text-primary_text_d [&>div]:!text-xl',
           mask: 'dark:!fill-white',
         }}
         onClose={(e) => {
@@ -208,16 +207,17 @@ const SuitableCustomerPopup = ({ open = false, onClose, onCancel, setOpen }: Lis
       >
         <div className="w-[1000px] min-h-80 flex flex-col">
           <div className="w-full flex justify-end gap-3">
-            <div className="w-60 h-10 shadow rounded-lg flex items-center gap-2 dark:bg-primary_color_d dark:text-primary_text_d [&_.ant-select-selector]:border-none [&_.ant-select-selector]:!border-transparent [&_.ant-select-selector]:!ring-0">
+            <div className="w-60 h-10 shadow rounded-lg flex items-center gap-2   dark:text-primary_text_d [&_.ant-select-selector]:border-none [&_.ant-select-selector]:!border-transparent [&_.ant-select-selector]:!ring-0">
               <Select
-                className="w-full border-transparent focus:ring-transparent focus:outline-none bg-transparent ring-transparent"
+                className="w-full border-transparent focus:ring-transparent focus:outline-none !dark:bg-background_d ring-transparent"
                 defaultActiveFirstOption
                 value={'0'}
               >
-                <Option value="0">Ngày Tạo mới nhất</Option>
+                <Select.Option value="0">Ngày tạo mới nhất</Select.Option>
+                <Select.Option value="1">Ngày Tạo cũ nhất</Select.Option>
               </Select>
             </div>
-            <div className="w-72 h-10 p-2 shadow rounded-lg flex items-center gap-2 dark:bg-primary_color_d dark:text-primary_text_d">
+            <div className="w-72 h-10 p-2 shadow rounded-lg flex items-center gap-2 dark:bg-background_d dark:text-primary_text_d">
               <SearchIcon width={20} height={20} />
               <input
                 className="border-transparent focus:ring-transparent focus:outline-none bg-transparent flex-1"
