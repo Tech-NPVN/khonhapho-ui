@@ -19,7 +19,7 @@ const FeedInterested = () => {
             bordered={false}
             activeKey={activeKey}
             onChange={(key) => setActiveKey(key as string[])}
-            className="bg-transparent p-0"
+            className="bg-transparent p-0 [&_.ant-collapse-header]:!py-3"
           >
             <Collapse.Panel
               className="dark:text-primary_text_d_2"
@@ -97,7 +97,7 @@ const FeedInterested = () => {
                     marginTop: '16px',
                   }}
                 >
-                  <div className="w-full flex justify-end">
+                  <div className="w-full flex justify-end mb-4">
                     <Button type="primary" htmlType="submit">
                       Cập nhật
                     </Button>

@@ -41,7 +41,7 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
         open={isOpen}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
+        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white rounded-lg"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',
           header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-lg',
@@ -59,14 +59,17 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
       >
         <div className="w-[650px] border-t">
           <div className="flex flex-col pt-1">
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Thời gian báo cáo</div>
               <div className="flex-1 p-2">21/02/2024 07:03:04</div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 capitalize">Họ tên đâu khách</div>
               <div className="flex-1 px-2 flex h-full">
-                <Link className="flex items-center gap-2" href={'/user/id'}>
+                <Link
+                  className="flex items-center gap-2 text-link_text_l dark:text-link_text_d"
+                  href={'/user/id'}
+                >
                   <div className="flex justify-center items-center w-[18px] h-[18px] overflow-hidden rounded-full">
                     <Image
                       className="w-full h-full object-contain"
@@ -80,10 +83,14 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
                 </Link>
               </div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Liên hệ đầu khách</div>
               <div className="flex-1 p-2 flex justify-between">
-                <a href="tel:000000000" target="_blank">
+                <a
+                  className="text-link_text_l dark:text-link_text_d"
+                  href="tel:000000000"
+                  target="_blank"
+                >
                   0828238212
                 </a>
                 <div className="flex gap-1">
@@ -109,7 +116,7 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
                 </div>
               </div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">
                 Thời gian khách xem nhà
               </div>
@@ -117,21 +124,21 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
                 {convertReportingTime(new Date('2024-01-01').toISOString())}
               </div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Họ tên Khách hàng</div>
               <div className="flex-1 p-2 flex justify-between">Nguyễn Bình Minh</div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">CMND/CCCD</div>
               <div className="flex-1 p-2 flex justify-between">{replaceId('099731193999')}</div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-stretch">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-stretch">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Địa chỉ khách ở</div>
               <div className="flex-1 p-2 flex justify-between">
                 102 P. Thái Thịnh, Ngã Tư Sở, Đống Đa, Hà Nội 100000
               </div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-stretch">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-stretch">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Địa chỉ khách xem</div>
               <div className="flex-1 p-2 flex flex-col">
                 <div>
@@ -141,32 +148,32 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
                   Mô tả:
                 </div>
                 <div className="flex gap-2">
-                  <span className="text-link_text_l">#ctnp</span>
-                  <span className="text-link_text_l">#npvn</span>
-                  <span className="text-link_text_l">#np6868</span>
-                  <span className="text-link_text_l">#zxcvbnm</span>
+                  <span className="text-link_text_l dark:text-link_text_d">#ctnp</span>
+                  <span className="text-link_text_l dark:text-link_text_d">#npvn</span>
+                  <span className="text-link_text_l dark:text-link_text_d">#np6868</span>
+                  <span className="text-link_text_l dark:text-link_text_d">#zxcvbnm</span>
                 </div>
               </div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Mục đích mua</div>
               <div className="flex-1 p-2 flex justify-between">Mua để ở</div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Phản hồi khách hàng</div>
               <div className="flex-1 p-2 flex justify-between">
                 Khách thích nhà - vị trí nhà hoặc hẹn chủ nhà sẽ tới xem lại
               </div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Đánh giá chủ nhà</div>
               <div className="flex-1 p-2 flex justify-between">Vui vẻ hợp tác</div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-center">
+            <div className="flex border-b border-black/20 dark:border-white/10 border-0 border-solid items-center">
               <div className="w-[150px] bg-black/5 p-2 flex items-stretch">Ý kiến đầu khách</div>
               <div className="flex-1 p-2 flex justify-between">Hơi tốn thời gian sắp xếp</div>
             </div>
-            <div className="flex border-b border-black/20 border-0 border-solid items-stretch">
+            <div className="flex items-stretch">
               <div className="w-[150px] bg-black/5 p-2 flex items-center">Ảnh dẫn khách</div>
               <div className="flex-1 p-2 flex justify-between">
                 <div className="flex gap-1">
