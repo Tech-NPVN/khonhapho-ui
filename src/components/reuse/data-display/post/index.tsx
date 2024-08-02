@@ -324,15 +324,17 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
             )}
           >
             <div
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
+              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
               onClick={() => {
                 setIsShowBooking(true);
               }}
             >
-              <AlarmIcon />
+              <AlarmIcon width={17} height={20} />
+              <span className="ms-1">Đặt lịch</span>
             </div>
-            <div className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d button cursor-pointer select-none ">
-              <BookmarkIcon className="fill-[#FF4D4F]" />
+            <div className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none">
+              <BookmarkIcon className="fill-[#FF4D4F] scale-90" />
+              <span className="ms-1">Lưu</span>
             </div>
             <div
               className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
@@ -342,12 +344,13 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
               <span className="ms-1">Ghi chú</span>
             </div>
             <div
-              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer"
+              className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md p-2 text-sm dark:text-primary_text_d text-primary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d cursor-pointer select-none"
               onClick={() => {
                 setIsShowReport(true);
               }}
             >
               <CopyDocumentIcon />
+              <span className="ms-1">Báo cáo</span>
             </div>
           </div>
         </div>

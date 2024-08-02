@@ -1,6 +1,14 @@
+'use client';
 import clsx from 'clsx';
 import Image from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { FreeMode, Navigation, Thumbs, Zoom } from 'swiper/modules';
+import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 // 5 ca
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import 'swiper/css/zoom';
 interface ImageGridProps {
   images: string[];
 }
@@ -135,12 +143,137 @@ const Image2 = ({ images }: ImageGridProps) => {
     </div>
   );
 };
-const ImageGrid = ({ images }: ImageGridProps) => {
+const ImageHorizontally = ({ images }: ImageGridProps) => {
+  return (
+    <div className="flex gap-[2px]">
+      {images.slice(0, 4).map((image, index) => (
+        <div className="w-1/4 aspect-square relative" key={image}>
+          <Image
+            className="w-full h-full object-contain"
+            width={1200 / 4}
+            height={1200 / 4}
+            src={image}
+            alt={image}
+          />
+          {index === 3 && images.length > 4 && (
+            <div className="absolute inset-0 bg-black/60 z-10 flex justify-center items-center cursor-default">
+              <span className="text-white text-6xl">+{images.length - 4}</span>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
+
+const ImageSlider = ({
+  images,
+  index = 0,
+}: {
+  images: string[];
+  index?: number;
+  open?: boolean;
+  onClose?: () => void;
+}) => {
+  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
+  const [isShowThumbs, setIsShowThumbs] = useState<boolean>(images.length > 1);
+  const swiperRef = useRef<SwiperRef | null>(null);
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+  console.log(isShowThumbs);
+
+  return (
+    <div className="w-full h-full bg-black fixed top-0 left-0 z-[9999]">
+      <div className="relative w-screen h-screen">
+        <Swiper
+          ref={swiperRef}
+          spaceBetween={10}
+          navigation={true}
+          thumbs={{ swiper: thumbsSwiper }}
+          modules={[FreeMode, Navigation, Thumbs, Zoom]}
+          zoom={{ minRatio: 1, maxRatio: 2 }}
+          className={clsx(
+            '[&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-4 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-4 ',
+            'transition-all ease-in-out duration-200',
+            isShowThumbs ? 'h-[calc(100vh_-_108px)]' : ' h-screen ',
+          )}
+          centeredSlides
+        >
+          {images.map((image) => (
+            <SwiperSlide key={image} className="h-full w-full flex justify-center">
+              <div className="swiper-zoom-container w-full h-full">
+                <Image
+                  className="w-auto max-w-full max-h-full h-full object-contain"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  src={image}
+                  alt={image}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <div
+          className={clsx(
+            'w-full absolute h-[100px] bottom-1 mx-auto my-0 flex justify-center items-center',
+            'transition-all ease-in-out duration-200',
+            isShowThumbs ? '' : 'translate-y-[108px]',
+          )}
+        >
+          <Swiper
+            onSwiper={setThumbsSwiper}
+            spaceBetween={5}
+            freeMode={true}
+            watchSlidesProgress={true}
+            modules={[FreeMode, Navigation, Thumbs]}
+            className="w-[600px] [&_.swiper-slide-thumb-active_.bg]:!opacity-0"
+            slidesPerView={images.length > 6 ? 6 : images.length}
+            style={{ width: `${images.length > 6 ? 6 : images.length}00px` }}
+          >
+            {images.map((image) => (
+              <SwiperSlide
+                key={image}
+                className="h-[100px] w-[100px] bg-black/30 flex justify-center items-center rounded-lg overflow-hidden relative"
+              >
+                <Image
+                  className="h-full w-auto object-contain"
+                  width={120}
+                  height={120}
+                  src={image}
+                  alt={image}
+                />
+                <div className="absolute top-0 left-0 bottom-0 right-0 bg-black/60 z-10 bg"></div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+        <div className="absolute top-0 right-0 z-20">
+          <button
+            onClick={() => {
+              setIsShowThumbs((prev) => !prev);
+            }}
+          >
+            Thumbs
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+const ImageGrid = ({ images, isWarehouse = true }: ImageGridProps & { isWarehouse?: boolean }) => {
+  const [isHorizontally, seIsHorizontally] = useState(isWarehouse);
   return (
     <>
-      {images.length >= 4 && <Image4 images={images} />}
-      {images.length == 3 && <Image3 images={images} />}
-      {images.length <= 2 && <Image2 images={images} />}
+      {!isHorizontally && images.length >= 4 && <Image4 images={images} />}
+      {!isHorizontally && images.length == 3 && <Image3 images={images} />}
+      {!isHorizontally && images.length <= 2 && <Image2 images={images} />}
+      {isHorizontally && <ImageHorizontally images={images} />}
+      {/* <ImageSlider images={images} open={false} /> */}
     </>
   );
 };

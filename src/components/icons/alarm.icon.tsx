@@ -1,11 +1,14 @@
+import clsx from 'clsx';
+
 const AlarmIcon = (props: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="18"
       height="22"
       fill="none"
+      viewBox="0 0 18 22"
       xmlns="http://www.w3.org/2000/svg"
-      className={'fill-primary_text_l dark:fill-primary_text_d ' + props.className}
+      className={clsx('fill-primary_text_l dark:fill-primary_text_d ', props.className)}
       {...props}
     >
       <path
