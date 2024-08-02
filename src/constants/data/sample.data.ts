@@ -74,4 +74,6 @@ const WAREHOUSE_REASON_CONTENT_SAMPLE = `
   <p><strong>Kho hàng</strong> thông minh nhưng phải có <strong>chọn lọc</strong>. Càng chính xác quá sẽ càng làm giảm cơ hội.</p>
 `;
 
-export { CHAT_PREVIEW_SAMPLE, IMAGE_SAMPLE, WAREHOUSE_REASON_CONTENT_SAMPLE };
+const REQUIRED_MSG_SAMPLE = 'Vui lòng không bỏ trống.';
+
+export { CHAT_PREVIEW_SAMPLE, IMAGE_SAMPLE, WAREHOUSE_REASON_CONTENT_SAMPLE, REQUIRED_MSG_SAMPLE };

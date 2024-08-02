@@ -1,6 +1,6 @@
 'use client';
 
-import { SectionBodyWithDescButton } from '@/components/common';
+import { LinkIcon, SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, SearchIcon } from '@/components/icons';
 import { SegmentedOptionProps, SegmentedWithNode } from '@/components/reuse/data-display';
 import { Button, Input } from 'antd';
@@ -64,7 +64,7 @@ export const WarehouseIndex = () => {
           title="Kho tài nguyên"
           description={
             <span className="text-link" onClick={() => setShowModal(true)}>
-              Lý do không lọc Diện tích/Mặt tiền/Hướng
+              Lý do không lọc Diện tích/Mặt tiền/Hướng <LinkIcon />
             </span>
           }
           btn={renderAddButton()}

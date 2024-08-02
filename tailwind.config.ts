@@ -48,6 +48,7 @@ const config: Config = {
         divider_d: '#6B6C6D',
         account_d: '#374665',
         frame_blur_d: 'rgba(56, 56, 56, 0.6)',
+        disable_d: '#0E1727',
       },
     },
   },
