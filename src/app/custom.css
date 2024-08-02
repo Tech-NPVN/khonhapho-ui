@@ -62,8 +62,12 @@
   @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
 }
 
+.ant-input-outlined {
+  @apply !bg-transparent;
+}
+
 .ant-input-number {
-  @apply !bg-transparent dark:!border-divider_d;
+  @apply dark:!border-divider_d;
 }
 
 .ant-input,
@@ -154,5 +158,10 @@ label {
 .ant-input-affix-wrapper,
 .ant-select,
 .ant-picker {
-  @apply dark:!border-divider_d;
+  @apply dark:!border-divider_d rounded-lg;
+}
+
+.ant-select-outlined.ant-select-disabled:not(.ant-select-customize-input) .ant-select-selector,
+.ant-input-disabled {
+  @apply !bg-tiertiary_input_color_l/70 dark:!bg-disable_d/50;
 }
