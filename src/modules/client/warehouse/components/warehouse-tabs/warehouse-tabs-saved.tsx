@@ -60,7 +60,7 @@ const WarehouseTabsSaved = () => {
 
   return (
     <>
-      <WarehouseTable columns={columns} data={dataSource} />{' '}
+      <WarehouseTable columns={columns} data={dataSource} />
       <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
     </>
   );

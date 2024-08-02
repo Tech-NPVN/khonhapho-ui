@@ -20,7 +20,7 @@ const SectionBody = ({ title, children, className }: SectionBodyProps) => {
   );
 };
 
-const Icon = () => {
+const LinkIcon = () => {
   return (
     <svg
       stroke="currentColor"
@@ -55,7 +55,7 @@ const SectionBodyWithDesc = ({
       <div>
         <h3 className="uppercase text-[17px] mb-0">{title}</h3>
         <span className="text-xs">
-          {description} <Icon />
+          {description}
         </span>
       </div>
       <Divider className="bg-background_l dark:bg-background_d" />
@@ -78,9 +78,7 @@ const SectionBodyWithDescButton = ({
       <div className="flex items-center justify-between">
         <div>
           <h3 className="uppercase text-[17px] mb-1">{title}</h3>
-          <div className="flex gap-2 text-link_text_l dark:text-link_text_d">
-            {description} <Icon />
-          </div>
+          <div className="flex gap-2 text-link_text_l dark:text-link_text_d">{description}</div>
         </div>
         {btn}
       </div>
@@ -90,4 +88,4 @@ const SectionBodyWithDescButton = ({
   );
 };
 
-export { SectionBody, SectionBodyWithDesc, SectionBodyWithDescButton };
+export { SectionBody, SectionBodyWithDesc, SectionBodyWithDescButton, LinkIcon };
