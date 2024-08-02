@@ -71,10 +71,17 @@ export const ModalBooking = ({
             format={DATE_TIME_FORMAT}
             placeholder="Chọn thời gian xem nhà"
             minDate={dayjs(new Date())}
-            disabledTime={(currentDate) => ({
-              disabledHours: () => range(0, 24).splice(0, currentDate.get('hours')),
-              disabledMinutes: () => range(0, 60).splice(0, currentDate.get('minutes')),
-            })}
+            disabledTime={(currentDate) => {
+              const now = dayjs();
+              if (currentDate.isSame(now, 'day')) {
+                return {
+                  disabledHours: () => range(0, 24).splice(0, now.hour()),
+                  disabledMinutes: () => range(0, 60).splice(0, now.minute() + 30),
+                };
+              }
+
+              return {};
+            }}
           />
         </Form.Item>
 

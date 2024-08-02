@@ -1,4 +1,4 @@
-import { ChangeIcon, EyeSlashIcon, ShareArrowIcon } from '@/components/icons';
+import { ChangeIcon, EyeSlashIcon } from '@/components/icons';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import { Badge, Button, Select, Table, Tag, type TableProps } from 'antd';
 import { WarehouseStatusEnum, WarehouseType } from './warehouse.type';
@@ -7,7 +7,6 @@ import Image from 'next/image';
 import { compareWarehouseStatus } from './warehouse.util';
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { useState } from 'react';
-import ScrollContainer from 'react-indiana-drag-scroll';
 
 export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {
@@ -23,7 +22,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     dataIndex: 'status',
     align: 'center',
     className: 'border-0',
-
     render: (status: string) => <Tag>{compareWarehouseStatus[status]}</Tag>,
   },
   {
@@ -31,7 +29,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'address',
     dataIndex: 'address',
     className: 'border-0',
-
     render: (address: string) => <span className="font-medium">{address}</span>,
   },
   {
@@ -39,7 +36,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'city',
     dataIndex: 'city',
     className: 'border-0',
-
     render: (city: string) => <span className="font-medium">{city}</span>,
   },
   {
@@ -47,7 +43,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'district',
     dataIndex: 'district',
     className: 'border-0',
-
     render: (district: string) => <span className="font-medium">{district}</span>,
   },
   {
@@ -61,7 +56,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'price',
     dataIndex: 'price',
     className: 'border-0',
-
     render: (price: WarehouseType['price']) => {
       return (
         <span className="font-medium">
@@ -75,7 +69,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'million_per_square_meters',
     dataIndex: 'million_per_square_meters',
     className: 'border-0',
-
     render: (value: number) => {
       return <Tag color={value < 100 ? '#3FB44B' : ''}>{value}tr/m²</Tag>;
     },
@@ -85,7 +78,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'owner.name',
     dataIndex: 'owner',
     className: 'border-0',
-
     render: (owner: WarehouseType['owner']) => (
       <a href={owner.profile_url} className="text-primary_text_l dark:text-primary_text_d">
         {owner.name}
@@ -97,7 +89,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'owner.phone_number',
     dataIndex: 'owner',
     className: 'border-0',
-
     render: (owner: WarehouseType['owner']) => {
       const { phone_number, contact } = owner;
 
@@ -145,20 +136,6 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'feature',
     dataIndex: 'feature',
     className: 'border-0',
-  },
-  {
-    title: 'Xem',
-    align: 'center',
-    key: 'view',
-    fixed: 'right',
-    width: 50,
-    render: () => {
-      return (
-        <div className="flex justify-center">
-          <Button type="text" icon={<ShareArrowIcon />} />
-        </div>
-      );
-    },
   },
 ];
 
