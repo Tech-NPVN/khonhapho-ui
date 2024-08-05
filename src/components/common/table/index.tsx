@@ -1,4 +1,5 @@
-import { Col, Popover, Row, Switch, type TableProps } from 'antd';
+import { ReloadDownIcon } from '@/components/icons';
+import { Button, Col, message, Popover, Row, Switch, type TableProps } from 'antd';
 import { TooltipPlacement } from 'antd/es/tooltip';
 import { Dispatch, SetStateAction, useCallback, useMemo, useState } from 'react';
 
@@ -18,12 +19,27 @@ const useColumnVisibility = <T,>(initialColumns: TableProps<T>['columns']) => {
     return initialColumns!.filter((column) => columnsVisibility[column.key as string]);
   }, [columnsVisibility, initialColumns]);
 
+  const resetColumnVisibility = useCallback(() => {
+    setColumnsVisibility(
+      initialColumns!.reduce((acc, column) => {
+        acc[column.key as string] = true;
+        return acc;
+      }, {} as Record<string, boolean>),
+    );
+  }, [initialColumns]);
+
   const hiddenColumnsCount = useMemo(
     () => initialColumns!.length - visibleColumns.length,
     [initialColumns, visibleColumns.length],
   );
 
-  return { columnsVisibility, toggleColumnVisibility, visibleColumns, hiddenColumnsCount };
+  return {
+    columnsVisibility,
+    toggleColumnVisibility,
+    visibleColumns,
+    hiddenColumnsCount,
+    resetColumnVisibility,
+  };
 };
 
 type PopoverVisibilityColumnsProps<T> = {
@@ -32,6 +48,7 @@ type PopoverVisibilityColumnsProps<T> = {
   columns: TableProps<T>['columns'];
   columnsVisibility: Record<string, boolean>;
   toggleColumnVisibility: (key: string, visible: boolean) => void;
+  resetColumnVisibility: () => void;
   children: React.ReactNode;
   className?: string;
   title?: string;
@@ -45,10 +62,15 @@ const PopoverVisibilityColumns = <T,>({
   columns,
   columnsVisibility,
   toggleColumnVisibility,
+  resetColumnVisibility,
   children,
   className,
   ...props
 }: PopoverVisibilityColumnsProps<T>) => {
+  const [messageApi, contextHolder] = message.useMessage();
+
+  const visibleColumnCount = Object.values(columnsVisibility).filter(Boolean).length;
+
   const renderContent = useCallback(() => {
     return (
       <Row gutter={[10, 10]} className="w-72">
@@ -58,20 +80,38 @@ const PopoverVisibilityColumns = <T,>({
               <Switch
                 size="small"
                 checked={columnsVisibility[column.key as string]}
-                onChange={(value) => toggleColumnVisibility(column.key as string, value)}
+                onChange={(value) => {
+                  if (visibleColumnCount <= 1 && !value) {
+                    messageApi.info('Cần ít nhất 1 cột để hiển thị.');
+                    return;
+                  }
+                  toggleColumnVisibility(column.key as string, value);
+                }}
               />
               <span>{column.title?.toString()}</span>
             </div>
           </Col>
         ))}
+        {visibleColumnCount < columns!.length && (
+          <Col span={24}>
+            <Button onClick={resetColumnVisibility} className="w-full mt-3" icon={<ReloadDownIcon />}>
+              Đặt lại
+            </Button>
+          </Col>
+        )}
       </Row>
     );
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [columns, columnsVisibility, toggleColumnVisibility]);
 
   return (
-    <Popover open={open} content={renderContent()} onOpenChange={setOpen} {...props}>
-      {children}
-    </Popover>
+    <>
+      {contextHolder}
+      <Popover open={open} content={renderContent()} onOpenChange={setOpen} {...props}>
+        {children}
+      </Popover>
+    </>
   );
 };
 

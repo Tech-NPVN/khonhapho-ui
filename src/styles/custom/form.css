@@ -1,0 +1,8 @@
+/* Form */
+.ant-form-item-explain {
+  @apply mb-3 mt-1;
+}
+
+label {
+  @apply dark:!text-primary_color_l;
+}

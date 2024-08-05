@@ -1,2 +1,3 @@
 export * from './components';
-export * from './components/warehouse-create';
+
+export * from './warehouse.model';

@@ -14,7 +14,7 @@ import {
   WarehouseTabsList,
   WarehouseTabsSaved,
 } from './warehouse-tabs';
-import { ModalReasonDecs } from './modals';
+import { ModalReasonDecs } from '@/common/modal';
 
 const WAREHOUSE_TABS: SegmentedOptionProps[] = [
   {
@@ -63,9 +63,9 @@ export const WarehouseIndex = () => {
         <SectionBodyWithDescButton
           title="Kho tài nguyên"
           description={
-            <span className="text-link" onClick={() => setShowModal(true)}>
+            <button className="text-link bg-transparent border-0 p-0" onClick={() => setShowModal(true)}>
               Lý do không lọc Diện tích/Mặt tiền/Hướng <LinkIcon />
-            </span>
+            </button>
           }
           btn={renderAddButton()}
         >

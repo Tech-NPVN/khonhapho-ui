@@ -1,0 +1,14 @@
+/* Select */
+.ant-select > .ant-select-selector {
+  @apply dark:!border-divider_d dark:!bg-primary_color_d !rounded-lg;
+}
+
+.ant-select > .ant-select-selector > .ant-select-selection-search,
+.ant-select > .ant-select-selector > .ant-select-selection-placeholder {
+  @apply !text-sm dark:text-primary_text_d dark:!text-primary_text_d/50 text-left;
+}
+
+.ant-select-selection-item,
+.ant-select-arrow {
+  @apply dark:!text-primary_text_d text-sm;
+}

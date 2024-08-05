@@ -1,0 +1,9 @@
+/* Button */
+.ant-btn-icon,
+.ant-btn.ant-btn-icon-only {
+  @apply !flex !items-center !justify-center;
+}
+
+.ant-btn.ant-btn-text {
+  @apply dark:!text-primary_text_d;
+}
