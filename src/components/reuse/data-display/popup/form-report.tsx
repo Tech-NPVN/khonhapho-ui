@@ -333,7 +333,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                   </div>
                 )}
               </div>
-              <div className="flex items-stretch mb-3">
+              <div className="flex items-stretch mb-3 [&_.ant-upload-list-item-actions]:flex [&_.ant-upload-list-item-actions]:justify-center">
                 <div className="w-64 flex ps-1">Tải ảnh lên (tối đa 5 ảnh)</div>
                 <div className="flex-1">
                   <Upload

@@ -1,12 +1,20 @@
+'use client';
+import FormUrgentlyPopup, {
+  FieldFormUrgentlyPopupType,
+} from '@/components/reuse/data-display/popup/form-urgently';
 import PostDetail from '@/components/reuse/data-display/post';
 import Image from 'next/image';
+import { useState } from 'react';
 
 const UrgentlyPage = () => {
+  const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+  const [defaultValue, setDefaultValue] = useState<FieldFormUrgentlyPopupType>();
   return (
     <>
       <div className="w-full px-20">
         <div className="mt-6 bg-primary_color_l dark:bg-primary_color_d w-full rounded-lg shadow p-4">
-          <h1 className="font-semibold text-xl dark:text-primary_text_d_2 text-primary_text_l">
+          <h1 className="font-semibold text-xl dark:text-primary_text_d_2 text-primary_text_l ">
             Tạo bài viết
           </h1>
           <div className="flex mb-2 mt-6">
@@ -19,10 +27,21 @@ const UrgentlyPage = () => {
                 alt="..."
               />
             </div>
-            <input
-              className="ms-2 px-3 rounded-2xl border-none focus:outline-none flex-1 bg-background_l"
-              placeholder="Bắt đầu 1 bài viết"
-            />
+            <div
+              className="ms-2 px-3 rounded-2xl border-none focus:outline-none flex-1 bg-background_l dark:bg-background_d flex items-center cursor-pointer text-text dark:text-secondary_text_d text-secondary_text_l select-none"
+              onClick={() => {
+                setIsOpenForm(true);
+                setDefaultValue({
+                  area: '',
+                  city: undefined,
+                  district: undefined,
+                  price: '',
+                  request: '',
+                });
+              }}
+            >
+              Bắt đầu một bài viết...
+            </div>
           </div>
         </div>
         <div className="w-full mt-6 bg-white h-10 dark:bg-primary_color_d rounded-lg shadow-sm flex items-center">
@@ -65,10 +84,29 @@ const UrgentlyPage = () => {
                               `,
                 images: [],
               }}
+              isUrgently
+              threeDotEvents={{
+                editEvent() {
+                  setIsOpenForm(true);
+                  setDefaultValue({
+                    city: 'ha-noi',
+                    district: 'dong-da',
+                    area: '102m²',
+                    price: '15 tỷ',
+                    request: 'Mua để ở',
+                  });
+                },
+              }}
             />
           ))}
         </div>
       </div>
+      <FormUrgentlyPopup
+        open={isOpenForm}
+        value={defaultValue}
+        setOpen={setIsOpenForm}
+        isUpdate={isUpdate}
+      />
     </>
   );
 };

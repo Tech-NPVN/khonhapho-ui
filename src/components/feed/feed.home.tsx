@@ -1,19 +1,111 @@
+'use client';
+
+import clsx from 'clsx';
 import Image from 'next/image';
+import { useRef, useState } from 'react';
+import { Autoplay } from 'swiper/modules';
+import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import HomePinComponent from '../pin/pin';
 import PostDetail from '../reuse/data-display/post';
 
 const FeedHome = () => {
+  const [bannerIndex, setBannerIndex] = useState<number>(0);
+  const progressCircle = useRef<SVGSVGElement>(null);
+  const progressContent = useRef<HTMLSpanElement>(null);
+  const swiperRef = useRef<SwiperRef>(null);
+  const onAutoplayTimeLeft = (swiper: SwiperClass, time: number, progress: number) => {
+    if (progressCircle.current && progressContent.current) {
+      progressCircle.current.style.strokeDashoffset = `calc(125.6px * (1 - ${1 - progress}))`;
+      progressContent.current.textContent = `${Math.ceil(time / 1000)}`;
+    }
+  };
   return (
-    <>
+    <div className="w-full mt-6">
       <div className="w-full">
-        <div className="w-full aspect-[5/2] overflow-hidden rounded-lg">
-          <Image
-            className="w-full max-h-full object-cover"
-            width={1440}
-            height={630}
-            src={'/images/banner.png'}
-            alt="???"
-          ></Image>
+        <div className="w-full aspect-[10/4] overflow-hidden rounded-lg relative">
+          <Swiper
+            ref={swiperRef}
+            autoplay={{
+              delay: 5000,
+              pauseOnMouseEnter: true,
+              waitForTransition: true,
+              disableOnInteraction: false,
+            }}
+            spaceBetween={10}
+            modules={[Autoplay]}
+            loop={true}
+            onAutoplayTimeLeft={onAutoplayTimeLeft}
+            onSlideChange={(swiper: SwiperClass) => {
+              setBannerIndex(swiper.realIndex);
+            }}
+          >
+            <SwiperSlide>
+              <Image
+                className="w-full h-auto max-h-full object-cover"
+                width={0}
+                height={0}
+                src={'/images/banner.png'}
+                sizes="100vw"
+                alt="???"
+              />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Image
+                className="w-full h-auto max-h-full object-cover"
+                width={0}
+                height={0}
+                src={'/images/banner-2.png'}
+                sizes="100vw"
+                alt="???"
+              />
+            </SwiperSlide>
+          </Swiper>
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 z-10">
+            {Array.from({ length: 2 }).map((_, index) => {
+              return (
+                <div
+                  key={index}
+                  className={clsx(
+                    'w-3 h-3 rounded-full',
+                    index === bannerIndex ? 'bg-white' : 'bg-white/40',
+                  )}
+                  onClick={() => {
+                    swiperRef.current?.swiper.slideTo(index);
+                  }}
+                ></div>
+              );
+            })}
+          </div>
+          <div className="absolute bottom-3 right-3 flex items-center">
+            <div className="relative w-9 h-9 flex items-center justify-center">
+              <svg
+                className="stroke-white/25 z-10 absolute top-0 left-0"
+                width={36}
+                height={36}
+                viewBox="0 0 48 48"
+                strokeWidth={4}
+                fill="none"
+                strokeDasharray={511.2}
+              >
+                <circle cx={24} cy={24} r={20} />
+              </svg>
+              <svg
+                className="stroke-white dark:stroke-background_l -rotate-90 z-10 absolute top-0 left-0"
+                width={36}
+                height={36}
+                viewBox="0 0 48 48"
+                ref={progressCircle}
+                strokeWidth={4}
+                fill="none"
+                strokeDasharray={125.6}
+              >
+                <circle cx={24} cy={24} r={20} />
+              </svg>
+              <span className="text-white dark:text-background_l z-10" ref={progressContent}>
+                5
+              </span>
+            </div>
+          </div>
         </div>
       </div>
       <div className=" mt-6">
@@ -56,13 +148,30 @@ const FeedHome = () => {
               content: `Tôi có khách cần mua gấp, kính nhờ anh chị
                               em tìm hộ giúp tôi. Tiêu chí khách:<br/>
                               <b>Khu vực</b>: Hà Nội
+                              <br>
+                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                              <br>
+                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                              <br>
+                              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                              <br> 
+                              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              <br>
+                              Lorem ipsum dolor sit amet, con in culpa qui officia deserunt mollit anim id est laborum.
                               `,
-              images: [],
+              images: [
+                '/images/post-1.jpeg',
+                '/images/post-2.jpeg',
+                '/images/post-3.jpeg',
+                '/images/post-4.jpeg',
+                '/images/post-5.jpeg',
+                '/images/post-6.jpeg',
+              ],
             }}
           />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

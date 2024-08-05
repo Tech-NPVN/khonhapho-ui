@@ -2,9 +2,8 @@
 import ChatPreviewComponent from '@/components/chat/chat-preview';
 import FeedHome from '@/components/feed/feed.home';
 import FeedInterested from '@/components/feed/feed.interested';
-import { TabList, TabPane } from '@/components/reuse/data-display';
+import { Segmented } from '@/components/reuse/data-display';
 import { CHAT_PREVIEW_SAMPLE } from '@/constants/data';
-const TABS = ['Bản tin', 'Bạn quan tâm'];
 
 const Home = () => {
   return (
@@ -12,25 +11,22 @@ const Home = () => {
       <div className="w-[calc(100%_-_406px)] ms-[60px] flex justify-center">
         <div className="w-full">
           <div className="mt-4 w-full">
-            <TabList
-              items={TABS}
-              name="tab-list-1"
-              defaultIndex={0}
-              classNames={{
-                tab: 'py-2 text-bold uppercase',
-                tabActive: 'bg-[green]',
-                textActive: 'text-white',
-              }}
-              className="bg-white shadow-sm"
+            <Segmented
+              options={[
+                {
+                  label: 'Trang chủ',
+                  component: <FeedHome />,
+                  value: 'home',
+                },
+                {
+                  label: 'Bạn quan tâm',
+                  component: <FeedInterested />,
+                  value: 'interested',
+                },
+              ]}
+              size="middle"
+              block
             />
-          </div>
-          <div className="mt-6 w-full">
-            <TabPane name="tab-list-1" tabIndex={0}>
-              <FeedHome />
-            </TabPane>
-            <TabPane name="tab-list-1" tabIndex={1}>
-              <FeedInterested />
-            </TabPane>
           </div>
         </div>
       </div>

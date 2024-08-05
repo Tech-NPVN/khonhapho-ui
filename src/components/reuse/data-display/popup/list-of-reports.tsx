@@ -133,9 +133,7 @@ const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
               columns={columns}
               dataSource={data}
               pagination={false}
-              rowClassName={
-                'even:bg-white dark:even:bg-[#151e2f] dark:bg-primary_color_d even:dark:bg-transparent'
-              }
+              rowClassName={'even:bg-black/5 dark:even:bg-background_d dark:bg-primary_color_d '}
               className="dark:[&_thead_tr_th]:!bg-divider_d "
             />
           </div>
