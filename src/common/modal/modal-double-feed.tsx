@@ -1,13 +1,20 @@
 import { SearchIcon } from '@/components/icons';
 import { Empty, Input, Modal } from 'antd';
 
+/**
+ * Modal Double Feed - Modal Nhân bản tin đăng (thêm/sửa tin trong kho)
+ *
+ * @property {boolean} [open]
+ * @property {() => void} [handleCancel]
+ * @returns {JSX.Element}
+ */
 export const ModalDoubleFeed = ({
   open,
   handleCancel,
 }: {
   open: boolean;
   handleCancel: () => void;
-}) => {
+}): JSX.Element => {
   return (
     <Modal title="Tin của bạn" open={open} onCancel={handleCancel} width={500} footer={null}>
       <div className="flex justify-end my-3">

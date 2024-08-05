@@ -3,8 +3,9 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { sfProPlayFont } from '@/configs/font.config';
 import AppProvider from '@/provider';
 import Favicon from '~public/favicon.ico';
-import './globals.css';
-import './custom.css';
+
+import '@/styles/globals.css';
+import '@/styles/index.css';
 
 export const metadata: Metadata = {
   title: 'Nhà Phố Việt Nam',

@@ -1,9 +1,10 @@
 import { Button, DatePicker, Divider, Form, Input, Modal } from 'antd';
 import { z } from 'zod';
-import { WarehouseBooking } from '../../warehouse.model';
 import { createSchemaFieldRule } from 'antd-zod';
 import dayjs from 'dayjs';
 import { DATE_TIME_FORMAT, TIME_FORMAT } from '@/constants/data';
+import { WarehouseBooking } from '@/modules/client/warehouse/warehouse.model';
+import { range } from '@/utilities/func.util';
 
 const BookingSchema = z.object({
   viewed_date: z.preprocess((arg) => {
@@ -19,21 +20,20 @@ type BookingSchemaType = z.infer<typeof BookingSchema>;
 
 const rule = createSchemaFieldRule(BookingSchema);
 
-const range = (start: number, end: number) => {
-  const result = [];
-  for (let i = start; i < end; i++) {
-    result.push(i);
-  }
-  return result;
-};
-
+/**
+ * Modal booking - Modal Đặt lịch hẹn
+ *
+ * @property {boolean} [open]
+ * @property {() => void} [handleCancel]
+ * @returns {JSX.Element}
+ */
 export const ModalBooking = ({
   open,
   handleCancel,
 }: {
   open: boolean;
   handleCancel: () => void;
-}) => {
+}): JSX.Element => {
   const [form] = Form.useForm<BookingSchemaType>();
 
   const handleSubmit = async (values: BookingSchemaType) => {
@@ -76,7 +76,7 @@ export const ModalBooking = ({
               if (currentDate.isSame(now, 'day')) {
                 return {
                   disabledHours: () => range(0, 24).splice(0, now.hour()),
-                  disabledMinutes: () => range(0, 60).splice(0, now.minute() + 30),
+                  disabledMinutes: () => range(0, 60).splice(0, now.minute()),
                 };
               }
 

@@ -1,0 +1,36 @@
+/* Input */
+.ant-input-prefix {
+  margin-inline-end: 10px !important;
+}
+
+.ant-input,
+.ant-input-number-input {
+  @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+.ant-input-outlined {
+  @apply !bg-transparent;
+}
+
+.ant-input-number {
+  @apply dark:!border-divider_d !bg-transparent;
+}
+
+.ant-input,
+.ant-input-number,
+.ant-input-wrapper.ant-input-group {
+  @apply h-full !rounded-s-lg;
+}
+
+.ant-input-number-group-addon,
+.ant-input-group-addon {
+  @apply !rounded-e-lg dark:!border-divider_d !bg-transparent;
+}
+
+.ant-input-number-group-addon > .ant-select > .ant-select-selector {
+  @apply !border-0;
+}
+
+.ant-input-affix-wrapper {
+  @apply items-center;
+}

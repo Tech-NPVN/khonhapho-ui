@@ -7,7 +7,6 @@ import { CommentIcon } from '@/components/icons/comment.icon';
 import { CopyDocumentIcon } from '@/components/icons/copy-document.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { NoteIcon } from '@/components/icons/note.icon';
-import { ModalBooking } from '@/modules/client/warehouse/components/modals';
 import { Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -24,6 +23,7 @@ import SuitableCustomerPopup from '../popup/suitable-customer';
 import Rating from '../rating';
 import ShareComponent from '../share';
 import ThreeDot from './three-dot';
+import { ModalBooking } from '@/common/modal';
 
 export interface IPostDetail {
   id?: string;

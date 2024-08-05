@@ -24,10 +24,17 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onerror = (error) => reject(new Error());
   });
 
-const useUpload = (): UseUpload => {
+const useUpload = (initialUrls?: string[]): UseUpload => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>(
+    initialUrls?.map((url, index) => ({
+      uid: `-${index}`,
+      name: `image${index}.png`,
+      status: 'done',
+      url,
+    })) ?? [],
+  );
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {

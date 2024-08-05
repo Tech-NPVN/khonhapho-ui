@@ -1,7 +1,7 @@
 import { REQUIRED_MSG_SAMPLE } from '@/constants/data';
 import { z } from 'zod';
 
-const WarehouseCreateSchema = z.object({
+const WarehouseFormSchema = z.object({
   property_type: z
     .string({ message: 'Vui lòng chọn loại hình.' })
     .min(1, 'Vui lòng chọn loại hình.'),
@@ -20,7 +20,10 @@ const WarehouseCreateSchema = z.object({
   contract_type: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
   bonus_referral: z.coerce.number().min(0, 'Tối thiểu 0%').max(30, 'Tối đa 30%').optional(),
   title: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
-  content: z.string({ message: REQUIRED_MSG_SAMPLE }).min(50, 'Ít nhất 50 từ'),
+  content: z
+    .string({ message: REQUIRED_MSG_SAMPLE })
+    .min(50, 'Tối thiểu 50 từ')
+    .max(3000, 'Tối đa 3000 ký tự'),
   legal_status: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
   number_certificate: z.array(z.string()).optional(),
   owner_phone: z.string({ message: REQUIRED_MSG_SAMPLE }).length(10, 'SĐT phải đủ 10 số.').trim(),
@@ -32,6 +35,6 @@ const WarehouseCreateSchema = z.object({
   audios: z.any().optional(),
 });
 
-type WarehouseCreateSchemaType = z.infer<typeof WarehouseCreateSchema>;
+type WarehouseCreateSchemaType = z.infer<typeof WarehouseFormSchema>;
 
-export { WarehouseCreateSchema, type WarehouseCreateSchemaType };
+export { WarehouseFormSchema as WarehouseCreateSchema, type WarehouseCreateSchemaType };

@@ -1,0 +1,12 @@
+/* Date picker */
+.ant-picker {
+  @apply w-full;
+}
+
+.ant-picker > .ant-picker-input > input {
+  @apply !text-sm dark:!text-primary_text_d dark:placeholder:!text-primary_text_d/50;
+}
+
+.ant-picker > .ant-picker-input > .ant-picker-suffix > span {
+  @apply dark:text-primary_color_l;
+}

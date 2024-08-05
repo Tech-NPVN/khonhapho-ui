@@ -10,7 +10,7 @@ import {
   ShareArrowIcon,
 } from '@/components/icons';
 import { useState } from 'react';
-import { ModalBooking } from '../modals';
+import { ModalBooking } from '@/common/modal';
 import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
 
 const dataSource: WarehouseType[] = Array.from({ length: 15 }, () => ({ ...data }));

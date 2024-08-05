@@ -1,0 +1,4 @@
+/* Upload */
+.ant-upload.ant-upload-select {
+  @apply !border-0 !rounded-xl !bg-tiertiary_input_color_l dark:!bg-background_d;
+}
