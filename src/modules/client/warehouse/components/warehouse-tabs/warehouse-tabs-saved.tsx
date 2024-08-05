@@ -10,7 +10,7 @@ import {
 } from '@/components/icons';
 import { ColumnsType } from 'antd/es/table';
 import { useState } from 'react';
-import { ModalBooking } from '../modals';
+import { ModalBooking } from '@/common/modal';
 import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
 import NotePopup from '@/components/reuse/data-display/popup/note';
 

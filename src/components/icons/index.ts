@@ -89,6 +89,7 @@ export * from './three-dot.icon';
 export * from './training-schedule.icon';
 export * from './trash.icon';
 
+export * from './upload.icon';
 export * from './user.icon';
 
 export * from './view.icon';

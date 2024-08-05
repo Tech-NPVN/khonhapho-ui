@@ -2,9 +2,10 @@
 
 import { SectionBody, UploadInput } from '@/components/common';
 import { Button, Col, Form, Input, Row, Select, Tooltip } from 'antd';
-import { WarehouseCreateSchema, WarehouseCreateSchemaType } from './warehouse-create.schema';
+import { WarehouseCreateSchema, WarehouseCreateSchemaType } from './warehouse.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import {
+  SELECT_BONUS_TYPE,
   SELECT_CONTRACT_TYPE,
   SELECT_LEGAL_STATUS,
   SELECT_PROPERTY_FEATURE,
@@ -12,23 +13,8 @@ import {
 } from '@/constants/data';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import { useCallback, useState } from 'react';
-import { ModalDoubleFeed } from '../modals';
 import useUpload from '@/hooks/use-upload';
-
-const SELECT_BONUS_TYPE = [
-  {
-    value: 'percent',
-    display_value: '%',
-  },
-  {
-    value: 'million',
-    display_value: 'Triệu',
-  },
-  {
-    value: 'billion',
-    display_value: 'Tỷ',
-  },
-];
+import { ModalDoubleFeed } from '@/common/modal';
 
 const DISABLE_PROPERTY_FEAT_MAPPING: { [key: string]: string[] } = {
   'mat-pho': ['ngo-oto', 'ngo-3-gac', 'ngo-xe-may'],
@@ -40,7 +26,13 @@ const DISABLE_PROPERTY_FEAT_MAPPING: { [key: string]: string[] } = {
 
 const rule = createSchemaFieldRule(WarehouseCreateSchema);
 
-export const WarehouseCreateIndex = () => {
+/**
+ * Warehouse Form - Form thêm/sửa tin trong kho
+ *
+ * @property {string} [id] - (Optinal) Truyền id trong trường hợp sửa tin
+ * @returns {JSX.Element}
+ */
+export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
   const [openDoubleFeed, setOpenDoubleFeed] = useState<boolean>(false);
   const [propsFeatureOption, setPropsFeatureOption] = useState(
     SELECT_PROPERTY_FEATURE.map((option) => ({
@@ -48,7 +40,7 @@ export const WarehouseCreateIndex = () => {
       value: option.code,
     })),
   );
-  
+
   const [form] = Form.useForm<WarehouseCreateSchemaType>();
   const legal_status = Form.useWatch('legal_status', form);
 
@@ -56,7 +48,7 @@ export const WarehouseCreateIndex = () => {
   const videosUpload = useUpload();
   const privateImagesUpload = useUpload();
   const audiosUpload = useUpload();
-  
+
   const handleSelectPropertyFeat = useCallback((values: string[]) => {
     const disabledOptions = new Set<string>();
 
@@ -86,7 +78,7 @@ export const WarehouseCreateIndex = () => {
   return (
     <>
       <div className="pt-4 pr-4">
-        <SectionBody title="Đăng tin">
+        <SectionBody title={`${id ? 'Sửa tin' : 'Đăng tin'}`}>
           <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Row gutter={40}>
               {/* Left column */}
@@ -352,7 +344,13 @@ export const WarehouseCreateIndex = () => {
                       rules={[rule]}
                       required
                     >
-                      <Input.TextArea size="large" rows={6} placeholder="Nội dung ..." />
+                      <Input.TextArea
+                        size="large"
+                        rows={6}
+                        showCount
+                        maxLength={3000}
+                        placeholder="Nội dung ..."
+                      />
                     </Form.Item>
                   </Col>
 
@@ -437,6 +435,7 @@ export const WarehouseCreateIndex = () => {
                   <UploadInput
                     {...imagesUpload}
                     maxCount={12}
+                    multiple
                     accept=".jpg, .jpeg, .png, .webm, .heic"
                   />
                 </Form.Item>
@@ -450,6 +449,7 @@ export const WarehouseCreateIndex = () => {
                   <UploadInput
                     {...videosUpload}
                     maxCount={4}
+                    multiple
                     accept=".mp4, .mov, .hevc, .webm, .m4v"
                   />
                 </Form.Item>
@@ -464,6 +464,7 @@ export const WarehouseCreateIndex = () => {
                   <UploadInput
                     {...privateImagesUpload}
                     maxCount={20}
+                    multiple
                     accept=".jpg, .jpeg, .png, .webm, .heic"
                   />
                 </Form.Item>
@@ -477,6 +478,7 @@ export const WarehouseCreateIndex = () => {
                   <UploadInput
                     {...audiosUpload}
                     maxCount={4}
+                    multiple
                     accept=".mp3, .wav, .ogg, .aac, .m4a"
                   />
                 </Form.Item>
@@ -484,7 +486,7 @@ export const WarehouseCreateIndex = () => {
             </Row>
 
             <Button type="primary" htmlType="submit" size="large" className="w-full mt-5">
-              Đăng tin
+              {id ? 'Sửa tin' : 'Đăng tin'}
             </Button>
           </Form>
         </SectionBody>

@@ -1,0 +1,23 @@
+@import './custom/button.css';
+@import './custom/collapse.css';
+@import './custom/date-picker.css';
+@import './custom/form.css';
+@import './custom/input.css';
+@import './custom/segmented.css';
+@import './custom/select.css';
+@import './custom/spin.css';
+@import './custom/table.css';
+@import './custom/upload.css';
+
+/* Common */
+.ant-input,
+.ant-input-affix-wrapper,
+.ant-select,
+.ant-picker {
+  @apply dark:!border-divider_d rounded-lg;
+}
+
+.ant-select-outlined.ant-select-disabled:not(.ant-select-customize-input) .ant-select-selector,
+.ant-input-disabled {
+  @apply !bg-tiertiary_input_color_l/30 dark:!bg-disable_d/50;
+}

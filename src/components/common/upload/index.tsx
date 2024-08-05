@@ -1,38 +1,57 @@
-import { AddIcon } from '@/components/icons';
+import { UploadIcon } from '@/components/icons';
 import { UseUpload } from '@/hooks/use-upload';
 import { Image, Upload } from 'antd';
 
 const uploadButton = (
-  <button style={{ border: 0, background: 'none', cursor: 'pointer' }} type="button">
-    <AddIcon className="[&>path]:fill-primary_color_d dark:[&>path]:fill-primary_color_l" />
-    <div style={{ marginTop: 8 }}>Tải lên</div>
+  <button className="border-0 bg-transparent cursor-pointer flex items-center gap-2" type="button">
+    <UploadIcon />
+    <span className='text-primary_text_l/50 dark:text-primary_text_d/50 font-medium'>Tải lên</span>
   </button>
 );
 
-const UploadInput = ({ ...props }: UseUpload & { maxCount: number; accept: string }) => {
+type UploadInputProps = UseUpload & {
+  maxCount: number;
+  accept: string;
+  multiple?: boolean;
+};
+
+const UploadInput = (props: UploadInputProps) => {
+  const {
+    handleChange,
+    handlePreview,
+    previewImage,
+    previewOpen,
+    setPreviewImage,
+    setPreviewOpen,
+    accept,
+    fileList,
+    maxCount,
+    multiple,
+  } = props;
+
   return (
     <>
       <Upload
         listType="picture-card"
-        fileList={props.fileList}
-        onPreview={props.handlePreview}
-        onChange={props.handleChange}
-        maxCount={props.maxCount}
-        multiple
-        accept={props.accept}
+        onPreview={handlePreview}
+        onChange={handleChange}
+        accept={accept}
+        fileList={fileList}
+        maxCount={maxCount}
+        multiple={multiple}
       >
-        {props.fileList.length >= props.maxCount ? null : uploadButton}
+        {fileList.length >= maxCount ? null : uploadButton}
       </Upload>
-      {props.previewImage && (
+      {previewImage && (
         <Image
           wrapperStyle={{ display: 'none' }}
           preview={{
-            visible: props.previewOpen,
-            onVisibleChange: (visible) => props.setPreviewOpen(visible),
-            afterOpenChange: (visible) => !visible && props.setPreviewImage(''),
+            visible: previewOpen,
+            onVisibleChange: (visible) => setPreviewOpen(visible),
+            afterOpenChange: (visible) => !visible && setPreviewImage(''),
           }}
-          src={props.previewImage}
-          alt={props.previewImage}
+          src={previewImage}
+          alt={previewImage}
         />
       )}
     </>

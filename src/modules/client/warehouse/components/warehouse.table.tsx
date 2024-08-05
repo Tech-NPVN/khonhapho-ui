@@ -183,8 +183,13 @@ export const WarehouseTable = ({
 }) => {
   const [openPopoverHidden, setOpenPopoverHidden] = useState<boolean>(false);
 
-  const { columnsVisibility, toggleColumnVisibility, visibleColumns, hiddenColumnsCount } =
-    useColumnVisibility(columns);
+  const {
+    columnsVisibility,
+    toggleColumnVisibility,
+    visibleColumns,
+    hiddenColumnsCount,
+    resetColumnVisibility,
+  } = useColumnVisibility(columns);
 
   return (
     <>
@@ -195,6 +200,7 @@ export const WarehouseTable = ({
           columns={columns}
           columnsVisibility={columnsVisibility}
           toggleColumnVisibility={toggleColumnVisibility}
+          resetColumnVisibility={resetColumnVisibility}
           placement="bottomLeft"
           trigger="click"
         >
@@ -203,7 +209,7 @@ export const WarehouseTable = ({
             size="large"
             className={`dark:bg-background_d dark:border-0 dark:text-primary_text_d px-5 py-2`}
           >
-            Ẩn cột{' '}
+            Ẩn cột
             {hiddenColumnsCount > 0 && (
               <Badge count={hiddenColumnsCount} className="badge-error ml-1" />
             )}

@@ -7,7 +7,6 @@ import { ClockIcon } from '@/components/icons/clock.icon';
 import { CommentIcon } from '@/components/icons/comment.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { NoteIcon } from '@/components/icons/note.icon';
-import { ModalBooking } from '@/modules/client/warehouse/components/modals';
 import { Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';

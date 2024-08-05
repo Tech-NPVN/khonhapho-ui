@@ -14,7 +14,7 @@ const SectionBody = ({ title, children, className }: SectionBodyProps) => {
       className={`rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 ${className}`}
     >
       <h3 className="uppercase text-[17px] mb-0">{title}</h3>
-      <Divider className="bg-background_l dark:bg-background_d" />
+      <Divider className="bg-background_l dark:bg-divider_d/40" />
       {children}
     </section>
   );
@@ -58,7 +58,7 @@ const SectionBodyWithDesc = ({
           {description}
         </span>
       </div>
-      <Divider className="bg-background_l dark:bg-background_d" />
+      <Divider className="bg-background_l dark:bg-divider_d/40" />
       {children}
     </section>
   );
@@ -82,7 +82,7 @@ const SectionBodyWithDescButton = ({
         </div>
         {btn}
       </div>
-      <Divider className="bg-background_l dark:bg-background_d" />
+      <Divider className="bg-background_l dark:bg-divider_d/40" />
       {children}
     </section>
   );

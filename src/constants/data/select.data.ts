@@ -5,6 +5,21 @@ const SELECT_PRICE_UNIT = [
   { value: 'million', display_value: 'triệu' },
 ];
 
+const SELECT_BONUS_TYPE = [
+  {
+    value: 'percent',
+    display_value: '%',
+  },
+  {
+    value: 'million',
+    display_value: 'Triệu',
+  },
+  {
+    value: 'billion',
+    display_value: 'Tỷ',
+  },
+];
+
 const SELECT_FILTER_WAREHOUSE: DefaultOptionType[] = [
   {
     value: 'hot-news',
@@ -248,6 +263,7 @@ const SELECT_LEGAL_STATUS = [
 
 export {
   SELECT_PRICE_UNIT,
+  SELECT_BONUS_TYPE,
   SELECT_FILTER_WAREHOUSE,
   SELECT_PROPERTY_TYPE,
   SELECT_PROPERTY_FEATURE,

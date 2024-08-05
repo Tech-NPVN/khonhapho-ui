@@ -3,10 +3,10 @@ import { Metadata } from 'next';
 import dynamic from 'next/dynamic';
 
 export const metadata: Metadata = {
-  title: 'Đăng tin',
+  title: 'Sửa tin kho hàng',
 };
 
-const WarehouseCreateDynamic = dynamic(
+const WarehouseUpdateDynamic = dynamic(
   () => import('@/common/form').then((res) => res.WarehouseForm),
   {
     ssr: false,
@@ -14,8 +14,8 @@ const WarehouseCreateDynamic = dynamic(
   },
 );
 
-const WarehouseCreatePage = () => {
-  return <WarehouseCreateDynamic />;
+const WarehouseUpdatePage = ({ params }: Readonly<{ params: { id: string } }>) => {
+  return <WarehouseUpdateDynamic id={params.id} />;
 };
 
-export default WarehouseCreatePage;
+export default WarehouseUpdatePage;
