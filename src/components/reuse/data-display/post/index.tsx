@@ -1,4 +1,5 @@
 'use client';
+import { ModalBooking } from '@/common/modal';
 import { CopyIcon, HeartRedIcon, PeopleGroup, PhoneIcon } from '@/components/icons';
 import { CopyDocumentIcon } from '@/components/icons/';
 import { AlarmIcon } from '@/components/icons/alarm.icon';
