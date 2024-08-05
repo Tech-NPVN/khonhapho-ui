@@ -52,7 +52,7 @@ const ShareComponent = ({ content }: IProps) => {
           }}
         >
           <CopyLink />
-          <span>{copied ? 'Đã sao chép vào bộ nhớ tạm' : 'Sao chép liên kết'}</span>
+          <span>{copied ? 'Đã sao chép' : 'Sao chép liên kết'}</span>
         </li>
         <li className="m-0 px-2 py-3 w-full flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg">
           <ShareMessageIcon />

@@ -1,10 +1,10 @@
 'use client';
-import { HeartRedIcon, PeopleGroup, PhoneIcon } from '@/components/icons';
+import { CopyIcon, HeartRedIcon, PeopleGroup, PhoneIcon } from '@/components/icons';
+import { CopyDocumentIcon } from '@/components/icons/';
 import { AlarmIcon } from '@/components/icons/alarm.icon';
 import { BookmarkIcon } from '@/components/icons/bookmark.icon';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { CommentIcon } from '@/components/icons/comment.icon';
-import { CopyDocumentIcon } from '@/components/icons/copy-document.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { NoteIcon } from '@/components/icons/note.icon';
 import { ModalBooking } from '@/modules/client/warehouse/components/modals';
@@ -13,6 +13,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import { useCopyToClipboard } from 'react-use';
 import CommentInput from '../../data-entry/comment-input';
 import Comment from '../comment';
 import ImageGrid from '../image-grid';
@@ -23,7 +24,7 @@ import NotePopup from '../popup/note';
 import SuitableCustomerPopup from '../popup/suitable-customer';
 import Rating from '../rating';
 import ShareComponent from '../share';
-import ThreeDot from './three-dot';
+import ThreeDot, { ThreeDotEventProps } from './three-dot';
 
 export interface IPostDetail {
   id?: string;
@@ -47,13 +48,16 @@ export interface IPostDetailProps {
     root?: string;
   };
   isWarehouse?: boolean;
+  isUrgently?: boolean;
   className?: string;
+  threeDot?: boolean;
+  threeDotEvents?: ThreeDotEventProps;
 }
 
 const isTextClamped = (elm: HTMLDivElement) => elm?.scrollHeight > elm?.clientHeight;
 
-const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
-  const [isShowMore, setIsShowMore] = useState<boolean>(false);
+const PostDetail = ({ post, isWarehouse, isUrgently, threeDotEvents }: IPostDetailProps) => {
+  const [isShowMore, setIsShowMore] = useState<boolean>(isUrgently || false);
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isShowReportPopup, setIsShowReportPopup] = useState<boolean>(false);
   const [isShowModalSuitableCustomerPopup, setIsShowModalSuitableCustomerPopup] =
@@ -61,13 +65,22 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
   const [isShowNotePopup, setIsShowNotePopup] = useState<boolean>(false);
   const [isShowReport, setIsShowReport] = useState<boolean>(false);
   const [isShowBooking, setIsShowBooking] = useState<boolean>(false);
-
-  //
+  const [_clipboard, onCopyClipboard] = useCopyToClipboard();
+  const [isCopied, setIsCopied] = useState<boolean>(false);
+  // Copied
   const imageCount = post?.images?.length || 0;
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setIsHidden(isTextClamped(contentRef.current as HTMLDivElement));
+    const handleResize = () => {
+      setIsHidden(isTextClamped(contentRef.current as HTMLDivElement));
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, [imageCount, post?.content]);
+
   return (
     <div
       className={clsx(
@@ -149,7 +162,7 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
           </Tag>
         </div>
         <div className={clsx('absolute top-0 right-0', isWarehouse ? 'hidden' : '')}>
-          <ThreeDot />
+          <ThreeDot isUrgently={isUrgently} threeDotEvents={threeDotEvents} />
         </div>
       </div>
       <div className="mt-4">
@@ -215,6 +228,24 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
               {isShowMore ? 'Thu gọn' : 'Xem thêm'}
             </button>
           </div>
+          <div className={!isWarehouse ? 'mt-2' : 'hidden'}>
+            <button
+              onClick={() => {
+                onCopyClipboard(post?.content || '');
+                setIsCopied(true);
+                setTimeout(() => {
+                  setIsCopied(false);
+                }, 3000);
+              }}
+              disabled={isCopied}
+              className={clsx(
+                'py-[2px] px-1 text-base border-black/20 dark:border-primary_text_d_2 rounded bg-transparent cursor-pointer flex justify-between items-center gap-2 border',
+              )}
+            >
+              <CopyIcon />
+              <span className="text-sm">{isCopied ? 'Đã sao chép' : 'Sao chép'}</span>
+            </button>
+          </div>
         </div>
         <div className={clsx('mt-3 flex-wrap gap-2', isWarehouse ? 'hidden' : 'flex')}>
           <span className="text-link_text_l cursor-pointer hover:underline lowercase">#NPVN</span>
@@ -256,12 +287,12 @@ const PostDetail = ({ post, isWarehouse }: IPostDetailProps) => {
           </div>
         </div>
       </div>
-      <div className={clsx('mt-4', (post?.images || []).length > 0 ? '' : 'hidden')}>
+      <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
         <div>
           <ImageGrid images={post?.images || []} />
         </div>
       </div>
-      <div className={clsx((post?.images || []).length > 0 ? 'mt-4' : 'mt-2')}>
+      <div className={clsx((post?.images || []).length > 0 ? 'mt-1' : 'mt-2')}>
         <div className="flex justify-between">
           <div className="flex gap-3">
             <div className="flex gap-1 items-center dark:text-primary_text_d">

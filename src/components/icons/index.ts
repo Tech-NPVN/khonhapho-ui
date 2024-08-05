@@ -4,8 +4,10 @@ export * from './admin-page.icon';
 export * from './admin-warehouse.icon';
 export * from './alarm.icon';
 export * from './arrow-bottom.icon';
+export * from './arrow-down-left-and-up-right-to-center.icon';
 export * from './arrow-right.icon';
 export * from './arrow-top.icon';
+export * from './arrow-up-right-and-down-left-from-center.icon';
 
 export * from './bell.icon';
 export * from './bookmark.icon';
@@ -34,6 +36,8 @@ export * from './eye.icon';
 
 export * from './feeds.icon';
 export * from './free-warehouse.icon';
+
+export * from './grid2.icon';
 
 export * from './heart-red.icon';
 export * from './heart-solid.icon';
@@ -90,3 +94,8 @@ export * from './user.icon';
 export * from './view.icon';
 
 export * from './warehouse-management.icon';
+
+export * from './x.icon';
+
+export * from './zoom-in.icon';
+export * from './zoom-out.icon';
