@@ -25,7 +25,7 @@ const WarehouseTabsDetails = () => {
           <PostDetail
             isWarehouse
             post={{
-              images: ['/images/post-1.jpeg', '/images/post-2.jpeg'],
+              images: ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg', '/images/post-4.jpeg'],
             }}
           />
         </div>

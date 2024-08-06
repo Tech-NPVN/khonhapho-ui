@@ -9,7 +9,7 @@
 }
 
 .ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell {
-  @apply bg-tiertiary_input_color_l dark:bg-background_d border-b-0 uppercase dark:text-primary_text_d;
+  @apply bg-tiertiary_input_color_l dark:bg-background_d border-b-0 uppercase dark:text-primary_text_d text-xs;
 }
 
 .ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell::before {
@@ -17,7 +17,7 @@
 }
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell {
-  @apply border-b-0 dark:text-primary_text_d text-[13px];
+  @apply border-b-0 dark:text-primary_text_d text-xs !py-[2px];
 }
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {

@@ -1,11 +1,12 @@
 import { UploadIcon } from '@/components/icons';
 import { UseUpload } from '@/hooks/use-upload';
 import { Image, Upload } from 'antd';
+import { type UploadListType } from 'antd/es/upload/interface';
 
 const uploadButton = (
   <button className="border-0 bg-transparent cursor-pointer flex items-center gap-2" type="button">
     <UploadIcon />
-    <span className='text-primary_text_l/50 dark:text-primary_text_d/50 font-medium'>Tải lên</span>
+    <span className="text-primary_text_l/50 dark:text-primary_text_d/50 font-medium">Tải lên</span>
   </button>
 );
 
@@ -13,6 +14,7 @@ type UploadInputProps = UseUpload & {
   maxCount: number;
   accept: string;
   multiple?: boolean;
+  listType?: UploadListType;
 };
 
 const UploadInput = (props: UploadInputProps) => {
@@ -27,12 +29,13 @@ const UploadInput = (props: UploadInputProps) => {
     fileList,
     maxCount,
     multiple,
+    listType = 'picture-card',
   } = props;
 
   return (
     <>
       <Upload
-        listType="picture-card"
+        listType={listType}
         onPreview={handlePreview}
         onChange={handleChange}
         accept={accept}

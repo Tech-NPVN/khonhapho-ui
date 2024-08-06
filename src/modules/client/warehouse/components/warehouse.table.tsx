@@ -94,7 +94,7 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
 
       return (
         <div className="flex items-center gap-2">
-          <a href={`tel:${phone_number}`} className="text-link !text-[13px] mr-2">
+          <a href={`tel:${phone_number}`} className="text-link !text-xs mr-2">
             {phone_number}
           </a>
 
