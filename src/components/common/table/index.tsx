@@ -88,13 +88,17 @@ const PopoverVisibilityColumns = <T,>({
                   toggleColumnVisibility(column.key as string, value);
                 }}
               />
-              <span>{column.title?.toString()}</span>
+              <span className="dark:text-primary_text_d">{column.title?.toString()}</span>
             </div>
           </Col>
         ))}
         {visibleColumnCount < columns!.length && (
           <Col span={24}>
-            <Button onClick={resetColumnVisibility} className="w-full mt-3" icon={<ReloadDownIcon />}>
+            <Button
+              onClick={resetColumnVisibility}
+              className="w-full mt-3 bg-transparent"
+              icon={<ReloadDownIcon />}
+            >
               Đặt lại
             </Button>
           </Col>

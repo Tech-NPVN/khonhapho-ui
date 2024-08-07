@@ -19,6 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { IMAGE_SAMPLE } from '@/constants/data';
 import { useTheme } from 'next-themes';
 import { MenuType } from '../layout.type';
+import { PopoverUser } from '../popover';
 
 const generateMenuItem = (route: string, icon: JSX.Element, isActive: boolean) => ({
   key: route,
@@ -77,6 +78,8 @@ const LayoutClientHeader = () => {
   const pathname = usePathname();
   const [current, setCurrent] = useState<string>(pathname);
 
+  const [openPopoverUser, setOpenPopoverUser] = useState<boolean>(false);
+
   useEffect(() => {
     setCurrent(pathname);
   }, [pathname]);
@@ -122,14 +125,17 @@ const LayoutClientHeader = () => {
           size="large"
           className="w-10 h-10 dark:bg-background_d shadow-btn"
         />
-        <Button
-          type="text"
-          shape="round"
-          size="large"
-          className="w-10 h-10 overflow-hidden shadow-btn"
-        >
-          <Image src={IMAGE_SAMPLE} height={40} width={40} alt="avatar" />
-        </Button>
+
+        <PopoverUser open={openPopoverUser} setOpen={setOpenPopoverUser}>
+          <Button
+            type="text"
+            shape="round"
+            size="large"
+            className="w-10 h-10 overflow-hidden shadow-btn"
+          >
+            <Image src={IMAGE_SAMPLE} height={40} width={40} alt="avatar" />
+          </Button>
+        </PopoverUser>
       </div>
     </Layout.Header>
   );

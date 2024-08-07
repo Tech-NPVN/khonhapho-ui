@@ -1,6 +1,6 @@
 /* Date picker */
 .ant-picker {
-  @apply w-full;
+  @apply w-full !bg-transparent;
 }
 
 .ant-picker > .ant-picker-input > input {

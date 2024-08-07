@@ -1,6 +1,10 @@
 /* Input */
+.ant-input-affix-wrapper >input.ant-input {
+  @apply !pl-1
+}
+
 .ant-input-prefix {
-  margin-inline-end: 10px !important;
+  margin-inline-end: 6px !important;
 }
 
 .ant-input,

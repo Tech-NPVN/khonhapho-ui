@@ -74,9 +74,15 @@ export const ModalBooking = ({
             disabledTime={(currentDate) => {
               const now = dayjs();
               if (currentDate.isSame(now, 'day')) {
+                if (now.minute() >= 30) {
+                  return {
+                    disabledHours: () => range(0, 24).splice(0, now.hour() + 1),
+                    disabledMinutes: () => range(0, 60).splice(0, now.minute() + 30 - 60),
+                  };
+                }
                 return {
                   disabledHours: () => range(0, 24).splice(0, now.hour()),
-                  disabledMinutes: () => range(0, 60).splice(0, now.minute()),
+                  disabledMinutes: () => range(0, 60).splice(0, now.minute() + 30),
                 };
               }
 

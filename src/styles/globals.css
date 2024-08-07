@@ -39,7 +39,7 @@
 
 @layer base {
   body {
-    @apply min-h-screen main-bg;
+    @apply min-h-screen main-bg tracking-[0.3px];
   }
 }
 

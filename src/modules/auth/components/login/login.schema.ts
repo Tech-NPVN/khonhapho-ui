@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const LoginSchema = z.object({
-  phone_number_or_identify: z
+  username: z
     .string({ message: 'Vui lòng nhập SĐT hoặc CCCD' })
     .trim()
     .min(1, { message: 'Vui lòng nhập SĐT hoặc CCCD' }),
