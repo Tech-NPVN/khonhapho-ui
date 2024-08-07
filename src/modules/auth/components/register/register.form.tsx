@@ -37,7 +37,7 @@ export const RegisterIndex = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center md:w-[540px] h-screen md:h-auto bg-primary_color_l dark:bg-primary_color_d_2 rounded-lg p-6">
+    <div className="w-full flex flex-col justify-center md:w-[540px] h-screen md:h-auto bg-primary_color_l dark:bg-background_d rounded-lg p-6">
       <div className="flex w-full justify-center mb-10 mt-6">
         {theme === 'light' ? (
           <Image src="/logo-large-light.png" height={100} width={104} alt="logo" />
@@ -61,7 +61,7 @@ export const RegisterIndex = () => {
               rules={[rule]}
               required
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -72,7 +72,7 @@ export const RegisterIndex = () => {
               rules={[rule]}
               required
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -82,7 +82,7 @@ export const RegisterIndex = () => {
               className="mb-2"
               rules={[rule]}
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -96,7 +96,7 @@ export const RegisterIndex = () => {
               <DatePicker
                 size="large"
                 format={DATE_FORMAT}
-                className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3"
+                className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0"
               />
             </Form.Item>
           </Col>
@@ -108,7 +108,7 @@ export const RegisterIndex = () => {
               rules={[rule]}
               required
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -118,7 +118,7 @@ export const RegisterIndex = () => {
               className="mb-2"
               rules={[rule]}
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -129,7 +129,7 @@ export const RegisterIndex = () => {
               rules={[rule]}
               required
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -139,7 +139,7 @@ export const RegisterIndex = () => {
               className="mb-2"
               rules={[rule]}
             >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
+              <Input size="large" className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0" />
             </Form.Item>
           </Col>
           <Col span={12}>
@@ -152,7 +152,7 @@ export const RegisterIndex = () => {
             >
               <Input
                 size="large"
-                className="py-2 rounded-lg dark:bg-primary_color_d_3"
+                className="py-2 rounded-lg dark:!bg-primary_color_d dark:border-0"
                 type={showPassword ? 'text' : 'password'}
                 suffix={
                   showPassword ? (
@@ -174,7 +174,7 @@ export const RegisterIndex = () => {
             >
               <Input
                 size="large"
-                className="py-2 rounded-lg dark:bg-primary_color_d_3"
+                className="py-2 rounded-lg dark:!bg-primary_color_d dark:border-0"
                 type={showConfirmPassword ? 'text' : 'password'}
                 suffix={
                   showPassword ? (
@@ -197,7 +197,7 @@ export const RegisterIndex = () => {
               <DatePicker
                 size="large"
                 format={DATE_FORMAT}
-                className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3"
+                className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0"
               />
             </Form.Item>
           </Col>
@@ -210,7 +210,7 @@ export const RegisterIndex = () => {
             >
               <Input
                 size="large"
-                className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3"
+                className="py-2 h-[42px] rounded-lg dark:!bg-primary_color_d dark:border-0"
                 placeholder="https://www.facebook.com/"
               />
             </Form.Item>

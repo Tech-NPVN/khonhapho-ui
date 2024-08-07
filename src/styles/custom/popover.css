@@ -1,0 +1,7 @@
+/* Popover */
+
+.ant-popover-inner,
+.ant-popover .ant-popover-arrow::before {
+  @apply dark:!bg-background_d;
+}
+

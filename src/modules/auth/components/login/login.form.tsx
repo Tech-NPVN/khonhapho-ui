@@ -31,7 +31,7 @@ export const LoginIndex = () => {
   };
 
   return (
-    <div className="w-full flex flex-col justify-center md:w-[360px] h-screen md:h-auto bg-primary_color_l dark:bg-primary_color_d_2 rounded-xl p-6">
+    <div className="w-full flex flex-col justify-center md:w-[360px] h-screen md:h-auto bg-primary_color_l dark:bg-background_d rounded-xl p-6">
       <div className="flex w-full justify-center mb-10 mt-6">
         {theme === 'light' ? (
           <Image src="/logo-large-light.png" height={100} width={104} alt="logo" />
@@ -45,7 +45,7 @@ export const LoginIndex = () => {
           <Input
             size="large"
             prefix={<UserIcon />}
-            className="py-3 rounded-xl dark:bg-primary_color_d_3"
+            className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
             placeholder="Số điện thoại hoặc CCCD"
           />
         </Form.Item>
@@ -53,7 +53,7 @@ export const LoginIndex = () => {
           <Input
             size="large"
             prefix={<PasswordIcon />}
-            className="py-3 rounded-xl dark:bg-primary_color_d_3"
+            className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
             placeholder="Mật khẩu"
             type={showPassword ? 'text' : 'password'}
             suffix={
@@ -78,7 +78,7 @@ export const LoginIndex = () => {
           Đăng nhập
         </Button>
         <Button
-          className="flex justify-center w-full text-base py-5 mt-1 text-link_text_l dark:text-link_text_d"
+          className="flex justify-center w-full text-base py-5 mt-1 text-link_text_l dark:!text-link_text_d"
           type="text"
           htmlType="button"
           onClick={() => router.push(Routes.ForgotPassword)}
@@ -86,11 +86,11 @@ export const LoginIndex = () => {
           Quên mật khẩu
         </Button>
 
-        <Divider className="bg-background_l dark:bg-background_d mt-10 mb-6" />
+        <Divider className="bg-background_l dark:bg-background_d mt-8 mb-6" />
 
         <Button
-          className="flex justify-center w-full text-base rounded-lg py-5 mt-1 text-error_l border-error_l 
-          dark:bg-primary_color_d_3"
+          className="flex justify-center w-full text-base rounded-lg py-5 mt-1 text-error_l dark:text-error_d 
+          dark:border-transparent dark:bg-primary_color_d"
           type="default"
           htmlType="button"
           onClick={() => router.push(Routes.Register)}
