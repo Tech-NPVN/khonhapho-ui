@@ -3,6 +3,7 @@ enum Routes {
   Login = '/login',
   Register = '/register',
   ForgotPassword = '/forgot-password',
+  ConfirmCode = '/confirm-code',
 
   // (client)
   Home = '/',

@@ -10,8 +10,11 @@ import {
 } from '@/components/icons';
 import Link from 'next/link';
 import { Routes } from '@/constants/enums';
+import { useRouter } from 'next/navigation';
 
 export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
+  const router = useRouter();
+
   const renderContent = useCallback(() => {
     return (
       <ul className="list-none flex flex-col gap-3 px-1 m-0">
@@ -19,6 +22,7 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
           <Link
             href={Routes.UserProfile}
             className="flex gap-3 items-center text-primary_text_l dark:text-primary_text_d"
+            onClick={() => setOpen(false)}
           >
             <PersonalNormalIcon width="20" height="20" />
             <span>Trang cá nhân</span>
@@ -29,6 +33,7 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
           <Link
             href={Routes.Warehouse}
             className="flex gap-3 items-center text-primary_text_l dark:text-primary_text_d"
+            onClick={() => setOpen(false)}
           >
             <ResourceWarehouseIcon width="20" height="20" />
             <span>Kho tài nguyên</span>
@@ -39,6 +44,7 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
           <Link
             href={Routes.Urgently}
             className="flex gap-3 items-center text-primary_text_l dark:text-primary_text_d"
+            onClick={() => setOpen(false)}
           >
             <BuyUrgentlyIcon width="20" height="20" />
             <span>Khách cần mua gấp</span>
@@ -49,6 +55,7 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
           <Link
             href={Routes.UserCustomers}
             className="flex gap-3 items-center text-primary_text_l dark:text-primary_text_d"
+            onClick={() => setOpen(false)}
           >
             <MntGuestIcon width="20" height="auto" />
             <span>QL khách - Tự khớp khách</span>
@@ -60,7 +67,10 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
         <li>
           <button
             className="flex w-full px-0 border-0 bg-transparent gap-3 items-center text-primary_text_l dark:text-primary_text_d cursor-pointer"
-            onClick={() => {}}
+            onClick={() => {
+              router.push(Routes.Login);
+              setOpen(false);
+            }}
           >
             <LogoutIcon width="20" height="auto" />
             <span>Đăng xuất</span>
@@ -68,7 +78,7 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
         </li>
       </ul>
     );
-  }, []);
+  }, [router, setOpen]);
 
   return (
     <Popover
