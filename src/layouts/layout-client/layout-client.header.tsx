@@ -19,7 +19,7 @@ import React, { useEffect, useState } from 'react';
 import { IMAGE_SAMPLE } from '@/constants/data';
 import { useTheme } from 'next-themes';
 import { MenuType } from '../layout.type';
-import { PopoverUser } from '../popover';
+import { PopoverAppointment, PopoverMessage, PopoverNotification, PopoverUser } from '../popover';
 
 const generateMenuItem = (route: string, icon: JSX.Element, isActive: boolean) => ({
   key: route,
@@ -78,7 +78,11 @@ const LayoutClientHeader = () => {
   const pathname = usePathname();
   const [current, setCurrent] = useState<string>(pathname);
 
+  // Popover state
   const [openPopoverUser, setOpenPopoverUser] = useState<boolean>(false);
+  const [openPopoverNoti, setOpenPopoverNoti] = useState<boolean>(false);
+  const [openPopoverMessage, setOpenPopoverMessage] = useState<boolean>(false);
+  const [openPopoverAppointment, setOpenPopoverAppointment] = useState<boolean>(false);
 
   useEffect(() => {
     setCurrent(pathname);
@@ -104,28 +108,40 @@ const LayoutClientHeader = () => {
       </div>
 
       <div className="flex items-center justify-end gap-3">
-        <Button
-          icon={<AlarmIcon />}
-          type="text"
-          shape="round"
-          size="large"
-          className="w-10 h-10 dark:bg-background_d shadow-btn"
-        />
-        <Button
-          icon={<MessengerIcon />}
-          type="text"
-          shape="round"
-          size="large"
-          className="w-10 h-10 dark:bg-background_d shadow-btn"
-        />
-        <Button
-          icon={<BellIcon />}
-          type="text"
-          shape="round"
-          size="large"
-          className="w-10 h-10 dark:bg-background_d shadow-btn"
-        />
+        {/* Appointment */}
+        <PopoverAppointment open={openPopoverAppointment} setOpen={setOpenPopoverAppointment}>
+          <Button
+            icon={<AlarmIcon />}
+            type="text"
+            shape="round"
+            size="large"
+            className="w-10 h-10 dark:bg-background_d shadow-btn"
+          />
+        </PopoverAppointment>
 
+        {/* Message */}
+        <PopoverMessage open={openPopoverMessage} setOpen={setOpenPopoverMessage}>
+          <Button
+            icon={<MessengerIcon />}
+            type="text"
+            shape="round"
+            size="large"
+            className="w-10 h-10 dark:bg-background_d shadow-btn"
+          />
+        </PopoverMessage>
+
+        {/* Notification */}
+        <PopoverNotification open={openPopoverNoti} setOpen={setOpenPopoverNoti}>
+          <Button
+            icon={<BellIcon />}
+            type="text"
+            shape="round"
+            size="large"
+            className="w-10 h-10 dark:bg-background_d shadow-btn"
+          />
+        </PopoverNotification>
+
+        {/* User */}
         <PopoverUser open={openPopoverUser} setOpen={setOpenPopoverUser}>
           <Button
             type="text"

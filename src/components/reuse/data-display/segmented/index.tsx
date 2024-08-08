@@ -10,6 +10,7 @@ type SegmentedProps = {
   size?: 'small' | 'middle' | 'large';
   children?: React.ReactNode;
   className?: string;
+  notRedirect?: boolean;
 };
 
 type SegmentedOptionProps = {
@@ -19,7 +20,7 @@ type SegmentedOptionProps = {
   component: React.ReactNode;
 };
 
-const useSegmented = (options: SegmentedOptionProps[]) => {
+const useSegmented = (options: SegmentedOptionProps[], notRedirect?: boolean) => {
   const router = useRouter();
   const pathname = usePathname();
   const tab = useSearchParams().get('tab');
@@ -29,9 +30,11 @@ const useSegmented = (options: SegmentedOptionProps[]) => {
   const handleChange = useCallback(
     (value: string) => {
       setValue(value);
-      router.push(pathname + '?tab=' + value);
+      if (!notRedirect) {
+        router.push(pathname + '?tab=' + value);
+      }
     },
-    [pathname, router],
+    [notRedirect, pathname, router],
   );
 
   return { value, handleChange };
@@ -43,8 +46,9 @@ const Segmented = ({
   size = 'middle',
   children,
   className,
+  notRedirect = true,
 }: SegmentedProps) => {
-  const { value, handleChange } = useSegmented(options);
+  const { value, handleChange } = useSegmented(options, notRedirect);
 
   return (
     <>
@@ -71,8 +75,9 @@ const SegmentedWithNode = ({
   children,
   className,
   element,
+  notRedirect,
 }: SegmentedProps & { element: React.ReactNode }) => {
-  const { value, handleChange } = useSegmented(options);
+  const { value, handleChange } = useSegmented(options, notRedirect);
 
   return (
     <>
