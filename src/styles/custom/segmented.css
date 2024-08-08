@@ -5,7 +5,7 @@
 }
 
 .ant-segmented > .ant-segmented-group {
-  @apply gap-1
+  @apply gap-1;
 }
 
 .ant-segmented-item {
@@ -23,4 +23,8 @@
 
 .ant-segmented-item-label {
   @apply text-[13px];
+}
+
+.ant-segmented.ant-segmented-block > .ant-segmented-group > .ant-segmented-item {
+  @apply px-3;
 }

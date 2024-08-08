@@ -58,6 +58,7 @@ export const UrgentlyIndex = () => {
           options={URGENTLY_TABS}
           value={value}
           onChange={handleChange}
+          block
           className="dark:!bg-background_d"
         /> 
       </SectionBody>

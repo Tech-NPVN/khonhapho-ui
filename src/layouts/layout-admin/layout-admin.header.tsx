@@ -8,12 +8,14 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { PopoverUser } from '../popover';
+import { PopoverNotification, PopoverUser } from '../popover';
 
 const LayoutAdminHeader = () => {
   const { theme } = useTheme();
 
+  // Popover
   const [openPopoverUser, setOpenPopoverUser] = useState<boolean>(false);
+  const [openPopoverNoti, setOpenPopoverNoti] = useState<boolean>(false);
 
   return (
     <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d flex justify-between z-50 fixed top-0 w-full">
@@ -34,6 +36,18 @@ const LayoutAdminHeader = () => {
           className="w-10 h-10 dark:bg-background_d shadow-btn"
         />
 
+        {/* Notification */}
+        <PopoverNotification open={openPopoverNoti} setOpen={setOpenPopoverNoti}>
+          <Button
+            icon={<BellIcon />}
+            type="text"
+            shape="round"
+            size="large"
+            className="w-10 h-10 dark:bg-background_d shadow-btn"
+          />
+        </PopoverNotification>
+
+        {/* User */}
         <PopoverUser open={openPopoverUser} setOpen={setOpenPopoverUser}>
           <Button
             type="text"
