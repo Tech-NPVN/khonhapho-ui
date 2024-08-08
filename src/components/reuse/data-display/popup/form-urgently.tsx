@@ -2,7 +2,7 @@
 
 import { Form, FormProps, Input, Modal, Select } from 'antd';
 import { ModalProps } from 'antd/lib';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 interface IProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
   value?: FieldFormUrgentlyPopupType;
@@ -25,7 +25,6 @@ const FormUrgentlyPopup = ({
   value,
   isUpdate,
 }: IProps) => {
-  const [isOpen, setIsOpen] = useState(open);
   const [form] = Form.useForm<FieldFormUrgentlyPopupType>();
   const onFinish: FormProps<FieldFormUrgentlyPopupType>['onFinish'] = (values) => {
     console.log('Success:', values);
@@ -39,9 +38,6 @@ const FormUrgentlyPopup = ({
   useEffect(() => {
     if (value) form.setFieldsValue(value);
   }, [value, form]);
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
   return (
     <div>
       <Modal
@@ -50,7 +46,7 @@ const FormUrgentlyPopup = ({
         okText="Lưu"
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 "
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',

@@ -5,7 +5,6 @@ import { Button, Modal, Select, Table, TableProps } from 'antd';
 import { ModalProps } from 'antd/lib';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 const convertReportingTime = (reportingTime: string): string => {
   const date = new Date(reportingTime);
   return date
@@ -177,10 +176,6 @@ const data: DataType[] = [
   },
 ];
 const SuitableCustomerPopup = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
-  const [isOpen, setIsOpen] = useState(open);
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
   return (
     <div>
       <Modal
@@ -188,7 +183,7 @@ const SuitableCustomerPopup = ({ open = false, onClose, onCancel, setOpen }: Lis
         centered
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-primary_color_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
         classNames={{
           content: 'dark:bg-primary_color_d dark:text-primary_text_d',

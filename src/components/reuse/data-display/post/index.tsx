@@ -8,7 +8,7 @@ import { ClockIcon } from '@/components/icons/clock.icon';
 import { CommentIcon } from '@/components/icons/comment.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { NoteIcon } from '@/components/icons/note.icon';
-import { Tag } from 'antd';
+import { Rate, Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -16,13 +16,12 @@ import { useEffect, useRef, useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 import CommentInput from '../../data-entry/comment-input';
 import Comment from '../comment';
-import ImageGrid from '../image-grid';
+import { ImageGrid } from '../images';
 import LikeComponent from '../like';
 import FormReportPopup from '../popup/form-report';
 import ListOfReportsPopup from '../popup/list-of-reports';
 import NotePopup from '../popup/note';
 import SuitableCustomerPopup from '../popup/suitable-customer';
-import Rating from '../rating';
 import ShareComponent from '../share';
 import ThreeDot, { ThreeDotEventProps } from './three-dot';
 
@@ -36,6 +35,7 @@ export interface IPostDetail {
     message?: string;
   };
   content?: string;
+  videos?: string[];
   images?: string[];
   tags?: string[];
   created_at?: string;
@@ -123,8 +123,13 @@ const PostDetail = ({ post, isWarehouse, isUrgently, threeDotEvents }: IPostDeta
                 <span>Quy định và hướng dẫn</span>
               </span>
               <div className={clsx('', isWarehouse ? 'flex gap-[10px]' : 'hidden')}>
-                <div className="mt-[6px]">
-                  <Rating value={4.5} />
+                <div className="-mt-[2px]">
+                  <Rate
+                    allowHalf
+                    disabled
+                    defaultValue={4.5}
+                    className="[&_svg]:w-3 [&_svg]:h-3 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04] [&>li]:me-1"
+                  />
                 </div>
                 <span className="font-semibold text-primary_text_l dark:text-primary_text_d">
                   4,5
@@ -174,8 +179,8 @@ const PostDetail = ({ post, isWarehouse, isUrgently, threeDotEvents }: IPostDeta
             <span>·</span>
             <span>255.152tr/m</span>
           </div>
-          <Tag className="!text-[12px] font-normal bg-background_l dark:bg-background_d border-none">
-            Mặt phố, kinh doanh, có tầng thượn
+          <Tag className="!text-[12px] lg:!text-sm font-normal bg-background_l dark:bg-background_d border-none">
+            Mặt phố, kinh doanh, có tầng thượng
           </Tag>
         </div>
         <div className="overflow-hidden">

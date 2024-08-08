@@ -3,13 +3,24 @@ import ChatPreviewComponent from '@/components/chat/chat-preview';
 import FeedHome from '@/components/feed/feed.home';
 import FeedInterested from '@/components/feed/feed.interested';
 import { Segmented } from '@/components/reuse/data-display';
+import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import { CHAT_PREVIEW_SAMPLE } from '@/constants/data';
+import { useState } from 'react';
 
 const Home = () => {
+  const [first, setFirst] = useState(false);
   return (
     <div className="flex w-full justify-between">
-      <div className="w-[calc(100%_-_406px)] ms-[60px] flex justify-center">
-        <div className="w-full">
+      <div className="w-[calc(100%_-_286px)] flex justify-center">
+        <div className="w-full max-w-[800px]">
+          <div
+            className="hidden"
+            onClick={() => {
+              setFirst(true);
+            }}
+          >
+            Click
+          </div>
           <div className="mt-4 w-full">
             <Segmented
               options={[
@@ -30,8 +41,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="w-[286px] h-full relative">
-        <div className="w-full fixed top-[68px]">
+      <div className="w-[286px] h-full relative flex">
+        <div className="flex-1 fixed top-[68px]">
           <div className="w-full">
             <h5 className="mt-3 font-semibold text-black text-sm dark:text-[#daefff]">
               Người liên hệ
@@ -95,6 +106,27 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {first && (
+        <WarehouseDetailsPopup
+          setOpen={setFirst}
+          open
+          post={{
+            content: 'aaaa',
+            images: [
+              '/images/post-1.jpeg',
+              '/images/post-2.jpeg',
+              '/images/post-3.jpeg',
+              '/images/post-4.jpeg',
+              '/images/post-5.jpeg',
+            ],
+            videos: [
+              '/videos/house-preview.mp4',
+              'https://www.taxmann.com/emailer/images/CompaniesAct.mp4',
+              'https://www.taxmann.com/emailer/images/Incometax.mp4',
+            ],
+          }}
+        />
+      )}
     </div>
   );
 };

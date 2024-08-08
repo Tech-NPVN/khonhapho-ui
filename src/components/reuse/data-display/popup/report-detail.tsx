@@ -4,7 +4,7 @@ import { Modal } from 'antd';
 import { ModalProps } from 'antd/lib';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 const convertReportingTime = (reportingTime: string): string => {
   const date = new Date(reportingTime);
   return date
@@ -29,10 +29,6 @@ interface ListOfReportProps extends ModalProps {
 }
 
 const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
-  const [isOpen, setIsOpen] = useState(open);
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
   return (
     <div>
       <Modal
@@ -40,7 +36,7 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
         centered
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white rounded-lg"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',
