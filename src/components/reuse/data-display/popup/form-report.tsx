@@ -44,7 +44,6 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [isOpen, setIsOpen] = useState(open);
   const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
   const [form] = Form.useForm<FieldType>();
   const [purposeOther, setPurposeOther] = useState('');
@@ -82,9 +81,6 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
     </button>
   );
   useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
-  useEffect(() => {
     form.setFieldsValue({
       purpose: '0',
       feedback: '0',
@@ -100,7 +96,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
         okText="Lưu"
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 "
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',
@@ -401,7 +397,6 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
   );
 };
 const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
-  const [isOpen, setIsOpen] = useState(open);
   const [rate, setRate] = useState({
     main: 0,
     attitude_when_calling: 0, // gọi điện
@@ -416,9 +411,6 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
     console.log('Success', rate);
     setOpen && setOpen(false);
   };
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
   return (
     <Modal
       title="Đánh giá đầu chủ"
@@ -426,7 +418,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
       okText="Lưu"
       cancelButtonProps={{ style: { display: 'none' } }}
       okButtonProps={{ style: { display: 'none' } }}
-      open={isOpen}
+      open={open}
       className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 "
       classNames={{
         content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',

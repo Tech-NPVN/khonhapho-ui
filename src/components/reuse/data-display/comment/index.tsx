@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -14,10 +15,11 @@ export interface IComment {
 
 export interface ICommentProps {
   comment: IComment;
+  className?: string;
 }
-const Comment = ({ comment }: ICommentProps) => {
+const Comment = ({ comment, className }: ICommentProps) => {
   return (
-    <div className="py-4">
+    <div className={clsx('', className)}>
       <div className="flex items-start">
         <div>
           <Image
@@ -29,19 +31,19 @@ const Comment = ({ comment }: ICommentProps) => {
           />
         </div>
         <div>
-          <div className="bg-[#F3F4F6] dark:bg-[#151E2F] p-2 rounded-lg flex flex-col">
-            <div className="font-semibold text-[15px] flex gap-2 dark:text-[#daefff]">
-              <Link className="text-black dark:text-[#daefff]" href={'/'}>
-                {comment.user?.name || 'User'}
+          <div className="bg-background_l_2 dark:bg-background_d p-2 rounded-lg flex flex-col">
+            <div className="font-semibold text-sm flex gap-2 dark:text-primary_text_d">
+              <Link className="text-black dark:text-primary_text_d" href={'/'}>
+                {comment.user?.name || 'Nguyễn Văn A'}
               </Link>
               <span>•</span>
-              <span className="dark:text-[#daefff]">Quy định và Hướng dẫn</span>
+              <span className="dark:text-primary_text_d">NPVN-2019</span>
             </div>
-            <div className="mt-2 text-gray-800 dark:text-[#daefff] font-normal text-[15px]">
+            <div className="mt-1 text-gray-800 dark:text-primary_text_d font-normal text-sm">
               {comment.body || 'No comment available'}
             </div>
           </div>
-          <div className="flex gap-3 mt-2 ms-2 dark:text-[#daefff]/50">
+          <div className="flex gap-3 mt-1 ms-1 dark:text-primary_text_d/50">
             <button className="border-none bg-transparent cursor-pointer text-[12px] font-semibold">
               Thích
             </button>

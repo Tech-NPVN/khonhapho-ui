@@ -3,23 +3,19 @@
 import { Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { ModalProps } from 'antd/lib';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 interface IProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 const NotePopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
-  const [isOpen, setIsOpen] = useState(open);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
-  useEffect(() => {
-    if (isOpen && textareaRef.current) {
+    if (open && textareaRef.current) {
       setTimeout(() => {
         textareaRef?.current?.focus();
       }, 100);
     }
-  }, [isOpen]);
+  }, [open]);
   return (
     <div>
       <Modal
@@ -27,7 +23,7 @@ const NotePopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) =
         centered
         okText="Lưu"
         cancelButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',

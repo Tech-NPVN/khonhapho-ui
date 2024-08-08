@@ -10,7 +10,7 @@ const CommentInput = () => {
       <div className="w-10 h-10 rounded-full overflow-hidden">
         <Image width={40} height={40} src="/images/user-default.jpg" alt="" />
       </div>
-      <div className="relative flex-1 bg-black/5 dark:bg-[#151E2F] rounded-2xl py-1 px-3">
+      <div className="relative flex-1 bg-black/5 dark:bg-[#151E2F] rounded-2xl py-[2px] px-3">
         <input
           className="w-full h-10 bg-transparent focus:outline-none border-none outline-none"
           placeholder="Viết bình luận ..."
