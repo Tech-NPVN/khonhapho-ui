@@ -57,6 +57,7 @@ export * from './main-info-warehouse.icon';
 export * from './meeting-schedule.icon';
 export * from './messenger-multi-color.icon';
 export * from './messenger.icon';
+export * from './mnt-guest.icon';
 
 export * from './news.icon';
 export * from './note.icon';

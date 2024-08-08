@@ -2,7 +2,7 @@
 
 import { SectionBody, UploadInput } from '@/components/common';
 import { Button, Col, Form, Input, Row, Select, Tooltip } from 'antd';
-import { WarehouseCreateSchema, WarehouseCreateSchemaType } from './warehouse.schema';
+import { WarehouseFormSchema, WarehouseFormSchemaType } from './warehouse.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import {
   SELECT_BONUS_TYPE,
@@ -13,8 +13,10 @@ import {
 } from '@/constants/data';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import { useCallback, useState } from 'react';
-import useUpload from '@/hooks/use-upload';
+import useUpload, { UseUpload } from '@/hooks/use-upload';
 import { ModalDoubleFeed } from '@/common/modal';
+import { UploadChangeParam } from 'antd/es/upload';
+import { UploadFile } from 'antd/lib';
 
 const DISABLE_PROPERTY_FEAT_MAPPING: { [key: string]: string[] } = {
   'mat-pho': ['ngo-oto', 'ngo-3-gac', 'ngo-xe-may'],
@@ -24,7 +26,7 @@ const DISABLE_PROPERTY_FEAT_MAPPING: { [key: string]: string[] } = {
   'gara-oto': ['ngo-3-gac', 'ngo-xe-may'],
 };
 
-const rule = createSchemaFieldRule(WarehouseCreateSchema);
+const rule = createSchemaFieldRule(WarehouseFormSchema);
 
 /**
  * Warehouse Form - Form thêm/sửa tin trong kho
@@ -41,7 +43,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
     })),
   );
 
-  const [form] = Form.useForm<WarehouseCreateSchemaType>();
+  const [form] = Form.useForm<WarehouseFormSchemaType>();
   const legal_status = Form.useWatch('legal_status', form);
 
   const imagesUpload = useUpload();
@@ -69,7 +71,16 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
     );
   }, []);
 
-  const handleSubmit = async (values: WarehouseCreateSchemaType) => {
+  const handleChangeUpload = useCallback(
+    (upload: UseUpload, info: UploadChangeParam<UploadFile<any>>, name: string) => {
+      upload.handleChange?.(info);
+      form.setFieldValue(name, info.fileList);
+      form.validateFields([[name]], { recursive: true });
+    },
+    [form],
+  );
+
+  const handleSubmit = async (values: WarehouseFormSchemaType) => {
     console.log(values);
     // handle logic submit
     // ...
@@ -99,7 +110,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Loại hình */}
                   <Col span={12}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="property_type"
                       label="Loại hình:"
                       rules={[rule]}
@@ -119,7 +130,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Đặc điểm */}
                   <Col span={24}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="property_feature"
                       label="Đặc điểm:"
                       rules={[rule]}
@@ -138,7 +149,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Thành phố */}
                   <Col span={12}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="c1ty"
                       label="Thành phố:"
                       rules={[rule]}
@@ -155,7 +166,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Quận/Huyện */}
                   <Col span={12}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="district"
                       label="Quận/Huyện:"
                       rules={[rule]}
@@ -173,7 +184,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Đường phố */}
                   <Col span={12}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="street"
                       label="Đường phố:"
                       rules={[rule]}
@@ -192,7 +203,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   {/* Ngõ, hẻm, số nhà, số phòng */}
                   <Col span={12}>
                     <Tooltip placement="bottomLeft" title="Ví dụ: 40.35.20.15">
-                      <Form.Item<WarehouseCreateSchemaType>
+                      <Form.Item<WarehouseFormSchemaType>
                         name="house_number"
                         label="Ngõ, hẻm, số nhà, số phòng:"
                         rules={[rule]}
@@ -209,11 +220,10 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Dự án/Khu đô thị/Chung cư */}
                   <Col span={24}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="project"
                       label="Dự án/Khu đô thị/Chung cư:"
                       rules={[rule]}
-                      required
                     >
                       <Select
                         size="large"
@@ -237,7 +247,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         </>
                       }
                     >
-                      <Form.Item<WarehouseCreateSchemaType>
+                      <Form.Item<WarehouseFormSchemaType>
                         name="spec"
                         label="Thông số nhà:"
                         rules={[rule]}
@@ -255,7 +265,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Hoa hồng */}
                   <Col span={12}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="bonus_value"
                       label="Hoa hồng:"
                       rules={[rule]}
@@ -264,7 +274,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                       <Input
                         addonAfter={
                           // Đơn vị hoa hồng
-                          <Form.Item<WarehouseCreateSchemaType>
+                          <Form.Item<WarehouseFormSchemaType>
                             name="bonus_type"
                             rules={[rule]}
                             className="m-0"
@@ -286,7 +296,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Loại hợp đồng */}
                   <Col span={12}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="contract_type"
                       label="Loại hợp đồng:"
                       rules={[rule]}
@@ -307,7 +317,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   {/* Cầu đối tác */}
                   <Col span={12}>
                     <Tooltip placement="bottomLeft" title="Bất động sản lớn hơn 20 tỷ">
-                      <Form.Item<WarehouseCreateSchemaType>
+                      <Form.Item<WarehouseFormSchemaType>
                         name="bonus_referral"
                         label="Cầu đối tác:"
                         rules={[rule]}
@@ -326,7 +336,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Tiêu đề (tự động) */}
                   <Col span={24}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="title"
                       label="Tiêu đề (tự động):"
                       rules={[rule]}
@@ -338,7 +348,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Nội dung */}
                   <Col span={24}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="content"
                       label="Nội dung:"
                       rules={[rule]}
@@ -356,7 +366,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Pháp lý */}
                   <Col span={8}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="legal_status"
                       label="Pháp lý:"
                       rules={[rule]}
@@ -385,7 +395,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         </>
                       }
                     >
-                      <Form.Item<WarehouseCreateSchemaType>
+                      <Form.Item<WarehouseFormSchemaType>
                         name="number_certificate"
                         label="Serial sổ:"
                         rules={[rule]}
@@ -406,7 +416,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Số điện thoại chủ nhà */}
                   <Col span={8}>
-                    <Form.Item<WarehouseCreateSchemaType>
+                    <Form.Item<WarehouseFormSchemaType>
                       name="owner_phone"
                       label="Số điện thoại chủ nhà:"
                       rules={[rule]}
@@ -426,7 +436,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
               {/* Right column */}
               <Col span={10}>
                 {/* Ảnh */}
-                <Form.Item<WarehouseCreateSchemaType>
+                <Form.Item<WarehouseFormSchemaType>
                   name="images"
                   label="Ảnh (tối đa 12 ảnh):"
                   rules={[rule]}
@@ -437,11 +447,12 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     maxCount={12}
                     multiple
                     accept=".jpg, .jpeg, .png, .webm, .heic"
+                    handleChange={(info) => handleChangeUpload(imagesUpload, info, 'images')}
                   />
                 </Form.Item>
 
                 {/* Video */}
-                <Form.Item<WarehouseCreateSchemaType>
+                <Form.Item<WarehouseFormSchemaType>
                   name="videos"
                   label="Video (tối đa 4 video và không vượt quá 50MB/video):"
                   rules={[rule]}
@@ -451,11 +462,12 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     maxCount={4}
                     multiple
                     accept=".mp4, .mov, .hevc, .webm, .m4v"
+                    handleChange={(info) => handleChangeUpload(videosUpload, info, 'videos')}
                   />
                 </Form.Item>
 
                 {/* Ảnh sổ đỏ pháp lý, hợp đồng trích thưởng */}
-                <Form.Item<WarehouseCreateSchemaType>
+                <Form.Item<WarehouseFormSchemaType>
                   name="private_images"
                   label="Ảnh sổ đỏ pháp lý, hợp đồng trích thưởng (tối đa 20 ảnh):"
                   rules={[rule]}
@@ -466,11 +478,14 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     maxCount={20}
                     multiple
                     accept=".jpg, .jpeg, .png, .webm, .heic"
+                    handleChange={(info) =>
+                      handleChangeUpload(privateImagesUpload, info, 'private_images')
+                    }
                   />
                 </Form.Item>
 
                 {/* Audio ghi âm pháp lý, hợp đồng trích thưởng (tối đa 4 audio) */}
-                <Form.Item<WarehouseCreateSchemaType>
+                <Form.Item<WarehouseFormSchemaType>
                   name="audios"
                   label="Audio ghi âm pháp lý, hợp đồng trích thưởng (tối đa 4 audio):"
                   rules={[rule]}
@@ -480,6 +495,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     maxCount={4}
                     multiple
                     accept=".mp3, .wav, .ogg, .aac, .m4a"
+                    handleChange={(info) => handleChangeUpload(audiosUpload, info, 'audios')}
                   />
                 </Form.Item>
               </Col>

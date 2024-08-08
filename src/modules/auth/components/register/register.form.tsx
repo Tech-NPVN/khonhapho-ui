@@ -1,15 +1,22 @@
 'use client';
 
-import { EyeIcon, EyeSlashIcon } from '@/components/icons';
+import {
+  ArrowRightIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  MailIcon,
+  PasswordIcon,
+  PhoneOutlineIcon,
+  UserIcon,
+} from '@/components/icons';
 import { Routes } from '@/constants/enums';
-import { Button, Col, DatePicker, Form, Input, Row } from 'antd';
+import { Button, Form, Input, message } from 'antd';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { RegisterSchema, RegisterSchemaType } from './register.schema';
 import { useCallback, useState } from 'react';
 import { createSchemaFieldRule } from 'antd-zod';
-import { DATE_FORMAT } from '@/constants/data';
 import { AuthRegister } from '../../auth.model';
 
 const rule = createSchemaFieldRule(RegisterSchema);
@@ -21,6 +28,7 @@ export const RegisterIndex = () => {
 
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const handleSetPasswordState = useCallback(() => {
     setShowPassword((prev) => !prev);
@@ -32,127 +40,92 @@ export const RegisterIndex = () => {
 
   const handleSubmit = async (values: RegisterSchemaType) => {
     console.log(values);
+
+    messageApi.open({
+      type: 'success',
+      content: 'Đăng ký thành công! Hãy nhập mã giới thiệu hoặc đăng ký ứng viên',
+    });
+
+    setTimeout(() => {
+      router.push(Routes.ConfirmCode);
+    }, 2000);
     // handle logic register submit
     // ...
   };
 
   return (
-    <div className="w-full flex flex-col justify-center md:w-[540px] h-screen md:h-auto bg-primary_color_l dark:bg-primary_color_d_2 rounded-lg p-6">
-      <div className="flex w-full justify-center mb-10 mt-6">
-        {theme === 'light' ? (
-          <Image src="/logo-large-light.png" height={100} width={104} alt="logo" />
-        ) : (
-          <Image src="/logo-large-dark.png" height={100} width={104} alt="logo" />
-        )}
-      </div>
+    <>
+      {contextHolder}
+      <div className="w-full flex flex-col justify-center md:w-[500px] h-screen md:h-auto bg-primary_color_l dark:bg-background_d rounded-lg px-6 py-9">
+        <div className="flex w-full justify-center mb-10">
+          {theme === 'light' ? (
+            <Image src="/logo-large-light.png" height={100} width={104} alt="logo" />
+          ) : (
+            <Image src="/logo-large-dark.png" height={100} width={104} alt="logo" />
+          )}
+        </div>
 
-      <Form
-        form={form}
-        initialValues={new AuthRegister()}
-        onFinish={handleSubmit}
-        layout="vertical"
-      >
-        <Row gutter={16}>
-          <Col span={12}>
+        <Form form={form} initialValues={new AuthRegister()} onFinish={handleSubmit}>
+          <div className="flex flex-col w-full items-center">
+            {/* Họ và tên */}
             <Form.Item<RegisterSchemaType>
               name="full_name"
-              label="Họ và tên"
-              className="mb-2"
               rules={[rule]}
-              required
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="phone_number"
-              label="Số điện thoại"
-              className="mb-2"
-              rules={[rule]}
-              required
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="idenfity"
-              label="Căn cước công dân"
-              className="mb-2"
-              rules={[rule]}
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="date_of_issuance"
-              label="Ngày cấp"
-              className="mb-2"
-              rules={[rule]}
-              required
-            >
-              <DatePicker
-                size="large"
-                format={DATE_FORMAT}
-                className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3"
-              />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="address"
-              label="Địa chỉ thường trú"
-              className="mb-2"
-              rules={[rule]}
-              required
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="address_current"
-              label="Nơi ở hiện tại"
-              className="mb-2"
-              rules={[rule]}
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="email"
-              label="Email"
-              className="mb-2"
-              rules={[rule]}
-              required
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="phone_number_familiar"
-              label="SĐT người thân"
-              className="mb-2"
-              rules={[rule]}
-            >
-              <Input size="large" className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="password"
-              label="Mật khẩu"
-              className="mb-2"
-              rules={[rule]}
+              className="mb-4 w-full"
               required
             >
               <Input
                 size="large"
-                className="py-2 rounded-lg dark:bg-primary_color_d_3"
+                prefix={<UserIcon />}
+                className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
+                placeholder="Họ và tên"
+              />
+            </Form.Item>
+
+            {/* Email */}
+            <Form.Item<RegisterSchemaType>
+              name="email"
+              rules={[rule]}
+              className="mb-4 w-full"
+              required
+            >
+              <Input
+                size="large"
+                prefix={<MailIcon />}
+                className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
+                placeholder="Email"
+              />
+            </Form.Item>
+
+            {/* Số điện thoại */}
+            <Form.Item<RegisterSchemaType>
+              name="phone_number"
+              rules={[rule]}
+              className="mb-4 w-full"
+              required
+            >
+              <Input
+                size="large"
+                prefix={<PhoneOutlineIcon />}
+                className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
+                placeholder="Số điện thoại"
+              />
+            </Form.Item>
+
+            <hr className="border-none h-[0.5px] bg-divider_l/10 dark:bg-divider_d/40 w-[300px]" />
+
+            {/* Mật khẩu */}
+            <Form.Item<RegisterSchemaType>
+              name="password"
+              rules={[rule]}
+              className="my-4 w-full"
+              required
+            >
+              <Input
+                size="large"
+                prefix={<PasswordIcon />}
+                className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
+                placeholder="Mật khẩu"
                 type={showPassword ? 'text' : 'password'}
                 suffix={
                   showPassword ? (
@@ -163,21 +136,22 @@ export const RegisterIndex = () => {
                 }
               />
             </Form.Item>
-          </Col>
-          <Col span={12}>
+
+            {/* Mật khẩu */}
             <Form.Item<RegisterSchemaType>
               name="password_confirm"
-              label="Xác nhận mật khẩu"
-              className="mb-2"
               rules={[rule]}
+              className="mb-4 w-full"
               required
             >
               <Input
                 size="large"
-                className="py-2 rounded-lg dark:bg-primary_color_d_3"
+                prefix={<PasswordIcon />}
+                className="py-3 rounded-xl dark:!bg-primary_color_d dark:border-0"
+                placeholder="Xác minh mật khẩu"
                 type={showConfirmPassword ? 'text' : 'password'}
                 suffix={
-                  showPassword ? (
+                  showConfirmPassword ? (
                     <EyeIcon onClick={handleSetConfirmPasswordState} />
                   ) : (
                     <EyeSlashIcon onClick={handleSetConfirmPasswordState} />
@@ -185,54 +159,27 @@ export const RegisterIndex = () => {
                 }
               />
             </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="date_of_birth"
-              label="Ngày sinh"
-              className="mb-2"
-              rules={[rule]}
-              required
-            >
-              <DatePicker
-                size="large"
-                format={DATE_FORMAT}
-                className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3"
-              />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<RegisterSchemaType>
-              name="url_facebook"
-              label="Link facebook cá nhân"
-              className="mb-2"
-              rules={[rule]}
-            >
-              <Input
-                size="large"
-                className="py-2 h-[42px] rounded-lg dark:bg-primary_color_d_3"
-                placeholder="https://www.facebook.com/"
-              />
-            </Form.Item>
-          </Col>
-        </Row>
+          </div>
 
-        <Button
-          className="flex justify-center w-full text-base py-5 mt-6 rounded-lg"
-          type="primary"
-          htmlType="submit"
-        >
-          Đăng ký
-        </Button>
-        <Button
-          className="flex justify-center w-full text-base py-5 mt-4 text-link_text_l dark:text-link_text_d"
-          type="text"
-          htmlType="button"
-          onClick={() => router.push(Routes.Login)}
-        >
-          Trở vể đăng nhập
-        </Button>
-      </Form>
-    </div>
+          <Button
+            className="flex justify-center w-full text-base h-[38px] mt-6 rounded-lg"
+            type="primary"
+            htmlType="submit"
+          >
+            Đăng ký
+          </Button>
+          <Button
+            className="flex justify-center w-full text-base font-medium h-[38px] mt-4 bg-transparent text-color_l border-color_l
+          relative [&>.ant-btn-icon]:absolute [&>.ant-btn-icon]:left-3"
+            type="default"
+            htmlType="button"
+            onClick={() => router.push(Routes.Login)}
+            icon={<ArrowRightIcon className="rotate-180 [&>path]:!fill-color_l" />}
+          >
+            Trở vể đăng nhập
+          </Button>
+        </Form>
+      </div>
+    </>
   );
 };

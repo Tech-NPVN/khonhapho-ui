@@ -4,6 +4,10 @@
   box-shadow: 0px 4px 15px 0px #0000000f;
 }
 
+.ant-segmented > .ant-segmented-group {
+  @apply gap-1;
+}
+
 .ant-segmented-item {
   @apply !rounded-[10px] px-6 py-[3px] font-medium;
 }
@@ -19,4 +23,8 @@
 
 .ant-segmented-item-label {
   @apply text-[13px];
+}
+
+.ant-segmented.ant-segmented-block > .ant-segmented-group > .ant-segmented-item {
+  @apply px-3;
 }
