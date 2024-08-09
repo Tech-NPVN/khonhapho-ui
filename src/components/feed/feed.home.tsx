@@ -76,7 +76,7 @@ const FeedHome = () => {
               );
             })}
           </div>
-          <div className="absolute bottom-3 right-3 flex items-center">
+          <div className="absolute bottom-3 right-3 hidden items-center">
             <div className="relative w-9 h-9 flex items-center justify-center">
               <svg
                 className="stroke-white/25 z-10 absolute top-0 left-0"

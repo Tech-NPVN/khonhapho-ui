@@ -94,4 +94,22 @@
   .sidebar-item-dropdown-collapse {
     @apply [&>li>div>svg]:absolute [&>li>div>svg]:top-1/2 [&>li>div>svg]:left-1/2 [&>li>div>svg]:-translate-x-1/2 [&>li>div>svg]:-translate-y-1/2;
   }
+
+  .slider-video-custom::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 7px;
+    height: 7px;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .slider-video-custom::-moz-range-thumb {
+    width: 7px;
+    height: 7px;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+  }
 }

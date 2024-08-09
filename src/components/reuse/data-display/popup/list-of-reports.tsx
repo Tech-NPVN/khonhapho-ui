@@ -3,7 +3,7 @@
 import { OpenFullIcon, SearchIcon } from '@/components/icons';
 import { Button, Modal, Table, TableProps } from 'antd';
 import { ModalProps } from 'antd/lib';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import ReportDetailPopup from './report-detail';
 
 const convertReportingTime = (reportingTime: string): string => {
@@ -32,7 +32,6 @@ interface DataType {
 }
 
 const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
-  const [isOpen, setIsOpen] = useState(open);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const columns: TableProps<DataType>['columns'] = [
     {
@@ -91,9 +90,7 @@ const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
       guest_name: 'Nguyễn Văn b',
     },
   ];
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
+
   return (
     <div>
       <Modal
@@ -101,7 +98,7 @@ const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
         centered
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',

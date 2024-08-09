@@ -2,15 +2,11 @@
 
 import { Modal } from 'antd';
 import { ModalProps } from 'antd/lib';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 interface IProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 const OwnerReview = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
-  const [isOpen, setIsOpen] = useState(open);
-  useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
   return (
     <div>
       <Modal
@@ -18,7 +14,7 @@ const OwnerReview = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
         centered
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
-        open={isOpen}
+        open={open}
         className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',
