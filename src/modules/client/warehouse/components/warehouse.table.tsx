@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { compareWarehouseStatus } from './warehouse.util';
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {
@@ -174,71 +174,69 @@ export const data: WarehouseType = {
   feature: 'Mặt phố',
 };
 
-export const WarehouseTable = ({
-  columns,
-  data,
-}: {
-  columns: TableProps<WarehouseType>['columns'];
-  data: WarehouseType[];
-}) => {
-  const [openPopoverHidden, setOpenPopoverHidden] = useState<boolean>(false);
+export const WarehouseTable = memo(
+  ({ columns, data }: { columns: TableProps<WarehouseType>['columns']; data: WarehouseType[] }) => {
+    const [openPopoverHidden, setOpenPopoverHidden] = useState<boolean>(false);
 
-  const {
-    columnsVisibility,
-    toggleColumnVisibility,
-    visibleColumns,
-    hiddenColumnsCount,
-    resetColumnVisibility,
-  } = useColumnVisibility(columns);
+    const {
+      columnsVisibility,
+      toggleColumnVisibility,
+      visibleColumns,
+      hiddenColumnsCount,
+      resetColumnVisibility,
+    } = useColumnVisibility(columns);
 
-  return (
-    <>
-      <div className="flex justify-between">
-        <PopoverVisibilityColumns
-          open={openPopoverHidden}
-          setOpen={setOpenPopoverHidden}
-          columns={columns}
-          columnsVisibility={columnsVisibility}
-          toggleColumnVisibility={toggleColumnVisibility}
-          resetColumnVisibility={resetColumnVisibility}
-          placement="bottomLeft"
-          trigger="click"
-        >
-          <Button
-            icon={<EyeSlashIcon />}
-            size="large"
-            className={`dark:bg-background_d dark:border-0 dark:text-primary_text_d px-5 py-2`}
+    return (
+      <>
+        <div className="flex justify-between gap-5">
+          <PopoverVisibilityColumns
+            open={openPopoverHidden}
+            setOpen={setOpenPopoverHidden}
+            columns={columns}
+            columnsVisibility={columnsVisibility}
+            toggleColumnVisibility={toggleColumnVisibility}
+            resetColumnVisibility={resetColumnVisibility}
+            placement="bottomLeft"
+            trigger="click"
           >
-            Ẩn cột
-            {hiddenColumnsCount > 0 && (
-              <Badge count={hiddenColumnsCount} className="badge-error ml-1" />
-            )}
-          </Button>
-        </PopoverVisibilityColumns>
+            <Button
+              icon={<EyeSlashIcon />}
+              size="large"
+              className={`dark:bg-background_d dark:border-0 dark:text-primary_text_d px-5 py-2`}
+            >
+              Ẩn cột
+              {hiddenColumnsCount > 0 && (
+                <Badge count={hiddenColumnsCount} className="badge-error ml-1" />
+              )}
+            </Button>
+          </PopoverVisibilityColumns>
 
-        <Select
-          size="large"
-          className="w-72"
-          suffixIcon={<ChangeIcon />}
-          options={SELECT_FILTER_WAREHOUSE}
-          defaultValue="hot-news"
+          <Select
+            size="large"
+            className="w-72"
+            suffixIcon={<ChangeIcon />}
+            options={SELECT_FILTER_WAREHOUSE}
+            defaultValue="hot-news"
+          />
+        </div>
+
+        <Table
+          bordered
+          className="mt-6"
+          scroll={{ x: 'max-content' }}
+          dataSource={data}
+          columns={visibleColumns}
+          size="small"
+          pagination={false}
+          rowClassName={(_, index) =>
+            index % 2 === 0
+              ? 'bg-primary_color_l dark:bg-primary_color_d'
+              : 'bg-background_l_2 dark:bg-background_d'
+          }
         />
-      </div>
+      </>
+    );
+  },
+);
 
-      <Table
-        bordered
-        className="mt-6"
-        scroll={{ x: 'max-content' }}
-        dataSource={data}
-        columns={visibleColumns}
-        size="small"
-        pagination={false}
-        rowClassName={(_, index) =>
-          index % 2 === 0
-            ? 'bg-primary_color_l dark:bg-primary_color_d'
-            : 'bg-background_l_2 dark:bg-background_d'
-        }
-      />
-    </>
-  );
-};
+WarehouseTable.displayName = WarehouseTable.name;

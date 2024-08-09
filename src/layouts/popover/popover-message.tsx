@@ -1,6 +1,6 @@
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
 import { Button, Empty, Input, Popover, Segmented } from 'antd';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { PopoverProps } from '../layout.type';
 import { PenEditIcon, SearchIcon } from '@/components/icons';
 
@@ -23,7 +23,7 @@ const MessageTab = ({ status }: { status: string }) => {
   return <Empty description="Chưa có tin nhắn!" className="my-5" />;
 };
 
-export const PopoverMessage = ({ children, open, setOpen }: PopoverProps) => {
+export const PopoverMessage = memo(({ children, open, setOpen }: PopoverProps) => {
   const [value, setValue] = useState<string>(MESSAGE_TABS('chat-group')[0].value);
 
   const renderContent = useCallback(() => {
@@ -58,4 +58,6 @@ export const PopoverMessage = ({ children, open, setOpen }: PopoverProps) => {
       {children}
     </Popover>
   );
-};
+});
+
+PopoverMessage.displayName = Popover.name;

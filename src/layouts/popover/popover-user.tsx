@@ -1,5 +1,5 @@
 import { Divider, Popover } from 'antd';
-import React, { useCallback } from 'react';
+import React, { memo, useCallback } from 'react';
 import { PopoverProps } from '../layout.type';
 import {
   BuyUrgentlyIcon,
@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { Routes } from '@/constants/enums';
 import { useRouter } from 'next/navigation';
 
-export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
+export const PopoverUser = memo(({ children, open, setOpen }: PopoverProps) => {
   const router = useRouter();
 
   const renderContent = useCallback(() => {
@@ -91,4 +91,6 @@ export const PopoverUser = ({ children, open, setOpen }: PopoverProps) => {
       {children}
     </Popover>
   );
-};
+});
+
+PopoverUser.displayName = PopoverUser.name;

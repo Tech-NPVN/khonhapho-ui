@@ -1,12 +1,12 @@
 'use client';
 
 import { LinkIcon, SectionBodyWithDescButton } from '@/components/common';
-import { AddIcon, SearchIcon } from '@/components/icons';
+import { AddIcon, FilterIcon, SearchIcon } from '@/components/icons';
 import { SegmentedOptionProps, SegmentedWithNode } from '@/components/reuse/data-display';
 import { Button, Input } from 'antd';
 import { useRouter, useSearchParams } from 'next/navigation';
 import WarehouseSearch from './warehouse.search';
-import { Routes } from '@/constants/enums';
+import { Breakpoint, Routes } from '@/constants/enums';
 import { useCallback, useMemo, useState } from 'react';
 import {
   WarehouseTabsDetails,
@@ -14,7 +14,8 @@ import {
   WarehouseTabsList,
   WarehouseTabsSaved,
 } from './warehouse-tabs';
-import { ModalReasonDecs } from '@/common/modal';
+import { ModalFilterWarehouse, ModalReasonDecs } from '@/common/modal';
+import { useWindowSize } from 'react-use';
 
 const WAREHOUSE_TABS: SegmentedOptionProps[] = [
   {
@@ -35,13 +36,21 @@ const WAREHOUSE_TABS: SegmentedOptionProps[] = [
 ];
 
 export const WarehouseIndex = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
   const router = useRouter();
+  const windows = useWindowSize();
   const tab = useSearchParams().get('tab');
+
+  // Modal state
+  const [openReasonDecs, setOpenReasonDecs] = useState<boolean>(false);
+  const [openFilter, setOpenFilter] = useState<boolean>(false);
 
   const isDetailsTab = useMemo(() => {
     return tab === 'details';
   }, [tab]);
+
+  const isMobile = useMemo(() => {
+    return windows.width < Breakpoint.Lg;
+  }, [windows.width]);
 
   const renderAddButton = useCallback(() => {
     return (
@@ -49,7 +58,7 @@ export const WarehouseIndex = () => {
         icon={<AddIcon className="mr-1" />}
         type="primary"
         size="large"
-        className="px-5"
+        className="px-5 max-lg:text-[13px]"
         onClick={() => router.push(Routes.WarehouseCreate)}
       >
         Đăng tin
@@ -59,36 +68,63 @@ export const WarehouseIndex = () => {
 
   return (
     <>
-      <div className="pt-4 pr-4">
+      <div className="pt-4 lg:pr-4">
         <SectionBodyWithDescButton
           title="Kho tài nguyên"
           description={
-            <button className="text-link bg-transparent border-0 p-0" onClick={() => setShowModal(true)}>
+            <button
+              className="text-link bg-transparent border-0 p-0 max-lg:text-xs text-left"
+              onClick={() => setOpenReasonDecs(true)}
+            >
               Lý do không lọc Diện tích/Mặt tiền/Hướng <LinkIcon />
             </button>
           }
           btn={renderAddButton()}
         >
-          <SegmentedWithNode
-            options={WAREHOUSE_TABS}
-            className="dark:!bg-background_d"
-            element={
+          {isMobile && (
+            <div className="flex justify-between gap-5 mb-4">
+              <Button
+                icon={<FilterIcon />}
+                type="text"
+                size="large"
+                className="shadow-btn rounded-xl dark:bg-background_d"
+                onClick={() => setOpenFilter(true)}
+              >
+                Lọc
+              </Button>
               <Input
                 size="large"
                 placeholder="Nhập đc, SĐT, seri sổ"
                 prefix={<SearchIcon className="w-4 h-4" />}
-                className="w-[320px] border-0 shadow-btn dark:bg-background_d rounded-xl"
+                className="w-full border-0 shadow-btn dark:!bg-background_d rounded-xl"
               />
+            </div>
+          )}
+
+          <SegmentedWithNode
+            options={WAREHOUSE_TABS}
+            className={`dark:!bg-background_d ${isMobile ? 'w-full mb-4' : ''}`}
+            block={isMobile}
+            element={
+              windows.width > Breakpoint.Lg && (
+                <Input
+                  size="large"
+                  placeholder="Nhập đc, SĐT, seri sổ"
+                  prefix={<SearchIcon className="w-4 h-4" />}
+                  className="w-[320px] border-0 shadow-btn dark:!bg-background_d rounded-xl"
+                />
+              )
             }
           >
-            <WarehouseSearch />
+            {!isMobile && <WarehouseSearch />}
           </SegmentedWithNode>
         </SectionBodyWithDescButton>
 
         {isDetailsTab && <WarehouseTabsDetails />}
       </div>
 
-      <ModalReasonDecs open={showModal} handleCancel={() => setShowModal(false)} />
+      <ModalReasonDecs open={openReasonDecs} handleCancel={() => setOpenReasonDecs(false)} />
+      <ModalFilterWarehouse open={openFilter} handleCancel={() => setOpenFilter(false)} />
     </>
   );
 };
