@@ -44,7 +44,9 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
   );
 
   const [form] = Form.useForm<WarehouseFormSchemaType>();
+  
   const legal_status = Form.useWatch('legal_status', form);
+  const property_type = Form.useWatch('property_type', form);
 
   const imagesUpload = useUpload();
   const videosUpload = useUpload();
@@ -88,7 +90,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
   return (
     <>
-      <div className="pt-4 pr-4">
+      <div className="pt-4 lg:pr-4">
         <SectionBody title={`${id ? 'Sửa tin' : 'Đăng tin'}`}>
           <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Row gutter={40}>
@@ -257,7 +259,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                           size="large"
                           className="w-full h-10"
                           placeholder="Nhập thông số nhà"
-                          disabled
+                          disabled={!property_type}
                         />
                       </Form.Item>
                     </Tooltip>

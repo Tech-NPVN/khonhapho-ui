@@ -1,0 +1,8 @@
+/* Drawer */
+.ant-drawer-content {
+  @apply dark:!bg-primary_color_d;
+}
+
+.ant-drawer-content > .ant-drawer-body {
+  @apply !px-1 !py-3 flex overflow-hidden;
+}

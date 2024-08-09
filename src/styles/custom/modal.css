@@ -1,0 +1,8 @@
+/* Modal */
+.ant-modal-header {
+  @apply !bg-transparent
+}
+
+.ant-modal .ant-modal-content {
+  @apply dark:!bg-background_d;
+}

@@ -4,6 +4,10 @@
   @apply !flex !items-center !justify-center;
 }
 
+.ant-btn {
+  @apply max-lg:!text-sm
+}
+
 .ant-btn.ant-btn-text {
   @apply dark:!text-primary_text_d;
 }

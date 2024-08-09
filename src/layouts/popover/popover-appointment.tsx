@@ -1,8 +1,8 @@
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 import { PopoverProps } from '../layout.type';
 import { Empty, Popover } from 'antd';
 
-export const PopoverAppointment = ({ children, open, setOpen }: PopoverProps) => {
+export const PopoverAppointment = memo(({ children, open, setOpen }: PopoverProps) => {
   const renderContent = useCallback(() => {
     return (
       <div className="px-1 w-72">
@@ -23,4 +23,6 @@ export const PopoverAppointment = ({ children, open, setOpen }: PopoverProps) =>
       {children}
     </Popover>
   );
-};
+});
+
+PopoverAppointment.displayName = Popover.name;

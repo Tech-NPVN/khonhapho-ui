@@ -7,19 +7,24 @@ import {
   FreeWarehouseIcon,
   HomeIcon,
   MainInfoWarehouseIcon,
+  MenuIcon,
   MessengerIcon,
   PersonalWarehouseIcon,
 } from '@/components/icons';
-import { Routes } from '@/constants/enums';
-import { Button, Layout, Menu } from 'antd';
+import { Breakpoint, Routes } from '@/constants/enums';
+import { Button, Layout, Menu, MenuTheme } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { IMAGE_SAMPLE } from '@/constants/data';
 import { useTheme } from 'next-themes';
 import { MenuType } from '../layout.type';
 import { PopoverAppointment, PopoverMessage, PopoverNotification, PopoverUser } from '../popover';
+import DrawerMenu from '../drawer-menu';
+import ScrollContainer from 'react-indiana-drag-scroll';
+import { itemsClient } from '../layout.const';
+import { useWindowSize } from 'react-use';
 
 const generateMenuItem = (route: string, icon: JSX.Element, isActive: boolean) => ({
   key: route,
@@ -75,7 +80,11 @@ const renderMenu = (pathname: string): MenuType[] => {
 
 const LayoutClientHeader = () => {
   const { theme } = useTheme();
+  const router = useRouter();
   const pathname = usePathname();
+  const windows = useWindowSize();
+
+  // Active pathname currently state
   const [current, setCurrent] = useState<string>(pathname);
 
   // Popover state
@@ -84,12 +93,15 @@ const LayoutClientHeader = () => {
   const [openPopoverMessage, setOpenPopoverMessage] = useState<boolean>(false);
   const [openPopoverAppointment, setOpenPopoverAppointment] = useState<boolean>(false);
 
+  // Menu bar state
+  const [openMenuBar, setOpenMenuBar] = useState<boolean>(false);
+
   useEffect(() => {
     setCurrent(pathname);
   }, [pathname]);
 
   return (
-    <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-3 z-50 fixed top-0 w-full">
+    <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-2 lg:grid-cols-3 z-50 fixed top-0 w-full transition-all">
       <Link href={Routes.Home} className="w-min">
         {theme === 'light' ? (
           <Image src="/logo-light.png" height={40} width={43} alt="logo" />
@@ -97,18 +109,21 @@ const LayoutClientHeader = () => {
           <Image src="/logo-dark.png" height={40} width={43} alt="logo" />
         )}
       </Link>
-      <div className="flex items-center justify-center dark:bg-primary_color_d">
-        <Menu
-          onClick={(e) => setCurrent(e.key)}
-          selectedKeys={[current]}
-          mode="horizontal"
-          items={renderMenu(pathname)}
-          className="[&>li]:w-28 [&>li]:flex [&>li]:justify-center [&>li>span]:hidden dark:bg-primary_color_d"
-        />
-      </div>
+
+      {windows.width >= Breakpoint.Lg && (
+        <div className="flex items-center justify-center dark:bg-primary_color_d">
+          <Menu
+            onClick={(e) => setCurrent(e.key)}
+            selectedKeys={[current]}
+            mode="horizontal"
+            items={renderMenu(pathname)}
+            className="[&>li]:w-28 [&>li]:flex [&>li]:justify-center [&>li>span]:hidden dark:bg-primary_color_d"
+          />
+        </div>
+      )}
 
       <div className="flex items-center justify-end gap-3">
-        {/* Appointment */}
+        {/* Appointment (Lịch hẹn) */}
         <PopoverAppointment open={openPopoverAppointment} setOpen={setOpenPopoverAppointment}>
           <Button
             icon={<AlarmIcon />}
@@ -119,7 +134,7 @@ const LayoutClientHeader = () => {
           />
         </PopoverAppointment>
 
-        {/* Message */}
+        {/* Message (Tin nhắn) */}
         <PopoverMessage open={openPopoverMessage} setOpen={setOpenPopoverMessage}>
           <Button
             icon={<MessengerIcon />}
@@ -130,7 +145,7 @@ const LayoutClientHeader = () => {
           />
         </PopoverMessage>
 
-        {/* Notification */}
+        {/* Notification (Thông báo) */}
         <PopoverNotification open={openPopoverNoti} setOpen={setOpenPopoverNoti}>
           <Button
             icon={<BellIcon />}
@@ -141,7 +156,7 @@ const LayoutClientHeader = () => {
           />
         </PopoverNotification>
 
-        {/* User */}
+        {/* User (Avatar người dùng) */}
         <PopoverUser open={openPopoverUser} setOpen={setOpenPopoverUser}>
           <Button
             type="text"
@@ -152,6 +167,41 @@ const LayoutClientHeader = () => {
             <Image src={IMAGE_SAMPLE} height={40} width={40} alt="avatar" />
           </Button>
         </PopoverUser>
+
+        {/* Menu (Điều hướng responsive) */}
+        <div className="block lg:hidden">
+          <Button
+            icon={<MenuIcon />}
+            type="text"
+            shape="round"
+            size="large"
+            className="w-10 h-10 dark:bg-background_d shadow-btn "
+            onClick={() => setOpenMenuBar(true)}
+          />
+        </div>
+
+        <DrawerMenu open={openMenuBar} handleClose={() => setOpenMenuBar(false)}>
+          <ScrollContainer className="overflow-y-scroll flex-1">
+            <Menu
+              theme={theme as MenuTheme}
+              selectedKeys={[pathname ?? undefined]}
+              mode="inline"
+              items={itemsClient}
+              className={`border-0 bg-transparent pb-2`}
+              onClick={(e) => {
+                e.domEvent.stopPropagation();
+
+                if (e.key === 'logout') {
+                  // call logout function...
+                  return router.push(Routes.Login);
+                }
+
+                router.push(e.key);
+                setOpenMenuBar(false);
+              }}
+            />
+          </ScrollContainer>
+        </DrawerMenu>
       </div>
     </Layout.Header>
   );
