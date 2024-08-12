@@ -95,9 +95,9 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
           <Form form={form} onFinish={handleSubmit} layout="vertical">
             <Row gutter={40}>
               {/* Left column */}
-              <Col span={14}>
+              <Col lg={14} xs={24}>
                 <Row gutter={20}>
-                  <Col span={12}>
+                  <Col lg={12} xs={24}>
                     <Form.Item label="Nhân bản tin đăng:">
                       <Button
                         type="primary"
@@ -111,7 +111,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Loại hình */}
-                  <Col span={12}>
+                  <Col lg={12} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="property_type"
                       label="Loại hình:"
@@ -150,7 +150,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Thành phố */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="c1ty"
                       label="Thành phố:"
@@ -167,7 +167,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Quận/Huyện */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="district"
                       label="Quận/Huyện:"
@@ -185,7 +185,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Đường phố */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="street"
                       label="Đường phố:"
@@ -203,7 +203,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Ngõ, hẻm, số nhà, số phòng */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Tooltip placement="bottomLeft" title="Ví dụ: 40.35.20.15">
                       <Form.Item<WarehouseFormSchemaType>
                         name="house_number"
@@ -238,7 +238,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Thông số nhà */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Tooltip
                       placement="bottomLeft"
                       title={
@@ -266,7 +266,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Hoa hồng */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="bonus_value"
                       label="Hoa hồng:"
@@ -297,7 +297,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Loại hợp đồng */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="contract_type"
                       label="Loại hợp đồng:"
@@ -317,7 +317,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Cầu đối tác */}
-                  <Col span={12}>
+                  <Col md={12} xs={24}>
                     <Tooltip placement="bottomLeft" title="Bất động sản lớn hơn 20 tỷ">
                       <Form.Item<WarehouseFormSchemaType>
                         name="bonus_referral"
@@ -367,7 +367,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Pháp lý */}
-                  <Col span={8}>
+                  <Col md={8} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="legal_status"
                       label="Pháp lý:"
@@ -387,7 +387,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Serial sổ */}
-                  <Col span={8}>
+                  <Col md={8} xs={24}>
                     <Tooltip
                       placement="topLeft"
                       title={
@@ -417,7 +417,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                   </Col>
 
                   {/* Số điện thoại chủ nhà */}
-                  <Col span={8}>
+                  <Col md={8} xs={24}>
                     <Form.Item<WarehouseFormSchemaType>
                       name="owner_phone"
                       label="Số điện thoại chủ nhà:"
@@ -436,7 +436,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
               </Col>
 
               {/* Right column */}
-              <Col span={10}>
+              <Col lg={10} xs={24}>
                 {/* Ảnh */}
                 <Form.Item<WarehouseFormSchemaType>
                   name="images"
