@@ -2,7 +2,7 @@ import { DoubleArrowBottomIcon, ReloadDownIcon } from '@/components/icons';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import { SELECT_PRICE_UNIT } from '@/constants/data';
 import { Button, Col, Collapse, InputNumber, Row, Select } from 'antd';
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 
 const WarehouseSearch = () => {
   const [expand, setExpand] = useState<string[]>([]);
@@ -119,4 +119,4 @@ const WarehouseSearch = () => {
   );
 };
 
-export default WarehouseSearch;
+export default memo(WarehouseSearch);

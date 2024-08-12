@@ -35,6 +35,7 @@ export * from './eye-slash.icon';
 export * from './eye.icon';
 
 export * from './feeds.icon';
+export * from './filter.icon';
 export * from './free-warehouse.icon';
 
 export * from './grid2.icon';
@@ -55,6 +56,7 @@ export * from './history.icon';
 export * from './mail.icon';
 export * from './main-info-warehouse.icon';
 export * from './meeting-schedule.icon';
+export * from './menu.icon';
 export * from './messenger-multi-color.icon';
 export * from './messenger.icon';
 export * from './mnt-guest.icon';

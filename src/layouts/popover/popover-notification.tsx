@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { PopoverProps } from '../layout.type';
 import { Empty, Popover, Segmented } from 'antd';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
@@ -24,10 +24,10 @@ const NOTIFICATION_TABS = (value: string): SegmentedOptionProps[] => {
 };
 
 const NotificationTab = ({ status }: { status: string }) => {
-  return <Empty description="Chưa có thông báo!" className='mb-5' />;
+  return <Empty description="Chưa có thông báo!" className="mb-5" />;
 };
 
-export const PopoverNotification = ({ children, open, setOpen }: PopoverProps) => {
+export const PopoverNotification = memo(({ children, open, setOpen }: PopoverProps) => {
   const [value, setValue] = useState<string>(NOTIFICATION_TABS('all')[0].value);
 
   const renderContent = useCallback(() => {
@@ -61,4 +61,6 @@ export const PopoverNotification = ({ children, open, setOpen }: PopoverProps) =
       {children}
     </Popover>
   );
-};
+});
+
+PopoverNotification.displayName = Popover.name;
