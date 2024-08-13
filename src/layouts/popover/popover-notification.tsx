@@ -2,6 +2,8 @@ import { memo, useCallback, useState } from 'react';
 import { PopoverProps } from '../layout.type';
 import { Empty, Popover, Segmented } from 'antd';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
+import { useWindowSize } from 'react-use';
+import { Breakpoint } from '@/constants/enums';
 
 const NOTIFICATION_TABS = (value: string): SegmentedOptionProps[] => {
   return [
@@ -29,10 +31,11 @@ const NotificationTab = ({ status }: { status: string }) => {
 
 export const PopoverNotification = memo(({ children, open, setOpen }: PopoverProps) => {
   const [value, setValue] = useState<string>(NOTIFICATION_TABS('all')[0].value);
+  const windows = useWindowSize()
 
   const renderContent = useCallback(() => {
     return (
-      <div className="px-1 w-96">
+      <div className="px-1 sm:w-96">
         <h3 className="text-xl font-bold mb-3">Thông báo</h3>
         <Segmented options={NOTIFICATION_TABS(value)} value={value} onChange={setValue} block />
 
@@ -55,8 +58,11 @@ export const PopoverNotification = memo(({ children, open, setOpen }: PopoverPro
       open={open}
       content={renderContent()}
       onOpenChange={setOpen}
-      placement="bottomRight"
       trigger="click"
+      overlayStyle={{
+        width: windows.width < Breakpoint.Sm ? '100vw' : 'auto',
+      }}
+      placement={windows.width < Breakpoint.Sm ? 'bottom' : 'bottomRight'}
     >
       {children}
     </Popover>

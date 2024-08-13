@@ -1,11 +1,15 @@
 import { memo, useCallback } from 'react';
 import { PopoverProps } from '../layout.type';
 import { Empty, Popover } from 'antd';
+import { useWindowSize } from 'react-use';
+import { Breakpoint } from '@/constants/enums';
 
 export const PopoverAppointment = memo(({ children, open, setOpen }: PopoverProps) => {
+  const windows = useWindowSize();
+
   const renderContent = useCallback(() => {
     return (
-      <div className="px-1 w-72">
+      <div className="px-1 sm:w-72">
         <h3 className="text-xl font-bold mb-3">Lịch hẹn dẫn khách</h3>
         <Empty description="Chưa có lịch hẹn!" className="my-5" />
       </div>
@@ -18,7 +22,10 @@ export const PopoverAppointment = memo(({ children, open, setOpen }: PopoverProp
       content={renderContent()}
       onOpenChange={setOpen}
       trigger="click"
-      placement="bottomRight"
+      overlayStyle={{
+        width: windows.width < Breakpoint.Sm ? '100vw' : 'auto',
+      }}
+      placement={windows.width < Breakpoint.Sm ? 'bottom' : 'bottomRight'}
     >
       {children}
     </Popover>

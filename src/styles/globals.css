@@ -62,6 +62,10 @@
     @apply shadow-[0_4px_15px_0_#0000000F];
   }
 
+  .shadow-block {
+    @apply shadow-[0_4px_24px_0_#0000002E];
+  }
+
   .badge-error {
     @apply [&>sup]:bg-error_l dark:[&>sup]:bg-error_d [&>sup]:text-primary_color_l;
   }

@@ -13,6 +13,8 @@ export * from './bell.icon';
 export * from './bookmark.icon';
 export * from './buy-urgently.icon';
 
+export * from './calendar.icon';
+export * from './camera.icon';
 export * from './candidate.icon';
 export * from './change.icon';
 export * from './chat-group.icon';
@@ -88,6 +90,7 @@ export * from './share-message.icon';
 export * from './share.icon';
 export * from './sticker.icon';
 
+export * from './team.icon';
 export * from './three-dot.icon';
 export * from './training-schedule.icon';
 export * from './trash.icon';

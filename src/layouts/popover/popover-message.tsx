@@ -3,6 +3,8 @@ import { Button, Empty, Input, Popover, Segmented } from 'antd';
 import { memo, useCallback, useState } from 'react';
 import { PopoverProps } from '../layout.type';
 import { PenEditIcon, SearchIcon } from '@/components/icons';
+import { useWindowSize } from 'react-use';
+import { Breakpoint } from '@/constants/enums';
 
 const MESSAGE_TABS = (value: string): SegmentedOptionProps[] => {
   return [
@@ -25,10 +27,11 @@ const MessageTab = ({ status }: { status: string }) => {
 
 export const PopoverMessage = memo(({ children, open, setOpen }: PopoverProps) => {
   const [value, setValue] = useState<string>(MESSAGE_TABS('chat-group')[0].value);
+  const windows = useWindowSize();
 
   const renderContent = useCallback(() => {
     return (
-      <div className="px-1 w-80">
+      <div className="px-1 sm:w-80">
         <div className="flex justify-between">
           <h3 className="text-xl font-bold mb-3">Đoạn chat</h3>
           <Button icon={<PenEditIcon />} type="text" />
@@ -52,8 +55,11 @@ export const PopoverMessage = memo(({ children, open, setOpen }: PopoverProps) =
       open={open}
       content={renderContent()}
       onOpenChange={setOpen}
-      placement="bottomRight"
       trigger="click"
+      overlayStyle={{
+        width: windows.width < Breakpoint.Sm ? '100vw' : 'auto',
+      }}
+      placement={windows.width < Breakpoint.Sm ? 'bottom' : 'bottomRight'}
     >
       {children}
     </Popover>

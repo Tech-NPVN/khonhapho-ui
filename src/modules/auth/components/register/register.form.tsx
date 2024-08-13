@@ -137,7 +137,7 @@ export const RegisterIndex = () => {
               />
             </Form.Item>
 
-            {/* Mật khẩu */}
+            {/* Xác minh mật khẩu */}
             <Form.Item<RegisterSchemaType>
               name="password_confirm"
               rules={[rule]}
