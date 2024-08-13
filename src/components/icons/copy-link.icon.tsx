@@ -4,7 +4,6 @@ const CopyLink = (props: React.SVGProps<SVGSVGElement>) => {
       width="15"
       height="13"
       viewBox="0 0 15 13"
-      fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={'fill-primary_text_l dark:fill-primary_text_d ' + props.className}
       {...props}

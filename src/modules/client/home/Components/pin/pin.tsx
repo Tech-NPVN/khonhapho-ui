@@ -1,14 +1,15 @@
 import { Button } from 'antd';
+import clsx from 'clsx';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PinItem from './pin-item';
 
-const HomePinComponent = () => {
+const HomePinComponent = ({ className }: { className?: string }) => {
   return (
-    <div className="w-full bg-white dark:bg-primary_color_d rounded-lg p-4">
+    <div className={clsx('w-full bg-white dark:bg-primary_color_d rounded-lg p-4', className)}>
       <div className="w-full flex justify-between items-center">
         <h5 className="text-lg font-bold">Đáng chú ý</h5>
-        <Button className="dark:bg-[#151e2f] dark:text-[#daefff]" type="default">
+        <Button className="dark:bg-[#151e2f] dark:text-[#daefff] max-sm:hidden" type="default">
           + Ghim bài viết
         </Button>
       </div>
