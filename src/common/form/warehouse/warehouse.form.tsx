@@ -74,7 +74,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
   }, []);
 
   const handleChangeUpload = useCallback(
-    (upload: UseUpload, info: UploadChangeParam<UploadFile<any>>, name: string) => {
+    (upload: UseUpload, info: UploadChangeParam<UploadFile<any>>, name: keyof WarehouseFormSchemaType) => {
       upload.handleChange?.(info);
       form.setFieldValue(name, info.fileList);
       form.validateFields([[name]], { recursive: true });
