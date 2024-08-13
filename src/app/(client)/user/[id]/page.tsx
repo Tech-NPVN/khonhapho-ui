@@ -1,7 +1,7 @@
 import Loading from '@/app/loading';
 import dynamic from 'next/dynamic';
 
-const UserProfileDynamic = dynamic(
+const UserProfileOtherDynamic = dynamic(
   () => import('@/modules/client/user').then((res) => res.UserProfileIndex),
   {
     ssr: false,
@@ -9,8 +9,8 @@ const UserProfileDynamic = dynamic(
   },
 );
 
-const ProfilePage = () => {
-  return <UserProfileDynamic />;
+const UserProfileOther = ({ params }: Readonly<{ params: { id: string } }>) => {
+  return <UserProfileOtherDynamic id={params.id} />;
 };
 
-export default ProfilePage;
+export default UserProfileOther;

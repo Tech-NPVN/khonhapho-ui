@@ -39,7 +39,7 @@
 
 @layer base {
   body {
-    @apply min-h-screen main-bg tracking-[0.3px];
+    @apply min-h-screen main-bg tracking-[0.3px] overflow-x-hidden;
   }
 }
 
@@ -60,6 +60,10 @@
 
   .shadow-btn {
     @apply shadow-[0_4px_15px_0_#0000000F];
+  }
+
+  .shadow-block {
+    @apply shadow-[0_4px_24px_0_#0000002E];
   }
 
   .badge-error {

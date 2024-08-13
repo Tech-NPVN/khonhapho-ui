@@ -33,6 +33,7 @@ const config: Config = {
         divider_l: 'rgba(0, 0, 0, 0.1)',
         tiertiary_input_color_l: '#E5E6E8',
         frame_blur_l: 'rgba(40, 40, 40, 0.7)',
+        star_l: '#FBBD23',
 
         // Dark mode
         background_d: '#151E2F',
@@ -49,6 +50,7 @@ const config: Config = {
         account_d: '#374665',
         frame_blur_d: 'rgba(56, 56, 56, 0.6)',
         disable_d: '#0E1727',
+        star_d: '#FFB547',
       },
     },
   },

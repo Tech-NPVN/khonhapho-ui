@@ -43,6 +43,34 @@ const SELECT_FILTER_WAREHOUSE: DefaultOptionType[] = [
   },
 ];
 
+const SELECT_FILTER_PROFILE: DefaultOptionType[] = [
+  {
+    value: 'nhom',
+    label: 'Nhóm',
+  },
+  {
+    value: 'phong',
+    label: 'Phòng',
+  },
+
+  {
+    value: 'chi-nhanh',
+    label: 'Chi nhánh',
+  },
+  {
+    value: 'khoi',
+    label: 'Khối',
+  },
+  {
+    value: 'thong-bao-vu-chot',
+    label: 'Thông báo vụ chốt',
+  },
+  {
+    value: 'khach-can-mua-gap',
+    label: 'Khách cần mua gấp',
+  },
+];
+
 // Warehouse (Đăng tin)
 const SELECT_PROPERTY_TYPE = [
   {
@@ -265,6 +293,7 @@ export {
   SELECT_PRICE_UNIT,
   SELECT_BONUS_TYPE,
   SELECT_FILTER_WAREHOUSE,
+  SELECT_FILTER_PROFILE,
   SELECT_PROPERTY_TYPE,
   SELECT_PROPERTY_FEATURE,
   SELECT_CONTRACT_TYPE,
