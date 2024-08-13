@@ -1,25 +1,21 @@
 'use client';
 import ChatPreviewComponent from '@/components/chat/chat-preview';
-import FeedHome from '@/components/feed/feed.home';
-import FeedInterested from '@/components/feed/feed.interested';
 import { Segmented } from '@/components/reuse/data-display';
 import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import { CHAT_PREVIEW_SAMPLE } from '@/constants/data';
+import { FeedHome, FeedInterested } from '@/modules/client/home';
+import FeedBanner from '@/modules/client/home/Components/feed.banner';
+
 import { useState } from 'react';
 
 const Home = () => {
   const [first, setFirst] = useState(false);
   return (
-    <div className="flex w-full justify-between">
-      <div className="w-[calc(100%_-_286px)] flex justify-center">
-        <div className="w-full max-w-[800px]">
-          <div
-            className="hidden"
-            onClick={() => {
-              setFirst(true);
-            }}
-          >
-            Click
+    <div className="flex w-full justify-between gap-4">
+      <div className="w-full lg:w-[calc(100%_-_286px)] flex justify-center">
+        <div className="w-full max-w-[800px] sm:px-2 md:px-4">
+          <div className="w-full block min-[640px]:hidden">
+            <FeedBanner />
           </div>
           <div className="mt-4 w-full">
             <Segmented
@@ -36,12 +32,13 @@ const Home = () => {
                 },
               ]}
               size="middle"
+              className="min-[640px]:w-full w-[calc(100%_-_24px)] my-auto mx-3 min-[640px]:mx-0"
               block
             />
           </div>
         </div>
       </div>
-      <div className="w-[286px] h-full relative flex">
+      <div className="w-[286px] h-full relative lg:flex hidden">
         <div className="flex-1 fixed top-[68px]">
           <div className="w-full">
             <h5 className="mt-3 font-semibold text-black text-sm dark:text-[#daefff]">

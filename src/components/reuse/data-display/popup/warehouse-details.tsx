@@ -54,15 +54,18 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
   // Copied
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    setIsHidden(isTextClamped(contentRef.current as HTMLDivElement));
     const handleResize = () => {
+      if (isShowMore) return;
       setIsHidden(isTextClamped(contentRef.current as HTMLDivElement));
     };
+    handleResize();
+
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [post?.content]);
+  }, [isShowMore, post?.content]);
+
   return (
     <div>
       <Modal

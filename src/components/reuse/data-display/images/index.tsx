@@ -24,8 +24,8 @@ interface ImageGridProps {
 }
 const Image4 = ({ images, onImageClick }: ImageGridProps) => {
   return (
-    <div className="flex flex-wrap gap-[2px]">
-      <div className="w-full flex gap-[2px]">
+    <div className="flex flex-wrap gap-[1px] sm:gap-[2px]">
+      <div className="w-full flex gap-[1px] sm:gap-[2px]">
         <div className="flex-1 aspect-square">
           <Image
             onClick={() => {
@@ -51,7 +51,7 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
           />
         </div>
       </div>
-      <div className="w-full flex gap-[2px]">
+      <div className="w-full flex gap-[1px] sm:gap-[2px]">
         <div className="flex-1 aspect-square">
           <Image
             onClick={() => {
@@ -118,7 +118,7 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
 };
 const Image3 = ({ images, onImageClick }: ImageGridProps) => {
   return (
-    <div className="flex gap-[2px]">
+    <div className="flex gap-[1px] sm:gap-[2px]">
       <div className="w-8/12 flex">
         <div
           className="w-full aspect-square"
@@ -135,7 +135,7 @@ const Image3 = ({ images, onImageClick }: ImageGridProps) => {
           />
         </div>
       </div>
-      <div className="w-4/12 flex flex-wrap overflow-hidden gap-[2px]">
+      <div className="w-4/12 flex flex-wrap overflow-hidden gap-[1px] sm:gap-[2px]">
         <div
           className="w-[calc(100%_-_2px)] aspect-square"
           onClick={() => {
@@ -170,7 +170,7 @@ const Image3 = ({ images, onImageClick }: ImageGridProps) => {
 };
 const Image2 = ({ images, onImageClick }: ImageGridProps) => {
   return (
-    <div className="flex gap-[2px]">
+    <div className="flex gap-[1px] sm:gap-[2px]">
       {images.map((image, index) => (
         <div
           className="flex-1 aspect-square"
@@ -193,7 +193,7 @@ const Image2 = ({ images, onImageClick }: ImageGridProps) => {
 };
 const ImageHorizontally = ({ images, onImageClick }: ImageGridProps) => {
   return (
-    <div className="flex gap-[2px]">
+    <div className="flex gap-[1px] sm:gap-[2px]">
       {images.slice(0, 4).map((image, index) => (
         <div
           className="w-1/4 aspect-square relative"
@@ -367,13 +367,13 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
   };
   useEffect(() => {
     if (open) {
-      document.body.classList.add('overflow-hidden');
+      document.body.style.overflowY = 'hidden';
       if (window.location.hash !== '#gallery') window.history.pushState(null, '', `#gallery`);
     } else {
-      document.body.classList.remove('overflow-hidden');
+      document.body.style.overflowY = '';
     }
     return () => {
-      document.body.classList.remove('overflow-hidden');
+      document.body.style.overflowY = '';
     };
   }, [open]);
   useEffect(() => {
@@ -390,7 +390,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
       ref={rootRef}
       className={clsx('w-full h-full bg-black fixed top-0 left-0 z-[9999]', open ? '' : 'hidden')}
     >
-      <div className="relative w-screen h-screen">
+      <div className="relative h-full w-full">
         <Swiper
           ref={swiperRef}
           spaceBetween={10}
@@ -401,7 +401,8 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
           className={clsx(
             'slide-class [&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-4 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-4 ',
             'transition-all ease-in-out duration-200',
-            isShowThumbs ? 'h-[calc(100vh-_108px)]' : ' h-screen ',
+            'max-sm:[&_.swiper-button-prev]:hidden max-sm:[&_.swiper-button-next]:hidden',
+            isShowThumbs ? 'h-[calc(100%_-_114px)]' : ' h-full w-full ',
           )}
           centeredSlides
           onZoomChange={(_, zoom) => {
@@ -439,9 +440,9 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
         </Swiper>
         <div
           className={clsx(
-            'w-full absolute h-[100px] bottom-1 mx-auto my-0 flex justify-center items-center',
+            'max-w-full absolute h-[105px] bottom-1 mx-auto my-0 flex justify-center items-center left-0 right-0',
             'transition-all ease-in-out duration-200',
-            isShowThumbs ? '' : 'translate-y-[108px]',
+            isShowThumbs ? '' : 'translate-y-[120px]',
           )}
         >
           <Swiper
@@ -450,14 +451,13 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
             freeMode={true}
             watchSlidesProgress={true}
             modules={[FreeMode, Navigation, Thumbs]}
-            className="w-[600px] [&_.swiper-slide-thumb-active_.bg]:!opacity-0"
-            slidesPerView={(images?.length || 1) > 6 ? 6 : images?.length || 1}
-            style={{ width: `${(images?.length || 1) > 6 ? 6 : images?.length || 1}00px` }}
+            className="my-0 mx-auto max-w-full [&_.swiper-slide-thumb-active_.bg]:!opacity-0"
+            slidesPerView={'auto'}
           >
             {videos?.map((video) => (
               <SwiperSlide
                 key={video}
-                className="h-[100px] max-w-[100px] bg-black/30 flex justify-center items-center rounded-lg overflow-hidden relative"
+                className="h-[105px] max-w-[105px] min-w-[105px] bg-black/30 flex justify-center items-center rounded-lg overflow-hidden relative"
               >
                 <video src={video} className="w-full h-full"></video>
                 <div className="absolute top-0 left-0 bottom-0 right-0 bg-black/60 z-10 bg"></div>
@@ -466,10 +466,10 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
             {images?.map((image) => (
               <SwiperSlide
                 key={image}
-                className="h-[100px] max-w-[100px] bg-black/30 flex justify-center items-center rounded-lg overflow-hidden relative"
+                className="h-[105px] max-w-[105px] min-w-[105px] bg-black/30 flex justify-center items-center rounded-lg overflow-hidden relative"
               >
                 <Image
-                  className="h-full w-auto object-contain"
+                  className="h-auto w-full object-cover"
                   width={120}
                   height={120}
                   src={image}
