@@ -46,7 +46,7 @@ const Segmented = ({
   size = 'middle',
   children,
   className,
-  notRedirect = true,
+  notRedirect,
 }: SegmentedProps) => {
   const { value, handleChange } = useSegmented(options, notRedirect);
 

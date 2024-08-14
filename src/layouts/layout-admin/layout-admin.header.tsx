@@ -21,9 +21,23 @@ const LayoutAdminHeader = () => {
     <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d flex justify-between z-50 fixed top-0 w-full">
       <Link href={Routes.Home} className="w-min">
         {theme === 'light' ? (
-          <Image src="/logo-light.png" height={40} width={43} alt="logo" />
+          <Image
+            src="/logo-light.png"
+            height={40}
+            width={0}
+            alt="logo-light"
+            unoptimized
+            className="w-auto"
+          />
         ) : (
-          <Image src="/logo-dark.png" height={40} width={43} alt="logo" />
+          <Image
+            src="/logo-dark.png"
+            height={40}
+            width={0}
+            alt="logo-dark"
+            unoptimized
+            className="w-auto"
+          />
         )}
       </Link>
 
