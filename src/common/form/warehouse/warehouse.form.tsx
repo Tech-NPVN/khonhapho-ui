@@ -44,7 +44,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
   );
 
   const [form] = Form.useForm<WarehouseFormSchemaType>();
-  
+
   const legal_status = Form.useWatch('legal_status', form);
   const property_type = Form.useWatch('property_type', form);
 
@@ -74,7 +74,11 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
   }, []);
 
   const handleChangeUpload = useCallback(
-    (upload: UseUpload, info: UploadChangeParam<UploadFile<any>>, name: keyof WarehouseFormSchemaType) => {
+    (
+      upload: UseUpload,
+      info: UploadChangeParam<UploadFile<any>>,
+      name: keyof WarehouseFormSchemaType,
+    ) => {
       upload.handleChange?.(info);
       form.setFieldValue(name, info.fileList);
       form.validateFields([[name]], { recursive: true });
@@ -503,9 +507,11 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
               </Col>
             </Row>
 
-            <Button type="primary" htmlType="submit" size="large" className="w-full mt-5">
-              {id ? 'Sửa tin' : 'Đăng tin'}
-            </Button>
+            <div className='w-full md:w-[460px] block m-auto'>
+              <Button type="primary" htmlType="submit" size="large" className="w-full mt-5">
+                {id ? 'Sửa tin' : 'Đăng tin'}
+              </Button>
+            </div>
           </Form>
         </SectionBody>
       </div>
