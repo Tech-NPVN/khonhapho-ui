@@ -59,9 +59,9 @@ export const RegisterIndex = () => {
       <div className="w-full flex flex-col justify-center md:w-[500px] h-screen md:h-auto bg-primary_color_l dark:bg-background_d md:rounded-xl px-6 py-9">
         <div className="flex w-full justify-center mb-10">
           {theme === 'light' ? (
-            <Image src="/logo-large-light.png" height={100} width={104} alt="logo" />
+            <Image src="/logo-light.png" height={100} width={104} alt="logo" />
           ) : (
-            <Image src="/logo-large-dark.png" height={100} width={104} alt="logo" />
+            <Image src="/logo-dark.png" height={100} width={104} alt="logo" />
           )}
         </div>
 

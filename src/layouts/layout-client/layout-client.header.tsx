@@ -101,12 +101,26 @@ const LayoutClientHeader = () => {
   }, [pathname]);
 
   return (
-    <Layout.Header className="px-3 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-2 lg:grid-cols-3 z-50 fixed top-0 w-full transition-all">
+    <Layout.Header className="px-4 border-b-divider_l dark:border-b-divider_d shadow-lg bg-white dark:bg-primary_color_d grid grid-cols-2 lg:grid-cols-3 z-50 fixed top-0 w-full transition-all">
       <Link href={Routes.Home} className="w-min">
         {theme === 'light' ? (
-          <Image src="/logo-light.png" height={40} width={43} alt="logo" />
+          <Image
+            src="/logo-light.png"
+            height={40}
+            width={0}
+            alt="logo-light"
+            unoptimized
+            className="w-auto"
+          />
         ) : (
-          <Image src="/logo-dark.png" height={40} width={43} alt="logo" />
+          <Image
+            src="/logo-dark.png"
+            height={40}
+            width={0}
+            alt="logo-dark"
+            unoptimized
+            className="w-auto"
+          />
         )}
       </Link>
 

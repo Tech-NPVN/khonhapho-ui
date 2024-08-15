@@ -26,19 +26,51 @@ export const UserProfileIndex = ({ id }: { id?: string }) => {
 
   const renderBlock = useCallback((title: string, children: React.ReactNode) => {
     return (
-      <div className="rounded-lg bg-primary_color_l dark:bg-primary_color_d mb-5">
-        <h3 className="m-0 py-4 px-6 font-semibold">{title}</h3>
+      <div className="md:rounded-lg bg-primary_color_l dark:bg-primary_color_d mb-5">
+        <h3 className="m-0 py-3 md:py-4 px-4 md:px-6 font-semibold max-md:text-sm">{title}</h3>
         <Divider className="bg-background_l dark:bg-divider_d/40 my-0" />
-        <div className="py-4 px-6">{children}</div>
+        <div className="py-3 md:py-4 px-4 md:px-6">{children}</div>
       </div>
     );
   }, []);
 
+  const renderActionButton = useCallback(() => {
+    return id ? (
+      <Button
+        type="default"
+        className="bg-transparent text-color_l border-color_l rounded-full"
+        icon={<MessengerNhaPhoIcon />}
+      >
+        Nhắn tin
+      </Button>
+    ) : (
+      <>
+        <Button
+          type="default"
+          className="bg-transparent text-color_l border-color_l rounded-full"
+          icon={<PenEditGreenIcon />}
+          onClick={() => setOpenUpdateProfile(true)}
+        >
+          Chỉnh sửa hồ sơ
+        </Button>
+
+        <Button
+          type="default"
+          className="bg-transparent text-color_l border-color_l rounded-full ml-3"
+          icon={<UserPasswordGreenIcon />}
+          onClick={() => setOpenChangePassword(true)}
+        >
+          Đổi mật khẩu
+        </Button>
+      </>
+    );
+  }, [id]);
+
   return (
     <>
       <section className="flex flex-col items-center gap-5 mt-4">
-        <div className="md:w-[950px]">
-          <div className="rounded-xl bg-primary_color_l dark:bg-primary_color_d overflow-hidden mb-5">
+        <div className="lg:w-[950px]">
+          <div className="md:rounded-xl bg-primary_color_l dark:bg-primary_color_d overflow-hidden mb-5">
             <Image
               src="/images/npvn-cover.jpg"
               alt="Wallpaper Image"
@@ -50,86 +82,62 @@ export const UserProfileIndex = ({ id }: { id?: string }) => {
               style={{ width: '100%', height: 'auto' }}
             />
 
-            <div className="p-5 flex gap-5 relative h-[160px]">
+            <div className="p-3 md:p-5 flex gap-5 relative h-auto md:h-[160px]">
               <div className="flex-shrink-0 absolute -top-6">
                 <Image
-                  className="w-full object-contain rounded-full ring-4 ring-primary_color_l"
-                  width={160}
-                  height={160}
+                  className="h-32 w-32 md:h-40 md:w-40 object-contain rounded-full ring-4 ring-primary_color_l"
+                  width={0}
+                  height={0}
+                  unoptimized
                   src="/images/post-1.jpeg"
                   alt="user-avatar"
                 />
-                <button className="absolute w-[30px] h-[30px] bg-background_l_2 ring-1 ring-[#D9D9D9]/50 flex items-center justify-center rounded-full bottom-2 right-2 border-0 cursor-pointer">
+                <button className="absolute w-6 md:w-[30px] h-6 md:h-[30px] bg-background_l_2 ring-1 ring-[#D9D9D9]/50 flex items-center justify-center rounded-full bottom-2 right-2 border-0 cursor-pointer">
                   <CameraIcon />
                 </button>
               </div>
 
-              <div className="flex justify-between pl-[calc(160px_+_20px)] w-full">
+              <div className="flex justify-between pl-36 md:pl-[calc(160px_+_20px)] w-full">
                 <div className="flex-1">
-                  <h1 className="mb-3 font-semibold">Nguyễn Kim Ngân</h1>
-                  <p className="mb-2 font-normal">Trưởng phòng • NPHN-0000 (Khối 0000)</p>
-                  <p className=" font-normal">Hội Sở Miền Bắc Chi nhánh Đống Đa</p>
+                  <h1 className="mb-2 md:mb-3 font-semibold max-md:text-lg">Nguyễn Kim Ngân</h1>
+                  <p className="mb-1 md:mb-2 max-md:text-[13px]">
+                    Trưởng phòng • NPHN-0000 (Khối 0000)
+                  </p>
+                  <p className="max-md:mb-2 max-md:text-[13px]">
+                    Hội Sở Miền Bắc Chi nhánh Đống Đa
+                  </p>
 
                   <div className="flex items-center gap-2">
                     <Link href={''}>
                       <Image
                         src="/images/messenger.png"
                         alt="messenger-url"
-                        width={18}
-                        height={18}
+                        width={16}
+                        height={16}
                       />
                     </Link>
                     <Link href={''}>
-                      <Image src="/images/zalo.png" alt="zalo-url" width={18} height={18} />
+                      <Image src="/images/zalo.png" alt="zalo-url" width={16} height={16} />
                     </Link>
                     <Link href={''}>
-                      <Image src="/images/phone.png" alt="phone-url" width={18} height={18} />
+                      <Image src="/images/phone.png" alt="phone-url" width={16} height={16} />
                     </Link>
                     •
                     <Link href={''} className="text-link flex items-center gap-2">
-                      <Image src="/images/facebook.png" alt="facebook-url" width={18} height={18} />
+                      <Image src="/images/facebook.png" alt="facebook-url" width={16} height={16} />
                       Nguyễn Kim Ngân
                     </Link>
                   </div>
                 </div>
-                <div className="content-end">
-                  {id ? (
-                    <Button
-                      type="default"
-                      className="bg-transparent text-color_l border-color_l rounded-full"
-                      icon={<MessengerNhaPhoIcon />}
-                    >
-                      Nhắn tin
-                    </Button>
-                  ) : (
-                    <>
-                      <Button
-                        type="default"
-                        className="bg-transparent text-color_l border-color_l rounded-full"
-                        icon={<PenEditGreenIcon />}
-                        onClick={() => setOpenUpdateProfile(true)}
-                      >
-                        Chỉnh sửa hồ sơ
-                      </Button>
-
-                      <Button
-                        type="default"
-                        className="bg-transparent text-color_l border-color_l rounded-full ml-3"
-                        icon={<UserPasswordGreenIcon />}
-                        onClick={() => setOpenChangePassword(true)}
-                      >
-                        Đổi mật khẩu
-                      </Button>
-                    </>
-                  )}
-                </div>
+                <div className="content-end hidden md:block">{renderActionButton()}</div>
               </div>
             </div>
+            <div className="flex md:hidden p-3 justify-end">{renderActionButton()}</div>
           </div>
 
           <Row gutter={24}>
             {/* Left column */}
-            <Col span={11}>
+            <Col xs={24} md={11}>
               {renderBlock(
                 'Giới thiệu',
                 <div className="flex justify-between gap-5">
@@ -232,7 +240,7 @@ export const UserProfileIndex = ({ id }: { id?: string }) => {
             </Col>
 
             {/* Right column */}
-            <Col span={13}>
+            <Col xs={24} md={13}>
               <div className="flex justify-center gap-4">
                 <Select
                   size="large"
