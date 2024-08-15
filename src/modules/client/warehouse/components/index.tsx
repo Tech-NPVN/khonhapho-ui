@@ -66,19 +66,23 @@ export const WarehouseIndex = () => {
     );
   }, [router]);
 
+  const renderDescButton = useCallback(() => {
+    return (
+      <button
+        className="text-link bg-transparent border-0 p-0 max-lg:text-xs text-left"
+        onClick={() => setOpenReasonDecs(true)}
+      >
+        Lý do không lọc Diện tích/Mặt tiền/Hướng <LinkIcon />
+      </button>
+    );
+  }, []);
+
   return (
     <>
       <div className="pt-4 lg:pr-4">
         <SectionBodyWithDescButton
           title="Kho tài nguyên"
-          description={
-            <button
-              className="text-link bg-transparent border-0 p-0 max-lg:text-xs text-left"
-              onClick={() => setOpenReasonDecs(true)}
-            >
-              Lý do không lọc Diện tích/Mặt tiền/Hướng <LinkIcon />
-            </button>
-          }
+          description={renderDescButton()}
           btn={renderAddButton()}
         >
           {isMobile && (
