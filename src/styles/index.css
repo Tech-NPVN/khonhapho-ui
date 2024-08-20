@@ -15,6 +15,7 @@
 /* Common */
 .ant-input,
 .ant-input-affix-wrapper,
+.ant-input-number,
 .ant-select,
 .ant-picker {
   @apply dark:!border-divider_d/40 rounded-lg;
