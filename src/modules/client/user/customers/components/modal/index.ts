@@ -1,2 +1,2 @@
-export * from './modal-cust-create';
+export * from './modal-cust-create-update';
 export * from './modal-cust-question';

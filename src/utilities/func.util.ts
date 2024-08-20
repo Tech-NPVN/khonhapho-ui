@@ -42,4 +42,20 @@ const debounce = (func: Function, delay: number) => {
   };
 };
 
-export { range, disablePastTime, debounce };
+const formatMoneyVN = (price: number): string => {
+  if (!price) {
+    return `0 đồng`;
+  }
+
+  if (price < 1000) {
+    return `${price} đồng`;
+  } else if (price < 1_000_000) {
+    return `${(price / 1000).toFixed(price % 1000 === 0 ? 0 : 3)} nghìn`;
+  } else if (price < 1_000_000_000) {
+    return `${(price / 1_000_000).toFixed(price % 1_000_000 === 0 ? 0 : 3)} triệu`;
+  } else {
+    return `${(price / 1_000_000_000).toFixed(price % 1_000_000_000 === 0 ? 0 : 3)} tỷ`;
+  }
+};
+
+export { range, disablePastTime, debounce, formatMoneyVN };

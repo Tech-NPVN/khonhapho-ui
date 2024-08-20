@@ -9,7 +9,7 @@ type DragScrollHandlers = {
 };
 
 const useDragScroll = (): DragScrollHandlers => {
-  const [cursor, setCursor] = useState<string>('grab');
+  const [cursor, setCursor] = useState<string>('default');
   const isDragging = useRef<boolean>(false);
   const startX = useRef<number>(0);
   const startY = useRef<number>(0);

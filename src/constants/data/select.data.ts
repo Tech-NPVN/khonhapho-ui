@@ -388,6 +388,18 @@ const SELECT_BUY_PURPOSE = [
   },
 ];
 
+// Hiện trạng
+const SELECT_HOUSE_STATUS = [
+  {
+    value: 'dang-tim-mua',
+    label: 'Đang tìm mua',
+  },
+  {
+    value: 'da-mua-nha',
+    label: 'Đã mua nhà',
+  },
+];
+
 export {
   SELECT_PRICE_UNIT,
   SELECT_BONUS_TYPE,
@@ -399,5 +411,6 @@ export {
   SELECT_CONTRACT_TYPE,
   SELECT_LEGAL_STATUS,
   SELECT_HOUSE_DIRECTION,
-  SELECT_BUY_PURPOSE
+  SELECT_BUY_PURPOSE,
+  SELECT_HOUSE_STATUS,
 };

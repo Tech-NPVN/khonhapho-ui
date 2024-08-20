@@ -36,7 +36,7 @@ const CustomersSearch = () => {
       <div className="flex justify-between mt-5 items-center">
         <Checkbox.Group
           options={optionsCheckbox}
-          className="[&>label]:py-2 [&>label]:px-3 [&>label]:rounded-lg [&>label]:bg-background_l_2"
+          className="[&>label]:py-2 [&>label]:px-3 [&>label]:rounded-lg [&>label]:bg-background_l_2 dark:[&>label]:bg-background_d"
         />
         <Select
           size="large"

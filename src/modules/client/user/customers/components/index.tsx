@@ -8,18 +8,19 @@ import { Button, Input } from 'antd';
 import { useCallback, useMemo, useState } from 'react';
 import { useWindowSize } from 'react-use';
 import CustomersSearch from './customers.search';
-import { ModalCustCreate, ModalCustQuestion } from './modal';
+import { ModalCustCreateUpdate, ModalCustQuestion } from './modal';
+import CustomersTable from './customers.table';
 
 const USER_CUSTOMER_TABS: SegmentedOptionProps[] = [
   {
     label: 'Đang tìm mua',
     value: 'buying',
-    component: <></>,
+    component: <CustomersTable />,
   },
   {
     label: 'Đã mua nhà',
     value: 'bought',
-    component: <></>,
+    component: <CustomersTable />,
   },
 ];
 
@@ -91,7 +92,7 @@ export const UserCustomersIndex = () => {
         handleCancel={() => setOpenCustomerQuestion(false)}
       />
 
-      <ModalCustCreate open={openAddNew} handleCancel={() => setOpenAddNew(false)} />
+      <ModalCustCreateUpdate open={openAddNew} handleCancel={() => setOpenAddNew(false)} />
     </>
   );
 };
