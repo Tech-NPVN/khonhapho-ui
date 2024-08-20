@@ -26,7 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
-      <head />
+      <head>
+        <meta
+          key="viewport"
+          name="viewport"
+          content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
+        />
+      </head>
       <body className={sfProPlayFont.className} id="app">
         <AntdRegistry>
           <AppProvider>{children}</AppProvider>
