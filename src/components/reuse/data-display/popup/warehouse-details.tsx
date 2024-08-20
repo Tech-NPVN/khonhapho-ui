@@ -23,7 +23,7 @@ import { useCopyToClipboard } from 'react-use';
 import { FreeMode, Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import CommentInput from '../../data-entry/comment-input';
-import Comment from '../comment';
+import { Comment } from '../comment';
 import { Slide, VideoTag } from '../images';
 import LikeComponent from '../like';
 import { IPostDetail } from '../post';
@@ -458,18 +458,21 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
           </div>
         </div>
       </Modal>
-      <SuitableCustomerPopup
-        open={isShowModalSuitableCustomerPopup}
-        onCancel={() => {
-          setIsShowModalSuitableCustomerPopup(false);
-        }}
-        onOk={() => {
-          setIsShowModalSuitableCustomerPopup(false);
-        }}
-        setOpen={() => {
-          setIsShowModalSuitableCustomerPopup(false);
-        }}
-      />
+      {isShowModalSuitableCustomerPopup && (
+        <SuitableCustomerPopup
+          open={true}
+          onCancel={() => {
+            setIsShowModalSuitableCustomerPopup(false);
+          }}
+          onOk={() => {
+            setIsShowModalSuitableCustomerPopup(false);
+          }}
+          setOpen={() => {
+            setIsShowModalSuitableCustomerPopup(false);
+          }}
+        />
+      )}
+
       <NotePopup
         open={isShowNotePopup}
         onCancel={() => setIsShowNotePopup(false)}

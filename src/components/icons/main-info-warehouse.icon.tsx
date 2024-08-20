@@ -80,5 +80,45 @@ const MainInfoWarehouseIcon = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-
-export { MainInfoWarehouseIcon };
+const MainInfoWarehouseIcon2 = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="26"
+      height="25"
+      viewBox="0 0 26 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className="[&_.fill]:fill-primary_text_l [&_.stroke]:stroke-primary_text_l dark:[&_.fill]:fill-primary_text_l dark:[&_.stroke]:stroke-primary_text_l"
+      {...props}
+    >
+      <path
+        d="M4.64375 10.5107V9.71074H3.04375V10.5107H4.64375ZM13.4994 23.9423C13.9412 23.9423 14.2994 23.5841 14.2994 23.1423C14.2994 22.7005 13.9412 22.3423 13.4994 22.3423V23.9423ZM3.04375 10.5107V21.5423H4.64375V10.5107H3.04375ZM5.44375 23.9423H13.4994V22.3423H5.44375V23.9423ZM3.04375 21.5423C3.04375 22.8678 4.11827 23.9423 5.44375 23.9423V22.3423C5.00192 22.3423 4.64375 21.9841 4.64375 21.5423H3.04375Z"
+        className="fill"
+      />
+      <path
+        d="M1.27867 12.1275L13.5817 0.810013L24.4612 12.2409"
+        className="stroke"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="20.5489" cy="19.0802" r="5.17" className="fill" />
+      <path
+        d="M18.7246 18.7979L19.3423 19.4828L20.2406 20.3959L22.4846 17.6699"
+        stroke="white"
+        strokeWidth="1.1"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M18.5 3.37687C18.5 3.03066 18.7807 2.75 19.1269 2.75H20.8C21.1866 2.75 21.5 3.0634 21.5 3.45V8.75C19.8431 8.75 18.5 7.40685 18.5 5.75V3.37687Z"
+        className="fill"
+      />
+      <rect x="7.5" y="13.5" width="2.27269" height="0.757565" className="fill" />
+      <rect x="10.2266" y="13.5" width="2.27269" height="0.757565" className="fill" />
+      <rect x="7.5" y="14.7119" width="2.27269" height="3.03026" className="fill" />
+      <rect x="10.2266" y="14.7119" width="2.27269" height="3.03026" className="fill" />
+    </svg>
+  );
+};
+export { MainInfoWarehouseIcon, MainInfoWarehouseIcon2 };

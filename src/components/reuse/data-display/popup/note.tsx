@@ -24,7 +24,7 @@ const NotePopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) =
         okText="Lưu"
         cancelButtonProps={{ style: { display: 'none' } }}
         open={open}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
+        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white max-md:!max-w-[calc(100%-16px)]"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',
           header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-lg',
@@ -42,9 +42,9 @@ const NotePopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) =
           onOk && onOk(e);
           setOpen && setOpen(false);
         }}
-        width={'auto'}
+        width={'550px'}
       >
-        <div className="w-[550px]">
+        <div>
           <TextArea ref={textareaRef} rows={10} placeholder="Nhập ghi chú"></TextArea>
         </div>
       </Modal>

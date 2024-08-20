@@ -72,12 +72,16 @@ const FeedHome = () => {
                               `,
               images: [
                 '/images/post-1.jpeg',
+                '/images/post-6.jpeg',
+                '/images/test.jpg',
+                '/images/banner.png',
+                '/images/banner-2.png',
                 '/images/post-2.jpeg',
                 '/images/post-3.jpeg',
                 '/images/post-4.jpeg',
                 '/images/post-5.jpeg',
                 '/images/post-6.jpeg',
-              ],
+              ].splice(0, index),
             }}
           />
         ))}
