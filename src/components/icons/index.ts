@@ -15,6 +15,7 @@ export * from './buy-urgently.icon';
 
 export * from './calendar.icon';
 export * from './camera.icon';
+export * from './candidate-management.icon';
 export * from './candidate.icon';
 export * from './change.icon';
 export * from './chat-group.icon';
@@ -30,6 +31,7 @@ export * from './copy-link.icon';
 export * from './dark.icon';
 export * from './data-users.icon';
 export * from './data-warehouse.icon';
+export * from './document-plus.icon';
 export * from './double-arrow-bottom.icon';
 export * from './duplicate.icon';
 
@@ -41,10 +43,13 @@ export * from './filter.icon';
 export * from './free-warehouse.icon';
 
 export * from './grid2.icon';
+export * from './guest-management-auto-pair-guests.icon';
 
 export * from './heart-red.icon';
 export * from './heart-solid.icon';
 export * from './home.icon';
+
+export * from './image.icon';
 
 export * from './library.icon';
 export * from './light.icon';
@@ -62,6 +67,7 @@ export * from './menu.icon';
 export * from './messenger-multi-color.icon';
 export * from './messenger.icon';
 export * from './mnt-guest.icon';
+export * from './money-group.icon';
 
 export * from './news.icon';
 export * from './note.icon';
@@ -70,12 +76,12 @@ export * from './open-full.icon';
 
 export * from './password.icon';
 export * from './pen.icon';
-
-export * from './password.icon';
 export * from './people-group';
 export * from './personal-warehouse.icon';
 export * from './personal.icon';
 export * from './phone.icon';
+
+export * from './qr-code.icon';
 
 export * from './refferal.icon';
 export * from './regulation.icon';
@@ -88,6 +94,7 @@ export * from './setting-company.icon';
 export * from './share-arrow.icon';
 export * from './share-message.icon';
 export * from './share.icon';
+export * from './smiley-face.icon';
 export * from './sticker.icon';
 
 export * from './team.icon';

@@ -13,11 +13,13 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '@/components/icons';
+import Color from 'color-thief-react';
 import { useFullscreen } from 'react-use';
 import 'swiper/css/free-mode';
 import 'swiper/css/navigation';
 import 'swiper/css/thumbs';
 import 'swiper/css/zoom';
+import { ImageWithDimensions } from './image-with-dimensions';
 interface ImageGridProps {
   images: string[];
   onImageClick?: (index: number) => void;
@@ -26,24 +28,24 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
   return (
     <div className="flex flex-wrap gap-[1px] sm:gap-[2px]">
       <div className="w-full flex gap-[1px] sm:gap-[2px]">
-        <div className="flex-1 aspect-square">
+        <div className="flex-1 aspect-square relative overflow-hidden">
           <Image
             onClick={() => {
               onImageClick && onImageClick(0);
             }}
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={600}
             height={600}
             src={images[0]}
             alt={images[0]}
           />
         </div>
-        <div className="flex-1 aspect-square">
+        <div className="flex-1 aspect-square relative overflow-hidden">
           <Image
             onClick={() => {
               onImageClick && onImageClick(1);
             }}
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={600}
             height={600}
             src={images[1]}
@@ -52,24 +54,24 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
         </div>
       </div>
       <div className="w-full flex gap-[1px] sm:gap-[2px]">
-        <div className="flex-1 aspect-square">
+        <div className="flex-1 aspect-square relative overflow-hidden">
           <Image
             onClick={() => {
               onImageClick && onImageClick(2);
             }}
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={600}
             height={600}
             src={images[2]}
             alt={images[2]}
           />
         </div>
-        <div className="flex-1 aspect-square">
+        <div className="flex-1 aspect-square relative overflow-hidden">
           <Image
             onClick={() => {
               onImageClick && onImageClick(3);
             }}
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={600}
             height={600}
             src={images[3]}
@@ -78,13 +80,13 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
         </div>
         {images.length > 4 && (
           <div
-            className="flex-1 aspect-square relative"
+            className="flex-1 aspect-square relative overflow-hidden"
             onClick={() => {
               onImageClick && onImageClick(4);
             }}
           >
             <Image
-              className="w-full h-full object-contain z-0"
+              className="absolute top-0 left-0 w-full h-full object-cover z-0"
               width={600}
               height={600}
               src={images[4]}
@@ -92,7 +94,7 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
             />
             <div
               className={clsx(
-                'absolute inset-0 bg-black z-10 opacity-60 flex justify-center items-center',
+                'absolute inset-0 bg-black/60 z-10 flex justify-center items-center',
                 images.length <= 5 ? 'hidden' : '',
               )}
             >
@@ -121,13 +123,13 @@ const Image3 = ({ images, onImageClick }: ImageGridProps) => {
     <div className="flex gap-[1px] sm:gap-[2px]">
       <div className="w-8/12 flex">
         <div
-          className="w-full aspect-square"
+          className="w-full aspect-square relative overflow-hidden"
           onClick={() => {
             onImageClick?.(0);
           }}
         >
           <Image
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={1000}
             height={1000}
             src={images[0]}
@@ -137,13 +139,13 @@ const Image3 = ({ images, onImageClick }: ImageGridProps) => {
       </div>
       <div className="w-4/12 flex flex-wrap overflow-hidden gap-[1px] sm:gap-[2px]">
         <div
-          className="w-[calc(100%_-_2px)] aspect-square"
+          className="w-full aspect-square relative overflow-hidden"
           onClick={() => {
             onImageClick?.(1);
           }}
         >
           <Image
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={600}
             height={600}
             src={images[1]}
@@ -151,13 +153,13 @@ const Image3 = ({ images, onImageClick }: ImageGridProps) => {
           />
         </div>
         <div
-          className="w-[calc(100%_-_2px)] aspect-square"
+          className="w-full aspect-square relative overflow-hidden"
           onClick={() => {
             onImageClick?.(2);
           }}
         >
           <Image
-            className="w-full h-full object-contain"
+            className="absolute top-0 left-0 w-full h-full object-cover"
             width={600}
             height={600}
             src={images[2]}
@@ -173,45 +175,96 @@ const Image2 = ({ images, onImageClick }: ImageGridProps) => {
     <div className="flex gap-[1px] sm:gap-[2px]">
       {images.map((image, index) => (
         <div
-          className="flex-1 aspect-square"
+          className={clsx(
+            'flex-1 relative overflow-hidden',
+            images.length === 2 ? 'aspect-[2/3]' : null,
+            images.length === 1 ? 'max-h-[120vw] flex justify-center items-center' : null,
+          )}
           key={image}
           onClick={() => {
             onImageClick?.(index);
           }}
         >
-          <Image
-            className="w-full h-full object-contain"
-            width={1200 / images.length}
-            height={1200 / images.length}
-            src={image}
-            alt={image}
-          />
+          {images.length === 1 ? (
+            <>
+              <Color src={image} format="hex">
+                {({ data, loading, error }) => (
+                  <div
+                    className="absolute z-0 top-0 left-0 right-0 bottom-0"
+                    style={{
+                      backgroundColor: data,
+                    }}
+                  ></div>
+                )}
+              </Color>
+              <ImageWithDimensions className="z-10" src={image} alt={image} />
+            </>
+          ) : (
+            <Image
+              className={clsx(
+                images.length > 1
+                  ? 'absolute top-0 left-0 w-full h-full object-cover z-0'
+                  : 'relative h-full object-cover z-10',
+              )}
+              width={1200 / images.length}
+              height={1200 / images.length}
+              src={image}
+              alt={image}
+            />
+          )}
         </div>
       ))}
     </div>
   );
 };
+
 const ImageHorizontally = ({ images, onImageClick }: ImageGridProps) => {
+  const imageList = images.slice(0, 4);
   return (
     <div className="flex gap-[1px] sm:gap-[2px]">
-      {images.slice(0, 4).map((image, index) => (
+      {imageList.map((image, index) => (
         <div
-          className="w-1/4 aspect-square relative"
+          className={clsx(
+            'relative overflow-hidden',
+            imageList.length > 1
+              ? 'aspect-square'
+              : 'max-h-[600px] min-h-[200px] flex justify-center w-full',
+          )}
+          style={{
+            width: `${100 / imageList.length}%`,
+          }}
           key={image}
           onClick={() => {
             onImageClick && onImageClick(index);
           }}
         >
-          <Image
-            className="w-full h-full object-contain"
-            width={1200 / 4}
-            height={1200 / 4}
-            src={image}
-            alt={image}
-          />
+          {images.length === 1 && (
+            <Color src={image} format="hex">
+              {({ data, loading, error }) => (
+                <div
+                  className="absolute z-0 top-0 left-0 right-0 bottom-0"
+                  style={{
+                    backgroundColor: data,
+                  }}
+                ></div>
+              )}
+            </Color>
+          )}
+          {imageList.length > 1 ? (
+            <Image
+              className={clsx('absolute top-0 left-0 w-full h-full object-cover z-10')}
+              width={1200 / imageList.length}
+              height={1200 / imageList.length}
+              src={image}
+              alt={image}
+            />
+          ) : (
+            <ImageWithDimensions className="z-10" src={image} alt={image} />
+          )}
+
           {index === 3 && images.length > 4 && (
             <div className="absolute inset-0 bg-black/60 z-10 flex justify-center items-center cursor-default">
-              <span className="text-white md:text-lg lg:text-xl xl:text-3xl 2xl:text-5xl">
+              <span className="text-white sm:text-3xl lg:text-2xl xl:text-3xl 2xl:text-5xl">
                 +{images.length - 4}
               </span>
             </div>
@@ -468,13 +521,15 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
                 key={image}
                 className="h-[105px] max-w-[105px] min-w-[105px] bg-black/30 flex justify-center items-center rounded-lg overflow-hidden relative"
               >
-                <Image
-                  className="h-auto w-full object-cover"
-                  width={120}
-                  height={120}
-                  src={image}
-                  alt={image}
-                />
+                <div className="flex-1 aspect-square relative overflow-hidden">
+                  <Image
+                    className="absolute top-0 left-0 w-full h-full object-cover"
+                    width={120}
+                    height={120}
+                    src={image}
+                    alt={image}
+                  />
+                </div>
                 <div className="absolute top-0 left-0 bottom-0 right-0 bg-black/60 z-10 bg"></div>
               </SwiperSlide>
             ))}
@@ -578,7 +633,6 @@ const ImageGrid = ({ images, isWarehouse = false }: ImageGridProps & { isWarehou
           open={true}
           index={imageShowIndex}
           onClose={() => {
-            // router.back();
             setIsShowSlider(false);
           }}
         />

@@ -5,6 +5,7 @@ import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehou
 import { CHAT_PREVIEW_SAMPLE } from '@/constants/data';
 import { FeedHome, FeedInterested } from '@/modules/client/home';
 import FeedBanner from '@/modules/client/home/Components/feed.banner';
+import ListShortcuts from '@/modules/client/home/Components/shortcuts';
 
 import { useState } from 'react';
 
@@ -12,8 +13,11 @@ const Home = () => {
   const [first, setFirst] = useState(false);
   return (
     <div className="flex w-full justify-between gap-4">
-      <div className="w-full lg:w-[calc(100%_-_286px)] flex justify-center">
+      <div className="w-full lg:w-[calc(100%_-_250px)] flex justify-center">
         <div className="w-full max-w-[800px] sm:px-2 md:px-4">
+          <div className="my-4 w-[calc(100%-32px)] mx-auto sm:hidden">
+            <ListShortcuts />
+          </div>
           <div className="w-full block min-[640px]:hidden">
             <FeedBanner />
           </div>
@@ -21,9 +25,9 @@ const Home = () => {
             <Segmented
               options={[
                 {
-                  label: 'Trang chủ',
+                  label: 'Bản tin',
                   component: <FeedHome />,
-                  value: 'home',
+                  value: 'feeds',
                 },
                 {
                   label: 'Bạn quan tâm',
@@ -38,7 +42,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="w-[286px] h-full relative lg:flex hidden">
+      <div className="w-[250px] h-full relative lg:flex hidden">
         <div className="flex-1 fixed top-[68px]">
           <div className="w-full">
             <h5 className="mt-3 font-semibold text-black text-sm dark:text-[#daefff]">
