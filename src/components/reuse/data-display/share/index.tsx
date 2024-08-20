@@ -32,7 +32,7 @@ const ShareComponent = ({ content }: IProps) => {
     }, 2000);
   };
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && isCopiedMobile) {
       document.body.style.overflowY = 'hidden';
     } else {
       document.body.style.overflowY = '';
@@ -40,7 +40,7 @@ const ShareComponent = ({ content }: IProps) => {
     return () => {
       document.body.style.overflowY = '';
     };
-  }, [isOpen]);
+  }, [isOpen, isCopiedMobile]);
   return (
     <>
       <div
@@ -62,8 +62,8 @@ const ShareComponent = ({ content }: IProps) => {
           className={clsx(
             'list-none min-w-[180px] py-2 px-1 z-[9999]',
             width > 640
-              ? 'absolute mx-0 w-full right-0 top-full mt-3'
-              : 'fixed -bottom-full left-0 w-[calc(100%-24px)] mx-3 transition-all duration-150 ease-in-out',
+              ? 'absolute mx-0 w-full right-0 top-2/3 mt-3'
+              : 'fixed -bottom-full left-0 w-[calc(100%-24px)] mx-3 transition-all duration-150 ease-in-out mb-1',
             isOpen ? (width < 640 ? '!bottom-0' : '') : width < 640 ? '' : 'hidden',
           )}
         >
@@ -84,16 +84,18 @@ const ShareComponent = ({ content }: IProps) => {
               <span>Chia sẻ qua tin nhắn</span>
             </li>
           </ul>
-          <ul className="list-none w-full p-0 m-0 mt-3 flex flex-col shadow-md rounded-lg overflow-hidden">
-            <li
-              className="m-0 px-2 py-4 text-base sm:text-sm sm:py-3 w-full bg-white text-red-500 rounded-lg cursor-pointer text-center font-semibold"
-              onClick={() => {
-                setIsOpen(false);
-              }}
-            >
-              Đóng
-            </li>
-          </ul>
+          {width < 640 && (
+            <ul className="list-none w-full p-0 m-0 mt-3 flex flex-col shadow-md rounded-lg overflow-hidden">
+              <li
+                className="m-0 px-2 py-4 text-base sm:text-sm sm:py-3 w-full bg-white text-red-500 rounded-lg cursor-pointer text-center font-semibold"
+                onClick={() => {
+                  setIsOpen(false);
+                }}
+              >
+                Đóng
+              </li>
+            </ul>
+          )}
         </div>
         {isOpen && width < 640 && (
           <div

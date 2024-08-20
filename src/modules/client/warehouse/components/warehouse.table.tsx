@@ -1,12 +1,12 @@
+import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { ChangeIcon, EyeSlashIcon } from '@/components/icons';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import { Badge, Button, Select, Table, Tag, type TableProps } from 'antd';
-import { WarehouseStatusEnum, WarehouseType } from './warehouse.type';
-import Link from 'next/link';
 import Image from 'next/image';
-import { compareWarehouseStatus } from './warehouse.util';
-import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
+import Link from 'next/link';
 import { memo, useState } from 'react';
+import { WarehouseStatusEnum, WarehouseType } from './warehouse.type';
+import { compareWarehouseStatus } from './warehouse.util';
 
 export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {
@@ -91,13 +91,11 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     className: 'border-0',
     render: (owner: WarehouseType['owner']) => {
       const { phone_number, contact } = owner;
-
       return (
         <div className="flex items-center gap-2">
           <a href={`tel:${phone_number}`} className="text-link !text-xs mr-2">
             {phone_number}
           </a>
-
           {contact?.map((item) => {
             switch (item.type) {
               case 'khonhapho':

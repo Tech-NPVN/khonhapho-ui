@@ -1,7 +1,7 @@
 'use client';
 
 import { OpenFullIcon, SearchIcon } from '@/components/icons';
-import { Button, Modal, Select, Table, TableProps } from 'antd';
+import { Modal, Select, Table, TableProps } from 'antd';
 import { ModalProps } from 'antd/lib';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -127,12 +127,15 @@ const columns: TableProps<DataType>['columns'] = [
   {
     title: 'Xem',
     align: 'center',
-    dataIndex: 'chat',
-    key: 'chat',
+    dataIndex: 'view',
+    key: 'view',
+    fixed: 'right',
+    width: '30px',
+    className: 'px-2',
     render: (_, { view }) => (
-      <Button type="link">
+      <button className="bg-transparent border-none cursor-pointer">
         <OpenFullIcon className="fill-link_text_l" />
-      </Button>
+      </button>
     ),
   },
 ];
@@ -177,60 +180,63 @@ const data: DataType[] = [
 ];
 const SuitableCustomerPopup = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
   return (
-    <div>
-      <Modal
-        title="Khách hàng phù hợp với tin đăng"
-        centered
-        okButtonProps={{ style: { display: 'none' } }}
-        cancelButtonProps={{ style: { display: 'none' } }}
-        open={open}
-        className="dark:bg-primary_color_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
-        classNames={{
-          content: 'dark:bg-primary_color_d dark:text-primary_text_d',
-          header: 'dark:bg-primary_color_d dark:[&>div]:!text-primary_text_d [&>div]:!text-xl',
-          mask: 'dark:!fill-white',
-        }}
-        onClose={(e) => {
-          onClose && onClose(e);
-          setOpen && setOpen();
-        }}
-        onCancel={(e) => {
-          onCancel && onCancel(e);
-          setOpen && setOpen();
-        }}
-        width={'auto'}
-      >
-        <div className="w-[1000px] min-h-80 flex flex-col">
-          <div className="w-full flex justify-end gap-3">
-            <div className="w-60 h-10 shadow rounded-lg flex items-center gap-2   dark:text-primary_text_d [&_.ant-select-selector]:border-none [&_.ant-select-selector]:!border-transparent [&_.ant-select-selector]:!ring-0">
-              <Select
-                className="w-full border-transparent focus:ring-transparent focus:outline-none !dark:bg-background_d ring-transparent"
-                defaultActiveFirstOption
-                value={'0'}
-              >
-                <Select.Option value="0">Ngày tạo mới nhất</Select.Option>
-                <Select.Option value="1">Ngày Tạo cũ nhất</Select.Option>
-              </Select>
-            </div>
-            <div className="w-72 h-10 p-2 shadow rounded-lg flex items-center gap-2 dark:bg-background_d dark:text-primary_text_d">
-              <SearchIcon width={20} height={20} />
-              <input
-                className="border-transparent focus:ring-transparent focus:outline-none bg-transparent flex-1"
-                placeholder="Nhập Đ/C SĐT, Seri sổ"
-              />
-            </div>
+    <Modal
+      title="Khách hàng phù hợp với tin đăng"
+      centered
+      open={open}
+      className="dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white max-md:!max-w-[calc(100%-16px)]"
+      classNames={{
+        content: 'dark:bg-primary_color_d dark:text-primary_text_d max-sm:px-2',
+        header: 'dark:bg-primary_color_d dark:[&>div]:!text-primary_text_d [&>div]:!text-xl',
+        mask: 'dark:!fill-white',
+      }}
+      onClose={(e) => {
+        onClose && onClose(e);
+        setOpen && setOpen();
+      }}
+      onCancel={(e) => {
+        onCancel && onCancel(e);
+        setOpen && setOpen();
+      }}
+      width={1000}
+      footer={null}
+    >
+      <div className="min-h-60 flex flex-col">
+        <div className="w-full flex justify-end gap-3 max-sm:flex-col-reverse">
+          <div className="w-full sm:w-60 h-10 shadow rounded-lg flex items-center gap-2 dark:text-primary_text_d [&_.ant-select-selector]:border-none [&_.ant-select-selector]:!border-transparent [&_.ant-select-selector]:!ring-0">
+            <Select
+              className="w-full h-10 border-transparent focus:ring-transparent focus:outline-none !dark:bg-background_d ring-transparent"
+              defaultActiveFirstOption
+              value={'0'}
+            >
+              <Select.Option value="0">Ngày tạo mới nhất</Select.Option>
+              <Select.Option value="1">Ngày Tạo cũ nhất</Select.Option>
+            </Select>
           </div>
-          <div className="w-full mt-5 even:">
-            <Table
-              columns={columns}
-              dataSource={data}
-              pagination={false}
-              rowClassName={'even:bg-black/5 dark:even:bg-background_d dark:bg-primary_color_d '}
+          <div className="w-full sm:w-60 h-10 p-2 shadow rounded-lg flex items-center gap-2 dark:bg-primary_color_d dark:text-primary_text_d">
+            <SearchIcon width={20} height={20} />
+            <input
+              className="border-transparent focus:ring-transparent focus:outline-none bg-transparent flex-1"
+              placeholder="Nhập Đ/C SĐT, Seri sổ"
             />
           </div>
         </div>
-      </Modal>
-    </div>
+        <div className="mt-5">
+          <Table
+            // className="dark:[&_th]:bg-primary_text_l"
+            columns={columns}
+            dataSource={data}
+            pagination={false}
+            scroll={{ x: 'max-content' }}
+            rowClassName={(_, index) =>
+              index % 2 === 0
+                ? '[&_td]:bg-primary_color_l dark:[&_td]:bg-primary_color_d !h-12'
+                : '[&_td]:bg-background_l_2 dark:[&_td]:bg-background_d !h-12'
+            }
+          />
+        </div>
+      </div>
+    </Modal>
   );
 };
 

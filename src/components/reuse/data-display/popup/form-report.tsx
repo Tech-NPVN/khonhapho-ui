@@ -45,11 +45,13 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
+  const [isFirstCommit, setIsFirstCommit] = useState(false);
   const [form] = Form.useForm<FieldType>();
   const [purposeOther, setPurposeOther] = useState('');
   const [feedbackOther, setFeedbackOther] = useState('');
   const [reviewOther, setReviewOther] = useState('');
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    if (!isFirstCommit) setIsFirstCommit(true);
     if (values.purpose === 'other' && !purposeOther) return;
     if (values.feedback === 'other' && !feedbackOther) return;
     if (values.review === 'other' && !reviewOther) return;
@@ -61,6 +63,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
 
   const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
+    if (!isFirstCommit) setIsFirstCommit(true);
   };
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
@@ -85,6 +88,12 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
       purpose: '0',
       feedback: '0',
       review: '0',
+      customer_name: '',
+      customer_address: '',
+      id_card_number: '',
+      time: '',
+      note: '',
+      images: [],
     });
   }, [form]);
 
@@ -97,7 +106,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
         open={open}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 "
+        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 max-md:!max-w-[calc(100%-16px)]"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',
           header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-lg !px-3',
@@ -115,9 +124,9 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
           onOk && onOk(e);
           setOpen && setOpen(false);
         }}
-        width={'auto'}
+        width={'750px'}
       >
-        <div className="w-[750px]">
+        <div>
           <Form
             name="report"
             onFinish={onFinish}
@@ -214,7 +223,9 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                             }}
                             className={clsx(
                               'flex-1 py-2',
-                              Form.useWatch('purpose', form) === 'other' && purposeOther === ''
+                              Form.useWatch('purpose', form) === 'other' &&
+                                purposeOther === '' &&
+                                isFirstCommit
                                 ? 'border-red-500'
                                 : '',
                             )}
@@ -225,11 +236,13 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                     </Radio>
                   </Radio.Group>
                 </Form.Item>
-                {Form.useWatch('purpose', form) === 'other' && purposeOther === '' && (
-                  <div className="text-red-500 text-sm ms-[320px] -mt-4 mb-3">
-                    Vui lòng nhập trường này
-                  </div>
-                )}
+                {Form.useWatch('purpose', form) === 'other' &&
+                  purposeOther === '' &&
+                  isFirstCommit && (
+                    <div className="text-red-500 text-sm sm:ms-[320px] -mt-4 mb-3">
+                      Vui lòng nhập trường này
+                    </div>
+                  )}
               </div>
 
               <div>
@@ -265,7 +278,9 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                             }}
                             className={clsx(
                               'flex-1 py-2',
-                              Form.useWatch('feedback', form) === 'other' && feedbackOther === ''
+                              Form.useWatch('feedback', form) === 'other' &&
+                                feedbackOther === '' &&
+                                isFirstCommit
                                 ? 'border-red-500'
                                 : '',
                             )}
@@ -276,11 +291,13 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                     </Radio>
                   </Radio.Group>
                 </Form.Item>
-                {Form.useWatch('feedback', form) === 'other' && feedbackOther === '' && (
-                  <div className="text-red-500 text-sm ms-[320px] -mt-4 mb-3">
-                    Vui lòng nhập trường này
-                  </div>
-                )}
+                {Form.useWatch('feedback', form) === 'other' &&
+                  feedbackOther === '' &&
+                  isFirstCommit && (
+                    <div className="text-red-500 text-sm sm:ms-[320px] -mt-4 mb-3">
+                      Vui lòng nhập trường này
+                    </div>
+                  )}
               </div>
               <div>
                 <Form.Item<FieldType>
@@ -312,7 +329,9 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                             }}
                             className={clsx(
                               'flex-1 py-2',
-                              Form.useWatch('review', form) === 'other' && reviewOther === ''
+                              Form.useWatch('review', form) === 'other' &&
+                                reviewOther === '' &&
+                                isFirstCommit
                                 ? 'border-red-500'
                                 : '',
                             )}
@@ -323,15 +342,17 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                     </Radio>
                   </Radio.Group>
                 </Form.Item>
-                {Form.useWatch('review', form) === 'other' && reviewOther === '' && (
-                  <div className="text-red-500 text-sm ms-[320px] -mt-4 mb-3">
-                    Vui lòng nhập trường này
-                  </div>
-                )}
+                {Form.useWatch('review', form) === 'other' &&
+                  reviewOther === '' &&
+                  isFirstCommit && (
+                    <div className="text-red-500 text-sm sm:ms-[320px] -mt-4 mb-3">
+                      Vui lòng nhập trường này
+                    </div>
+                  )}
               </div>
-              <div className="flex items-stretch mb-3 [&_.ant-upload-list-item-actions]:flex [&_.ant-upload-list-item-actions]:justify-center">
+              <div className="flex items-stretch mb-3 [&_.ant-upload-list-item-actions]:flex [&_.ant-upload-list-item-actions]:justify-center max-sm:flex-wrap">
                 <div className="w-64 flex ps-1">Tải ảnh lên (tối đa 5 ảnh)</div>
-                <div className="flex-1">
+                <div className="sm:flex-1 w-full max-sm:mt-1">
                   <Upload
                     listType="picture-card"
                     fileList={fileList}
@@ -361,7 +382,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                 className="[&_label]:min-w-64 [&_label]:ps-2"
                 name="note"
               >
-                <TextArea
+                <Input.TextArea
                   className="py-2 w-full dark:bg-[#141414]"
                   placeholder="Ý kiến của đầu khách"
                   rows={6}
@@ -396,35 +417,37 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
     </div>
   );
 };
+
+const initData = {
+  main: 0,
+  attitude_when_calling: 0, // gọi điện
+  enthusiasm: 0, // nhiệt tình
+  negotiate: 0, // Đàm phán
+  sign: 0, //ký
+  update: 0,
+  review: '',
+  notification: 0, //0 | 1
+};
 const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
-  const [rate, setRate] = useState({
-    main: 0,
-    attitude_when_calling: 0, // gọi điện
-    enthusiasm: 0, // nhiệt tình
-    negotiate: 0, // Đàm phán
-    sign: 0, //ký
-    update: 0,
-    review: '',
-    notification: 0, //0 | 1
-  });
+  const [rate, setRate] = useState(initData);
   const handleSubmit = () => {
     console.log('Success', rate);
     setOpen && setOpen(false);
+    setRate(initData);
   };
   return (
     <Modal
       title="Đánh giá đầu chủ"
       centered
       okText="Lưu"
-      cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}
       open={open}
-      className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 "
+      className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 max-md:!max-w-[calc(100%-16px)] "
       classNames={{
         content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',
         header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-xl !px-3',
         mask: 'dark:!fill-white',
       }}
+      footer={null}
       onClose={(e) => {
         onClose && onClose(e);
         setOpen && setOpen(false);
