@@ -41,7 +41,7 @@ export interface IComment {
     avatar?: string;
   };
   body?: string;
-  isUpdated: boolean;
+  isUpdated?: boolean;
   created_at?: string;
   updated_at?: string;
 }
