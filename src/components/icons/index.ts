@@ -49,7 +49,7 @@ export * from './heart-red.icon';
 export * from './heart-solid.icon';
 export * from './home.icon';
 
-export * from './image.icon.tsx';
+export * from './image.icon';
 
 export * from './library.icon';
 export * from './light.icon';
