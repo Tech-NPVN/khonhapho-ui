@@ -10,7 +10,6 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import CommentInput from '../../data-entry/comment-input';
 import { Comment, ModalCommentList } from '../comment';
 import { ImageGrid } from '../images';
 import LikeShareComment from './like-share-comment';
@@ -113,7 +112,7 @@ const PostDetail = ({
               </div>
               <div>
                 <Link
-                  className="font-semibold text-primary_text_l dark:text-primary_text_d"
+                  className="font-semibold text-primary_text_l dark:text-primary_text_d sm:text-base"
                   href={'/'}
                 >
                   Nhà Phố Việt Nam
@@ -358,7 +357,21 @@ const PostDetail = ({
             </div>
           </div>
           <div className="mt-4 max-[640px]:hidden">
-            <CommentInput></CommentInput>
+            <div className="flex justify-between items-center gap-3">
+              <div className="w-10 h-10 rounded-full overflow-hidden">
+                <Image width={40} height={40} src="/images/user-default.jpg" alt="" />
+              </div>
+              <div className="relative flex-1 bg-black/5 dark:bg-[#151E2F] rounded-2xl py-[2px] px-3">
+                <div
+                  className="w-full h-9 bg-transparent focus:outline-none border-none outline-none flex items-center"
+                  onClick={() => {
+                    setIsOpenModalComment(true);
+                  }}
+                >
+                  <span className="select-none opacity-60">Viết bình luận ...</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

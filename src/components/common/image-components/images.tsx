@@ -6,8 +6,8 @@ const MessengerImage = ({ className }: ImageComponentProps) => {
     <div className="w-full aspect-square">
       <Image
         className="w-full h-full object-contain"
-        width={120}
-        height={120}
+        width={0}
+        height={0}
         src={'/images/messenger.png'}
         alt={'/images/messenger.png'}
         unoptimized
@@ -20,8 +20,8 @@ const MessengerKNPImage = ({ className }: ImageComponentProps) => {
     <div className="w-full aspect-square">
       <Image
         className="w-full h-full object-contain"
-        width={120}
-        height={120}
+        width={0}
+        height={0}
         src={'/images/messenger-knp.png'}
         alt={'/images/messenger-knp.png'}
         unoptimized

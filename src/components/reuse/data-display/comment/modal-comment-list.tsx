@@ -97,6 +97,10 @@ const ModalCommentList = ({ open, onClose }: IProps) => {
                       setNewComment({ html: content, text });
                     }}
                     className="w-full py-[2px] px-3"
+                    config={{
+                      limit: 3000,
+                      placeholder: 'Nhập bình luận...',
+                    }}
                   />
                 </div>
                 <div className="flex me-2 gap-2">

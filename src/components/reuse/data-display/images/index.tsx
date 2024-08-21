@@ -605,7 +605,7 @@ const ImageGrid = ({ images, isWarehouse = false }: ImageGridProps & { isWarehou
 
   useEffect(() => {
     const handleResize = () => {
-      if (rootRef.current?.clientWidth && rootRef.current?.clientWidth > 640) {
+      if (rootRef.current?.clientWidth && rootRef.current?.clientWidth > 768) {
         seIsHorizontally(true);
       } else if (!isWarehouse) seIsHorizontally(false);
     };
