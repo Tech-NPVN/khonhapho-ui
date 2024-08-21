@@ -12,7 +12,7 @@ const UrgentlyPage = () => {
   const [defaultValue, setDefaultValue] = useState<FieldFormUrgentlyPopupType>();
   return (
     <>
-      <div className="w-full px-20">
+      <div className="w-full sm:px-3">
         <div className="w-full max-w-[800px] mx-auto">
           <div className="mt-6 bg-primary_color_l dark:bg-primary_color_d w-full rounded-lg shadow p-4">
             <h1 className="font-semibold text-xl dark:text-primary_text_d_2 text-primary_text_l ">

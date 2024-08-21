@@ -1,6 +1,7 @@
 'use client';
 
 import CopyButton from '@/components/common/copy-button';
+import { MessengerImage, MessengerKNPImage } from '@/components/common/image-components';
 import { HeartRedIcon, PhoneIcon } from '@/components/icons';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
@@ -137,20 +138,14 @@ const PostDetail = ({
                     </span>
                     <span className="text-primary_text_l dark:text-primary_text_d">•</span>
                     <Link href="/Messenger/id">
-                      <Image
-                        width={20}
-                        height={18}
-                        src={'/images/messenger-knp.png'}
-                        alt="/images/messenger-knp.png"
-                      />
+                      <div className="w-4">
+                        <MessengerKNPImage />
+                      </div>
                     </Link>
-                    <a href="https://www.facebook.com/messages/t/1" target="_blank">
-                      <Image
-                        width={20}
-                        height={20}
-                        src={'/images/messenger.png'}
-                        alt="/images/messenger.png"
-                      />
+                    <a href="https://www.facebook.com/messages/t/100010636721382" target="_blank">
+                      <div className="w-4">
+                        <MessengerImage />
+                      </div>
                     </a>
                     <a href="https://zalo.me/0389619050" target="_blank" className="">
                       <Image
@@ -318,7 +313,7 @@ const PostDetail = ({
                   <span>Zalo</span>
                 </a>
                 <a
-                  href="/m"
+                  href="https://www.facebook.com/messages/t/100010636721382"
                   target="_blank"
                   className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-1 sm:px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
                 >

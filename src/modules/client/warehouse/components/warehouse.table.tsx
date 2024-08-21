@@ -1,13 +1,13 @@
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { ChangeIcon, EyeSlashIcon } from '@/components/icons';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
+import useDragScroll from '@/hooks/use-drag-scroll';
 import { Badge, Button, Select, Table, Tag, type TableProps } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo, useState } from 'react';
 import { WarehouseStatusEnum, WarehouseType } from './warehouse.type';
 import { compareWarehouseStatus } from './warehouse.util';
-import useDragScroll from '@/hooks/use-drag-scroll';
 
 export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {

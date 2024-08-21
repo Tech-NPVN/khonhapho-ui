@@ -38,11 +38,6 @@
 }
 
 @layer base {
-  html,
-  body {
-    @apply touch-none;
-  }
-  
   body {
     @apply min-h-screen main-bg tracking-[0.3px] overflow-x-hidden;
   }
