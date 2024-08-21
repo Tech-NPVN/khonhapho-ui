@@ -38,6 +38,11 @@
 }
 
 @layer base {
+  html,
+  body {
+    @apply touch-none;
+  }
+  
   body {
     @apply min-h-screen main-bg tracking-[0.3px] overflow-x-hidden;
   }
@@ -81,7 +86,7 @@
   /* Sidebar */
   .sidebar-item {
     @apply relative min-h-11 font-medium text-primary_text_l dark:text-primary_text_d 
-    [&.ant-menu-item-selected]:bg-background_l dark:[&.ant-menu-item-selected]:bg-background_d !pl-[14px];
+    [&.ant-menu-item-selected]:bg-background_l dark:[&.ant-menu-item-selected]:bg-background_d !pl-2;
   }
 
   .sidebar-item-collapse {
@@ -89,10 +94,11 @@
   }
 
   .sidebar-item-dropdown {
-    @apply relative font-medium [&>div]:!pl-[14px] dark:[&>div]:text-primary_text_d [&>div>span]:text-primary_text_l 
+    @apply relative font-medium [&>div]:!pl-2 dark:[&>div]:text-primary_text_d [&>div>span]:text-primary_text_l 
     dark:[&>div>span]:text-primary_text_d [&>div]:min-h-11 [&>ul]:bg-transparent 
     [&.ant-menu-submenu-selected>div]:text-primary_text_l dark:[&.ant-menu-submenu-selected>div]:text-primary_text_d 
-    [&.ant-menu-submenu-selected>div]:bg-background_l dark:[&.ant-menu-submenu-selected>div]:bg-background_d [&>ul>li]:!pl-6;
+    [&.ant-menu-submenu-selected>div]:bg-background_l dark:[&.ant-menu-submenu-selected>div]:bg-background_d 
+    [&>ul>li]:!pl-5;
   }
 
   .sidebar-item-dropdown-collapse {

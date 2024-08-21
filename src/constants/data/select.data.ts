@@ -43,6 +43,25 @@ const SELECT_FILTER_WAREHOUSE: DefaultOptionType[] = [
   },
 ];
 
+const SELECT_FILTER_CUSTOMER: DefaultOptionType[] = [
+  {
+    value: 'ngay-tao-moi-nhat',
+    label: 'Ngày tạo mới nhất',
+  },
+  {
+    value: 'ngay-tao-cu-nhat',
+    label: 'Ngày tạo cũ nhất',
+  },
+  {
+    value: 'tai-chinh-toi-da-lon-nhat',
+    label: 'Tài chính tối đa lớn nhất',
+  },
+  {
+    value: 'tai-chinh-toi-da-nho-nhat',
+    label: 'Tài chính tối đa nhỏ nhất',
+  },
+];
+
 const SELECT_FILTER_PROFILE: DefaultOptionType[] = [
   {
     value: 'nhom',
@@ -289,13 +308,109 @@ const SELECT_LEGAL_STATUS = [
   },
 ];
 
+// Hướng nhà
+const SELECT_HOUSE_DIRECTION = [
+  {
+    value: 'chua-ro',
+    label: 'Chưa rõ',
+  },
+  {
+    value: 'khong-quan-trong',
+    label: 'Không quan trọng',
+  },
+  {
+    value: 'bac',
+    label: 'Bắc',
+  },
+  {
+    value: 'nam',
+    label: 'Nam',
+  },
+  {
+    value: 'dong',
+    label: 'Đông',
+  },
+  {
+    value: 'tay',
+    label: 'Tây',
+  },
+  {
+    value: 'dong-bac',
+    label: 'Đông Bắc',
+  },
+  {
+    value: 'tay-bac',
+    label: 'Tây Bắc',
+  },
+  {
+    value: 'dong-nam',
+    label: 'Đông Nam',
+  },
+  {
+    value: 'tay-nam',
+    label: 'Tây Nam',
+  },
+  {
+    value: 'dong-tu-trach',
+    label: 'Đông Tứ Trach',
+  },
+  {
+    value: 'tay-tu-trach',
+    label: 'Tây Tứ Trạch',
+  },
+];
+
+// Mục đích mua
+const SELECT_BUY_PURPOSE = [
+  {
+    value: 'chua-ro',
+    label: 'Chưa rõ',
+  },
+  {
+    value: 'mua-de-o',
+    label: 'Mua để ở',
+  },
+  {
+    value: 'mua-de-kinh-doanh',
+    label: 'Mua để kinh doanh',
+  },
+  {
+    value: 'mua-de-o-va-kinh-doanh',
+    label: 'Mua để ở và kinh doanh',
+  },
+  {
+    value: 'mua-de-giu-tien',
+    label: 'Mua để giữ tiền',
+  },
+  {
+    value: 'mua-de-dau-tu-dong-tien',
+    label: 'Mua để đầu tư dòng tiền',
+  },
+];
+
+// Hiện trạng
+const SELECT_HOUSE_STATUS = [
+  {
+    value: 'dang-tim-mua',
+    label: 'Đang tìm mua',
+  },
+  {
+    value: 'da-mua-nha',
+    label: 'Đã mua nhà',
+  },
+];
+
 export {
   SELECT_PRICE_UNIT,
   SELECT_BONUS_TYPE,
   SELECT_FILTER_WAREHOUSE,
+  SELECT_FILTER_CUSTOMER,
   SELECT_FILTER_PROFILE,
   SELECT_PROPERTY_TYPE,
   SELECT_PROPERTY_FEATURE,
   SELECT_CONTRACT_TYPE,
   SELECT_LEGAL_STATUS,
+  SELECT_HOUSE_DIRECTION,
+  SELECT_BUY_PURPOSE,
+  SELECT_HOUSE_STATUS,
 };

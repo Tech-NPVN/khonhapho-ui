@@ -1,6 +1,7 @@
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { ChangeIcon, EyeSlashIcon } from '@/components/icons';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
+import useDragScroll from '@/hooks/use-drag-scroll';
 import { Badge, Button, Select, Table, Tag, type TableProps } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -175,6 +176,7 @@ export const data: WarehouseType = {
 export const WarehouseTable = memo(
   ({ columns, data }: { columns: TableProps<WarehouseType>['columns']; data: WarehouseType[] }) => {
     const [openPopoverHidden, setOpenPopoverHidden] = useState<boolean>(false);
+    const dragScrollHandlers = useDragScroll();
 
     const {
       columnsVisibility,
@@ -218,20 +220,25 @@ export const WarehouseTable = memo(
           />
         </div>
 
-        <Table
-          bordered
-          className="mt-6"
-          scroll={{ x: 'max-content' }}
-          dataSource={data}
-          columns={visibleColumns}
-          size="small"
-          pagination={false}
-          rowClassName={(_, index) =>
-            index % 2 === 0
-              ? 'bg-primary_color_l dark:bg-primary_color_d'
-              : 'bg-background_l_2 dark:bg-background_d'
-          }
-        />
+        <div
+          {...dragScrollHandlers}
+          className="overflow-x-auto overflow-y-hidden mt-6"
+          style={{ cursor: dragScrollHandlers.cursor }}
+        >
+          <Table
+            bordered
+            tableLayout="auto"
+            dataSource={data}
+            columns={visibleColumns}
+            size="small"
+            pagination={false}
+            rowClassName={(_, index) =>
+              index % 2 === 0
+                ? 'bg-primary_color_l dark:bg-primary_color_d'
+                : 'bg-background_l_2 dark:bg-background_d'
+            }
+          />
+        </div>
       </>
     );
   },

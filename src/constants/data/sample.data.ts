@@ -74,6 +74,51 @@ const WAREHOUSE_REASON_CONTENT_SAMPLE = `
   <p><strong>Kho hàng</strong> thông minh nhưng phải có <strong>chọn lọc</strong>. Càng chính xác quá sẽ càng làm giảm cơ hội.</p>
 `;
 
+const CUSTOMER_QUESTION_18 = `
+  <div style="font-size:14px;">
+    <ol style="padding-left:26px;display:flex;flex-direction:column;gap:5px">
+      <li><strong>Anh chị tìm nhà lâu chưa?</strong></li>
+      <li><strong>Anh chị ở gần khu vực này không?</strong></li>
+      <li><strong>Em có mấy căn ở đây anh chị hỏi căn nhà nào?</strong> 
+          <br>(Khi khách hỏi đến nhà ảo thì mình nói nhà chưa sổ hoặc đang quy hoạch để đẩy khách sang căn mình có)
+      </li>
+      <li><strong>Chị mua để ở hay đầu tư kinh doanh?</strong></li>
+      <li><strong>Sao anh chị cần mua nhà khu vực này? Em cần biết nhu cầu của anh chị để tìm nhà sát với tiêu chí của anh chị.</strong></li>
+      <li><strong>Có cần mua gấp không?</strong></li>
+      <li><strong>Anh chị mua để tự kinh doanh hay cho thuê?</strong></li>
+      <li><strong>Anh chị cần bao nhiêu phòng ngủ?</strong></li>
+      <li><strong>Nhà có bao nhiêu người?</strong></li>
+      <li><strong>Anh chị có quan trọng hướng không? Nếu có, anh chị hợp hướng gì?</strong></li>
+      <li><strong>Tầm tài chính bao nhiêu?</strong></li>
+      <li><strong>Mua cho ai?</strong> 
+          <br>(Khách nói mua cho người khác hoặc đi xem hộ thì cho next luôn)
+      </li>
+      <li><strong>Mua nhà này bao nhiêu người quyết định?</strong> 
+          <br>(Nếu người quyết định họ sẽ nói rõ vấn đề họ không ưng về căn nhà)
+      </li>
+      <li><strong>Có cần vay hay không?</strong></li>
+      <li><strong>Mua trượt nhà nào chưa?</strong> 
+          <br>(Nếu rồi thì họ có nhu cầu mua nhà thật và tìm hiểu căn họ mua trượt khi gặp để sát nhu cầu)
+      </li>
+      <li><strong>Đi xem nhà vào giờ nào?</strong> 
+          <br>(Nên tránh giờ tắc đường. Không nên dẫn ngay sau cuộc gọi mà phải từ 30 phút trở lên để có thời gian khảo sát lại và tìm hiểu kỹ thông tin căn nhà khi gặp khách)
+      </li>
+      <li><strong>Có kiêng thóp hậu, đường đâm, ngõ cụt không?</strong> 
+          <br>(Nếu khách kiêng đường đâm là họ kiêng cả thóp hậu)
+      </li>
+      <li><strong>Nhà cũ có được không hay nhà mới 6 tháng trở lại thì ngon hơn?</strong> 
+          <br>(Nếu khách nói sao hỏ nhiều thế thì trả lời khách là em làm như vậy cũng chỉ muốn giúp anh chị mua được nhà ưng ý và khách thật họ luôn lắng nghe mình nói, còn môi giới chỉ là hỏi mấy câu rồi nhanh chóng cúp máy vì sợ tốn tiền.)
+      </li>
+    </ol>
+  </div>
+`;
+
 const REQUIRED_MSG_SAMPLE = 'Vui lòng không bỏ trống.';
 
-export { CHAT_PREVIEW_SAMPLE, IMAGE_SAMPLE, WAREHOUSE_REASON_CONTENT_SAMPLE, REQUIRED_MSG_SAMPLE };
+export {
+  CHAT_PREVIEW_SAMPLE,
+  IMAGE_SAMPLE,
+  WAREHOUSE_REASON_CONTENT_SAMPLE,
+  CUSTOMER_QUESTION_18,
+  REQUIRED_MSG_SAMPLE,
+};

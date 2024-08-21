@@ -1,6 +1,10 @@
 /* Input */
-.ant-input-affix-wrapper >input.ant-input {
-  @apply !pl-1
+input {
+  @apply text-sm;
+}
+
+.ant-input-affix-wrapper > input.ant-input {
+  @apply !pl-1;
 }
 
 .ant-input-prefix {
@@ -16,8 +20,10 @@
   @apply !bg-transparent;
 }
 
+.ant-input-number-group-wrapper,
+.ant-input-number-affix-wrapper,
 .ant-input-number {
-  @apply dark:!border-divider_d !bg-transparent;
+  @apply dark:!border-divider_d !bg-transparent !w-full;
 }
 
 .ant-input,
