@@ -12,12 +12,14 @@ import {
 import { useState } from 'react';
 import { ModalBooking } from '@/common/modal';
 import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
+import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 
 const dataSource: WarehouseType[] = Array.from({ length: 15 }, () => ({ ...data }));
 
 const WarehouseTabsList = () => {
   const [openBooking, setOpenBooking] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
+  const [openPostDetails, setOpenPostDetails] = useState<boolean>(false);
 
   const columns: TableProps<WarehouseType>['columns'] = [
     {
@@ -72,7 +74,11 @@ const WarehouseTabsList = () => {
       render: () => {
         return (
           <div className="flex justify-center">
-            <Button type="text" icon={<ShareArrowIcon />} />
+            <Button
+              type="text"
+              icon={<ShareArrowIcon />}
+              onClick={() => setOpenPostDetails(true)}
+            />
           </div>
         );
       },
@@ -82,8 +88,15 @@ const WarehouseTabsList = () => {
   return (
     <>
       <WarehouseTable columns={columns} data={dataSource} />
+
+      {/* Đặt lịch */}
       <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
+
+      {/* Báo cáo dẫn khách */}
       <FormReportPopup open={openReport} setOpen={setOpenReport} />
+
+      {/* Xem chi tiết */}
+      <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { sfProPlayFont } from '@/configs/font.config';
 import AppProvider from '@/provider';
@@ -19,6 +19,16 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  height: 'device-height',
+  initialScale: 1,
+  minimumScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,13 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
-      <head>
-        <meta
-          key="viewport"
-          name="viewport"
-          content="width=device-width, height=device-height, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no"
-        />
-      </head>
+      <head />
       <body className={sfProPlayFont.className} id="app">
         <AntdRegistry>
           <AppProvider>{children}</AppProvider>

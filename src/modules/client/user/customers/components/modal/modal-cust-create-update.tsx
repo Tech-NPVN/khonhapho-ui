@@ -4,6 +4,7 @@ import {
   SELECT_HOUSE_DIRECTION,
   SELECT_HOUSE_STATUS,
 } from '@/constants/data';
+import { identityValidate, phoneValidate } from '@/lib/zod';
 import { formatMoneyVN } from '@/utilities/func.util';
 import { Button, Checkbox, Divider, Form, Input, InputNumber, Modal, Select } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
@@ -18,18 +19,13 @@ const CustCreateUpdateSchema = z.object({
   full_name: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
 
   // CMND hoặc Thẻ căn cước của khách (Hoàn toàn được bảo mật)
-  cccd: z
-    .string({ message: REQUIRED_MSG_SAMPLE })
-    .length(12, { message: 'Căn cước công dân bao gồm 12 số.' }),
+  cccd: identityValidate,
 
   // Năm sinh khách
   birthday: z.string({ message: REQUIRED_MSG_SAMPLE }).length(4, 'Năm sinh chưa hơp lệ.'),
 
   // SĐT khách (Hoàn toàn được bảo mật)
-  phone: z
-    .string({ message: REQUIRED_MSG_SAMPLE })
-    .length(10, 'Số điện thoại gồm 10 số.')
-    .optional(),
+  phone: phoneValidate.optional(),
 
   // Nơi khách ở
   address: z.string().optional(),
