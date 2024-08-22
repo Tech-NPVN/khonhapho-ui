@@ -1,6 +1,11 @@
 import { DoubleArrowBottomIcon, ReloadDownIcon } from '@/components/icons';
 import { SelectAddon } from '@/components/reuse/data-entry';
-import { SELECT_PRICE_UNIT } from '@/constants/data';
+import {
+  SELECT_PRICE_UNIT,
+  SELECT_PROPERTY_FEATURE,
+  SELECT_PROPERTY_TYPE,
+  SELECT_WAREHOUSE_STATUS,
+} from '@/constants/data';
 import { Button, Col, Collapse, InputNumber, Row, Select } from 'antd';
 import { memo, useCallback, useState } from 'react';
 
@@ -35,10 +40,23 @@ const WarehouseSearch = () => {
   return (
     <Row gutter={[6, 6]} className="mt-5">
       <Col flex="20%">
-        <Select placeholder="Hiện trạng" size="large" className="w-full" />
+        <Select
+          placeholder="Hiện trạng"
+          size="large"
+          className="w-full"
+          options={SELECT_WAREHOUSE_STATUS}
+        />
       </Col>
       <Col flex="20%">
-        <Select placeholder="Loại hình" size="large" className="w-full" />
+        <Select
+          placeholder="Loại hình"
+          size="large"
+          className="w-full"
+          options={SELECT_PROPERTY_TYPE.map((values) => ({
+            value: values.code,
+            label: values.name,
+          }))}
+        />
       </Col>
       <Col flex="20%">
         <Select placeholder="Tỉnh/Thành phố" size="large" className="w-full" />
@@ -75,7 +93,15 @@ const WarehouseSearch = () => {
         <Select placeholder="Khoảng giá" size="large" className="w-full" />
       </Col>
       <Col flex="20%">
-        <Select placeholder="Đặc điểm BĐS" size="large" className="w-full" />
+        <Select
+          placeholder="Đặc điểm BĐS"
+          size="large"
+          className="w-full"
+          options={SELECT_PROPERTY_FEATURE.map((option) => ({
+            label: option.name,
+            value: option.code,
+          }))}
+        />
       </Col>
       <Col flex="20%">
         <Select placeholder="Dự án/Chung cư" size="large" className="w-full" />

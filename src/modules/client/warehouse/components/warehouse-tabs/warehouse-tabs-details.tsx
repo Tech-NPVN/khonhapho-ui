@@ -11,7 +11,7 @@ const WarehouseTabsDetailsFilter = () => {
         className="w-72"
         suffixIcon={<ChangeIcon />}
         options={SELECT_FILTER_WAREHOUSE}
-        defaultValue="hot-news"
+        defaultValue="tin-noi-bat"
       />
     </div>
   );

@@ -1,8 +1,10 @@
+'use client';
+
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { ChangeIcon, EyeSlashIcon } from '@/components/icons';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import useDragScroll from '@/hooks/use-drag-scroll';
-import { Badge, Button, Select, Table, Tag, type TableProps } from 'antd';
+import { Badge, Button, Select, Table, Tag, Tooltip, type TableProps } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo, useState } from 'react';
@@ -30,21 +32,33 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'address',
     dataIndex: 'address',
     className: 'border-0',
-    render: (address: string) => <span className="font-medium">{address}</span>,
+    render: (address: string) => (
+      <Tooltip title={address}>
+        <span className="font-medium">{address}</span>
+      </Tooltip>
+    ),
   },
   {
     title: 'Phố',
     key: 'city',
     dataIndex: 'city',
     className: 'border-0',
-    render: (city: string) => <span className="font-medium">{city}</span>,
+    render: (city: string) => (
+      <Tooltip title={city}>
+        <span className="font-medium">{city}</span>
+      </Tooltip>
+    ),
   },
   {
     title: 'Quận',
     key: 'district',
     dataIndex: 'district',
     className: 'border-0',
-    render: (district: string) => <span className="font-medium">{district}</span>,
+    render: (district: string) => (
+      <Tooltip title={district}>
+        <span className="font-medium">{district}</span>
+      </Tooltip>
+    ),
   },
   {
     title: 'Thông số',
@@ -105,21 +119,21 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
                     <Image
                       src="/images/messenger-knp.png"
                       alt="khonhapho-url"
-                      width={18}
-                      height={18}
+                      width={16}
+                      height={16}
                     />
                   </Link>
                 );
               case 'messenger':
                 return (
                   <Link href={item.url}>
-                    <Image src="/images/messenger.png" alt="messenger-url" width={18} height={18} />
+                    <Image src="/images/messenger.png" alt="messenger-url" width={16} height={16} />
                   </Link>
                 );
               case 'zalo':
                 return (
                   <Link href={item.url}>
-                    <Image src="/images/zalo.png" alt="zalo-url" width={18} height={18} />
+                    <Image src="/images/zalo.png" alt="zalo-url" width={16} height={16} />
                   </Link>
                 );
               default:
@@ -135,6 +149,14 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'feature',
     dataIndex: 'feature',
     className: 'border-0',
+    render: (features: WarehouseType['feature']) => {
+      const values = features.map((feat) => feat).join(', ');
+      return (
+        <Tooltip title={values}>
+          <span>{values}</span>
+        </Tooltip>
+      );
+    },
   },
 ];
 
@@ -170,7 +192,7 @@ export const data: WarehouseType = {
       },
     ],
   },
-  feature: 'Mặt phố',
+  feature: ['Mặt phố', 'Kinh doanh'],
 };
 
 export const WarehouseTable = memo(
@@ -216,7 +238,7 @@ export const WarehouseTable = memo(
             className="w-72"
             suffixIcon={<ChangeIcon />}
             options={SELECT_FILTER_WAREHOUSE}
-            defaultValue="hot-news"
+            defaultValue="tin-noi-bat"
           />
         </div>
 
