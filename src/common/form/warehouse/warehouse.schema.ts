@@ -1,11 +1,12 @@
 import { REQUIRED_MSG_SAMPLE } from '@/constants/data';
+import { phoneValidate } from '@/lib/zod';
 import { UploadFile } from 'antd';
 import { z } from 'zod';
 
 // Maximum file size in bytes (50MB)
 const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
-const SPECIFIC_CHARATERS_REGEX = /^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$/
+const SPECIFIC_CHARATERS_REGEX = /^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$/;
 
 const WarehouseFormSchema = z.object({
   // Loại hình
@@ -66,14 +67,12 @@ const WarehouseFormSchema = z.object({
   number_certificate: z
     .array(z.string())
     .refine((values) => {
-      return values?.every(
-        (value) => SPECIFIC_CHARATERS_REGEX.test(value) && value.length >= 5,
-      );
+      return values?.every((value) => SPECIFIC_CHARATERS_REGEX.test(value) && value.length >= 5);
     }, 'Đủ 5 ký tự trở lên và không bao gồm ký tự đặc biệt.')
     .optional(),
 
   // Số điện thoại chủ nhà
-  owner_phone: z.string({ message: REQUIRED_MSG_SAMPLE }).length(10, 'SĐT phải đủ 10 số.').trim(),
+  owner_phone: phoneValidate,
 
   // Ảnh (tối đa 12 ảnh)
   images: z
@@ -92,7 +91,7 @@ const WarehouseFormSchema = z.object({
 
   // Ảnh sổ đỏ pháp lý, hợp đồng trích thưởng (tối đa 20 ảnh)
   private_images: z
-    .array(z.any(), { required_error: REQUIRED_MSG_SAMPLE }) 
+    .array(z.any(), { required_error: REQUIRED_MSG_SAMPLE })
     .min(1, REQUIRED_MSG_SAMPLE)
     .max(20, 'Tối đa 20 ảnh.'),
 

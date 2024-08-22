@@ -1,13 +1,16 @@
-import { Button, Rate, Table, TableProps, Tooltip } from 'antd';
-import { CustCreateUpdateSchemaType } from './modal';
+import { Button, Dropdown, type MenuProps, Rate, Table, TableProps, Tooltip } from 'antd';
+import { ModalCustCreateUpdate, ModalSuitableGoods } from './modal';
 import useDragScroll from '@/hooks/use-drag-scroll';
-import { memo, useState } from 'react';
+import { memo, useMemo, useState } from 'react';
 import { CopyDocumentIcon, ThreeDotIcon } from '@/components/icons';
 import dayjs from 'dayjs';
 import { DATE_FORMAT, SELECT_BUY_PURPOSE, SELECT_HOUSE_DIRECTION } from '@/constants/data';
 import { formatMoneyVN } from '@/utilities/func.util';
+import { modalError, ModalNote } from '@/common/modal';
+import { ItemType } from 'antd/es/menu/interface';
+import { CustomerSchemaType } from './customers.schema';
 
-type CustomersType = CustCreateUpdateSchemaType & { createdAt: dayjs.Dayjs | string };
+type CustomersType = CustomerSchemaType & { createdAt: dayjs.Dayjs | string };
 
 const fakeData: CustomersType = {
   rate: 2,
@@ -33,10 +36,55 @@ const fakeData: CustomersType = {
 
 const dataSource: CustomersType[] = Array.from({ length: 10 }, () => ({ ...fakeData }));
 
-const CustomerTable = () => {
+const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
   const [openRequest, setOpenRequest] = useState<boolean>(false);
+  const [openSuitableGoods, setOpenSuitableGoods] = useState<boolean>(false);
+  const [currentCustomer, setCurrentCustomer] = useState<CustomersType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
+
+  const dropdownItems: MenuProps['items'] = useMemo(() => {
+    return [
+      {
+        label: (
+          <p className="mb-0" onClick={() => setCurrentCustomer(fakeData)}>
+            Sửa thông tin
+          </p>
+        ),
+        key: '0',
+      },
+      {
+        label: (
+          <p className="mb-0" onClick={() => setOpenSuitableGoods(true)}>
+            Tìm hàng phù hợp
+          </p>
+        ),
+        key: '1',
+      },
+      {
+        label: <>Căn đã dẫn đi xem</>,
+        key: '2',
+      },
+      {
+        label: <>{type === 'buying' ? 'Đã mua nhà' : 'Đang tìm mua'}</>,
+        key: '3',
+      },
+      type === 'bought'
+        ? {
+            label: (
+              <p
+                className="mb-0"
+                onClick={() => modalError({ title: 'Bạn có muốn xoá khách hàng' })}
+              >
+                Xoá
+              </p>
+            ),
+            danger: true,
+            key: '4',
+          }
+        : (undefined as unknown as ItemType),
+    ];
+  }, [type]);
 
   const customerColumns: TableProps<CustomersType>['columns'] = [
     {
@@ -180,7 +228,9 @@ const CustomerTable = () => {
       render: () => {
         return (
           <div className="flex justify-center">
-            <Button type="text" icon={<ThreeDotIcon />} />
+            <Dropdown menu={{ items: dropdownItems }} trigger={['click']}>
+              <Button type="text" icon={<ThreeDotIcon />} />
+            </Dropdown>
           </div>
         );
       },
@@ -209,7 +259,26 @@ const CustomerTable = () => {
         />
       </div>
 
-      <></>
+      {/* Yêu cầu */}
+      <ModalNote
+        open={openRequest}
+        handleCancel={() => setOpenRequest(false)}
+        title="Ghi chú yêu cầu của khách"
+      />
+
+      {/* Sửa khách hàng */}
+      <ModalCustCreateUpdate
+        open={Boolean(currentCustomer)}
+        handleCancel={() => setCurrentCustomer(undefined)}
+        initialValues={currentCustomer}
+      />
+
+      {/* Hàng phù hợp */}
+      <ModalSuitableGoods
+        open={openSuitableGoods}
+        handleCancel={() => setOpenSuitableGoods(false)}
+        customer={fakeData}
+      />
     </>
   );
 };

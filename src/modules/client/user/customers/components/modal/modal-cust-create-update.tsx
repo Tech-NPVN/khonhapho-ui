@@ -1,83 +1,11 @@
-import {
-  REQUIRED_MSG_SAMPLE,
-  SELECT_BUY_PURPOSE,
-  SELECT_HOUSE_DIRECTION,
-  SELECT_HOUSE_STATUS,
-} from '@/constants/data';
+import { SELECT_BUY_PURPOSE, SELECT_HOUSE_DIRECTION, SELECT_HOUSE_STATUS } from '@/constants/data';
 import { formatMoneyVN } from '@/utilities/func.util';
 import { Button, Checkbox, Divider, Form, Input, InputNumber, Modal, Select } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { memo, useCallback, useState } from 'react';
-import { z } from 'zod';
+import { CustomerSchema, CustomerSchemaType } from '../customers.schema';
 
-const CustCreateUpdateSchema = z.object({
-  // Đánh giá
-  rate: z.number().optional(),
-
-  // Họ và tên
-  full_name: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
-
-  // CMND hoặc Thẻ căn cước của khách (Hoàn toàn được bảo mật)
-  cccd: z
-    .string({ message: REQUIRED_MSG_SAMPLE })
-    .length(12, { message: 'Căn cước công dân bao gồm 12 số.' }),
-
-  // Năm sinh khách
-  birthday: z.string({ message: REQUIRED_MSG_SAMPLE }).length(4, 'Năm sinh chưa hơp lệ.'),
-
-  // SĐT khách (Hoàn toàn được bảo mật)
-  phone: z
-    .string({ message: REQUIRED_MSG_SAMPLE })
-    .length(10, 'Số điện thoại gồm 10 số.')
-    .optional(),
-
-  // Nơi khách ở
-  address: z.string().optional(),
-
-  // Tài chính tối đa
-  money: z.number({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
-
-  // Khu vực cần mua
-  districts_city: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
-
-  // Quận/Huyện
-  districts_district: z
-    .string({ message: REQUIRED_MSG_SAMPLE })
-    .array()
-    .min(1, REQUIRED_MSG_SAMPLE)
-    .max(3, 'Tối đa 3 đặc điểm.'),
-
-  // Hướng nhà
-  direction: z.string().optional(),
-
-  // Mục đích mua
-  purpose: z.string().optional(),
-
-  // Tài chính sẵn sàng?
-  finance_status: z.boolean().optional(),
-
-  // Đã mua hụt nhà?
-  miss: z.boolean().optional(),
-
-  // Hiểu thị trường?
-  understand: z.boolean().optional(),
-
-  // Tôn trọng môi trường?
-  honored: z.boolean().optional(),
-
-  // Cần mua gấp?
-  urgently: z.boolean().optional(),
-
-  // Ghi chú yêu cầu
-  description: z.string().optional(),
-
-  // Hiện trạng
-  purchase_status: z.string().optional(),
-});
-
-export type CustCreateUpdateSchemaType = z.infer<typeof CustCreateUpdateSchema>;
-
-const rule = createSchemaFieldRule(CustCreateUpdateSchema);
+const rule = createSchemaFieldRule(CustomerSchema);
 
 export const ModalCustCreateUpdate = memo(
   ({
@@ -87,9 +15,9 @@ export const ModalCustCreateUpdate = memo(
   }: {
     open: boolean;
     handleCancel: () => void;
-    initialValues?: CustCreateUpdateSchemaType;
+    initialValues?: CustomerSchemaType;
   }) => {
-    const [form] = Form.useForm<CustCreateUpdateSchemaType>();
+    const [form] = Form.useForm<CustomerSchemaType>();
     const [maskedValues, setMaskedValues] = useState({
       maskedPhone: '',
       maskedIdentity: '',
@@ -97,7 +25,7 @@ export const ModalCustCreateUpdate = memo(
 
     const money = Form.useWatch('money', form);
 
-    const handleSubmit = async (values: CustCreateUpdateSchemaType) => {
+    const handleSubmit = async (values: CustomerSchemaType) => {
       console.log(values);
       // ...
     };
@@ -119,6 +47,7 @@ export const ModalCustCreateUpdate = memo(
         title="Thông tin khách hàng"
         open={open}
         onCancel={handleCancel}
+        onClose={handleCancel}
         width={850}
         footer={null}
         centered
@@ -132,11 +61,12 @@ export const ModalCustCreateUpdate = memo(
         <Form
           form={form}
           onFinish={handleSubmit}
+          initialValues={initialValues ?? {}}
           layout="horizontal"
           labelCol={{ span: 16, lg: 8, sm: 10 }}
           autoComplete="off"
         >
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="full_name"
             label="Họ và tên khách hàng"
             rules={[rule]}
@@ -145,7 +75,7 @@ export const ModalCustCreateUpdate = memo(
             <Input size="large" className="h-10 dark:!bg-primary_color_d" placeholder="Họ và tên" />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="cccd"
             label={
               <div className="flex flex-wrap">
@@ -168,7 +98,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="birthday"
             label="Năm sinh khách"
             rules={[rule]}
@@ -182,7 +112,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="phone"
             label={
               <div className="flex flex-col items-start">
@@ -205,7 +135,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType> name="address" label="Nơi khách ở" rules={[rule]}>
+          <Form.Item<CustomerSchemaType> name="address" label="Nơi khách ở" rules={[rule]}>
             <Input
               size="large"
               className="h-10 dark:!bg-primary_color_d"
@@ -213,7 +143,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="money"
             label={
               <div className="flex flex-col justify-start items-start">
@@ -234,7 +164,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="districts_city"
             label="Khu vực cần mua"
             rules={[rule]}
@@ -247,7 +177,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="districts_district"
             label="Quận/Huyện"
             rules={[rule]}
@@ -261,7 +191,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType> name="direction" label="Hướng nhà" rules={[rule]}>
+          <Form.Item<CustomerSchemaType> name="direction" label="Hướng nhà" rules={[rule]}>
             <Select
               size="large"
               className="w-full dark:!bg-primary_color_d"
@@ -270,7 +200,7 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType> name="purpose" label="Mục đích mua" rules={[rule]}>
+          <Form.Item<CustomerSchemaType> name="purpose" label="Mục đích mua" rules={[rule]}>
             <Select
               size="large"
               className="w-full dark:!bg-primary_color_d"
@@ -279,43 +209,52 @@ export const ModalCustCreateUpdate = memo(
             />
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="finance_status"
             label="Tài chính sẵn sàng?"
             rules={[rule]}
+            className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
             <Checkbox>Sẵn sàng</Checkbox>
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType> name="miss" label="Đã mua hụt nhà?" rules={[rule]}>
+          <Form.Item<CustomerSchemaType>
+            name="miss"
+            label="Đã mua hụt nhà?"
+            rules={[rule]}
+            className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
+          >
             <Checkbox>Đã từng</Checkbox>
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="understand"
             label="Hiểu thị trường?"
             rules={[rule]}
+            className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
             <Checkbox>Đã hiểu</Checkbox>
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
+          <Form.Item<CustomerSchemaType>
             name="honored"
             label="Tông trọng Môi giới?"
             rules={[rule]}
+            className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
             <Checkbox>Tôn trọng</Checkbox>
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType> name="urgently" label="Cần mua gấp?" rules={[rule]}>
+          <Form.Item<CustomerSchemaType>
+            name="urgently"
+            label="Cần mua gấp?"
+            rules={[rule]}
+            className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0"
+          >
             <Checkbox>Cần mua gấp</Checkbox>
           </Form.Item>
 
-          <Form.Item<CustCreateUpdateSchemaType>
-            name="description"
-            label="Ghi chú yêu cầu"
-            rules={[rule]}
-          >
+          <Form.Item<CustomerSchemaType> name="description" label="Ghi chú yêu cầu" rules={[rule]}>
             <Input.TextArea
               size="large"
               rows={4}
@@ -324,7 +263,7 @@ export const ModalCustCreateUpdate = memo(
           </Form.Item>
 
           {initialValues && (
-            <Form.Item<CustCreateUpdateSchemaType>
+            <Form.Item<CustomerSchemaType>
               name="purchase_status"
               label="Hiện trạng mua"
               rules={[rule]}

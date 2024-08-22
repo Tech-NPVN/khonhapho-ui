@@ -22,7 +22,8 @@ const UpdateProfileSchema = z.object({
   // Số điện thoại
   phone: z
     .string({ message: REQUIRED_MSG_SAMPLE })
-    .length(10, { message: 'Số điện thoại bao gồm 10 số.' }),
+    .length(10, { message: 'Số điện thoại bao gồm 10 số.' })
+    .regex(/^0\d{9}$/, { message: 'SĐT không hợp lệ.' }),
 
   // Căn cước công dân (optional)
   cccd: z.string().length(12, { message: 'Căn cước công dân bao gồm 12 số.' }).optional(),
@@ -51,7 +52,8 @@ const UpdateProfileSchema = z.object({
   // SĐt người thân
   relatives_phone: z
     .string({ message: REQUIRED_MSG_SAMPLE })
-    .length(10, { message: 'Số điện thoại bao gồm 10 số.' }),
+    .length(10, { message: 'Số điện thoại bao gồm 10 số.' })
+    .regex(/^0\d{9}$/, { message: 'SĐT không hợp lệ.' }),
 
   // Facebook URL (optional)
   facebook_link: z.string().url({ message: 'URL không hợp lệ' }).optional(),

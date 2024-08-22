@@ -1,6 +1,6 @@
 /* Select */
 .ant-select > .ant-select-selector {
-  @apply dark:!border-divider_d dark:!bg-primary_color_d !rounded-lg;
+  @apply dark:!border-divider_d/40 dark:!bg-primary_color_d !rounded-lg;
 }
 
 .ant-select > .ant-select-selector > .ant-select-selection-search,

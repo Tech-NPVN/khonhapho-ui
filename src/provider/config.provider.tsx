@@ -7,7 +7,6 @@ import { useTheme } from 'next-themes';
 import locale from 'antd/locale/vi_VN';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
-import { useEffect } from 'react';
 
 dayjs.locale('vi');
 
@@ -20,17 +19,6 @@ const themeConfig: ThemeConfig = {
 
 export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   const { theme } = useTheme();
-
-  useEffect(() => {
-    const inputs = document.querySelectorAll('input, textarea');
-    inputs.forEach((input) => {
-      input.addEventListener('focus', (event) => {
-        // Prevent default zoom behavior
-        event.stopPropagation();
-        event.preventDefault(); 
-      });
-    });
-  }, []);
 
   return (
     <ConfigProviderAntd
