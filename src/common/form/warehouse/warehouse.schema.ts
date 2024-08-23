@@ -22,13 +22,13 @@ const WarehouseFormSchema = z.object({
     .max(5, 'Tối đa 5 đặc điểm.'),
 
   // Thành phố
-  c1ty: z.string({ message: 'Vui lòng chọn Thành phố.' }).min(1, 'Vui lòng chọn Thành phố.'),
+  c1ty: z.coerce.number({ message: 'Vui lòng chọn Thành phố.' }).min(1, 'Vui lòng chọn Thành phố.'),
 
   // Quận/Huyện
-  district: z.string({ message: 'Vui lòng chọn Quận/Huyện.' }).min(1, 'Vui lòng chọn Quận/Huyện.'),
+  district: z.coerce.number({ message: 'Vui lòng chọn Quận/Huyện.' }).min(1, 'Vui lòng chọn Quận/Huyện.'),
 
   // Đường/Phố
-  street: z.string({ message: 'Vui lòng chọn Đường/Phố.' }).min(1, 'Vui lòng chọn Đường/Phố.'),
+  street: z.coerce.number({ message: 'Vui lòng chọn Đường/Phố.' }).min(1, 'Vui lòng chọn Đường/Phố.'),
 
   // Ngõ, hẻm, số nhà, số phòng
   house_number: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),

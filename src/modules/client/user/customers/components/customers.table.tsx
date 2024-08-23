@@ -269,6 +269,7 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
         open={openRequest}
         handleCancel={() => setOpenRequest(false)}
         title="Ghi chú yêu cầu của khách"
+        description={fakeData.description}
       />
 
       {/* Sửa khách hàng */}
