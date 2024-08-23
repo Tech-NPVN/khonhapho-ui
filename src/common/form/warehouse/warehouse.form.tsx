@@ -12,11 +12,13 @@ import {
   SELECT_PROPERTY_TYPE,
 } from '@/constants/data';
 import { SelectAddon } from '@/components/reuse/data-entry';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useUpload, { UseUpload } from '@/hooks/use-upload';
 import { ModalDoubleFeed } from '@/common/modal';
 import { UploadChangeParam } from 'antd/es/upload';
 import { UploadFile } from 'antd/lib';
+import useFetchLocation from '@/hooks/use-fetch-location';
+import { CityType } from '@/apis/location';
 
 const DISABLE_PROPERTY_FEAT_MAPPING: { [key: string]: string[] } = {
   'mat-pho': ['ngo-oto', 'ngo-3-gac', 'ngo-xe-may'],
@@ -36,22 +38,36 @@ const rule = createSchemaFieldRule(WarehouseFormSchema);
  */
 export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
   const [openDoubleFeed, setOpenDoubleFeed] = useState<boolean>(false);
-  const [propsFeatureOption, setPropsFeatureOption] = useState(
-    SELECT_PROPERTY_FEATURE.map((option) => ({
-      label: option.name,
-      value: option.code,
-    })),
-  );
+  const [propsFeatureOption, setPropsFeatureOption] = useState(SELECT_PROPERTY_FEATURE);
 
   const [form] = Form.useForm<WarehouseFormSchemaType>();
 
   const legal_status = Form.useWatch('legal_status', form);
   const property_type = Form.useWatch('property_type', form);
+  const city = Form.useWatch('c1ty', form);
 
   const imagesUpload = useUpload();
   const videosUpload = useUpload();
   const privateImagesUpload = useUpload();
   const audiosUpload = useUpload();
+
+  const {
+    cities,
+    districts,
+    streets,
+    fetchCities,
+    fetchDistricts,
+    fetchStreets,
+    setCities,
+    setDistricts,
+    setStreets,
+  } = useFetchLocation();
+
+  useEffect(() => {
+    if (cities.length === 0) fetchCities();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleSelectPropertyFeat = useCallback((values: string[]) => {
     const disabledOptions = new Set<string>();
@@ -66,8 +82,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
     setPropsFeatureOption(
       SELECT_PROPERTY_FEATURE.map((option) => ({
-        label: option.name,
-        value: option.code,
+        ...option,
         disabled: disabledOptions.has(option.code),
       })),
     );
@@ -91,6 +106,12 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
     // handle logic submit
     // ...
   };
+
+  const filterSort = (optionA: CityType, optionB: CityType) =>
+    (optionA?.name ?? '')
+      .toLowerCase()
+      .trim()
+      .localeCompare((optionB?.name ?? '').toLowerCase().trim());
 
   return (
     <>
@@ -126,10 +147,8 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="Loại hình"
-                        options={SELECT_PROPERTY_TYPE.map((option) => ({
-                          label: option.name,
-                          value: option.code,
-                        }))}
+                        options={SELECT_PROPERTY_TYPE}
+                        fieldNames={{ label: 'name', value: 'code' }}
                       />
                     </Form.Item>
                   </Col>
@@ -149,6 +168,8 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         placeholder="Chọn đặc điểm"
                         options={propsFeatureOption}
                         onChange={handleSelectPropertyFeat}
+                        fieldNames={{ label: 'name', value: 'code' }}
+                        allowClear
                       />
                     </Form.Item>
                   </Col>
@@ -165,7 +186,24 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="Chọn thành phố"
-                        options={[]}
+                        options={cities}
+                        fieldNames={{ label: 'name', value: 'id' }}
+                        showSearch
+                        optionFilterProp="name"
+                        filterSort={filterSort}
+                        onChange={(value: number) => {
+                          if (value) {
+                            fetchDistricts(value);
+                          } else {
+                            setDistricts([]);
+                            setStreets([]);
+                          }
+                          form.setFieldsValue({
+                            district: undefined,
+                            street: undefined,
+                          });
+                        }}
+                        allowClear
                       />
                     </Form.Item>
                   </Col>
@@ -182,8 +220,21 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="Chọn Quận/Huyện"
-                        options={[]}
-                        disabled
+                        options={districts}
+                        fieldNames={{ label: 'name', value: 'id' }}
+                        showSearch
+                        optionFilterProp="name"
+                        filterSort={filterSort}
+                        disabled={districts.length === 0}
+                        onChange={(value: number) => {
+                          if (value) {
+                            fetchStreets(city, value);
+                          } else {
+                            setStreets([]);
+                          }
+                          form.setFieldsValue({ street: undefined });
+                        }}
+                        allowClear
                       />
                     </Form.Item>
                   </Col>
@@ -200,8 +251,13 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="Chọn đường phố"
-                        options={[]}
-                        disabled
+                        options={streets}
+                        fieldNames={{ label: 'name', value: 'id' }}
+                        showSearch
+                        optionFilterProp="name"
+                        filterSort={filterSort}
+                        disabled={streets.length === 0}
+                        allowClear
                       />
                     </Form.Item>
                   </Col>
@@ -312,10 +368,8 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="Chọn loại hợp đồng"
-                        options={SELECT_CONTRACT_TYPE.map((option) => ({
-                          label: option.name,
-                          value: option.code,
-                        }))}
+                        options={SELECT_CONTRACT_TYPE}
+                        fieldNames={{ label: 'name', value: 'code' }}
                       />
                     </Form.Item>
                   </Col>
@@ -382,10 +436,8 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="Chọn pháp lý"
-                        options={SELECT_LEGAL_STATUS.map((option) => ({
-                          label: option.name,
-                          value: option.code,
-                        }))}
+                        options={SELECT_LEGAL_STATUS}
+                        fieldNames={{ label: 'name', value: 'code' }}
                       />
                     </Form.Item>
                   </Col>
@@ -507,7 +559,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
               </Col>
             </Row>
 
-            <div className='w-full md:w-[460px] block m-auto'>
+            <div className="w-full md:w-[460px] block m-auto">
               <Button type="primary" htmlType="submit" size="large" className="w-full mt-5">
                 {id ? 'Sửa tin' : 'Đăng tin'}
               </Button>

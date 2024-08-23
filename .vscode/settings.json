@@ -8,7 +8,8 @@
     "structrue",
     "pages",
     "action",
-    "module"
+    "module",
+    "api"
   ],
   "css.lint.unknownAtRules": "ignore",
   "scss.lint.unknownAtRules": "ignore"

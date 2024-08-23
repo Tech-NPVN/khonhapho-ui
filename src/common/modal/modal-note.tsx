@@ -12,7 +12,7 @@ type ModalNoteProps = {
 };
 
 const NoteSchema = z.object({
-  description: z.string().optional(),
+  description: z.string().max(500, 'Tối đa 500 ký tự').optional(),
 });
 
 type NoteSchemaType = z.infer<typeof NoteSchema>;
@@ -62,7 +62,13 @@ export const ModalNote = memo(
             className="mb-6"
             rules={[rule]}
           >
-            <Input.TextArea size="large" rows={10} placeholder="Nhập ghi chú" />
+            <Input.TextArea
+              size="large"
+              rows={10}
+              placeholder="Nhập ghi chú"
+              showCount
+              maxLength={500}
+            />
           </Form.Item>
 
           <div className="flex justify-end">
