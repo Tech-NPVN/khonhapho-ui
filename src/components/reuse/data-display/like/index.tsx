@@ -14,7 +14,7 @@ const LikeComponent = ({ liked = false, onClick, label = 'Thích', className }: 
   return (
     <div
       className={clsx(
-        'w-full h-9 items-center justify-center flex gap-2 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:[&_svg]:hover:fill-primary_text_d cursor-pointer hover:bg-black/5',
+        'w-full h-9 items-center justify-center flex gap-2 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:[&_svg]:hover:fill-primary_text_d cursor-pointer hover:bg-black/5 dark:hover:hover:bg-background_d',
         className,
       )}
       onClick={() => {
@@ -25,9 +25,7 @@ const LikeComponent = ({ liked = false, onClick, label = 'Thích', className }: 
       <span className="inline-block w-4 h-4">
         {isLiked ? <HeartRedIcon /> : <HeartSolidIcon />}
       </span>
-      <span className={clsx('', isLiked ? 'text-[#F95E73]' : ' dark:hover:hover:bg-background_d')}>
-        {label}
-      </span>
+      <span className={clsx('', isLiked ? 'text-[#F95E73]' : '')}>{label}</span>
     </div>
   );
 };

@@ -1,5 +1,11 @@
+import { DealsIndex } from '@/modules/client/activity-news';
+
 const DealsPage = () => {
-  return <></>;
+  return (
+    <>
+      <DealsIndex />
+    </>
+  );
 };
 
 export default DealsPage;

@@ -1,5 +1,13 @@
 @import 'antd/dist/reset.css';
 
+/* Swiper */
+@import 'swiper/swiper-bundle.css';
+@import 'swiper/css/free-mode';
+@import 'swiper/css/pagination';
+@import 'swiper/css/navigation';
+@import 'swiper/css/thumbs';
+@import 'swiper/css/zoom';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -116,5 +124,16 @@
     background: transparent;
     cursor: pointer;
     border-radius: 50%;
+  }
+  /* Display placeholder tiptap */
+  .tiptap p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+  .comment-content:hover > .three-dot {
+    display: flex;
   }
 }

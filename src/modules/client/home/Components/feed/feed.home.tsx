@@ -1,9 +1,9 @@
 'use client';
 
 import clsx from 'clsx';
-import PostDetail from '../../../../components/reuse/data-display/post';
-import FeedBanner from './feed.banner';
-import HomePinComponent from './pin/pin';
+import PostDetail from '../../../../../components/reuse/data-display/post';
+import HomePinComponent from '../pin/pin';
+import { FeedBanner } from './feed.banner';
 
 const FeedHome = () => {
   return (

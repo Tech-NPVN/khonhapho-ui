@@ -10,7 +10,11 @@ function CopyButton({ content }: { content: string }) {
   return (
     <button
       onClick={() => {
-        onCopyClipboard(content);
+        // Không cho phép copy thẻ html
+        var span = document.createElement('span');
+        span.innerHTML = content;
+        const newContent = span.textContent || span.innerText;
+        onCopyClipboard(newContent);
         setIsCopied(true);
         setTimeout(() => {
           setIsCopied(false);

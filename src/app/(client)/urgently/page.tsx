@@ -13,10 +13,10 @@ const UrgentlyPage = () => {
   return (
     <>
       <div className="w-full sm:px-3">
-        <div className="w-full max-w-[800px] mx-auto">
+        <div className="w-full max-w-3xl mx-auto">
           <div className="mt-6 bg-primary_color_l dark:bg-primary_color_d w-full rounded-lg shadow p-4">
             <h1 className="font-semibold text-xl dark:text-primary_text_d_2 text-primary_text_l ">
-              {isUpdate ? 'Sửa bài viết' : ' Tạo bài viết'}
+              Tạo bài viết
             </h1>
             <div className="flex mb-2 mt-6">
               <div className="flex justify-center items-center w-10 h-10 rounded-full overflow-hidden">
@@ -32,6 +32,7 @@ const UrgentlyPage = () => {
                 className="ms-2 px-3 rounded-2xl border-none focus:outline-none flex-1 bg-background_l dark:bg-background_d flex items-center cursor-pointer text-text dark:text-secondary_text_d text-secondary_text_l select-none"
                 onClick={() => {
                   setIsOpenForm(true);
+                  setIsUpdate(false);
                   setDefaultValue({
                     area: '',
                     city: undefined,
@@ -83,11 +84,12 @@ const UrgentlyPage = () => {
                               em tìm hộ giúp tôi. Tiêu chí khách:<br/>
                               <b>Khu vực</b>: Hà Nội
                               `,
-                  images: [],
+                  images: ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg'],
                 }}
                 isUrgently
                 threeDotEvents={{
                   editEvent() {
+                    setIsUpdate(true);
                     setIsOpenForm(true);
                     setDefaultValue({
                       city: 'ha-noi',

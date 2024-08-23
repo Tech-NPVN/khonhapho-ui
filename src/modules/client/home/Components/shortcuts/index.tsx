@@ -183,4 +183,4 @@ const ListShortcuts = () => {
   );
 };
 
-export default ListShortcuts;
+export { ListShortcuts };
