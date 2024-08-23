@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { Button, Col, Divider, Flex, Modal, Row, Select, Table, TableProps } from 'antd';
-import { CustomerSchemaType } from '../customers.schema';
+import { CustomerSchemaType } from '../../customers.schema';
 import {
   SELECT_FILTER_WAREHOUSE,
   SELECT_PROPERTY_FEATURE,

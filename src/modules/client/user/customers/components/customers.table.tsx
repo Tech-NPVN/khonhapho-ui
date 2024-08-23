@@ -1,5 +1,5 @@
 import { Button, Dropdown, type MenuProps, Rate, Table, TableProps, Tooltip } from 'antd';
-import { ModalCustCreateUpdate, ModalSuitableGoods } from './modal';
+import { ModalCustCreateUpdate, ModalSuitableGoods, ModalVisitedHouse } from './modal';
 import useDragScroll from '@/hooks/use-drag-scroll';
 import { memo, useMemo, useState } from 'react';
 import { CopyDocumentIcon, ThreeDotIcon } from '@/components/icons';
@@ -8,7 +8,7 @@ import { DATE_FORMAT, SELECT_BUY_PURPOSE, SELECT_HOUSE_DIRECTION } from '@/const
 import { formatMoneyVN } from '@/utilities/func.util';
 import { modalError, ModalNote } from '@/common/modal';
 import { ItemType } from 'antd/es/menu/interface';
-import { CustomerSchemaType } from './customers.schema';
+import { CustomerSchemaType } from '../customers.schema';
 
 type CustomersType = CustomerSchemaType & { createdAt: dayjs.Dayjs | string };
 
@@ -21,7 +21,7 @@ const fakeData: CustomersType = {
   address: '123 Main St, Hanoi, Vietnam',
   money: 500000000,
   districts_city: 'Hanoi',
-  districts_district: ['Đống Đa, Long Biên, Tây Hồ'],
+  districts_district: ['Đống Đa', 'Long Biên', 'Tây Hồ'],
   direction: 'chua-ro',
   purpose: 'mua-de-o',
   finance_status: true,
@@ -39,6 +39,7 @@ const dataSource: CustomersType[] = Array.from({ length: 10 }, () => ({ ...fakeD
 const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
   const [openRequest, setOpenRequest] = useState<boolean>(false);
   const [openSuitableGoods, setOpenSuitableGoods] = useState<boolean>(false);
+  const [openVisited, setOpenVisited] = useState<boolean>(false);
   const [currentCustomer, setCurrentCustomer] = useState<CustomersType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
@@ -62,7 +63,11 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
         key: '1',
       },
       {
-        label: <>Căn đã dẫn đi xem</>,
+        label: (
+          <p className="mb-0" onClick={() => setOpenVisited(true)}>
+            Căn đã dẫn đi xem
+          </p>
+        ),
         key: '2',
       },
       {
@@ -279,6 +284,9 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
         handleCancel={() => setOpenSuitableGoods(false)}
         customer={fakeData}
       />
+
+      {/* Căn đã dẫn khách */}
+      <ModalVisitedHouse open={openVisited} handleCancel={() => setOpenVisited(false)} />
     </>
   );
 };

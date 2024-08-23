@@ -7,7 +7,7 @@ const CustomerSchema = z.object({
   rate: z.number().optional(),
 
   // Họ và tên
-  full_name: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE),
+  full_name: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, REQUIRED_MSG_SAMPLE).max(50, 'Tối đa 50 ký tự.'),
 
   // CMND hoặc Thẻ căn cước của khách (Hoàn toàn được bảo mật)
   cccd: identityValidate,
@@ -32,7 +32,7 @@ const CustomerSchema = z.object({
     .string({ message: REQUIRED_MSG_SAMPLE })
     .array()
     .min(1, REQUIRED_MSG_SAMPLE)
-    .max(3, 'Tối đa 3 đặc điểm.'),
+    .max(3, 'Tối đa 3.'),
 
   // Hướng nhà
   direction: z.string().optional(),
@@ -56,7 +56,7 @@ const CustomerSchema = z.object({
   urgently: z.boolean().optional(),
 
   // Ghi chú yêu cầu
-  description: z.string().optional(),
+  description: z.string().max(500, 'Tối đa 500 ký tự.').optional(),
 
   // Hiện trạng
   purchase_status: z.string().optional(),
