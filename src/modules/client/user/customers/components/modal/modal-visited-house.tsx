@@ -14,7 +14,7 @@ const HouseItem = () => {
         </p>
       </div>
       <div className="flex-1">
-        <p className="mb-0 text-sm line-clamp-3">
+        <p className="mb-0 text-sm max-md:text-xs line-clamp-3">
           11A Cao Bá Quát 46 5 5.2 29 tỷ Ba Đình Hà Nội HĐ TP Thái Tài NPHN-3369, 0384628527, X3,
           nguồn ĐT10, 25 đến 35, #ĐC2
         </p>
@@ -27,7 +27,7 @@ const HouseItem = () => {
           ))}
         </div>
 
-        <div className="flex justify-between gap-2 mt-3">
+        <div className="flex justify-between gap-2 mt-3 max-md:mt-1">
           <div className="flex items-center gap-2">
             <Link href="/Messenger/id">
               <div className="w-4">
