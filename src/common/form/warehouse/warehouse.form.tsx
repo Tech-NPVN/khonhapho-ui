@@ -107,12 +107,6 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
     // ...
   };
 
-  const filterSort = (optionA: CityType, optionB: CityType) =>
-    (optionA?.name ?? '')
-      .toLowerCase()
-      .trim()
-      .localeCompare((optionB?.name ?? '').toLowerCase().trim());
-
   return (
     <>
       <div className="pt-4 lg:pr-4">
@@ -190,7 +184,6 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         fieldNames={{ label: 'name', value: 'id' }}
                         showSearch
                         optionFilterProp="name"
-                        filterSort={filterSort}
                         onChange={(value: number) => {
                           if (value) {
                             fetchDistricts(value);
@@ -224,7 +217,6 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         fieldNames={{ label: 'name', value: 'id' }}
                         showSearch
                         optionFilterProp="name"
-                        filterSort={filterSort}
                         disabled={districts.length === 0}
                         onChange={(value: number) => {
                           if (value) {
@@ -255,7 +247,6 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         fieldNames={{ label: 'name', value: 'id' }}
                         showSearch
                         optionFilterProp="name"
-                        filterSort={filterSort}
                         disabled={streets.length === 0}
                         allowClear
                       />
