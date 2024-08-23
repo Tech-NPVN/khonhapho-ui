@@ -3,7 +3,7 @@ import { formatMoneyVN } from '@/utilities/func.util';
 import { Button, Checkbox, Divider, Form, Input, InputNumber, Modal, Select } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { memo, useCallback, useState } from 'react';
-import { CustomerSchema, CustomerSchemaType } from '../customers.schema';
+import { CustomerSchema, CustomerSchemaType } from '../../customers.schema';
 
 const rule = createSchemaFieldRule(CustomerSchema);
 
@@ -184,6 +184,7 @@ export const ModalCustCreateUpdate = memo(
             required
           >
             <Select
+              mode="multiple"
               placeholder="Quận/Huyện"
               size="large"
               className="w-full dark:!bg-primary_color_d"
@@ -258,6 +259,8 @@ export const ModalCustCreateUpdate = memo(
             <Input.TextArea
               size="large"
               rows={4}
+              maxLength={500}
+              showCount
               placeholder="Mặt đường, trong ngõ, 4 phòng ngủ, có ban công, gara ô tô,..."
             />
           </Form.Item>
@@ -284,7 +287,7 @@ export const ModalCustCreateUpdate = memo(
               Đóng
             </Button>
             <Button htmlType="submit" size="large" type="primary">
-              Thêm
+              {initialValues ? 'Lưu' : 'Thêm'}
             </Button>
           </div>
         </Form>
