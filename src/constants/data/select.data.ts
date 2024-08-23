@@ -1,3 +1,4 @@
+import { WarehouseStatusEnum } from '@/modules/client/warehouse/components/warehouse.type';
 import { DefaultOptionType } from 'antd/es/select';
 
 const SELECT_PRICE_UNIT = [
@@ -22,23 +23,23 @@ const SELECT_BONUS_TYPE = [
 
 const SELECT_FILTER_WAREHOUSE: DefaultOptionType[] = [
   {
-    value: 'hot-news',
+    value: 'tin-noi-bat',
     label: 'Tin nổi bật',
   },
   {
-    value: 'lastest-news',
+    value: 'tin-moi-nhat',
     label: 'Tin mới nhất',
   },
   {
-    value: 'oldest-news',
+    value: 'tin-cu-nhat',
     label: 'Tin cũ nhất',
   },
   {
-    value: 'highest-price',
+    value: 'gia-cao-nhat',
     label: 'Giá cao nhất',
   },
   {
-    value: 'lowest-price',
+    value: 'gia-thap-nhat',
     label: 'Giá thấp nhất',
   },
 ];
@@ -388,7 +389,7 @@ const SELECT_BUY_PURPOSE = [
   },
 ];
 
-// Hiện trạng
+// Hiện trạng (QL Khách)
 const SELECT_HOUSE_STATUS = [
   {
     value: 'dang-tim-mua',
@@ -397,6 +398,42 @@ const SELECT_HOUSE_STATUS = [
   {
     value: 'da-mua-nha',
     label: 'Đã mua nhà',
+  },
+];
+
+// Hiện trạng (Kho hàng)
+const SELECT_WAREHOUSE_STATUS = [
+  {
+    value: 'tat-ca',
+    label: 'Tất cả',
+  },
+  {
+    value: WarehouseStatusEnum.BanManh,
+    label: 'Bán mạnh',
+  },
+  {
+    value: WarehouseStatusEnum.DaBan,
+    label: 'Đã bán',
+  },
+  {
+    value: WarehouseStatusEnum.DaChot,
+    label: 'Đã chốt',
+  },
+  {
+    value: WarehouseStatusEnum.DungBan,
+    label: 'Dừng bán',
+  },
+  {
+    value: WarehouseStatusEnum.HaChao,
+    label: 'Hạ chào',
+  },
+  {
+    value: WarehouseStatusEnum.TamDung,
+    label: 'Tạm dừng',
+  },
+  {
+    value: WarehouseStatusEnum.TangChao,
+    label: 'Tăng chào',
   },
 ];
 
@@ -413,4 +450,5 @@ export {
   SELECT_HOUSE_DIRECTION,
   SELECT_BUY_PURPOSE,
   SELECT_HOUSE_STATUS,
+  SELECT_WAREHOUSE_STATUS,
 };

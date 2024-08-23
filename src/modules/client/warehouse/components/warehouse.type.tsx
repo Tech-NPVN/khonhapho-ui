@@ -30,7 +30,7 @@ type WarehouseType = {
       url: string;
     }[];
   };
-  feature: string;
+  feature: string[];
 };
 
 export { type WarehouseType, WarehouseStatusEnum };

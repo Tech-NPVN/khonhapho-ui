@@ -1,4 +1,5 @@
 import { REQUIRED_MSG_SAMPLE } from '@/constants/data';
+import { emailValidate, phoneValidate } from '@/lib/zod';
 import { z } from 'zod';
 
 const RegisterSchema = z
@@ -7,15 +8,10 @@ const RegisterSchema = z
     full_name: z.string({ message: REQUIRED_MSG_SAMPLE }).min(1, { message: REQUIRED_MSG_SAMPLE }),
 
     // Email
-    email: z
-      .string({ message: REQUIRED_MSG_SAMPLE })
-      .email({ message: 'Không đúng định dạng email' })
-      .min(1, { message: REQUIRED_MSG_SAMPLE }),
+    email: emailValidate,
 
     // Số điện thoại
-    phone_number: z
-      .string({ message: REQUIRED_MSG_SAMPLE })
-      .length(10, { message: 'Số điện thoại bao gồm 10 số.' }),
+    phone_number: phoneValidate,
 
     // Mật khẩu
     password: z

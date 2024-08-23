@@ -23,7 +23,7 @@ input {
 .ant-input-number-group-wrapper,
 .ant-input-number-affix-wrapper,
 .ant-input-number {
-  @apply dark:!border-divider_d !bg-transparent !w-full;
+  @apply dark:!border-divider_d/40 !bg-transparent !w-full;
 }
 
 .ant-input,
@@ -34,7 +34,7 @@ input {
 
 .ant-input-number-group-addon,
 .ant-input-group-addon {
-  @apply !rounded-e-lg dark:!border-divider_d !bg-transparent;
+  @apply !rounded-e-lg dark:!border-divider_d/40 !bg-transparent;
 }
 
 .ant-input-number-group-addon > .ant-select > .ant-select-selector {

@@ -1,9 +1,9 @@
-import { ChangeIcon, ReloadDownIcon } from '@/components/icons';
+import { ChangeIcon, FilterIcon, ReloadDownIcon } from '@/components/icons';
 import { SELECT_FILTER_CUSTOMER } from '@/constants/data';
-import { Button, Checkbox, Col, Row, Select } from 'antd';
+import { Button, Checkbox, Col, Divider, Flex, Modal, Row, Select } from 'antd';
 import { memo } from 'react';
 
-const optionsCheckbox = [
+export const optionsCheckbox = [
   { label: 'Cần mua gấp', value: 'can-mua-gap' },
   { label: 'Mua hụt nhà', value: 'mua-hut-nha' },
   { label: 'Hiểu thị trường', value: 'hieu-thi-truong' },
@@ -50,4 +50,34 @@ const CustomersSearch = () => {
   );
 };
 
+export const ModalCustomersSearch = memo(
+  ({ open, handleCancel }: { open: boolean; handleCancel: () => void }) => {
+    return (
+      <Modal title="Bộ lọc" open={open} onCancel={handleCancel} width={500} footer={null} centered>
+        <Divider className="bg-background_l dark:bg-background_d my-4" />
+
+        <Flex vertical gap={16}>
+          <Select placeholder="Tiêu chí" size="large" className="w-full" />
+          <Select placeholder="Tỉnh/Thành" size="large" className="w-full" />
+          <Select placeholder="Quận/Huyện" size="large" className="w-full" disabled />
+
+          <Button
+            block
+            type="primary"
+            icon={<FilterIcon className="[&>path]:stroke-primary_color_l" />}
+            className="mt-5 py-4"
+          >
+            Lọc
+          </Button>
+
+          <Button block type="default" icon={<ReloadDownIcon />} className="py-4">
+            Đặt lại
+          </Button>
+        </Flex>
+      </Modal>
+    );
+  },
+);
+
+ModalCustomersSearch.displayName = ModalCustomersSearch.name;
 export default memo(CustomersSearch);
