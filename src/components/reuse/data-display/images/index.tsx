@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { FreeMode, Navigation, Thumbs, Zoom } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
+
 // 5 ca
 import {
   ArrowDownLeftAndUpRightToCenterIcon,
@@ -15,11 +16,8 @@ import {
 } from '@/components/icons';
 import Color from 'color-thief-react';
 import { useFullscreen } from 'react-use';
-import 'swiper/css/free-mode';
-import 'swiper/css/navigation';
-import 'swiper/css/thumbs';
-import 'swiper/css/zoom';
 import { ImageWithDimensions } from './image-with-dimensions';
+
 interface ImageGridProps {
   images: string[];
   onImageClick?: (index: number) => void;
@@ -178,7 +176,9 @@ const Image2 = ({ images, onImageClick }: ImageGridProps) => {
           className={clsx(
             'flex-1 relative overflow-hidden',
             images.length === 2 ? 'aspect-[2/3]' : null,
-            images.length === 1 ? 'max-h-[120vw] flex justify-center items-center' : null,
+            images.length === 1
+              ? 'max-h-[120vw] sm:max-h-[600px] flex justify-center items-center'
+              : null,
           )}
           key={image}
           onClick={() => {
@@ -438,6 +438,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
       window.removeEventListener('hashchange', handleLocationChange);
     };
   }, [onClose]);
+
   return (
     <div
       ref={rootRef}
@@ -469,6 +470,8 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
               }
             });
           }}
+          slidesPerView={1}
+          direction="horizontal"
         >
           {videos?.map((video) => (
             <SwiperSlide key={video} className="h-full w-full flex justify-center">
@@ -537,7 +540,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
         </div>
         <div className="absolute top-0 right-1 z-20 flex">
           <button
-            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center hover:bg-white/20 [&_svg]:disabled:fill-white/50"
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"
             onClick={() => {
               swiperRef.current?.swiper.zoom.in(scale - 1);
             }}
@@ -546,7 +549,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
             <ZoomOutIcon className="fill-white" width={20} height={20} />
           </button>
           <button
-            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center hover:bg-white/20 [&_svg]:disabled:fill-white/50"
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"
             onClick={() => {
               swiperRef.current?.swiper.zoom.in(scale + 1);
             }}
@@ -555,7 +558,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
             <ZoomInIcon className="fill-white" width={20} height={20} />
           </button>
           <button
-            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center hover:bg-white/20"
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20"
             onClick={() => {
               setIsShowThumbs((prev) => !prev);
             }}
@@ -563,7 +566,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
             <Grid2Icon className="fill-white" width={24} height={24} />
           </button>
           <button
-            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center hover:bg-white/20"
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20"
             onClick={() => {
               setIsFullScreen((prev) => !prev);
             }}
@@ -581,7 +584,7 @@ const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps)
         </div>
         <div className="absolute top-3 left-3 z-20">
           <button
-            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center rounded-full hover:bg-white/20"
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center rounded-full sm:hover:bg-white/20"
             onClick={() => {
               handleClose();
             }}

@@ -1,2 +1,3 @@
-export * from './Components/feed.home';
-export * from './Components/feed.interested';
+export * from './Components/feed';
+export * from './Components/pin';
+export * from './Components/shortcuts';

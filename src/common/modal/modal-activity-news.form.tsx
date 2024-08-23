@@ -1,6 +1,8 @@
 import { UploadInput } from '@/components/common';
 import useUpload from '@/hooks/use-upload';
+import { FieldFormActivityNewsType } from '@/modules/client/activity-news/department';
 import { Button, message, Modal, Spin } from 'antd';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
@@ -9,42 +11,48 @@ import TiptapEditor from '../tiptap';
 interface ModalActivityNewsFormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  defaultValue: {
-    id?: number;
-    content?: string;
-    image?: string;
-  };
-  onSuccess?: (post: { id: number; content: string; image?: string[] }) => void;
+  defaultValue?: FieldFormActivityNewsType;
+  onSuccess?: (post: FieldFormActivityNewsType) => void;
+  title?: string;
 }
 const ModalActivityNewsForm = ({
   defaultValue,
   open,
   setOpen,
   onSuccess,
+  title,
 }: ModalActivityNewsFormProps) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [content, setContent] = useState<string>(defaultValue.content || '');
-  const imagesUpload = useUpload();
+  const [content, setContent] = useState<string>(defaultValue?.content || '');
+  const [contentError, setContentError] = useState<string | undefined>();
+  const imagesUpload = useUpload(defaultValue?.images);
   const handleSubmit = () => {
-    console.log(imagesUpload.fileList);
-    console.log(content);
-
+    if (!content) {
+      setContentError('Vui lòng nhập trường này');
+      return;
+    }
     setLoading(true);
+    console.log(imagesUpload.fileList);
+
     setTimeout(() => {
       setLoading(false);
-      message.success(defaultValue.id ? 'Cập nhật thành công' : 'Thêm thành công');
+      message.success(defaultValue?.id ? 'Cập nhật thành công' : 'Thêm thành công');
       onSuccess?.({
-        id: defaultValue.id || new Date().getTime(),
+        ...defaultValue,
+        id: defaultValue?.id || new Date().getTime().toString(),
         content: content,
-        image: [],
+        images: imagesUpload.fileList.map((item) =>
+          item.thumbUrl ? URL.createObjectURL(item.originFileObj as Blob) : (item.url as string),
+        ),
       });
+      setOpen(false);
     }, 1000);
   };
   return (
     <Modal
       open={open}
       centered
-      title={defaultValue.id ? 'Cập nhật bài viết' : 'Tạo bài viết'}
+      title={defaultValue?.id ? 'Cập nhật bài viết' : 'Tạo bài viết'}
       classNames={{
         header: 'text-center sm:[&>div]:!text-xl' + (!loading ? '' : ' opacity-30'),
       }}
@@ -80,19 +88,30 @@ const ModalActivityNewsForm = ({
                   <span>NPVN-0000</span>
                 </Link>
               </div>
-              <div>Tin thông báo vụ chốt</div>
+              <div className="text-secondary_text_l dark:text-secondary_text_d">
+                {title ?? 'Đăng tin'}
+              </div>
             </div>
           </div>
-          <div className="bg-black/5 dark:bg-white/10 rounded-lg">
-            <TiptapEditor
-              className="p-2 [&>div.tiptap]:min-h-64 w-full"
-              config={{ limit: 3000, placeholder: 'Bắt đầu một bài viết...' }}
-              content=""
-              onChange={(html, text) => {
-                setContent(html);
-              }}
-              showCount
-            />
+          <div>
+            <div
+              className={clsx(
+                'bg-black/5 dark:bg-white/10 rounded-lg border border-solid',
+                contentError ? 'border-error_l dark:border-error_d' : 'border-transparent',
+              )}
+            >
+              <TiptapEditor
+                className="p-2 [&>div.tiptap]:min-h-64 w-full"
+                config={{ limit: 3000, placeholder: 'Bắt đầu một bài viết...' }}
+                content={content}
+                onChange={(html) => {
+                  setContent(html);
+                  if (html) setContentError(undefined);
+                }}
+                showCount
+              />
+            </div>
+            {contentError && <div className="text-error_l dark:text-error_d">{contentError}</div>}
           </div>
           <div className="flex">
             <div className="me-3">Ảnh</div>
@@ -112,7 +131,7 @@ const ModalActivityNewsForm = ({
                 handleSubmit();
               }}
             >
-              {defaultValue.id ? 'Cập nhật' : 'Đăng'}
+              {defaultValue?.id ? 'Cập nhật' : 'Đăng'}
             </Button>
           </div>
         </div>

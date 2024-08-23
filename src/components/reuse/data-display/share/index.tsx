@@ -69,7 +69,7 @@ const ShareComponent = ({ content }: IProps) => {
         >
           <ul className="list-none w-full p-0 m-0 bg-white sm:dark:bg-background_d flex flex-col shadow-md rounded-lg overflow-hidden">
             <li
-              className="m-0 px-2 py-4 text-base sm:text-sm sm:py-3 w-full max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black"
+              className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black"
               onClick={(e) => {
                 e.preventDefault();
                 handleCopy();
@@ -79,7 +79,7 @@ const ShareComponent = ({ content }: IProps) => {
               <span>{copied ? 'Đã sao chép' : 'Sao chép liên kết'}</span>
             </li>
             <div className="border-b border-divider_l border-0 border-solid dark:border-divider_d mx-3"></div>
-            <li className="m-0 px-2 py-4 text-base sm:text-sm sm:py-3 w-full max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black">
+            <li className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black">
               <ShareMessageIcon className="!sm:dark:fill-black" />
               <span>Chia sẻ qua tin nhắn</span>
             </li>
@@ -87,7 +87,7 @@ const ShareComponent = ({ content }: IProps) => {
           {width < 640 && (
             <ul className="list-none w-full p-0 m-0 mt-3 flex flex-col shadow-md rounded-lg overflow-hidden">
               <li
-                className="m-0 px-2 py-4 text-base sm:text-sm sm:py-3 w-full bg-white text-red-500 rounded-lg cursor-pointer text-center font-semibold"
+                className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] bg-white text-red-500 rounded-lg cursor-pointer text-center font-semibold"
                 onClick={() => {
                   setIsOpen(false);
                 }}

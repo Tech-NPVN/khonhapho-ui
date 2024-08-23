@@ -1,5 +1,11 @@
+import { AllIndex } from '@/modules/client/activity-news';
+
 const AllPage = () => {
-  return <></>;
+  return (
+    <>
+      <AllIndex />
+    </>
+  );
 };
 
 export default AllPage;

@@ -2,8 +2,8 @@ import { CaretDown } from '@/components/icons/caret-down.icon';
 import { Button, Collapse, Form, Select } from 'antd';
 import clsx from 'clsx';
 import { useState } from 'react';
-import PostDetail from '../../../../components/reuse/data-display/post';
-import { RequiredSymbolLabel } from '../../../../components/reuse/data-entry/required-symbol-label';
+import PostDetail from '../../../../../components/reuse/data-display/post';
+import { RequiredSymbolLabel } from '../../../../../components/reuse/data-entry/required-symbol-label';
 
 type FieldType = {
   city: string;

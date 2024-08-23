@@ -95,4 +95,4 @@ const ThreeDot = ({ isUrgently, threeDotEvents }: ThreeDotProps) => {
   );
 };
 
-export default ThreeDot;
+export { ThreeDot };

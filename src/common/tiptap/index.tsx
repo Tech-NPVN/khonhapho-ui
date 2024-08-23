@@ -44,9 +44,15 @@ const TiptapEditor = ({
     immediatelyRender: false,
   });
   useEffect(() => {
-    editor?.commands.setContent(content ?? '');
+    if (!content) editor?.commands.clearContent();
   }, [editor, content]);
-
+  useEffect(() => {
+    editor?.on('update', () => {
+      const content = editor?.getHTML() || '';
+      const text = editor?.getText();
+      onChange && onChange(content, text);
+    });
+  }, [editor, onChange]);
   return (
     <EditorContent
       editor={editor}
@@ -54,11 +60,6 @@ const TiptapEditor = ({
         'focus:outline-none [&_p]:mb-[2px] [&_.ProseMirror-focused]:outline-none w-full max-w-full relative',
         className,
       )}
-      onInput={(e) => {
-        const content = editor?.getHTML() || '';
-        const text = editor?.getText();
-        onChange && onChange(content, text);
-      }}
     >
       {showCount && (
         <div className="absolute right-1 bottom-1 text-sm opacity-75">

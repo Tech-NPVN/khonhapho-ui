@@ -1,8 +1,14 @@
 'use client';
 
+import { getTimeAgo } from '@/common/helpers';
 import CopyButton from '@/components/common/copy-button';
-import { MessengerImage, MessengerKNPImage } from '@/components/common/image-components';
-import { HeartRedIcon, PhoneIcon } from '@/components/icons';
+import {
+  MessengerImage,
+  MessengerKNPImage,
+  PhoneImage,
+  ZaloImage,
+} from '@/components/common/image-components';
+import { BlueEyeIcon, HeartRedIcon, PhoneIcon } from '@/components/icons';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { Rate, Tag } from 'antd';
@@ -10,11 +16,11 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { Comment, ModalCommentList } from '../comment';
+import { Comment, CommentTypes, ModalCommentList } from '../comment';
 import { ImageGrid } from '../images';
 import LikeShareComment from './like-share-comment';
 import { Booking, NewReport, Note, SuitableCustomer } from './popup-group';
-import ThreeDot, { ThreeDotEventProps } from './three-dot';
+import { ThreeDot, ThreeDotEventProps } from './three-dot';
 
 export interface IPostDetail {
   id?: string;
@@ -33,6 +39,7 @@ export interface IPostDetail {
   like_count?: number;
   created_at?: string;
   updated_at?: string;
+  comments?: CommentTypes[];
 }
 
 export interface IPostDetailProps {
@@ -61,9 +68,10 @@ const PostDetail = ({
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(post?.like_count || 0);
-  const imageCount = post?.images?.length || 0;
+  const [comments, setComments] = useState<CommentTypes[]>();
+  const [postWidth, setPostWidth] = useState<number>(0);
+  const rootRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const handleResize = () => {
       if (isShowMore) return;
@@ -75,13 +83,30 @@ const PostDetail = ({
       window.removeEventListener('resize', handleResize);
     };
   }, [isShowMore, post?.content]);
+  useEffect(() => {
+    setLikeCount(post?.like_count || 0);
+    setComments(post?.comments);
+  }, [post]);
+  useEffect(() => {
+    const handleResize = () => {
+      setPostWidth(rootRef.current?.clientWidth || 0);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [post, rootRef]);
+  const imageCount = post?.images?.length || 0;
 
   return (
     <>
       <div
+        ref={rootRef}
         className={clsx(
           'bg-white dark:bg-primary_color_d w-full sm:rounded-lg rounded-none py-4 sm:py-6',
           isWarehouse ? '!pt-0' : '',
+          !comments || comments?.length === 0 ? '!pb-0' : '',
           className,
         )}
       >
@@ -119,9 +144,9 @@ const PostDetail = ({
                 </Link>
                 <div className="[&_span]:text-sm text-secondary_text_l dark:text-primary_text_d flex gap-[10px]">
                   <span className={clsx('gap-[10px]', isWarehouse ? 'hidden' : 'flex')}>
-                    <span>10 phút trước</span>
+                    <span>{getTimeAgo(post?.created_at)}</span>
                     <span>•</span>
-                    <span>Quy định và hướng dẫn</span>
+                    <span>Phòng nhóm</span>
                   </span>
                   <div className={clsx('', isWarehouse ? 'flex gap-[10px]' : 'hidden')}>
                     <div className="-mt-1 sm:-mt-[2px]">
@@ -273,56 +298,69 @@ const PostDetail = ({
           <div className={clsx((post?.images || []).length > 0 ? 'mt-1' : 'mt-2')}>
             <div className="flex justify-between">
               <div className="flex gap-3">
-                <div className="flex gap-1 items-center dark:text-primary_text_d">
-                  <svg
-                    width={16}
-                    height={16}
-                    viewBox="0 0 16 16"
-                    className="fill-link_text_l"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path d="M6.1871 8C6.1871 8.46413 6.37148 8.90925 6.69967 9.23744C7.02785 9.56563 7.47297 9.75 7.9371 9.75C8.40123 9.75 8.84635 9.56563 9.17454 9.23744C9.50273 8.90925 9.6871 8.46413 9.6871 8C9.6871 7.53587 9.50273 7.09075 9.17454 6.76256C8.84635 6.43437 8.40123 6.25 7.9371 6.25C7.47297 6.25 7.02785 6.43437 6.69967 6.76256C6.37148 7.09075 6.1871 7.53587 6.1871 8ZM14.7215 7.59688C13.2402 4.47656 11.0012 2.90625 7.9996 2.90625C4.99648 2.90625 2.75898 4.47656 1.27773 7.59844C1.21831 7.72425 1.1875 7.86165 1.1875 8.00078C1.1875 8.13991 1.21831 8.27732 1.27773 8.40312C2.75898 11.5234 4.99804 13.0938 7.9996 13.0938C11.0027 13.0938 13.2402 11.5234 14.7215 8.40156C14.8418 8.14844 14.8418 7.85469 14.7215 7.59688ZM7.9371 10.75C6.41835 10.75 5.1871 9.51875 5.1871 8C5.1871 6.48125 6.41835 5.25 7.9371 5.25C9.45585 5.25 10.6871 6.48125 10.6871 8C10.6871 9.51875 9.45585 10.75 7.9371 10.75Z" />
-                  </svg>
-                  <span className="text-sm">3131</span>
-                </div>
-                <div className="flex gap-1 items-center dark:text-primary_text_d">
-                  <HeartRedIcon />
-                  <span className="text-sm">{likeCount}</span>
-                </div>
-              </div>
-              <div
-                className={clsx(
-                  'flex gap-0 [&_span]:hidden sm:[&_span]:inline-block',
-                  isWarehouse ? 'hidden' : 'flex',
+                {post?.view_count && post?.view_count > 0 && (
+                  <div className="flex gap-1 items-center dark:text-primary_text_d">
+                    <BlueEyeIcon />
+                    <span className="text-sm">{post?.view_count}</span>
+                  </div>
                 )}
-              >
+                {likeCount > 0 && (
+                  <div className="flex gap-1 items-center dark:text-primary_text_d">
+                    <HeartRedIcon />
+                    <span className="text-sm">{likeCount}</span>
+                  </div>
+                )}
+              </div>
+              <div className={clsx('flex gap-0', isWarehouse ? 'hidden' : 'flex')}>
                 <a
-                  href="tel:0389619050"
-                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-1 sm:px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
-                >
-                  <PhoneIcon />
-                  <span>Điện thoại</span>
-                </a>
-                <a
-                  href="https://zalo.me/0389619050"
+                  href="https://www.facebook.com/messages/t/100010636721382"
                   target="_blank"
-                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-1 sm:px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
                 >
-                  <Image width={16} height={16} src={'/images/zalo.png'} alt="/images/zalo.png" />
-                  <span>Zalo</span>
+                  <MessengerKNPImage className="w-4 h-4" />
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Chat Nhà Phố
+                  </span>
                 </a>
                 <a
                   href="https://www.facebook.com/messages/t/100010636721382"
                   target="_blank"
-                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-1 sm:px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
                 >
-                  <Image
-                    width={19}
-                    height={19}
-                    src={'/images/messenger.png'}
-                    alt="/images/messenger.png"
-                  />
-                  <span>Messenger</span>
+                  <MessengerImage className="w-4 h-4" />
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Messenger
+                  </span>
+                </a>
+                <a
+                  href="https://zalo.me/0389619050"
+                  target="_blank"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                >
+                  <ZaloImage className="w-4 h-4" />
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Zalo
+                  </span>
+                </a>
+
+                <a
+                  href="tel:0389619050"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                >
+                  <div className="w-4 h-4">
+                    <PhoneImage />
+                  </div>
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Điện thoại
+                  </span>
                 </a>
               </div>
               <div
@@ -341,38 +379,48 @@ const PostDetail = ({
           <div className="mt-2">
             <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
             <LikeShareComment setLikeCount={setLikeCount} liked={isLiked} setLiked={setIsLiked} />
-            <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
+            {!comments ||
+              (comments?.length === 0 && (
+                <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
+              ))}
           </div>
-          <div className="mt-4">
-            <div className="w-full flex flex-col gap-2">
-              <Comment
-                comment={{}}
-                onClick={() => {
-                  setIsOpenModalComment(true);
-                }}
-                onReply={() => {
-                  setIsOpenModalComment(true);
-                }}
-              />
-            </div>
-          </div>
-          <div className="mt-4 max-[640px]:hidden">
-            <div className="flex justify-between items-center gap-3">
-              <div className="w-10 h-10 rounded-full overflow-hidden">
-                <Image width={40} height={40} src="/images/user-default.jpg" alt="" />
+          {comments && comments.length > 0 && (
+            <div className="mt-4">
+              <div className="w-full flex flex-col gap-2">
+                {comments?.map((comment) => (
+                  <Comment
+                    key={comment.id}
+                    comment={{}}
+                    onClick={() => {
+                      setIsOpenModalComment(true);
+                    }}
+                    onReplyClick={() => {
+                      setIsOpenModalComment(true);
+                    }}
+                  />
+                ))}
               </div>
-              <div className="relative flex-1 bg-black/5 dark:bg-[#151E2F] rounded-2xl py-[2px] px-3">
-                <div
-                  className="w-full h-9 bg-transparent focus:outline-none border-none outline-none flex items-center"
-                  onClick={() => {
-                    setIsOpenModalComment(true);
-                  }}
-                >
-                  <span className="select-none opacity-60">Viết bình luận ...</span>
+            </div>
+          )}
+          {comments && comments.length > 0 && (
+            <div className="mt-4 max-[640px]:hidden">
+              <div className="flex justify-between items-center gap-3">
+                <div className="w-10 h-10 rounded-full overflow-hidden">
+                  <Image width={40} height={40} src="/images/user-default.jpg" alt="" />
+                </div>
+                <div className="relative flex-1 bg-black/5 dark:bg-[#151E2F] rounded-2xl py-[2px] px-3">
+                  <div
+                    className="w-full h-9 bg-transparent focus:outline-none border-none outline-none flex items-center"
+                    onClick={() => {
+                      setIsOpenModalComment(true);
+                    }}
+                  >
+                    <span className="select-none opacity-60">Viết bình luận ...</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
       {isOpenModalComment && <ModalCommentList open onClose={() => setIsOpenModalComment(false)} />}

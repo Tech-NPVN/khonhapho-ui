@@ -86,4 +86,4 @@ const FeedBanner = () => {
   );
 };
 
-export default FeedBanner;
+export { FeedBanner };
