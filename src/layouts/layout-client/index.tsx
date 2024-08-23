@@ -1,10 +1,11 @@
 'use client';
 
+import { Routes } from '@/constants/enums';
 import { FloatButton, Layout } from 'antd';
+import { usePathname } from 'next/navigation';
+import LayoutClientGroupChat from './layout-client.group-chat';
 import LayoutClientHeader from './layout-client.header';
 import LayoutClientSidebar from './layout-client.sidebar';
-import { usePathname } from 'next/navigation';
-import { Routes } from '@/constants/enums';
 
 const userRoutesAccept = [
   Routes.UserAppointment,
@@ -15,6 +16,7 @@ const userRoutesAccept = [
 
 export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
+  console.log(pathname);
 
   const isSidebarHidden = () => {
     if (pathname.startsWith(Routes.User)) {
@@ -25,7 +27,21 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
     }
     return true;
   };
-
+  const isShowGroupChat = () => {
+    const arr = [
+      Routes.Home,
+      Routes.Urgently,
+      Routes.ActivityNews,
+      Routes.ActivityNewsAll,
+      Routes.ActivityNewsBranch,
+      Routes.ActivityNewsBranch,
+      Routes.ActivityNewsDeals,
+      Routes.ActivityNewsDepartment,
+      Routes.ActivityNewsGroup,
+      Routes.Regulation,
+    ];
+    return arr.includes(pathname as Routes);
+  };
   return (
     <>
       <Layout>
@@ -33,6 +49,7 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
         <Layout className="main-bg gap-4 flex" hasSider>
           {isSidebarHidden() && <LayoutClientSidebar />}
           <Layout className="main-bg mt-16 flex-1">{children}</Layout>
+          {isShowGroupChat() && <LayoutClientGroupChat />}
         </Layout>
       </Layout>
       <FloatButton.BackTop />

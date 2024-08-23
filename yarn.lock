@@ -745,6 +745,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tiptap/extension-placeholder@npm:^2.6.4":
+  version: 2.6.4
+  resolution: "@tiptap/extension-placeholder@npm:2.6.4"
+  peerDependencies:
+    "@tiptap/core": ^2.6.4
+    "@tiptap/pm": ^2.6.4
+  checksum: 10c0/7acf7898f1a7efa41dc691e3d47a87adecc37aede13f53acae5dfea895bed902262cff9f434be031398b4d196c30c303142241b21b26991be4785c09da6d3d30
+  languageName: node
+  linkType: hard
+
 "@tiptap/extension-strike@npm:^2.6.4":
   version: 2.6.4
   resolution: "@tiptap/extension-strike@npm:2.6.4"
@@ -3515,6 +3525,7 @@ __metadata:
     "@ant-design/nextjs-registry": "npm:^1.0.0"
     "@tiptap/core": "npm:^2.6.4"
     "@tiptap/extension-character-count": "npm:^2.6.4"
+    "@tiptap/extension-placeholder": "npm:^2.6.4"
     "@tiptap/pm": "npm:^2.6.4"
     "@tiptap/react": "npm:^2.6.4"
     "@tiptap/starter-kit": "npm:^2.6.4"

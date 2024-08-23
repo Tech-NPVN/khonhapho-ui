@@ -1,5 +1,13 @@
+'use client';
+
+import { DepartmentIndex } from '@/modules/client/activity-news/department';
+
 const DepartmentPage = () => {
-  return <></>;
+  return (
+    <>
+      <DepartmentIndex />
+    </>
+  );
 };
 
 export default DepartmentPage;

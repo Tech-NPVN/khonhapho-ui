@@ -34,7 +34,7 @@ const ThreeDot = ({ isUrgently, threeDotEvents }: ThreeDotProps) => {
     >
       <ThreeDotIcon width={16} height={3} />
       <div className={clsx('relative ', isShowMenu ? 'block' : 'hidden')}>
-        <div className="absolute top-5 right-0 min-w-56  sm:min-w-48 min-h-32 border-t dark:border-t-0 border-black/5 border-0  border-solid dark:border-divider_d bg-white dark:bg-background_d shadow-md z-10 rounded-lg flex flex-col py-2 px-1">
+        <div className="absolute top-5 right-0 min-w-56  sm:min-w-48 min-h-32 border-t dark:border-t-0 border-black/5 border-0  border-solid dark:border-divider_d bg-white dark:bg-background_d shadow-md rounded-lg flex flex-col py-2 px-1 z-20">
           <div
             className="flex gap-4 px-2 py-2 items-center rounded-md cursor-pointer hover:bg-black/5 dark:hover:bg-divider_d"
             onClick={threeDotEvents?.editEvent}
@@ -95,4 +95,4 @@ const ThreeDot = ({ isUrgently, threeDotEvents }: ThreeDotProps) => {
   );
 };
 
-export default ThreeDot;
+export { ThreeDot };

@@ -1,6 +1,7 @@
 'use client';
 
 import CharacterCount from '@tiptap/extension-character-count';
+import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import clsx from 'clsx';
@@ -9,24 +10,49 @@ interface IProps {
   content?: string;
   className?: string;
   onChange?: (content: string, text?: string) => void;
+  config?: IPropsConfig;
+  showCount?: boolean;
 }
 
-const limit = 3000;
-const TiptapEditor = ({ content, className, onChange }: IProps) => {
+interface IPropsConfig {
+  limit?: number;
+  placeholder?: string;
+}
+
+const TiptapEditor = ({
+  content,
+  className,
+  onChange,
+  config = {
+    limit: 3000,
+    placeholder: 'Hãy viết gì đó',
+  },
+  showCount,
+}: IProps) => {
   const editor = useEditor({
     extensions: [
       StarterKit,
       CharacterCount.configure({
-        limit,
+        limit: config.limit,
+      }),
+      Placeholder.configure({
+        placeholder: config.placeholder,
+        emptyEditorClass: 'is-editor-empty',
       }),
     ],
-    content: content || '',
+    content: content,
     immediatelyRender: false,
   });
   useEffect(() => {
-    editor?.commands.setContent(content || '');
+    if (!content) editor?.commands.clearContent();
   }, [editor, content]);
-
+  useEffect(() => {
+    editor?.on('update', () => {
+      const content = editor?.getHTML() || '';
+      const text = editor?.getText();
+      onChange && onChange(content, text);
+    });
+  }, [editor, onChange]);
   return (
     <EditorContent
       editor={editor}
@@ -34,16 +60,10 @@ const TiptapEditor = ({ content, className, onChange }: IProps) => {
         'focus:outline-none [&_p]:mb-[2px] [&_.ProseMirror-focused]:outline-none w-full max-w-full relative',
         className,
       )}
-      onInput={(e) => {
-        const content = editor?.getHTML() || '';
-        const text = editor?.getText();
-        onChange && onChange(content, text);
-      }}
-      placeholder="Viết bình luận"
     >
-      {editor?.storage.characterCount.characters() >= 500 && (
-        <div className="absolute -right-16 bottom-0">
-          {editor?.storage.characterCount.characters()} / {limit}
+      {showCount && (
+        <div className="absolute right-1 bottom-1 text-sm opacity-75">
+          {editor?.storage.characterCount.characters()} / {config.limit}
         </div>
       )}
     </EditorContent>

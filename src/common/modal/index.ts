@@ -1,3 +1,4 @@
+export * from './modal-activity-news.form';
 export * from './modal-booking';
 export * from './modal-confirm';
 export * from './modal-double-feed';
