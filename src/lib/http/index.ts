@@ -4,7 +4,7 @@ type HttpOptions = RequestInit & {
 };
 
 const fetcher = async <Response>(url: string, options: HttpOptions = {}): Promise<Response> => {
-  const { body, headers } = options;
+  const { headers } = options;
 
   const baseUrl = options?.base_url === undefined ? process.env.NEXT_PUBLIC_API : options.base_url;
   const fullUrl = url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
@@ -15,7 +15,6 @@ const fetcher = async <Response>(url: string, options: HttpOptions = {}): Promis
       Accept: 'application/json',
       ...headers,
     },
-    body: body ? JSON.stringify(body) : undefined,
     ...options,
   });
 
@@ -31,26 +30,14 @@ const http = {
   get<Response>(url: string, options?: Omit<HttpOptions, 'body'>) {
     return fetcher<Response>(url, { method: 'GET', ...options });
   },
-  post<Response, Request extends BodyInit>(
-    url: string,
-    data: Request,
-    options?: Omit<HttpOptions, 'body'>,
-  ) {
-    return fetcher<Response>(url, { method: 'POST', body: data, ...options });
+  post<Response, Request>(url: string, data: Request, options?: Omit<HttpOptions, 'body'>) {
+    return fetcher<Response>(url, { method: 'POST', body: JSON.stringify(data), ...options });
   },
-  put<Response, Request extends BodyInit>(
-    url: string,
-    data: Request,
-    options?: Omit<HttpOptions, 'body'>,
-  ) {
-    return fetcher<Response>(url, { method: 'PUT', body: data, ...options });
+  put<Response, Request>(url: string, data: Request, options?: Omit<HttpOptions, 'body'>) {
+    return fetcher<Response>(url, { method: 'PUT', body: JSON.stringify(data), ...options });
   },
-  patch<Response, Request extends BodyInit>(
-    url: string,
-    data: Request,
-    options?: Omit<HttpOptions, 'body'>,
-  ) {
-    return fetcher<Response>(url, { method: 'PATCH', body: data, ...options });
+  patch<Response, Request>(url: string, data: Request, options?: Omit<HttpOptions, 'body'>) {
+    return fetcher<Response>(url, { method: 'PATCH', body: JSON.stringify(data), ...options });
   },
   delete<Response>(url: string, options?: Omit<HttpOptions, 'body'>) {
     return fetcher<Response>(url, { method: 'DELETE', ...options });
