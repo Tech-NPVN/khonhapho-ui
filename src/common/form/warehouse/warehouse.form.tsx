@@ -5,11 +5,14 @@ import { Button, Col, Form, Input, Row, Select, Tooltip } from 'antd';
 import { WarehouseFormSchema, WarehouseFormSchemaType } from './warehouse.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import {
+  AUDIO_ACCEPTED,
+  IMAGE_ACCEPTED,
   SELECT_BONUS_TYPE,
   SELECT_CONTRACT_TYPE,
   SELECT_LEGAL_STATUS,
   SELECT_PROPERTY_FEATURE,
   SELECT_PROPERTY_TYPE,
+  VIDEO_ACCEPTED,
 } from '@/constants/data';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import { useCallback, useEffect, useState } from 'react';
@@ -18,7 +21,7 @@ import { ModalDoubleFeed } from '@/common/modal';
 import { UploadChangeParam } from 'antd/es/upload';
 import { UploadFile } from 'antd/lib';
 import useFetchLocation from '@/hooks/use-fetch-location';
-import { CityType } from '@/apis/location';
+import { DistrictType, ProjectRequest } from '@/apis/location';
 
 const DISABLE_PROPERTY_FEAT_MAPPING: { [key: string]: string[] } = {
   'mat-pho': ['ngo-oto', 'ngo-3-gac', 'ngo-xe-may'],
@@ -44,7 +47,6 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
   const legal_status = Form.useWatch('legal_status', form);
   const property_type = Form.useWatch('property_type', form);
-  const city = Form.useWatch('c1ty', form);
 
   const imagesUpload = useUpload();
   const videosUpload = useUpload();
@@ -55,12 +57,14 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
     cities,
     districts,
     streets,
+    projects,
     fetchCities,
     fetchDistricts,
     fetchStreets,
-    setCities,
+    fetchProjects,
     setDistricts,
     setStreets,
+    setProjects,
   } = useFetchLocation();
 
   useEffect(() => {
@@ -103,7 +107,6 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
   const handleSubmit = async (values: WarehouseFormSchemaType) => {
     console.log(values);
-    // handle logic submit
     // ...
   };
 
@@ -218,13 +221,20 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         showSearch
                         optionFilterProp="name"
                         disabled={districts.length === 0}
-                        onChange={(value: number) => {
+                        onChange={(value: number, fullValues) => {
                           if (value) {
-                            fetchStreets(city, value);
+                            fetchStreets((fullValues as DistrictType).city, value);
+                            fetchProjects(
+                              new ProjectRequest({
+                                city: (fullValues as DistrictType).city,
+                                district: value,
+                              }),
+                            );
                           } else {
                             setStreets([]);
+                            setProjects([]);
                           }
-                          form.setFieldsValue({ street: undefined });
+                          form.setFieldsValue({ street: undefined, project: undefined });
                         }}
                         allowClear
                       />
@@ -282,8 +292,12 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         size="large"
                         className="w-full"
                         placeholder="VD: Vinhomes Ocean Park"
-                        options={[]}
-                        disabled
+                        options={projects}
+                        fieldNames={{ label: 'name', value: '_id' }}
+                        showSearch
+                        optionFilterProp="name"
+                        disabled={districts.length === 0}
+                        allowClear
                       />
                     </Form.Item>
                   </Col>
@@ -495,7 +509,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...imagesUpload}
                     maxCount={12}
                     multiple
-                    accept=".jpg, .jpeg, .png, .webm, .heic"
+                    accept={IMAGE_ACCEPTED}
                     handleChange={(info) => handleChangeUpload(imagesUpload, info, 'images')}
                   />
                 </Form.Item>
@@ -510,7 +524,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...videosUpload}
                     maxCount={4}
                     multiple
-                    accept=".mp4, .mov, .hevc, .webm, .m4v"
+                    accept={VIDEO_ACCEPTED}
                     handleChange={(info) => handleChangeUpload(videosUpload, info, 'videos')}
                   />
                 </Form.Item>
@@ -526,7 +540,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...privateImagesUpload}
                     maxCount={20}
                     multiple
-                    accept=".jpg, .jpeg, .png, .webm, .heic"
+                    accept={IMAGE_ACCEPTED}
                     handleChange={(info) =>
                       handleChangeUpload(privateImagesUpload, info, 'private_images')
                     }
@@ -543,7 +557,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...audiosUpload}
                     maxCount={4}
                     multiple
-                    accept=".mp3, .wav, .ogg, .aac, .m4a"
+                    accept={AUDIO_ACCEPTED}
                     handleChange={(info) => handleChangeUpload(audiosUpload, info, 'audios')}
                   />
                 </Form.Item>

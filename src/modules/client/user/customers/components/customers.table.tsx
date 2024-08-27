@@ -47,28 +47,19 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
   const dropdownItems: MenuProps['items'] = useMemo(() => {
     return [
       {
-        label: (
-          <p className="mb-0" onClick={() => setCurrentCustomer(fakeData)}>
-            Sửa thông tin
-          </p>
-        ),
+        label: 'Sửa thông tin',
         key: '0',
+        onClick: () => setCurrentCustomer(fakeData),
       },
       {
-        label: (
-          <p className="mb-0" onClick={() => setOpenSuitableGoods(true)}>
-            Tìm hàng phù hợp
-          </p>
-        ),
+        label: 'Tìm hàng phù hợp',
         key: '1',
+        onClick: () => setOpenSuitableGoods(true),
       },
       {
-        label: (
-          <p className="mb-0" onClick={() => setOpenVisited(true)}>
-            Căn đã dẫn đi xem
-          </p>
-        ),
+        label: 'Căn đã dẫn đi xem',
         key: '2',
+        onClick: () => setOpenVisited(true),
       },
       {
         label: <>{type === 'buying' ? 'Đã mua nhà' : 'Đang tìm mua'}</>,
@@ -76,16 +67,10 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
       },
       type === 'bought'
         ? {
-            label: (
-              <p
-                className="mb-0"
-                onClick={() => modalError({ title: 'Bạn có muốn xoá khách hàng' })}
-              >
-                Xoá
-              </p>
-            ),
+            label: 'Xoá',
             danger: true,
             key: '4',
+            onClick: () => modalError({ title: 'Bạn có muốn xoá khách hàng' }),
           }
         : (undefined as unknown as ItemType),
     ];
@@ -153,7 +138,7 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
       dataIndex: 'districts_district',
       className: 'border-0',
       render: (districts_district: CustomersType['districts_district']) => {
-        const list = districts_district.map((item) => item).join(' ,');
+        const list = districts_district.map((item) => item).join(', ');
         return <Tooltip title={list}>{list}</Tooltip>;
       },
     },

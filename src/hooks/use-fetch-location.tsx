@@ -1,4 +1,11 @@
-import { CityType, DistrictType, locationApi, StreetType } from '@/apis/location';
+import {
+  CityType,
+  DistrictType,
+  locationApi,
+  ProjectRequest,
+  ProjectType,
+  StreetType,
+} from '@/apis/location';
 import { useCallback, useState } from 'react';
 
 const useFetchLocation = () => {
@@ -6,6 +13,9 @@ const useFetchLocation = () => {
   const [cities, setCities] = useState<Array<CityType>>([]);
   const [districts, setDistricts] = useState<Array<DistrictType>>([]);
   const [streets, setStreets] = useState<Array<StreetType>>([]);
+
+  // List project state
+  const [projects, setProjects] = useState<Array<ProjectType>>([]);
 
   const fetchCities = useCallback(() => {
     const getCities = async () => {
@@ -49,16 +59,32 @@ const useFetchLocation = () => {
     getStreets();
   }, []);
 
+  const fetchProjects = useCallback((data: ProjectRequest) => {
+    const postProjects = async () => {
+      try {
+        const response = await locationApi.postProjects(data);
+        setProjects(response.data?.list ?? []);
+      } catch (error) {
+        console.error('Error fetching projects:', error);
+      }
+    };
+
+    postProjects();
+  }, []);
+
   return {
     fetchCities,
     fetchDistricts,
     fetchStreets,
+    fetchProjects,
     cities,
     districts,
     streets,
+    projects,
     setCities,
     setDistricts,
     setStreets,
+    setProjects,
   };
 };
 
