@@ -1,6 +1,6 @@
 # Cấu trúc thư mục dự án
 
-plaintext
+```plaintext
 ├── .vscode/                 # Thư mục cấu hình vscode
 ├── public/                  # Thư mục chứa các tài nguyên tĩnh như hình ảnh, fonts,...
 ├── src/                     # Thư mục chứa toàn bộ mã nguồn của ứng dụng.
