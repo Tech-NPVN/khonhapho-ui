@@ -5,11 +5,14 @@ import { Button, Col, Form, Input, Row, Select, Tooltip } from 'antd';
 import { WarehouseFormSchema, WarehouseFormSchemaType } from './warehouse.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import {
+  AUDIO_ACCEPTED,
+  IMAGE_ACCEPTED,
   SELECT_BONUS_TYPE,
   SELECT_CONTRACT_TYPE,
   SELECT_LEGAL_STATUS,
   SELECT_PROPERTY_FEATURE,
   SELECT_PROPERTY_TYPE,
+  VIDEO_ACCEPTED,
 } from '@/constants/data';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import { useCallback, useEffect, useState } from 'react';
@@ -292,7 +295,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                         options={projects}
                         fieldNames={{ label: 'name', value: '_id' }}
                         showSearch
-                        optionFilterProp='name'
+                        optionFilterProp="name"
                         disabled={districts.length === 0}
                         allowClear
                       />
@@ -506,7 +509,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...imagesUpload}
                     maxCount={12}
                     multiple
-                    accept=".jpg, .jpeg, .png, .webm, .heic"
+                    accept={IMAGE_ACCEPTED}
                     handleChange={(info) => handleChangeUpload(imagesUpload, info, 'images')}
                   />
                 </Form.Item>
@@ -521,7 +524,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...videosUpload}
                     maxCount={4}
                     multiple
-                    accept=".mp4, .mov, .hevc, .webm, .m4v"
+                    accept={VIDEO_ACCEPTED}
                     handleChange={(info) => handleChangeUpload(videosUpload, info, 'videos')}
                   />
                 </Form.Item>
@@ -537,7 +540,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...privateImagesUpload}
                     maxCount={20}
                     multiple
-                    accept=".jpg, .jpeg, .png, .webm, .heic"
+                    accept={IMAGE_ACCEPTED}
                     handleChange={(info) =>
                       handleChangeUpload(privateImagesUpload, info, 'private_images')
                     }
@@ -554,7 +557,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
                     {...audiosUpload}
                     maxCount={4}
                     multiple
-                    accept=".mp3, .wav, .ogg, .aac, .m4a"
+                    accept={AUDIO_ACCEPTED}
                     handleChange={(info) => handleChangeUpload(audiosUpload, info, 'audios')}
                   />
                 </Form.Item>

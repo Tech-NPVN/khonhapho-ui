@@ -1,8 +1,13 @@
 /* Modal */
 .ant-modal-header {
-  @apply !bg-transparent
+  @apply !bg-transparent;
 }
 
 .ant-modal .ant-modal-content {
   @apply dark:!bg-background_d;
+}
+
+.ant-modal-confirm-title,
+.ant-modal-confirm-content {
+  @apply dark:!text-primary_text_d;
 }

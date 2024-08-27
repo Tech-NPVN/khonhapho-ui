@@ -1,8 +1,10 @@
+import { sfProPlayFont } from '@/configs/font.config';
 import { Button, Modal, type ModalFuncProps } from 'antd';
 
 const modalError = (props: ModalFuncProps) => {
   Modal.confirm({
     type: 'error',
+    style: { fontFamily: sfProPlayFont.style.fontFamily, ...props.style },
     footer: (
       <div className="ant-modal-confirm-btns">
         <Button
@@ -14,7 +16,7 @@ const modalError = (props: ModalFuncProps) => {
         >
           {props.cancelText ?? 'Huỷ'}
         </Button>
-        <Button onClick={props.onOk} type="primary" danger>
+        <Button onClick={props.onOk} type="primary" danger className='dark:!bg-error_d'>
           {props.okText ?? 'Đồng ý'}
         </Button>
       </div>
@@ -26,6 +28,7 @@ const modalError = (props: ModalFuncProps) => {
 const modalSuccess = (props: ModalFuncProps) => {
   Modal.confirm({
     type: 'success',
+    style: { fontFamily: sfProPlayFont.style.fontFamily, ...props.style },
     ...props,
   });
 };
@@ -33,6 +36,7 @@ const modalSuccess = (props: ModalFuncProps) => {
 const modalWarning = (props: ModalFuncProps) => {
   Modal.confirm({
     type: 'warning',
+    style: { fontFamily: sfProPlayFont.style.fontFamily, ...props.style },
     ...props,
   });
 };
@@ -40,6 +44,7 @@ const modalWarning = (props: ModalFuncProps) => {
 const modalInfo = (props: ModalFuncProps) => {
   Modal.confirm({
     type: 'info',
+    style: { fontFamily: sfProPlayFont.style.fontFamily, ...props.style },
     ...props,
   });
 };

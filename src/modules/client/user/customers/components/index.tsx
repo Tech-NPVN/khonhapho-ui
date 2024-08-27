@@ -60,6 +60,7 @@ export const UserCustomersIndex = () => {
       </button>
     );
   }, []);
+
   return (
     <>
       <div className="pt-4 lg:pr-4">
@@ -103,13 +104,14 @@ export const UserCustomersIndex = () => {
               )
             }
           >
-            {isMobile && (
+            {isMobile ? (
               <Checkbox.Group
                 options={optionsCheckbox}
                 className="overflow-x-auto flex-nowrap [&>label]:py-2 [&>label]:px-2 [&>label]:rounded-lg [&>label]:bg-background_l_2 dark:[&>label]:bg-background_d [&>label]:text-[13px] [&>label]:flex-shrink-0 no-scrollbar"
               />
+            ) : (
+              <CustomersSearch />
             )}
-            {!isMobile && <CustomersSearch />}
           </SegmentedWithNode>
         </SectionBodyWithDescButton>
       </div>
@@ -121,7 +123,7 @@ export const UserCustomersIndex = () => {
 
       <ModalCustCreateUpdate open={openAddNew} handleCancel={() => setOpenAddNew(false)} />
 
-      <ModalCustomersSearch open={openFilter} handleCancel={() => setOpenFilter(false)}/>
+      <ModalCustomersSearch open={openFilter} handleCancel={() => setOpenFilter(false)} />
     </>
   );
 };

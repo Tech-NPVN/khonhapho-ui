@@ -15,6 +15,7 @@ type UploadInputProps = UseUpload & {
   accept: string;
   multiple?: boolean;
   listType?: UploadListType;
+  className?: string;
 };
 
 const UploadInput = (props: UploadInputProps) => {
@@ -30,6 +31,7 @@ const UploadInput = (props: UploadInputProps) => {
     maxCount,
     multiple,
     listType = 'picture-card',
+    className
   } = props;
 
   return (
@@ -42,6 +44,7 @@ const UploadInput = (props: UploadInputProps) => {
         fileList={fileList}
         maxCount={maxCount}
         multiple={multiple}
+        className={className}
       >
         {fileList.length >= maxCount ? null : uploadButton}
       </Upload>
