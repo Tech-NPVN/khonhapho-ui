@@ -1,7 +1,16 @@
 import http from '@/lib/http';
-import { CityType, DistrictType, StreetType } from './location.type';
+import {
+  CityType,
+  DistrictType,
+  ProjectRequest,
+  ProjectResponse,
+  PropertyResponse,
+  StreetType,
+} from './location.type';
 
 const __location_endpoint = process.env.NEXT_PUBLIC_LOCATION_API;
+const __project_endpoint = process.env.NEXT_PUBLIC_PROJECT_API;
+const __property_endpoint = process.env.NEXT_PUBLIC_PROPERTY_API;
 
 const locationApi = {
   getCities: () =>
@@ -21,6 +30,20 @@ const locationApi = {
       base_url: __location_endpoint,
       cache: 'force-cache',
       next: { revalidate: 3600 },
+    }),
+
+  // Require authentication
+  postProjects: (data: ProjectRequest) =>
+    http.post<ProjectResponse, ProjectRequest>('/search', data, {
+      base_url: __project_endpoint,
+      cache: 'force-cache',
+      next: { revalidate: 3600 },
+    }),
+  postProperties: () =>
+    http.post<PropertyResponse, undefined>('/getFilter', undefined, {
+      base_url: __property_endpoint,
+      cache: 'force-cache',
+      next: { revalidate: 10000 },
     }),
 };
 

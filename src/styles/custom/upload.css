@@ -1,10 +1,14 @@
 /* Upload */
 .ant-upload.ant-upload-select {
-  @apply !border-0 !rounded-xl !bg-tiertiary_input_color_l dark:!bg-background_d;
+  @apply !border-0 !bg-tiertiary_input_color_l dark:!bg-background_d;
 }
 
 .ant-upload-list-item.ant-upload-list-item-done {
-  @apply !rounded-xl relative;
+  @apply relative;
+}
+
+.ant-upload-list.ant-upload-list-picture-circle > .ant-upload-list-item-container {
+  @apply rounded-full;
 }
 
 .ant-upload-list-item-actions {
