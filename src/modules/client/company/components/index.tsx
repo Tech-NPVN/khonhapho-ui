@@ -31,7 +31,7 @@ export const CompanyIndex = () => {
             size="large"
             placeholder="Nhập nội dung tìm kiếm"
             prefix={<SearchIcon className="w-4 h-4" />}
-            className="w-[300px] border-0 shadow-btn bg-transparent"
+            className="w-[300px] border-0 shadow-btn dark:!bg-background_d"
           />
         </div>
 

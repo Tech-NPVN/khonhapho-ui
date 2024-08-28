@@ -13,7 +13,7 @@ const SectionBody = ({ title, children, className }: SectionBodyProps) => {
     <section
       className={`rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 ${className}`}
     >
-      <h3 className="uppercase text-[17px] mb-0">{title}</h3>
+      <h3 className="uppercase text-[17px] max-lg:text-sm mb-0">{title}</h3>
       <Divider className="bg-background_l dark:bg-divider_d/40" />
       {children}
     </section>
