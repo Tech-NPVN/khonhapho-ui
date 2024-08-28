@@ -1,4 +1,4 @@
-import { WarehouseStatusEnum } from '@/modules/client/warehouse/components/warehouse.type';
+import { WarehouseStatusEnum } from '@/modules/client/warehouse';
 import { DefaultOptionType } from 'antd/es/select';
 
 const SELECT_PRICE_UNIT = [

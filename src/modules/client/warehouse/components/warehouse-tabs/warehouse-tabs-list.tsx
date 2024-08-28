@@ -1,6 +1,6 @@
 import { ColumnsType } from 'antd/es/table';
 import { commonWarehouseColumns, data, WarehouseTable } from '../warehouse.table';
-import { WarehouseType } from '../warehouse.type';
+import { WarehouseType } from '../../warehouse.type';
 import { type TableProps } from 'antd/lib';
 import { Button } from 'antd';
 import {

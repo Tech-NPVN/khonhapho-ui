@@ -9,6 +9,7 @@ export * from './arrow-right.icon';
 export * from './arrow-top.icon';
 export * from './arrow-up-right-and-down-left-from-center.icon';
 
+export * from './badge-new.icon';
 export * from './bell.icon';
 export * from './bookmark.icon';
 export * from './buy-urgently.icon';

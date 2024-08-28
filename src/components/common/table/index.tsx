@@ -1,3 +1,5 @@
+'use client';
+
 import { ReloadDownIcon } from '@/components/icons';
 import { Button, Col, message, Popover, Row, Switch, type TableProps } from 'antd';
 import { TooltipPlacement } from 'antd/es/tooltip';
