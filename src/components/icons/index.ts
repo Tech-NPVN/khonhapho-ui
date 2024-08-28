@@ -90,6 +90,7 @@ export * from './reload-right.icon';
 export * from './resource-warehouse.icon';
 
 export * from './search.icon';
+export * from './send.icon';
 export * from './setting-company.icon';
 export * from './share-arrow.icon';
 export * from './share-message.icon';

@@ -401,7 +401,7 @@ export interface SlideProps {
   open?: boolean;
   onClose?: () => void;
 }
-const Slide = ({ images, videos, index = 1, open = false, onClose }: SlideProps) => {
+const ImageSlider = ({ images, videos, index = 1, open = false, onClose }: SlideProps) => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const [isShowThumbs, setIsShowThumbs] = useState<boolean>((images?.length || 1) > 1);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -631,7 +631,7 @@ const ImageGrid = ({ images, isWarehouse = false }: ImageGridProps & { isWarehou
       )}
       {isHorizontally && <ImageHorizontally images={images} onImageClick={handleImageClick} />}
       {isShowSlider && (
-        <Slide
+        <ImageSlider
           images={images}
           open={true}
           index={imageShowIndex}
@@ -644,5 +644,5 @@ const ImageGrid = ({ images, isWarehouse = false }: ImageGridProps & { isWarehou
   );
 };
 
-export { ImageGrid, Slide, VideoTag };
+export { ImageGrid, ImageSlider, VideoTag };
 export type { ImageGridProps };

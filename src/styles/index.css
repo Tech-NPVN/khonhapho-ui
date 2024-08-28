@@ -25,3 +25,6 @@
 .ant-input-disabled {
   @apply !bg-tiertiary_input_color_l/30 dark:!bg-disable_d/50;
 }
+.comment-overflow-y-hidden {
+  overflow-y: hidden !important;
+}

@@ -9,9 +9,11 @@ import { useEffect } from 'react';
 interface IProps {
   content?: string;
   className?: string;
-  onChange?: (content: string, text?: string) => void;
   config?: IPropsConfig;
   showCount?: boolean;
+  disabled?: boolean;
+  autoFocus?: boolean;
+  onChange?: (content: string, text?: string) => void;
 }
 
 interface IPropsConfig {
@@ -22,12 +24,14 @@ interface IPropsConfig {
 const TiptapEditor = ({
   content,
   className,
-  onChange,
   config = {
     limit: 3000,
     placeholder: 'Hãy viết gì đó',
   },
   showCount,
+  autoFocus,
+  disabled,
+  onChange,
 }: IProps) => {
   const editor = useEditor({
     extensions: [
@@ -45,7 +49,11 @@ const TiptapEditor = ({
   });
   useEffect(() => {
     if (!content) editor?.commands.clearContent();
-  }, [editor, content]);
+    if (autoFocus) {
+      editor?.commands.focus('end');
+    }
+  }, [editor, content, autoFocus]);
+
   useEffect(() => {
     editor?.on('update', () => {
       const content = editor?.getHTML() || '';
@@ -60,6 +68,7 @@ const TiptapEditor = ({
         'focus:outline-none [&_p]:mb-[2px] [&_.ProseMirror-focused]:outline-none w-full max-w-full relative',
         className,
       )}
+      disabled={disabled}
     >
       {showCount && (
         <div className="absolute right-1 bottom-1 text-sm opacity-75">

@@ -1,6 +1,5 @@
 'use client';
 
-import { getTimeAgo } from '@/common/helpers';
 import CopyButton from '@/components/common/copy-button';
 import {
   MessengerImage,
@@ -11,6 +10,7 @@ import {
 import { BlueEyeIcon, HeartRedIcon, PhoneIcon } from '@/components/icons';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
+import { getTimeAgo } from '@/utilities/func.time';
 import { Rate, Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -321,7 +321,7 @@ const PostDetail = ({
                   <span
                     className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
                   >
-                    Chat Nhà Phố
+                    Chat
                   </span>
                 </a>
                 <a

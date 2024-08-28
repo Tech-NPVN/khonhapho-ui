@@ -133,7 +133,42 @@
     height: 0;
     pointer-events: none;
   }
-  .comment-content:hover > .three-dot {
+  /* Comment */
+  .comment:hover div > .three-dot {
     display: flex;
+  }
+  .modal-comments::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  /* Track */
+  .modal-comments::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  /* Handle */
+  .modal-comments::-webkit-scrollbar-thumb {
+    background: #dbdbdb;
+  }
+
+  /* Handle on hover */
+  .modal-comments::-webkit-scrollbar-thumb:hover {
+    background: #989898;
+  }
+
+  @keyframes grow-in {
+    0% {
+      transform: scale(0.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  .animate-grow-in {
+    animation: grow-in 0.2s ease-out forwards;
   }
 }

@@ -19,9 +19,9 @@ const LikeShareComment = ({ liked, setLikeCount, setLiked }: IProps) => {
       <button className="border-transparent bg-transparent flex-1 px-0">
         <LikeComponent liked={liked} onClick={handleLikeClick}></LikeComponent>
       </button>
-      <button className="cursor-pointer border-transparent bg-transparent flex items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:hover:hover:bg-background_d dark:[&_svg]:hover:fill-primary_text_d px-0">
+      <div className="cursor-pointer border-transparent bg-transparent flex items-center gap-2 flex-1 justify-center hover:bg-black/5 h-9 my-1 rounded-lg dark:text-primary_text_d dark:hover:text-primary_text_d dark:hover:hover:bg-background_d dark:[&_svg]:hover:fill-primary_text_d px-0">
         <CommentComponent />
-      </button>
+      </div>
       <button className="border-transparent bg-transparent flex-1 px-0">
         <ShareComponent content="/"></ShareComponent>
       </button>
