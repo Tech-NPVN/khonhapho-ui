@@ -258,11 +258,13 @@ const CustomerTable = ({ type }: { type: 'buying' | 'bought' }) => {
       />
 
       {/* Sửa khách hàng */}
-      <ModalCustCreateUpdate
-        open={Boolean(currentCustomer)}
-        handleCancel={() => setCurrentCustomer(undefined)}
-        initialValues={currentCustomer}
-      />
+      {Boolean(currentCustomer) && (
+        <ModalCustCreateUpdate
+          open={Boolean(currentCustomer)}
+          handleCancel={() => setCurrentCustomer(undefined)}
+          initialValues={currentCustomer}
+        />
+      )}
 
       {/* Hàng phù hợp */}
       <ModalSuitableGoods

@@ -17,7 +17,7 @@ const CollectionItem: React.FC<CollectionItemProps> = ({
 }) => {
   return (
     <div
-      className="shadow-btn bg-primary_color_l dark:bg-primary_color_d rounded-lg p-[10px] flex items-start gap-3 cursor-pointer hover:bg-background_l dark:hover:bg-background_d cursor-pointer"
+      className="shadow-btn bg-primary_color_l dark:bg-primary_color_d rounded-lg p-[10px] flex items-start gap-3 cursor-pointer hover:bg-background_l dark:hover:bg-background_d"
       onClick={() => onChange(!isChecked)}
     >
       {imageSrc ? (

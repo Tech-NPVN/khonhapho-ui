@@ -51,6 +51,14 @@ const config: Config = {
         frame_blur_d: 'rgba(56, 56, 56, 0.6)',
         disable_d: '#0E1727',
         star_d: '#FFB547',
+
+        // Notification
+        noti_red: '#FFCBCB',
+        noti_red_d: '#3C0E0E',
+        noti_green: '#E9FFD9',
+        noti_green_d: '#1E3C0E',
+        noti_yellow: '#FFFFCB',
+        noti_yellow_d: '#523E00',
       },
     },
   },

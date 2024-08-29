@@ -213,6 +213,7 @@ export const ModalCustCreateUpdate = memo(
           <Form.Item<CustomerSchemaType>
             name="finance_status"
             label="Tài chính sẵn sàng?"
+            valuePropName='checked'
             rules={[rule]}
             className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
@@ -222,6 +223,7 @@ export const ModalCustCreateUpdate = memo(
           <Form.Item<CustomerSchemaType>
             name="miss"
             label="Đã mua hụt nhà?"
+            valuePropName='checked'
             rules={[rule]}
             className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
@@ -231,6 +233,7 @@ export const ModalCustCreateUpdate = memo(
           <Form.Item<CustomerSchemaType>
             name="understand"
             label="Hiểu thị trường?"
+            valuePropName='checked'
             rules={[rule]}
             className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
@@ -240,6 +243,7 @@ export const ModalCustCreateUpdate = memo(
           <Form.Item<CustomerSchemaType>
             name="honored"
             label="Tông trọng Môi giới?"
+            valuePropName='checked'
             rules={[rule]}
             className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0 mb-1"
           >
@@ -249,6 +253,7 @@ export const ModalCustCreateUpdate = memo(
           <Form.Item<CustomerSchemaType>
             name="urgently"
             label="Cần mua gấp?"
+            valuePropName='checked'
             rules={[rule]}
             className="max-sm:[&>.ant-row]:grid max-sm:[&>.ant-row]:grid-cols-2 max-sm:mb-0"
           >
