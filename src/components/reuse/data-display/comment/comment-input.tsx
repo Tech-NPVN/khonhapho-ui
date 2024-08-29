@@ -99,7 +99,7 @@ const CommentInput = ({
                 onChange={(content) => {
                   onchange({ ...comment, body: content });
                 }}
-                className="w-full py-1 px-3 max-sm:text-base"
+                className="w-full py-1 px-3 text-base"
                 config={{
                   limit: 3000,
                   placeholder: 'Nhập bình luận...',

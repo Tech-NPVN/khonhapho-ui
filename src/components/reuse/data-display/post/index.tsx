@@ -10,6 +10,8 @@ import {
 import { BlueEyeIcon, HeartRedIcon, PhoneIcon } from '@/components/icons';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
+import { Routes } from '@/constants/enums';
+import { isTextClamped } from '@/utilities/func.text';
 import { getTimeAgo } from '@/utilities/func.time';
 import { Rate, Tag } from 'antd';
 import clsx from 'clsx';
@@ -19,6 +21,7 @@ import { useEffect, useRef, useState } from 'react';
 import { Comment, CommentTypes, ModalCommentList } from '../comment';
 import { ImageGrid } from '../images';
 import LikeShareComment from './like-share-comment';
+import { Marquee } from './marquee';
 import { Booking, NewReport, Note, SuitableCustomer } from './popup-group';
 import { ThreeDot, ThreeDotEventProps } from './three-dot';
 
@@ -53,8 +56,6 @@ export interface IPostDetailProps {
   threeDot?: boolean;
   threeDotEvents?: ThreeDotEventProps;
 }
-
-export const isTextClamped = (elm: HTMLDivElement) => elm?.scrollHeight > elm?.clientHeight;
 
 const PostDetail = ({
   post,
@@ -138,7 +139,7 @@ const PostDetail = ({
               <div>
                 <Link
                   className="font-semibold text-primary_text_l dark:text-primary_text_d sm:text-base"
-                  href={'/'}
+                  href={Routes.User + '/' + 'id'}
                 >
                   Nhà Phố Việt Nam
                 </Link>
@@ -198,17 +199,20 @@ const PostDetail = ({
           <div className="mt-4">
             <div
               className={clsx(
-                'justify-between items-center mb-4 flex-wrap',
+                'justify-between items-center mb-4 gap-1',
                 isWarehouse ? 'flex' : 'hidden',
               )}
             >
-              <div className="flex gap-2 text-base">
-                <span className="font-semibold text-color_l ">27.727 tỷ</span>
+              <div className="flex gap-[2px] sm:gap-1 md:gap-2 text-base">
+                <span className="font-semibold text-color_l text-nowrap">27.727 tỷ</span>
                 <span>·</span>
-                <span>255.152tr/m</span>
+                <span className="text-nowrap">255.152tr/m</span>
               </div>
-              <Tag className="!text-[14px] lg:!text-sm font-semibold bg-background_l dark:bg-background_d border-none">
-                Mặt phố, kinh doanh, có tầng thượng
+              <Tag className="!text-[14px] lg:!text-sm font-semibold bg-background_l dark:bg-background_d border-none overflow-hidden">
+                <Marquee
+                  className={clsx(postWidth > 580 ? 'w-[280px]' : 'w-[200px]')}
+                  text={'Nhà mặt phố, 3 tầng có ban công, sân thượng '}
+                />
               </Tag>
             </div>
             <div className="overflow-hidden">
@@ -291,7 +295,7 @@ const PostDetail = ({
         </div>
         <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
           <div>
-            <ImageGrid images={post?.images || []} />
+            <ImageGrid images={post?.images || []} isWarehouse={isWarehouse} />
           </div>
         </div>
         <div className="w-full px-3 sm:px-4">

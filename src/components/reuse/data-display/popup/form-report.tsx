@@ -15,7 +15,6 @@ import {
   UploadProps,
 } from 'antd';
 import { ModalProps } from 'antd/lib';
-import TextArea from 'antd/lib/input/TextArea';
 import clsx from 'clsx';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 interface IProps extends ModalProps {
@@ -466,7 +465,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
         <div className="w-full h-[1px] bg-black/5 dark:bg-divider_d"></div>
         <div className="w-full flex justify-center items-center my-8 px-6">
           <Rate
-            className="[&_svg]:w-10 [&_svg]:h-10"
+            className="[&_svg]:w-10 [&_svg]:h-10 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04]"
             value={rate.main}
             onChange={(value) => setRate({ ...rate, main: value })}
             allowClear={false}
@@ -476,7 +475,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
           <div className="flex justify-between">
             <span className="">Thái độ khi gọi điện</span>
             <Rate
-              className="[&_svg]:w-6 [&_svg]:h-6"
+              className="[&_svg]:w-6 [&_svg]:h-6 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04]"
               value={rate.attitude_when_calling}
               onChange={(value) => setRate({ ...rate, attitude_when_calling: value })}
               allowClear={false}
@@ -485,7 +484,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
           <div className="flex justify-between">
             <span className="">Nhiệt tình hỗ trợ đầu khách</span>
             <Rate
-              className="[&_svg]:w-6 [&_svg]:h-6"
+              className="[&_svg]:w-6 [&_svg]:h-6 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04]"
               value={rate.enthusiasm}
               onChange={(value) => setRate({ ...rate, enthusiasm: value })}
               allowClear={false}
@@ -494,7 +493,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
           <div className="flex justify-between">
             <span className="">Kỹ năng đàm phán</span>
             <Rate
-              className="[&_svg]:w-6 [&_svg]:h-6"
+              className="[&_svg]:w-6 [&_svg]:h-6 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04]"
               value={rate.negotiate}
               onChange={(value) => setRate({ ...rate, negotiate: value })}
               allowClear={false}
@@ -503,7 +502,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
           <div className="flex justify-between">
             <span className="">Ký nhà chuẩn chỉ</span>
             <Rate
-              className="[&_svg]:w-6 [&_svg]:h-6"
+              className="[&_svg]:w-6 [&_svg]:h-6 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04]"
               value={rate.sign}
               onChange={(value) => setRate({ ...rate, sign: value })}
               allowClear={false}
@@ -512,7 +511,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
           <div className="flex justify-between">
             <span className="">Thường xuyên cập nhật tình trạng nhà</span>
             <Rate
-              className="[&_svg]:w-6 [&_svg]:h-6"
+              className="[&_svg]:w-6 [&_svg]:h-6 [&_.ant-rate-star-first_svg]:fill-[#fbbc04] [&_.ant-rate-star-full_svg]:fill-[#fbbc04]"
               value={rate.update}
               onChange={(value) => setRate({ ...rate, update: value })}
               allowClear={false}
@@ -522,7 +521,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
             <span className="">
               <b>Nhận sét</b>(chỉ thư ký mới nhìn thấy)
             </span>
-            <TextArea
+            <Input.TextArea
               className="dark:bg-[#141414]"
               placeholder="Viết nhận sét"
               rows={4}
@@ -531,7 +530,7 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
             />
           </div>
           <div className="flex flex-col">
-            <span className="">Đầu chủ có từng gạ chốt mà không báo về công ty không?</span>
+            <span>Đầu chủ có từng gạ chốt mà không báo về công ty không?</span>
             <Radio.Group
               value={rate.notification}
               onChange={(e) => setRate({ ...rate, notification: parseInt(e.target.value) })}

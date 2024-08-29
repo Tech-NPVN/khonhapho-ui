@@ -1,6 +1,7 @@
 'use client';
 
 import { modalError } from '@/common/modal';
+import { TextSeeMore } from '@/components/common';
 import { CommentIcon, HeartRedIcon, ThreeDotIcon } from '@/components/icons';
 import { getTimeAgo } from '@/utilities/func.time';
 import { Modal, Popover } from 'antd';
@@ -8,10 +9,10 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { ImageSlider } from '../images';
 import { CommentInput } from './comment-input';
 import { ModalCommentList } from './modal-comment-list';
-
 export interface CommentTypes {
   id?: string;
   user?: {
@@ -198,12 +199,11 @@ const Comment = ({
                       currentComment?.body && currentComment?.body != '<p></p>' ? 'mt-1' : 'mt-0',
                     )}
                   >
-                    <div
+                    <TextSeeMore
+                      _html={currentComment.body}
+                      maxLine={7}
                       className="max-w-full break-words break-all max-sm:text-base"
-                      dangerouslySetInnerHTML={{
-                        __html: currentComment.body || '',
-                      }}
-                    ></div>
+                    />
                   </div>
                   {liked && (
                     <div className="absolute -bottom-1 -right-1 bg-white p-[1px] rounded-full w-4 h-4 flex justify-center items-center dark:bg-primary_color_d">
@@ -370,6 +370,7 @@ const CommentImage = ({ imageUrl }: { imageUrl?: string }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imgClass, setImgClass] = useState('');
+
   useEffect(() => {
     const img = imgRef.current;
     if (img && img.naturalWidth > img.naturalHeight) {
@@ -394,16 +395,43 @@ const CommentImage = ({ imageUrl }: { imageUrl?: string }) => {
           }}
         />
       </div>
-      {isOpen && (
-        <ImageSlider
-          images={[imageUrl]}
-          open
-          onClose={() => {
-            setIsOpen(false);
-          }}
-        />
-      )}
+      <ModalCustom
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        imageUrl={imageUrl}
+      />
     </>
+  );
+};
+const ModalCustom: React.FC<{
+  isOpen: boolean;
+  imageUrl: string;
+  onClose: () => void;
+}> = ({ isOpen, imageUrl, onClose }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!isOpen || !mounted) {
+    return null;
+  }
+
+  return ReactDOM.createPortal(
+    <>
+      <ImageSlider
+        images={[imageUrl]}
+        open
+        onClose={() => {
+          onClose?.();
+        }}
+      />
+    </>,
+    document.body,
   );
 };
 const CommentComponent = () => {

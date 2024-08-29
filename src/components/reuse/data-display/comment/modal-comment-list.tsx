@@ -1,6 +1,6 @@
 'use client';
 import { XIcon } from '@/components/icons';
-import { Divider } from 'antd';
+import { Divider, Empty } from 'antd';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { Comment, CommentTypes } from './comment';
@@ -8,6 +8,7 @@ import { CommentInput } from './comment-input';
 
 interface IProps {
   open?: boolean;
+  isLockComment?: boolean;
   onClose?: () => void;
 }
 
@@ -39,124 +40,14 @@ const initComments: CommentTypes[] = [
     updated_at: new Date('2024-08-09').toISOString(),
   },
 ];
-
-const ModalCommentList = ({ open, onClose }: IProps) => {
+// modal-comments modal-header
+const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
   const [comments, setComments] = useState<CommentTypes[]>(initComments);
   const [windowSize, setWindowSize] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
   const commentsRef = useRef<HTMLDivElement>(null);
-
-  const [position, setPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const startPosition = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const isDragging = useRef<boolean>(false);
-  const dragDirection = useRef<'horizontal' | 'vertical' | null>(null);
-
-  const checkScrollPosition = () => {
-    const element = commentsRef.current;
-    if (!element) return { atBottom: false, atTop: false };
-    const atBottom = element.scrollHeight - element.scrollTop <= element.clientHeight + 15;
-    const atTop = element.scrollTop === 0;
-    return { atBottom, atTop };
-  };
-
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { atBottom, atTop } = checkScrollPosition();
-    if (atTop || atBottom) {
-      isDragging.current = true;
-      startPosition.current.y = e.clientY - position.y;
-      startPosition.current.x = e.clientX - position.x;
-      dragDirection.current = null; // Reset the drag direction when starting a new drag
-    }
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isDragging.current) {
-      const deltaX = e.clientX - startPosition.current.x;
-      const deltaY = e.clientY - startPosition.current.y;
-
-      if (!dragDirection.current) {
-        // Determine drag direction on first significant move
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          dragDirection.current = 'horizontal';
-        } else {
-          dragDirection.current = 'vertical';
-        }
-      }
-
-      // Handle dragging based on determined direction
-      if (dragDirection.current === 'horizontal') {
-        setPosition((prev) => ({ ...prev, x: deltaX }));
-      } else if (dragDirection.current === 'vertical') {
-        setPosition((prev) => ({ ...prev, y: deltaY }));
-      }
-    }
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (isDragging.current) {
-      const deltaX = e.touches[0].clientX - startPosition.current.x;
-      const deltaY = e.touches[0].clientY - startPosition.current.y;
-
-      if (!dragDirection.current) {
-        // Determine drag direction on first significant move
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          dragDirection.current = 'horizontal';
-        } else {
-          dragDirection.current = 'vertical';
-        }
-      }
-
-      // Handle dragging based on determined direction
-      if (dragDirection.current === 'horizontal') {
-        setPosition((prev) => ({ ...prev, x: deltaX }));
-      } else if (dragDirection.current === 'vertical') {
-        const { atBottom, atTop } = checkScrollPosition();
-        if (!((atTop && deltaY < 0) || (atBottom && deltaY > 0))) {
-          setPosition((prev) => ({ ...prev, y: deltaY }));
-        }
-      }
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    isDragging.current = true;
-    startPosition.current.y = e.touches[0].clientY - position.y;
-    startPosition.current.x = e.touches[0].clientX - position.x;
-    dragDirection.current = null; // Reset the drag direction when starting a new drag
-  };
-
-  const handleMouseUp = () => {
-    dragDirection.current = null;
-    isDragging.current = false;
-    const mHeight = windowSize.height * 0.35;
-    const mWidth = windowSize.width * 0.45;
-    if (position.y > mHeight) {
-      setPosition({ x: 0, y: windowSize.height });
-      setTimeout(() => {
-        handleClose();
-      }, 300);
-    } else if (position.y < -mHeight) {
-      setPosition({ x: 0, y: -windowSize.height });
-      setTimeout(() => {
-        handleClose();
-      }, 300);
-    } else if (position.x > mWidth) {
-      setPosition({ y: 0, x: windowSize.width });
-      setTimeout(() => {
-        handleClose();
-      }, 300);
-    } else if (position.x < -mWidth) {
-      setPosition({ y: 0, x: -windowSize.width });
-      setTimeout(() => {
-        handleClose();
-      }, 300);
-    } else {
-      setPosition({ x: 0, y: 0 });
-    }
-  };
-
   const handleSendComment = (comment: CommentTypes) => {
     const newComment: CommentTypes = {
       ...comment,
@@ -170,7 +61,7 @@ const ModalCommentList = ({ open, onClose }: IProps) => {
 
   const handleClose = () => {
     onClose?.();
-    window.history.pushState(null, '', '#');
+    history.replaceState(null, document.title, window.location.pathname + window.location.search);
   };
 
   useEffect(() => {
@@ -190,7 +81,11 @@ const ModalCommentList = ({ open, onClose }: IProps) => {
     if (open) {
       document.body.classList.add('comment-overflow-y-hidden');
       if (window.location.hash !== '#modal-comment')
-        window.history.pushState(null, '', '#modal-comment');
+        history.pushState(
+          null,
+          '',
+          window.location.pathname + window.location.search + '#modal-comment',
+        );
     } else {
       document.body.classList.remove('comment-overflow-y-hidden');
     }
@@ -201,7 +96,9 @@ const ModalCommentList = ({ open, onClose }: IProps) => {
 
   useEffect(() => {
     const handleLocationChange = () => {
-      if (window.location.hash !== '#modal-comment') onClose?.();
+      if (window.location.hash !== '#modal-comment') {
+        onClose?.();
+      }
     };
     window.addEventListener('hashchange', handleLocationChange);
     return () => {
@@ -210,34 +107,27 @@ const ModalCommentList = ({ open, onClose }: IProps) => {
   }, [onClose]);
 
   const popupHeight = windowSize.width < 640 ? windowSize.height : windowSize.height - 180;
-  const moreStyle =
-    windowSize.width >= 640 ? {} : { top: `${position.y}px`, left: `${position.x}px` };
   return (
     <>
       <div className="bg-black/50 fixed top-0 left-0 right-0 bottom-0 z-[101] cursor-default"></div>
       <div
         className={clsx(
-          'animate-grow-in fixed z-[120] my-auto top-0 sm:top-[12.5vh] rounded-lg cursor-default',
+          'animate-grow-in fixed z-[120] my-auto top-0 rounded-lg cursor-default',
           'w-full sm:w-[620px] md:w-[768px] bg-white text-left',
-          'rounded-none sm:rounded-lg',
-          isDragging.current ? 'select-none' : 'transition-all duration-300',
+          'rounded-none sm:rounded-lg transition-all duration-300 linear',
         )}
         style={{
           minHeight: windowSize.width < 640 ? popupHeight + 'px' : popupHeight + 'px',
-          ...moreStyle,
+          top: windowSize.width < 640 ? 0 + 'px' : 90 + 'px',
         }}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onMouseDown={handleMouseDown}
       >
-        <div className="flex justify-between items-center mx-3 my-3">
+        <div className="flex justify-between items-center mx-3 my-3 modal-header">
           <h3 className="text-xl font-semibold mb-0">Bình luận</h3>
-          <div className="w-8 h-8 cursor-pointer rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex justify-center items-center">
-            <XIcon width={18} height={18} onClick={handleClose} />
+          <div
+            className="w-8 h-8 cursor-pointer rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex justify-center items-center"
+            onClick={handleClose}
+          >
+            <XIcon width={18} height={18} />
           </div>
         </div>
         <Divider className="m-0" />
@@ -252,20 +142,31 @@ const ModalCommentList = ({ open, onClose }: IProps) => {
           <div className="px-3 py-3 overflow-y-auto gap-1 modal-comments" ref={commentsRef}>
             <div className="flex flex-col gap-3">
               {comments.map((comment) => (
-                <Comment
-                  className=""
-                  key={comment.id}
-                  comment={comment}
-                  onDelete={(cmt) => {
-                    setComments((prev) => prev.filter((c) => c.id !== cmt?.id));
-                  }}
-                />
+                <div key={comment.id}>
+                  <Comment
+                    className=""
+                    comment={comment}
+                    onDelete={(cmt) => {
+                      setComments((prev) => prev.filter((c) => c.id !== cmt?.id));
+                    }}
+                  />
+                </div>
               ))}
             </div>
+            {!comments ||
+              (comments.length === 0 && (
+                <div className="w-full h-full flex justify-center items-center">
+                  <Empty className="" description="Chưa có bình luậnn nào" />
+                </div>
+              ))}
           </div>
-          <div className="m-3 sticky bottom-0 pb-1 bg-white dark:bg-primary_color_d pt-1">
-            <CommentInput onSendComment={handleSendComment} showAvatar />
-          </div>
+          {isLockComment ? (
+            <div className="w-full text-center">Chức năng bình luận đã bị khoá</div>
+          ) : (
+            <div className="m-3 sticky bottom-0 pb-1 bg-white dark:bg-primary_color_d pt-1">
+              <CommentInput onSendComment={handleSendComment} showAvatar />
+            </div>
+          )}
         </div>
       </div>
     </>

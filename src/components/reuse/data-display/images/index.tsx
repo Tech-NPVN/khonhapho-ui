@@ -395,13 +395,22 @@ const VideoTag = ({
 };
 const ZOOM_SETTINGS = { minRatio: 1, maxRatio: 3 };
 export interface SlideProps {
+  className?: string;
   videos?: string[];
   images?: string[];
   index?: number;
   open?: boolean;
   onClose?: () => void;
 }
-const ImageSlider = ({ images, videos, index = 1, open = false, onClose }: SlideProps) => {
+const ImageSlider = ({
+  images,
+  videos,
+  index = 1,
+  open = false,
+  className,
+  onClose,
+}: SlideProps) => {
+  const [oldHash, setOldHash] = useState<string>('');
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const [isShowThumbs, setIsShowThumbs] = useState<boolean>((images?.length || 1) > 1);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
@@ -416,12 +425,20 @@ const ImageSlider = ({ images, videos, index = 1, open = false, onClose }: Slide
   });
   const handleClose = () => {
     onClose?.();
-    window.history.pushState(null, '', `#`);
+    window.history.pushState(null, '', `${oldHash}`);
   };
   useEffect(() => {
     if (open) {
       document.body.style.overflowY = 'hidden';
-      if (window.location.hash !== '#gallery') window.history.pushState(null, '', `#gallery`);
+      if (window.location.hash !== '#gallery') {
+        setOldHash(window.location.hash);
+        window.history.pushState(null, '', `#gallery`);
+        history.replaceState(
+          null,
+          document.title,
+          window.location.pathname + window.location.search + `#gallery`,
+        );
+      }
     } else {
       document.body.style.overflowY = '';
     }
@@ -442,7 +459,11 @@ const ImageSlider = ({ images, videos, index = 1, open = false, onClose }: Slide
   return (
     <div
       ref={rootRef}
-      className={clsx('w-full h-full bg-black fixed top-0 left-0 z-[9999]', open ? '' : 'hidden')}
+      className={clsx(
+        'w-screen h-screen bg-black fixed top-0 left-0 z-[9999]',
+        open ? '' : 'hidden',
+        className,
+      )}
     >
       <div className="relative h-full w-full">
         <Swiper

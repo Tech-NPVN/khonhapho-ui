@@ -1,19 +1,25 @@
 'use client';
 
 import { ModalBooking } from '@/common/modal';
+import CopyButton from '@/components/common/copy-button';
+import {
+  MessengerImage,
+  MessengerKNPImage,
+  PhoneImage,
+  ZaloImage,
+} from '@/components/common/image-components';
 import {
   AlarmIcon,
   BookmarkIcon,
   CommentIcon,
   CopyDocumentIcon,
-  CopyIcon,
   HeartRedIcon,
   HistoryIcon,
   NoteIcon,
   PeopleGroup,
-  PhoneIcon,
   XIcon,
 } from '@/components/icons';
+import { Routes } from '@/constants/enums';
 import { Modal, Rate, Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -24,9 +30,10 @@ import { FreeMode, Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 import CommentInput from '../../data-entry/comment-input';
 import { Comment } from '../comment';
-import { Slide, VideoTag } from '../images';
+import { ImageSlider, VideoTag } from '../images';
 import LikeComponent from '../like';
 import { IPostDetail } from '../post';
+import { Marquee } from '../post/marquee';
 import ShareComponent from '../share';
 import FormReportPopup from './form-report';
 import NotePopup from './note';
@@ -73,7 +80,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
         okButtonProps={{ style: { display: 'none' } }}
         cancelButtonProps={{ style: { display: 'none' } }}
         open={open}
-        className="dark:bg-primary_color_d dark:text-primary_text_d !p-0 [&_.ant-modal-close]:!hidden"
+        className="dark:bg-primary_color_d dark:text-primary_text_d !p-0 [&_.ant-modal-close]:!hidden my-0 mx-0 sm:my-5 !max-w-none"
         classNames={{
           content: 'dark:bg-primary_color_d dark:text-primary_text_d !p-0',
           header: '!hidden',
@@ -88,9 +95,9 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
         }}
         width={'auto'}
       >
-        <div className="w-[calc(100vw_-_100px)] xl:w-[1200px] 2xl:w-[1380px] flex flex-col overflow-hidden">
-          <div className="w-full flex h-[780px]">
-            <div className="w-1/2 h-full overflow-hidden rounded-s-lg bg-black relative">
+        <div className="w-screen sm:w-[calc(100vw_-_100px)] xl:w-[1200px] 2xl:w-[1380px] flex flex-col overflow-hidden max-sm:h-screen">
+          <div className="w-full flex md:min-h-[500px] lg:h-[780px] max-lg:flex-wrap">
+            <div className="w-full lg:w-1/2 h-[400px] lg:h-full overflow-hidden max-lg:rounded-t-lg lg:rounded-s-lg bg-black relative">
               <Swiper
                 ref={swiperRef}
                 spaceBetween={3}
@@ -149,6 +156,25 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                     </div>
                   </SwiperSlide>
                 ))}
+                <SwiperSlide
+                  key={'abc-1'}
+                  className="h-full w-full flex justify-center"
+                  onClick={() => {
+                    setSliderIndex(0);
+                  }}
+                >
+                  <div className="swiper-zoom-container w-full h-full select-none">
+                    <Image
+                      className="w-auto max-w-full max-h-full h-full object-cover"
+                      width={0}
+                      height={0}
+                      src={'/images/post-1.jpeg'}
+                      alt={'demo'}
+                      quality={100}
+                      unoptimized
+                    />
+                  </div>
+                </SwiperSlide>
               </Swiper>
               <div
                 className="absolute top-2 left-2 z-10 w-8 h-8 flex justify-center items-center cursor-pointer hover:bg-white/10 rounded-full"
@@ -159,7 +185,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                 <XIcon width={20} height={20} className="!fill-white" />
               </div>
             </div>
-            <div className="w-1/2 h-full relative flex flex-col max-h-full overflow-hidden rounded-lg">
+            <div className="w-full lg:w-1/2 h-full relative flex flex-col max-h-full overflow-hidden rounded-lg">
               <div className="max-h-full overflow-y-auto flex-1">
                 <div className="px-3 py-4">
                   <div className={clsx('bg-white dark:bg-primary_color_d rounded-lg w-full')}>
@@ -176,8 +202,8 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                       <div className="flex-1">
                         <div className="flex justify-between w-full">
                           <Link
-                            className="font-semibold text-primary_text_l dark:text-primary_text_d flex gap-2"
-                            href={'/'}
+                            className="font-semibold text-primary_text_l dark:text-primary_text_d flex gap-2 hover:underline"
+                            href={Routes.User + '/' + 'id'}
                           >
                             <span>CV Nguyễn Trung</span>
                             <span>•</span>
@@ -189,7 +215,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                           </div>
                         </div>
                         <div className="[&_span]:text-sm text-secondary_text_l dark:text-primary_text_d flex justify-between">
-                          <div className={clsx('flex gap-[10px]')}>
+                          <div className={clsx('flex gap-[10px] items-center')}>
                             <div className="flex">
                               <div className="">
                                 <Rate
@@ -206,51 +232,25 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                             <span className="text-primary_text_l dark:text-primary_text_d hidden">
                               •
                             </span>
+                            <Link className="flex items-center w-4 h-4" href={'/messenger/id'}>
+                              <MessengerKNPImage />
+                            </Link>
                             <a
-                              className="inline-block w-6 h-5 "
+                              className="flex items-center w-4 h-4"
                               href="https://www.facebook.com/messages/t/1"
                               target="_blank"
                             >
-                              <Image
-                                className="w-full h-full object-contain"
-                                width={48}
-                                height={43}
-                                src={'/images/messenger-knp.png'}
-                                alt="/images/messenger-knp.png"
-                              />
+                              <MessengerImage />
                             </a>
                             <a
-                              className="inline-block w-6 h-6"
-                              href="https://www.facebook.com/messages/t/1"
+                              className="flex items-center w-4 h-4"
+                              href="https://zalo.me/0389619050"
                               target="_blank"
                             >
-                              <Image
-                                className="w-full h-full object-contain"
-                                width={40}
-                                height={40}
-                                src={'/images/messenger.png'}
-                                alt="/images/messenger.png"
-                              />
+                              <ZaloImage />
                             </a>
-                            <a
-                              className="inline-block w-[18px] h-[18px]"
-                              href="https://www.facebook.com/messages/t/1"
-                              target="_blank"
-                            >
-                              <Image
-                                className="w-full h-full object-contain "
-                                width={40}
-                                height={40}
-                                src={'/images/zalo.png'}
-                                alt="/images/zalo.png"
-                              />
-                            </a>
-                            <a
-                              className="inline-block w-6 h-6"
-                              href="https://www.facebook.com/messages/t/1"
-                              target="_blank"
-                            >
-                              <PhoneIcon width={24} height={24} />
+                            <a className="flex items-center w-4 h-4" href="tel:0389619050">
+                              <PhoneImage />
                             </a>
                           </div>
                           <div className=" bg-background_l dark:bg-background_d flex items-center rounded">
@@ -268,8 +268,11 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                           <span>·</span>
                           <span>255.152tr/m</span>
                         </div>
-                        <Tag className="!text-[12px] lg:!text-sm font-normal bg-background_l dark:bg-background_d border-none">
-                          Mặt phố, kinh doanh, có tầng thượng
+                        <Tag className="!text-[14px] lg:!text-sm font-semibold bg-background_l dark:bg-background_d border-none overflow-hidden">
+                          <Marquee
+                            className={'w-[200px]'}
+                            text={'Nhà mặt phố, 3 tầng có ban công, sân thượng '}
+                          />
                         </Tag>
                       </div>
                       <div className="overflow-hidden">
@@ -314,24 +317,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                           </button>
                         </div>
                         <div className={'mt-2'}>
-                          <button
-                            onClick={() => {
-                              onCopyClipboard(post?.content || '');
-                              setIsCopied(true);
-                              setTimeout(() => {
-                                setIsCopied(false);
-                              }, 3000);
-                            }}
-                            disabled={isCopied}
-                            className={clsx(
-                              'py-0 px-1 text-base border-black/20 dark:border-primary_text_d_2 rounded bg-transparent cursor-pointer flex justify-between items-center gap-2 border',
-                            )}
-                          >
-                            <CopyIcon width={10} />
-                            <span className="text-[12px]">
-                              {isCopied ? 'Đã sao chép' : 'Sao chép'}
-                            </span>
-                          </button>
+                          <CopyButton content="" />
                         </div>
                       </div>
                     </div>
@@ -441,11 +427,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
                     </div>
                     <div className="mt-4">
                       <div className="w-full flex flex-col gap-3">
-                        <Comment comment={{}} />
-                        <Comment comment={{}} />
-                        <Comment comment={{}} />
-                        <Comment comment={{}} />
-                        <Comment comment={{}} />
+                        <Comment comment={{ body: 'Nhà rất đẹp' }} />
                       </div>
                     </div>
                   </div>
@@ -491,7 +473,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
         }}
       />
       {sliderIndex >= 0 && (
-        <Slide
+        <ImageSlider
           videos={post?.videos}
           images={post?.images}
           open={sliderIndex >= 0}
