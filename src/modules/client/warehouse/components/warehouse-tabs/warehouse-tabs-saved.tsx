@@ -1,6 +1,6 @@
 import { Button, type TableProps } from 'antd';
 import { WarehouseTable, commonWarehouseColumns, data } from '../warehouse.table';
-import { WarehouseType } from '../warehouse.type';
+import { WarehouseType } from '../../warehouse.type';
 import {
   AlarmSmallIcon,
   BookmarkedIcon,

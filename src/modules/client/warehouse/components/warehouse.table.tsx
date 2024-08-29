@@ -8,8 +8,8 @@ import { Badge, Button, Select, Table, Tag, Tooltip, type TableProps } from 'ant
 import Image from 'next/image';
 import Link from 'next/link';
 import { memo, useState } from 'react';
-import { WarehouseStatusEnum, WarehouseType } from './warehouse.type';
-import { compareWarehouseStatus } from './warehouse.util';
+import { WarehouseStatusEnum, WarehouseType } from '../warehouse.type';
+import { compareWarehouseStatus } from '../warehouse.util';
 
 export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {

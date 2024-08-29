@@ -31,13 +31,25 @@ const http = {
     return fetcher<Response>(url, { method: 'GET', ...options });
   },
   post<Response, Request>(url: string, data: Request, options?: Omit<HttpOptions, 'body'>) {
-    return fetcher<Response>(url, { method: 'POST', body: JSON.stringify(data), ...options });
+    return fetcher<Response>(url, {
+      method: 'POST',
+      body: data ? JSON.stringify(data) : undefined,
+      ...options,
+    });
   },
   put<Response, Request>(url: string, data: Request, options?: Omit<HttpOptions, 'body'>) {
-    return fetcher<Response>(url, { method: 'PUT', body: JSON.stringify(data), ...options });
+    return fetcher<Response>(url, {
+      method: 'PUT',
+      body: data ? JSON.stringify(data) : undefined,
+      ...options,
+    });
   },
   patch<Response, Request>(url: string, data: Request, options?: Omit<HttpOptions, 'body'>) {
-    return fetcher<Response>(url, { method: 'PATCH', body: JSON.stringify(data), ...options });
+    return fetcher<Response>(url, {
+      method: 'PATCH',
+      body: data ? JSON.stringify(data) : undefined,
+      ...options,
+    });
   },
   delete<Response>(url: string, options?: Omit<HttpOptions, 'body'>) {
     return fetcher<Response>(url, { method: 'DELETE', ...options });

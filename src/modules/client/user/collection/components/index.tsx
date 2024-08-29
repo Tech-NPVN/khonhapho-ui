@@ -196,14 +196,14 @@ export const UserCollectionIndex = () => {
                   <div>
                     <Button
                       type="primary"
-                      className="bg-tiertiary_input_color_l text-primary_text_l dark:bg-background_d dark:text-primary_text_d rounded-xl"
+                      className="bg-tiertiary_input_color_l text-primary_text_l dark:bg-background_d dark:text-primary_text_d rounded-xl sm:text-xs"
                       onClick={() => setOpenNote(true)}
                     >
                       Ghi chú
                     </Button>
                     <Button
                       type="primary"
-                      className="ml-2 bg-tiertiary_input_color_l text-primary_text_l dark:bg-background_d dark:text-primary_text_d rounded-xl"
+                      className="ml-2 bg-tiertiary_input_color_l text-primary_text_l dark:bg-background_d dark:text-primary_text_d rounded-xl sm:text-xs"
                       onClick={() => setOpenAddCollection(true)}
                     >
                       Thêm vào bộ sưu tập
