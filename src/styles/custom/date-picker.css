@@ -10,3 +10,7 @@
 .ant-picker > .ant-picker-input > .ant-picker-suffix > span {
   @apply dark:text-primary_color_l;
 }
+
+.ant-picker-datetime-panel {
+  @apply max-sm:!flex-col md:flex-row !overflow-auto;
+}
