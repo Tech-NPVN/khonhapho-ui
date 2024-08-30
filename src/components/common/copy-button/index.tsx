@@ -25,7 +25,7 @@ function CopyButton({ content }: { content: string }) {
         'py-[2px] px-1 text-base border-black/20 dark:border-primary_text_d_2 rounded bg-transparent cursor-pointer flex justify-between items-center gap-2 border',
       )}
     >
-      <CopyIcon />
+      <CopyIcon className={isCopied ? '!fill-color_l' : ''} />
       <span className={clsx('text-sm', isCopied ? 'text-color_l' : '')}>
         {isCopied ? 'Đã sao chép' : 'Sao chép'}
       </span>

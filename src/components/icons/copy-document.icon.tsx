@@ -16,7 +16,7 @@ const CopyDocumentIcon = (props: React.SVGProps<SVGSVGElement>) => {
     </svg>
   );
 };
-const CopyIcon = (props: React.SVGProps<SVGSVGElement>) => {
+const CopyIcon = ({ className, ...props }: React.SVGProps<SVGSVGElement>) => {
   return (
     <svg
       width="11"
@@ -24,7 +24,7 @@ const CopyIcon = (props: React.SVGProps<SVGSVGElement>) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 11 15"
-      className={'fill-primary_text_l dark:fill-primary_text_d ' + props.className}
+      className={'fill-primary_text_l dark:fill-primary_text_d ' + className}
       {...props}
     >
       <path d="M10.5 0.658203H2.125C2.05625 0.658203 2 0.714453 2 0.783203V1.6582C2 1.72695 2.05625 1.7832 2.125 1.7832H9.875V12.5332C9.875 12.602 9.93125 12.6582 10 12.6582H10.875C10.9438 12.6582 11 12.602 11 12.5332V1.1582C11 0.881641 10.7766 0.658203 10.5 0.658203ZM8.5 2.6582H0.5C0.223437 2.6582 0 2.88164 0 3.1582V11.4504C0 11.5832 0.0531249 11.7098 0.146875 11.8035L2.85469 14.5113C2.88906 14.5457 2.92813 14.5738 2.97031 14.5973V14.627H3.03594C3.09062 14.6473 3.14844 14.6582 3.20781 14.6582H8.5C8.77656 14.6582 9 14.4348 9 14.1582V3.1582C9 2.88164 8.77656 2.6582 8.5 2.6582ZM2.96875 13.0363L1.62344 11.6895H2.96875V13.0363ZM7.875 13.5332H3.96875V11.3145C3.96875 10.9691 3.68906 10.6895 3.34375 10.6895H1.125V3.7832H7.875V13.5332Z" />

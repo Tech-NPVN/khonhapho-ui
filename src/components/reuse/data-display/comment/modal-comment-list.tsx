@@ -1,11 +1,14 @@
 'use client';
-import { Modal } from 'antd';
-import Image from 'next/image';
-import { useState } from 'react';
-import { Comment, CommentInput, CommentTypes } from './comment';
+import { XIcon } from '@/components/icons';
+import { Divider, Empty } from 'antd';
+import clsx from 'clsx';
+import { useEffect, useRef, useState } from 'react';
+import { Comment, CommentTypes } from './comment';
+import { CommentInput } from './comment-input';
 
 interface IProps {
   open?: boolean;
+  isLockComment?: boolean;
   onClose?: () => void;
 }
 
@@ -13,65 +16,160 @@ const initComments: CommentTypes[] = [
   {
     id: '1',
     body: 'Nhà này rất đẹp nên mua',
+    created_at: new Date('2024-04-09').toISOString(),
+    updated_at: new Date('2024-05-09').toISOString(),
+    child_comments: [
+      {
+        id: 'cmm1',
+        body: 'Căn này đã bán chưa chị Căn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chị',
+        created_at: new Date('2024-07-02').toISOString(),
+        updated_at: new Date('2024-08-09').toISOString(),
+      },
+      {
+        id: 'cmm3',
+        body: 'Lorem ipsum dolor sit amet',
+        created_at: new Date('2024-07-02').toISOString(),
+        updated_at: new Date('2024-08-09').toISOString(),
+      },
+    ],
   },
   {
     id: '2',
     body: 'Căn này đã bán chưa chị',
+    created_at: new Date('2024-07-02').toISOString(),
+    updated_at: new Date('2024-08-09').toISOString(),
   },
 ];
-const ModalCommentList = ({ open, onClose }: IProps) => {
+// modal-comments modal-header
+const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
   const [comments, setComments] = useState<CommentTypes[]>(initComments);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const commentsRef = useRef<HTMLDivElement>(null);
   const handleSendComment = (comment: CommentTypes) => {
-    setComments((prev) => [...prev, comment]);
+    const newComment: CommentTypes = {
+      ...comment,
+      id: Math.random().toString(),
+      created_at: comment.created_at ?? new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    setComments((prev) => [newComment, ...prev]);
+    commentsRef.current?.scrollTo({ top: 0, behavior: 'auto' });
   };
 
+  const handleClose = () => {
+    onClose?.();
+    history.replaceState(null, document.title, window.location.pathname + window.location.search);
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (open) {
+      document.body.classList.add('comment-overflow-y-hidden');
+      if (window.location.hash !== '#modal-comment')
+        history.pushState(
+          null,
+          '',
+          window.location.pathname + window.location.search + '#modal-comment',
+        );
+    } else {
+      document.body.classList.remove('comment-overflow-y-hidden');
+    }
+    return () => {
+      document.body.classList.remove('comment-overflow-y-hidden');
+    };
+  }, [open]);
+
+  useEffect(() => {
+    const handleLocationChange = () => {
+      if (window.location.hash !== '#modal-comment') {
+        onClose?.();
+      }
+    };
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
+  }, [onClose]);
+
+  const popupHeight = windowSize.width < 640 ? windowSize.height : windowSize.height - 180;
   return (
-    <Modal
-      title="Bình luận"
-      centered
-      okText="Lưu"
-      cancelButtonProps={{ style: { display: 'none' } }}
-      okButtonProps={{ style: { display: 'none' } }}
-      open={open}
-      className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 mx-auto"
-      classNames={{
-        content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',
-        header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-xl !px-3',
-        mask: 'dark:!fill-white',
-      }}
-      onClose={(e) => {
-        onClose && onClose();
-      }}
-      onCancel={() => {
-        onClose && onClose();
-      }}
-      width={'780px'}
-    >
-      <div className="w-full">
-        <div className="w-full h-[1px] bg-black/5 dark:bg-divider_d"></div>
-        <div className="flex flex-col mx-3 mt-3 sm:h-[75vh] overflow-y-auto gap-1">
-          {comments.map((comment, index) => {
-            return (
-              <Comment
-                key={index}
-                comment={comment}
-                onDelete={(cmt) => {
-                  setComments((prev) => prev.filter((c) => c.id !== cmt?.id));
-                }}
-              />
-            );
-          })}
-        </div>
-        <div className="m-3">
-          <div className="flex justify-between items-center gap-3">
-            <div className="w-10 h-10 rounded-full overflow-hidden">
-              <Image width={40} height={40} src="/images/user-default.jpg" alt="" />
-            </div>
-            <CommentInput onSendComment={handleSendComment} />
+    <>
+      <div className="bg-black/50 fixed top-0 left-0 right-0 bottom-0 z-[101] cursor-default"></div>
+      <div
+        className={clsx(
+          'animate-grow-in fixed z-[120] my-auto top-0 rounded-lg cursor-default',
+          'w-full sm:w-[620px] md:w-[768px] bg-white text-left',
+          'rounded-none sm:rounded-lg transition-all duration-300 linear',
+        )}
+        style={{
+          minHeight: windowSize.width < 640 ? popupHeight + 'px' : popupHeight + 'px',
+          top: windowSize.width < 640 ? 0 + 'px' : 90 + 'px',
+        }}
+      >
+        <div className="flex justify-between items-center mx-3 my-3 modal-header">
+          <h3 className="text-xl font-semibold mb-0">Bình luận</h3>
+          <div
+            className="w-8 h-8 cursor-pointer rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex justify-center items-center"
+            onClick={handleClose}
+          >
+            <XIcon width={18} height={18} />
           </div>
         </div>
+        <Divider className="m-0" />
+        <div
+          className="w-full h-full max-h-full grid"
+          style={{
+            gridTemplateRows: 'auto 1fr auto',
+            height: popupHeight - 34 + 'px',
+          }}
+        >
+          <div className="w-full h-[1px] bg-black/5 dark:bg-divider_d"></div>
+          <div className="px-3 py-3 overflow-y-auto gap-1 modal-comments" ref={commentsRef}>
+            <div className="flex flex-col gap-3">
+              {comments.map((comment) => (
+                <div key={comment.id}>
+                  <Comment
+                    className=""
+                    comment={comment}
+                    onDelete={(cmt) => {
+                      setComments((prev) => prev.filter((c) => c.id !== cmt?.id));
+                    }}
+                  />
+                </div>
+              ))}
+            </div>
+            {!comments ||
+              (comments.length === 0 && (
+                <div className="w-full h-full flex justify-center items-center">
+                  <Empty className="" description="Chưa có bình luậnn nào" />
+                </div>
+              ))}
+          </div>
+          {isLockComment ? (
+            <div className="w-full text-center">Chức năng bình luận đã bị khoá</div>
+          ) : (
+            <div className="m-3 sticky bottom-0 pb-1 bg-white dark:bg-primary_color_d pt-1">
+              <CommentInput onSendComment={handleSendComment} showAvatar />
+            </div>
+          )}
+        </div>
       </div>
-    </Modal>
+    </>
   );
 };
 

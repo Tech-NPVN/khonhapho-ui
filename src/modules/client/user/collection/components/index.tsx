@@ -1,22 +1,22 @@
 'use client';
 
+import { modalError } from '@/common/modal';
 import { SearchIcon, ThreeDotIcon, XIcon } from '@/components/icons';
+import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
+import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
+import { Breakpoint } from '@/constants/enums';
 import { Button, Divider, Dropdown, Input, Select, type MenuProps } from 'antd';
+import Image from 'next/image';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import { useWindowSize } from 'react-use';
+import slugify from 'slugify';
 import {
   CollectionFormSchemaType,
   ModalAddCollection,
   ModalColCreateUpdate,
   ModalColNote,
 } from './modal';
-import Image from 'next/image';
-import { modalError } from '@/common/modal';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import slugify from 'slugify';
-import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
-import { useWindowSize } from 'react-use';
-import { Breakpoint } from '@/constants/enums';
 
 const CollectionBox = ({
   collection,

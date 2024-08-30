@@ -1,23 +1,18 @@
 'use client';
 
-import { getTimeAgo } from '@/common/helpers';
-import TiptapEditor from '@/common/tiptap';
-import {
-  CommentIcon,
-  HeartRedIcon,
-  ImageIcon,
-  SmileyFaceIcon,
-  StickerSelectIcon,
-  ThreeDotIcon,
-} from '@/components/icons';
-import { Modal } from 'antd';
+import { modalError } from '@/common/modal';
+import { TextSeeMore } from '@/components/common';
+import { CommentIcon, HeartRedIcon, ThreeDotIcon } from '@/components/icons';
+import { getTimeAgo } from '@/utilities/func.time';
+import { Modal, Popover } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
-import { useClickAway } from 'react-use';
+import { useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
+import { ImageSlider } from '../images';
+import { CommentInput } from './comment-input';
 import { ModalCommentList } from './modal-comment-list';
-
 export interface CommentTypes {
   id?: string;
   user?: {
@@ -27,6 +22,7 @@ export interface CommentTypes {
   };
   child_comments?: CommentTypes[];
   body?: string;
+  image?: string;
   isUpdated?: boolean;
   created_at?: string;
   updated_at?: string;
@@ -36,13 +32,14 @@ export interface ICommentProps {
   comment: CommentTypes;
   isLiked?: boolean;
   isPreview?: boolean;
+  className?: string;
+  isChild?: boolean;
   onClick?: () => void;
   onLike?: () => void;
   onReplyClick?: () => void;
   onEdit?: (comment?: CommentTypes) => void;
   onDelete?: (comment?: CommentTypes) => void;
-  className?: string;
-  isChild?: boolean;
+  onReply?: (comment?: CommentTypes) => void;
 }
 const ThreeDotComment = ({
   onDelete,
@@ -54,50 +51,48 @@ const ThreeDotComment = ({
   onDelete?: () => void;
 }) => {
   const componentRef = useRef<HTMLDivElement>(null);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  useClickAway(componentRef, () => {
-    setIsOpen(false);
-  });
+  const content = (
+    <div>
+      <div
+        className="px-6 py-1 hover:bg-black/5 dark:bg-white/5 rounded cursor-pointer"
+        onClick={() => {
+          onEdit?.();
+        }}
+      >
+        Sửa
+      </div>
+      <div
+        className="px-6 py-1 hover:bg-black/5 dark:bg-white/5 rounded cursor-pointer text-error_l dark:text-error_d"
+        onClick={() => {
+          onDelete?.();
+        }}
+      >
+        Xoá
+      </div>
+    </div>
+  );
   return (
     <div
       className={clsx(
-        'w-6 h-6 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer justify-center items-center flex rounded relative',
+        'w-8 h-8 hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer justify-center items-center flex rounded-full',
         className,
       )}
       ref={componentRef}
     >
-      <div
-        className="w-full h-full flex justify-center items-center"
-        onClick={() => {
-          setIsOpen(true);
-        }}
+      <Popover
+        content={content}
+        title=""
+        trigger="click"
+        placement="bottom"
+        rootClassName="[&_.ant-popover-inner]:!p-1"
       >
-        <ThreeDotIcon height={3} width={18} className="rotate-90" />
-      </div>
-      {isOpen && (
-        <div className="absolute top-full left-0 bg-white shadow p-1 rounded z-10 flex-col flex gap-[2px]">
-          <div
-            className="px-4 hover:bg-black/5 dark:bg-white/5 rounded"
-            onClick={() => {
-              onEdit?.();
-            }}
-          >
-            Sửa
-          </div>
-          <div
-            className="px-4 hover:bg-black/5 dark:bg-white/5 rounded text-error_l dark:text-error_d"
-            onClick={() => {
-              onDelete?.();
-            }}
-          >
-            Xoá
-          </div>
+        <div className="w-full h-full p-2 flex justify-center items-center">
+          <ThreeDotIcon height={3} width={18} className="rotate-90" />
         </div>
-      )}
+      </Popover>
     </div>
   );
 };
-const { confirm } = Modal;
 const Comment = ({
   comment,
   className,
@@ -107,81 +102,118 @@ const Comment = ({
   onClick,
   onReplyClick,
   onDelete,
+  onReply,
 }: ICommentProps) => {
   const [currentComment, setCurrentComment] = useState(comment);
   const [liked, setLiked] = useState(isLiked);
   const [isEdit, setIsEdit] = useState(false);
   const [isReply, setIsReply] = useState(false);
+  const [isShowThreeDot, setIsShowThreeDot] = useState(false);
   const handleEditSubmit = (cmt: CommentTypes) => {
     setIsEdit(false);
-    setCurrentComment((prev) => ({ ...prev, body: cmt.body, isUpdated: true }));
+    setCurrentComment((prev) => ({ ...prev, ...cmt, isUpdated: true }));
   };
   const handleCancelClick = () => {
     setIsEdit(false);
   };
+  useEffect(() => {
+    setCurrentComment(comment);
+  }, [comment]);
+
   const handleDelete = () => {
-    confirm({
+    modalError({
       title: 'Bạn có muốn xoá bình luận này không?',
       onOk() {
         onDelete?.(comment);
+        Modal.destroyAll();
         // Call api
       },
       onCancel() {},
+      centered: true,
     });
   };
   const handleReplySubmit = (cmt: CommentTypes) => {
+    const newComment = {
+      ...cmt,
+      id: new Date().toString(),
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
     setIsReply(false);
+    if (isChild) {
+      onReply?.(newComment);
+      return;
+    }
     // Call api
     const comments = currentComment.child_comments ? [...currentComment.child_comments] : [];
-    comments.unshift(cmt);
+    comments.unshift(newComment);
     setCurrentComment((prev) => ({ ...prev, child_comments: comments }));
   };
   return (
-    <div className={clsx('', className)}>
-      <div className="flex items-start">
-        <div className={clsx(isChild ? 'scale-75' : '')}>
-          <Image
-            className={clsx('w-10 h-10 rounded-full mr-3')}
-            width={40}
-            height={40}
-            src={currentComment.user?.avatar || '/images/user-default.jpg'}
-            alt={currentComment.user?.name || 'User'}
-          />
-        </div>
+    <div className={clsx('w-full', className)}>
+      <div
+        className={clsx('flex items-start', isChild ? ' w-[calc(100%-5px)]' : 'w-full')}
+        onMouseEnter={() => setIsShowThreeDot(true)}
+        onMouseLeave={() => {
+          setIsShowThreeDot(false);
+        }}
+      >
+        <Link href={'/user/0389619050'}>
+          <div className={''}>
+            <Image
+              className={clsx('rounded-full mr-3', isChild ? 'w-7 h-7' : 'w-10 h-10')}
+              width={40}
+              height={40}
+              src={currentComment.user?.avatar || '/images/user-default.jpg'}
+              alt={currentComment.user?.name || 'User'}
+            />
+          </div>
+        </Link>
         {!isEdit && (
-          <div className="flex comment-content">
+          <div className="flex">
             <div>
-              <div
-                className="bg-background_l_2 dark:bg-background_d p-2 rounded-lg flex flex-col relative"
-                onClick={() => {
-                  onClick && onClick();
-                  console.log('Click');
-                }}
-              >
-                <div className="font-semibold text-sm dark:text-primary_text_d">
-                  <Link
-                    className="text-black dark:text-primary_text_d flex gap-2"
-                    href={'/user/0389619050'}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
-                    <span>{currentComment.user?.name || 'Nguyễn Văn A'}</span>
-                    <span>•</span>
-                    <span>NPVN-2019</span>
-                  </Link>
-                </div>
+              <div className="flex">
                 <div
-                  className="mt-1 text-gray-800 dark:text-primary_text_d font-normal text-sm [&_p]:mb-0"
-                  dangerouslySetInnerHTML={{
-                    __html: currentComment.body || 'No comment available',
+                  className="bg-background_l_2 dark:bg-background_d p-2 rounded-lg flex flex-col relative"
+                  onClick={() => {
+                    onClick && onClick();
+                    console.log('Click');
                   }}
-                ></div>
-                {liked && (
-                  <div className="absolute -bottom-1 -right-1 bg-white p-[1px] rounded-full w-4 h-4 flex justify-center items-center dark:bg-primary_color_d">
-                    <HeartRedIcon />
+                >
+                  <div className="font-semibold text-sm dark:text-primary_text_d">
+                    <Link
+                      className="text-black dark:text-primary_text_d flex gap-2 hover:underline"
+                      href={'/user/0389619050'}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                    >
+                      <span>{currentComment.user?.name || 'Nguyễn Văn A'}</span>
+                      <span>•</span>
+                      <span>NPVN-2019</span>
+                    </Link>
                   </div>
-                )}
+                  <div
+                    className={clsx(
+                      ' text-gray-800 dark:text-primary_text_d font-normal text-sm [&_p]:mb-0',
+                      currentComment?.body && currentComment?.body != '<p></p>' ? 'mt-1' : 'mt-0',
+                    )}
+                  >
+                    <TextSeeMore
+                      _html={currentComment.body}
+                      maxLine={7}
+                      className="max-w-full break-words break-all max-sm:text-base"
+                    />
+                  </div>
+                  {liked && (
+                    <div className="absolute -bottom-1 -right-1 bg-white p-[1px] rounded-full w-4 h-4 flex justify-center items-center dark:bg-primary_color_d">
+                      <HeartRedIcon />
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="mt-2">
+                <CommentImage imageUrl={currentComment.image} />
               </div>
               <div className="flex gap-3 mt-1 ms-1 text-primary_text_l/50 dark:text-primary_text_d/50">
                 <button
@@ -208,8 +240,23 @@ const Comment = ({
                 {currentComment.isUpdated && <span className="text-[12px]">Đã chỉnh sửa</span>}
               </div>
             </div>
-            {!isPreview && (
-              <div className="ms-1 hidden justify-center items-center flex-col three-dot">
+          </div>
+        )}
+        {isEdit && (
+          <div className="w-full max-w-[calc(100%-50px)]">
+            <CommentInput
+              defaultComment={currentComment}
+              onSendComment={handleEditSubmit}
+              showCancel
+              onCancel={handleCancelClick}
+              autoFocus
+            />
+          </div>
+        )}
+        {!isEdit && !isPreview && (
+          <div className="w-10 min-w-10 flex justify-center">
+            <div className="flex justify-center items-center flex-col three-dot">
+              {isShowThreeDot && (
                 <ThreeDotComment
                   onEdit={() => {
                     setIsEdit(true);
@@ -219,60 +266,174 @@ const Comment = ({
                     handleDelete();
                   }}
                 />
-                <div className="w-full h-6"></div>
-              </div>
-            )}
-          </div>
-        )}
-        {isEdit && (
-          <div className="flex flex-col gap-1 flex-1">
-            <div className="w-full">
-              <CommentInput defaultComment={currentComment} onSendComment={handleEditSubmit} />
-            </div>
-            <div className="text-right">
-              <button
-                className="bg-transparent border-none cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 px-3 rounded"
-                onClick={handleCancelClick}
-              >
-                Huỷ
-              </button>
+              )}
             </div>
           </div>
         )}
       </div>
       {isReply && (
         <div className="flex">
-          <div className="w-[50px]"></div>
-          <div className="flex flex-col gap-1 flex-1">
-            <div className="w-full">
-              <CommentInput
-                onSendComment={(cmt) => {
-                  handleReplySubmit(cmt);
-                }}
-              />
-            </div>
-            <div className="text-right">
-              <button
-                className="bg-transparent border-none cursor-pointer hover:bg-black/5 dark:hover:bg-white/5 px-3 rounded"
-                onClick={() => {
-                  setIsReply(false);
-                }}
-              >
-                Huỷ
-              </button>
-            </div>
+          <div className="w-[50px] min-w-[50px]"></div>
+          <div className="w-full max-w-[calc(100%-50px)]">
+            <CommentInput
+              onSendComment={(cmt) => {
+                handleReplySubmit(cmt);
+              }}
+              showCancel
+              onCancel={() => {
+                setIsReply(false);
+              }}
+              autoFocus
+            />
           </div>
         </div>
       )}
-      <div className="ms-[60px]">
-        {currentComment.child_comments?.map((cmt) => (
-          <Comment key={cmt.id} comment={cmt} className="mt-3" isChild />
-        ))}
+      <div className="ms-10 sm:ms-[60px]">
+        <ListCommentChildren
+          comments={currentComment.child_comments}
+          handleReplySubmit={handleReplySubmit}
+        />
       </div>
     </div>
   );
 };
+const ListCommentChildren = ({
+  comments,
+  handleReplySubmit,
+}: {
+  comments?: CommentTypes[];
+  handleReplySubmit?: (comment: CommentTypes) => void;
+}) => {
+  const [isMini, setIsMini] = useState<boolean>((comments?.length || 0) >= 2);
+  return (
+    <>
+      {isMini && comments && (
+        <div className="flex-col gap-1 flex my-3">
+          <div className="flex">
+            <Link
+              href={'/user/0389619050'}
+              className="min-w-8 min-h-8 w-8 h-8 flex items-center justify-center"
+            >
+              <Image
+                alt="avatar"
+                src={'/images/user-default.jpg'}
+                width={40}
+                height={40}
+                className="w-full h-full object-contain rounded-full"
+              />
+            </Link>
+            <div className="flex items-center gap-2 ms-2">
+              <div>
+                <Link
+                  className="text-black dark:text-primary_text_d font-semibold text-nowrap hover:underline"
+                  href={'/user/0389619050'}
+                >
+                  Trọng Nhà Phố
+                </Link>
+              </div>
+              <div
+                className="line-clamp-1 [&_p]:mb-[2px]"
+                dangerouslySetInnerHTML={{
+                  __html: comments[0].body || 'Bình luận bằng 1 hình ảnh',
+                }}
+              ></div>
+            </div>
+          </div>
+          {comments?.length > 1 && (
+            <div
+              className="cursor-default text-sm hover:underline"
+              onClick={() => {
+                setIsMini(false);
+              }}
+            >
+              Xem thêm {comments?.length - 1} phản hồi khác
+            </div>
+          )}
+        </div>
+      )}
+      {!isMini &&
+        comments?.map((cmt) => (
+          <Comment
+            key={cmt.id}
+            comment={cmt}
+            className="mt-3"
+            isChild
+            onReply={(reply) => {
+              if (reply) handleReplySubmit?.(reply);
+            }}
+          />
+        ))}
+    </>
+  );
+};
+const CommentImage = ({ imageUrl }: { imageUrl?: string }) => {
+  const imgRef = useRef<HTMLImageElement>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [imgClass, setImgClass] = useState('');
 
+  useEffect(() => {
+    const img = imgRef.current;
+    if (img && img.naturalWidth > img.naturalHeight) {
+      setImgClass('w-[200px] h-auto');
+    } else {
+      setImgClass('h-[200px] w-auto');
+    }
+  }, [imageUrl]);
+  if (!imageUrl) return null;
+  return (
+    <>
+      <div>
+        <Image
+          className={clsx('cursor-pointer object-contain rounded-lg', imgClass)}
+          ref={imgRef}
+          width={200}
+          height={200}
+          src={imageUrl}
+          alt={imageUrl}
+          onClick={() => {
+            setIsOpen(true);
+          }}
+        />
+      </div>
+      <ModalCustom
+        isOpen={isOpen}
+        onClose={() => {
+          setIsOpen(false);
+        }}
+        imageUrl={imageUrl}
+      />
+    </>
+  );
+};
+const ModalCustom: React.FC<{
+  isOpen: boolean;
+  imageUrl: string;
+  onClose: () => void;
+}> = ({ isOpen, imageUrl, onClose }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    return () => setMounted(false);
+  }, []);
+
+  if (!isOpen || !mounted) {
+    return null;
+  }
+
+  return ReactDOM.createPortal(
+    <>
+      <ImageSlider
+        images={[imageUrl]}
+        open
+        onClose={() => {
+          onClose?.();
+        }}
+      />
+    </>,
+    document.body,
+  );
+};
 const CommentComponent = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -302,64 +463,14 @@ const CommentComponent = () => {
 
 interface CommentInputProps {
   className?: string;
+  showAvatar?: boolean;
   defaultComment?: CommentTypes;
+  showCancel?: boolean;
+  disabled?: boolean;
+  autoFocus?: boolean;
   onSendComment?: (comment: CommentTypes) => void;
+  onCancel?: () => void;
 }
-const CommentInput = ({ className, onSendComment, defaultComment }: CommentInputProps) => {
-  const [comment, setComment] = useState<CommentTypes | undefined>(defaultComment);
-  const onchange = (comment: CommentTypes) => {
-    setComment(comment);
-  };
-  return (
-    <div className="relative flex justify-around items-center flex-1">
-      <div className="flex-1 bg-black/5 dark:bg-[#151E2F] rounded-2xl min-h-10 flex items-center justify-between h-full">
-        <div className="max-w-full sm:max-w-[580px] flex-1">
-          <TiptapEditor
-            content={comment?.body}
-            onChange={(content) => {
-              onchange({ ...comment, body: content });
-            }}
-            className="w-full py-[2px] px-3"
-            config={{
-              limit: 3000,
-              placeholder: 'Nhập bình luận...',
-            }}
-          />
-        </div>
-        <div className="flex me-2 gap-2">
-          <ImageIcon />
-          <StickerSelectIcon />
-          <SmileyFaceIcon />
-        </div>
-      </div>
-      <button
-        className="w-10 h-10 border-none bg-transparent outline-none cursor-pointer flex items-center justify-center"
-        disabled={!comment || !comment.body?.trim().replaceAll(/<p>\s*<\/p>/g, '')}
-        onClick={() => {
-          comment && onSendComment?.(comment);
-          setComment(undefined);
-        }}
-      >
-        <svg className="w-full h-full" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <g
-            clipPath="url(#clip0_989_55394)"
-            className={clsx(
-              !comment || !comment.body?.trim().replaceAll(/<p>\s*<\/p>/g, '')
-                ? 'fill-black/20 dark:fill-[#daefff]/40'
-                : 'fill-green-600',
-            )}
-          >
-            <path d="M22.3314 12.1544C22.3407 11.4377 21.9525 10.779 21.322 10.4332L6.63011 2.3611C5.97206 1.98918 5.19633 2.03487 4.57625 2.4583C3.9448 2.88885 3.6216 3.91379 3.79812 4.65406L5.16967 10.4003C5.31047 10.9896 5.83783 11.4045 6.44453 11.4019L14.6205 11.3765C15.0392 11.3681 15.3788 11.7077 15.3704 12.1263C15.3691 12.5379 15.0345 12.8724 14.6159 12.8808L6.43208 12.8998C5.82538 12.901 5.29544 13.3178 5.15098 13.9079L3.73093 19.677C3.55851 20.3588 3.75509 21.0394 4.23612 21.5204C4.29271 21.577 4.35637 21.6406 4.42008 21.6901C5.04303 22.1707 5.85887 22.232 6.55542 21.8609L21.2971 13.8677C21.9297 13.5323 22.322 12.8711 22.3314 12.1544Z" />
-          </g>
-          <defs>
-            <clipPath id="clip0_989_55394">
-              <rect width={24} height={24} fill="red" />
-            </clipPath>
-          </defs>
-        </svg>
-      </button>
-    </div>
-  );
-};
-export { Comment, CommentComponent, CommentInput };
+
+export { Comment, CommentComponent };
 export type { CommentInputProps };

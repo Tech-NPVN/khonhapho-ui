@@ -1,18 +1,71 @@
+'use client';
+import { CityType, DistrictType, locationApi } from '@/apis/location';
 import { CaretDown } from '@/components/icons/caret-down.icon';
 import { Button, Collapse, Form, Select } from 'antd';
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PostDetail from '../../../../../components/reuse/data-display/post';
 import { RequiredSymbolLabel } from '../../../../../components/reuse/data-entry/required-symbol-label';
+import { HOME_POSTS } from './data.sample';
 
 type FieldType = {
-  city: string;
-  district?: string;
+  city?: number;
+  districts?: number[];
   price_range: string[];
   status: string[];
 };
 const FeedInterested = () => {
   const [activeKey, setActiveKey] = useState<string[]>([]);
+  const [form] = Form.useForm<FieldType>();
+  const [cities, setCities] = useState<CityType[]>([]);
+  const [districts, setDistricts] = useState<DistrictType[]>([]);
+  const handleCityChange = (value: string) => {
+    form.setFieldValue('city', value);
+    form.setFieldValue('districts', []);
+
+    const fetchDistricts = async () => {
+      try {
+        const id = cities.find((c) => c.code === value)?.id || -1;
+        const res = await locationApi.getDistricts(id);
+        setDistricts(res);
+      } catch (error) {
+        console.error('Error fetching districts:', error);
+      }
+    };
+    fetchDistricts();
+  };
+  const handleDistrictChange = (value: string[]) => {
+    if (value.includes('all')) {
+      form.setFieldValue(
+        'districts',
+        districts.map((value) => value.code),
+      );
+      return;
+    }
+    if (value.includes('-all')) {
+      form.setFieldValue('districts', []);
+      return;
+    }
+    form.setFieldValue('districts', value);
+  };
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const res = await locationApi.getCities();
+        console.log(res);
+        setCities(res);
+      } catch (error) {
+        console.error('Error fetching cities:', error);
+      }
+    };
+    fetchCities();
+  }, []);
+
+  const handleSubmit = (response: FieldType) => {
+    console.log('Success:', response);
+  };
+  const customCity = Form.useWatch('city', form);
+  const customDistricts = Form.useWatch('districts', form);
   return (
     <>
       <div
@@ -35,9 +88,9 @@ const FeedInterested = () => {
                 <Form
                   name="basic"
                   initialValues={{ remember: true }}
-                  // onFinish={onFinish}
-                  // onFinishFailed={onFinishFailed}
+                  onFinish={handleSubmit}
                   autoComplete="off"
+                  form={form}
                 >
                   <label htmlFor="city" className="mb-2 inline-block dark:!text-primary_text_d">
                     <RequiredSymbolLabel />
@@ -49,23 +102,42 @@ const FeedInterested = () => {
                     rules={[{ required: true, message: 'Yêu cầu nhập trường này' }]}
                     style={{ marginBottom: '8px' }}
                   >
-                    <Select placeholder="Tỉnh/Thành phố">
-                      <Select.Option value="0">Hà Nội</Select.Option>
-                      <Select.Option value="1">Hồ Chí Minh</Select.Option>
-                      <Select.Option value="2">Đà Nẵng</Select.Option>
-                    </Select>
+                    <Select
+                      placeholder="Tỉnh/Thành phố"
+                      onChange={(value) => {
+                        handleCityChange(value);
+                      }}
+                      value={form.getFieldValue('city')}
+                      fieldNames={{ label: 'name', value: 'code' }}
+                      options={cities}
+                      showSearch
+                    ></Select>
                   </Form.Item>
                   <Form.Item<FieldType>
                     label=""
-                    name="district"
+                    name="districts"
                     rules={[{ required: true, message: 'Yêu cầu nhập trường này' }]}
                     style={{ marginBottom: '8px' }}
                   >
-                    <Select placeholder="Quận/Huyện">
-                      <Select.Option value="0">Hà Nội</Select.Option>
-                      <Select.Option value="1">Hồ Chí Minh</Select.Option>
-                      <Select.Option value="2">Đà Nẵng</Select.Option>
-                    </Select>
+                    <Select
+                      placeholder="Quận/Huyện"
+                      disabled={!customCity || customCity === -1}
+                      allowClear
+                      mode="multiple"
+                      onChange={handleDistrictChange}
+                      value={form.getFieldValue('districts')}
+                      fieldNames={{ label: 'name', value: 'code' }}
+                      options={[
+                        {
+                          name:
+                            customDistricts?.length === districts.length
+                              ? 'Bỏ chọn tất cả'
+                              : 'Chọn tất cả',
+                          code: customDistricts?.length === districts.length ? '-all' : 'all',
+                        },
+                        ...districts,
+                      ]}
+                    ></Select>
                   </Form.Item>
                   <label htmlFor="city" className="mb-2 inline-block dark:text-primary_text_d">
                     <RequiredSymbolLabel />
@@ -132,35 +204,8 @@ const FeedInterested = () => {
         ></Collapse>
       </div>
       <div className="w-full mt-4 gap-4 flex flex-col sm:mt-6 sm:gap-6">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <PostDetail
-            isWarehouse
-            key={'post-' + index}
-            post={{
-              content: `Tôi có khách cần mua gấp, kính nhờ anh chị
-                              em tìm hộ giúp tôi. Tiêu chí khách:<br/>
-                              <b>Khu vực</b>: Hà Nội
-                              <br>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                              <br>
-                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                              <br>
-                              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                              <br> 
-                              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              <br>
-                              Lorem ipsum dolor sit amet, con in culpa qui officia deserunt mollit anim id est laborum.
-                              `,
-              images: [
-                '/images/post-1.jpeg',
-                '/images/post-2.jpeg',
-                '/images/post-3.jpeg',
-                '/images/post-4.jpeg',
-                '/images/post-5.jpeg',
-                '/images/post-6.jpeg',
-              ],
-            }}
-          />
+        {HOME_POSTS.map((post, index) => (
+          <PostDetail isWarehouse key={post.id} post={post} />
         ))}
       </div>
     </>

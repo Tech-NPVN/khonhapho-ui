@@ -3,6 +3,7 @@
 import clsx from 'clsx';
 import PostDetail from '../../../../../components/reuse/data-display/post';
 import HomePinComponent from '../pin/pin';
+import { HOME_POSTS } from './data.sample';
 import { FeedBanner } from './feed.banner';
 
 const FeedHome = () => {
@@ -52,38 +53,8 @@ const FeedHome = () => {
         </div>
       </div>
       <div className="w-full mt-4 gap-4 flex flex-col sm:mt-6 sm:gap-6">
-        {Array.from({ length: 10 }).map((_, index) => (
-          <PostDetail
-            key={'post-' + index}
-            post={{
-              content: `Tôi có khách cần mua gấp, kính nhờ anh chị
-                              em tìm hộ giúp tôi. Tiêu chí khách:<br/>
-                              <b>Khu vực</b>: Hà Nội
-                              <br>
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                              <br>
-                              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                              <br>
-                              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                              <br> 
-                              Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                              <br>
-                              Lorem ipsum dolor sit amet, con in culpa qui officia deserunt mollit anim id est laborum.
-                              `,
-              images: [
-                '/images/post-1.jpeg',
-                '/images/post-6.jpeg',
-                '/images/test.jpg',
-                '/images/banner.png',
-                '/images/banner-2.png',
-                '/images/post-2.jpeg',
-                '/images/post-3.jpeg',
-                '/images/post-4.jpeg',
-                '/images/post-5.jpeg',
-                '/images/post-6.jpeg',
-              ].splice(0, index),
-            }}
-          />
+        {HOME_POSTS.map((post) => (
+          <PostDetail key={post.id || ''} post={post} />
         ))}
       </div>
     </div>
