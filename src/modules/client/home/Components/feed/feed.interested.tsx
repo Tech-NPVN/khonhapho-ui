@@ -107,7 +107,7 @@ const FeedInterested = () => {
                       onChange={(value) => {
                         handleCityChange(value);
                       }}
-                      value={form.getFieldValue('cities')}
+                      value={form.getFieldValue('city')}
                       fieldNames={{ label: 'name', value: 'code' }}
                       options={cities}
                       showSearch
