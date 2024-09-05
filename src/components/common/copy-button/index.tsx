@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useState } from 'react';
 import { useCopyToClipboard } from 'react-use';
 
-function CopyButton({ content }: { content: string }) {
+function CopyButton({ content }: { content?: string }) {
   const [_clipboard, onCopyClipboard] = useCopyToClipboard();
   const [isCopied, setIsCopied] = useState<boolean>(false);
   // Copied
@@ -12,7 +12,7 @@ function CopyButton({ content }: { content: string }) {
       onClick={() => {
         // Không cho phép copy thẻ html
         var span = document.createElement('span');
-        span.innerHTML = content;
+        span.innerHTML = content || '';
         const newContent = span.textContent || span.innerText;
         onCopyClipboard(newContent);
         setIsCopied(true);

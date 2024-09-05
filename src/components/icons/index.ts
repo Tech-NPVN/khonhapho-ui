@@ -9,6 +9,7 @@ export * from './arrow-right.icon';
 export * from './arrow-top.icon';
 export * from './arrow-up-right-and-down-left-from-center.icon';
 
+export * from './arrow-back.icon';
 export * from './badge-new.icon';
 export * from './bell.icon';
 export * from './bookmark.icon';
@@ -34,6 +35,7 @@ export * from './data-users.icon';
 export * from './data-warehouse.icon';
 export * from './document-plus.icon';
 export * from './double-arrow-bottom.icon';
+export * from './download.icon';
 export * from './duplicate.icon';
 
 export * from './eye-slash.icon';

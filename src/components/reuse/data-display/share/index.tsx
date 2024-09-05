@@ -1,9 +1,9 @@
 'use client';
-import { CopyLink } from '@/components/icons/copy-link.icon';
-import { ShareMessageIcon } from '@/components/icons/share-message.icon';
+import { CopyLink, ShareMessageIcon } from '@/components/icons';
 import { ShareIcon } from '@/components/icons/share.icon';
 import clsx from 'clsx';
-import { useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import ReactDOM from 'react-dom';
 import { useClickAway, useCopyToClipboard, useWindowSize } from 'react-use';
 interface IProps {
   content: string;
@@ -11,28 +11,24 @@ interface IProps {
 const ShareComponent = ({ content }: IProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [copied, setCopied] = useState<boolean>(false);
-  const [isCopiedMobile, setIsCopiedMobile] = useState<boolean>(false);
   const RootRef = useRef<HTMLDivElement>(null);
   const { width } = useWindowSize();
+  const isMobile = width < 640;
   useClickAway(RootRef, () => {
-    setIsOpen(false);
+    if (!isMobile) setIsOpen(false);
   });
   const [_, copyToClipboard] = useCopyToClipboard();
   const handleCopy = () => {
+    if (isMobile) setIsOpen(false);
     if (copied) return;
     copyToClipboard(content);
     setCopied(true);
-    if (width < 640) {
-      setIsCopiedMobile(true);
-      setIsOpen(false);
-    }
     setTimeout(() => {
       setCopied(false);
-      setIsCopiedMobile(false);
     }, 2000);
   };
   useEffect(() => {
-    if (isOpen && isCopiedMobile) {
+    if (isOpen && isMobile) {
       document.body.style.overflowY = 'hidden';
     } else {
       document.body.style.overflowY = '';
@@ -40,7 +36,7 @@ const ShareComponent = ({ content }: IProps) => {
     return () => {
       document.body.style.overflowY = '';
     };
-  }, [isOpen, isCopiedMobile]);
+  }, [isMobile, isOpen]);
   return (
     <>
       <div
@@ -58,61 +54,114 @@ const ShareComponent = ({ content }: IProps) => {
           </span>
           <span>Chia sẻ</span>
         </div>
-        <div
-          className={clsx(
-            'list-none min-w-[180px] py-2 px-1 z-[9999]',
-            width > 640
-              ? 'absolute mx-0 w-full right-0 top-2/3 mt-3'
-              : 'fixed -bottom-full left-0 w-[calc(100%-24px)] mx-3 transition-all duration-150 ease-in-out mb-1',
-            isOpen ? (width < 640 ? '!bottom-0' : '') : width < 640 ? '' : 'hidden',
-          )}
-        >
-          <ul className="list-none w-full p-0 m-0 bg-white sm:dark:bg-background_d flex flex-col shadow-md rounded-lg overflow-hidden">
-            <li
-              className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black"
-              onClick={(e) => {
-                e.preventDefault();
-                handleCopy();
-              }}
-            >
-              <CopyLink className="!sm:dark:fill-black" />
-              <span>{copied ? 'Đã sao chép' : 'Sao chép liên kết'}</span>
-            </li>
-            <div className="border-b border-divider_l border-0 border-solid dark:border-divider_d mx-3"></div>
-            <li className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black">
-              <ShareMessageIcon className="!sm:dark:fill-black" />
-              <span>Chia sẻ qua tin nhắn</span>
-            </li>
-          </ul>
-          {width < 640 && (
-            <ul className="list-none w-full p-0 m-0 mt-3 flex flex-col shadow-md rounded-lg overflow-hidden">
+        {!isMobile && (
+          <div
+            className={clsx(
+              'list-none min-w-[180px] py-2 px-1 z-[9999]',
+              'absolute mx-0 w-full right-0 top-2/3 mt-3',
+              isOpen ? '' : 'hidden',
+            )}
+          >
+            <ul className="list-none w-full p-0 m-0 bg-white sm:dark:bg-background_d flex flex-col shadow-md rounded-lg overflow-hidden">
               <li
-                className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] bg-white text-red-500 rounded-lg cursor-pointer text-center font-semibold"
-                onClick={() => {
-                  setIsOpen(false);
+                className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleCopy();
                 }}
               >
-                Đóng
+                <CopyLink className="!sm:dark:fill-black" />
+                <span>{copied ? 'Đã sao chép' : 'Sao chép liên kết'}</span>
+              </li>
+              <div className="border-b border-divider_l border-0 border-solid dark:border-divider_d mx-3"></div>
+              <li className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black">
+                <ShareMessageIcon className="!sm:dark:fill-black" />
+                <span>Chia sẻ qua tin nhắn</span>
               </li>
             </ul>
-          )}
-        </div>
-        {isOpen && width < 640 && (
-          <div
-            className="bg-black/50 fixed top-0 bottom-0 left-0 right-0 z-[999]"
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          ></div>
+          </div>
         )}
+        {isOpen && isMobile && <ContentAddToBody handleCopy={handleCopy} setOpen={setIsOpen} />}
+        {copied && isMobile && <NotificationAddToBody />}
       </div>
-      {isCopiedMobile && copied && (
-        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[999] bg-black/80 text-white py-3 px-5 rounded-lg  font-normal text-nowrap">
-          Đã sao chép vào bộ nhớ tạm
-        </div>
-      )}
     </>
   );
 };
 
+const ContentAddToBody = ({
+  handleCopy,
+  setOpen,
+}: {
+  handleCopy?: () => void;
+  setOpen?: Dispatch<SetStateAction<boolean>>;
+}) => {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setVisible(true);
+    }, 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return ReactDOM.createPortal(
+    <>
+      <div
+        className={clsx(
+          'list-none min-w-[180px] py-2 px-1 z-[1001] !bottom-0',
+          'fixed left-0 w-[calc(100%-24px)] mx-3 transition-transform duration-200 ease-in-out',
+          visible ? 'translate-y-0' : 'translate-y-full', // Animation đẩy lên
+          'mb-1',
+        )}
+      >
+        <ul className="list-none w-full p-0 m-0 bg-white sm:dark:bg-background_d flex flex-col shadow-md rounded-lg overflow-hidden">
+          <li
+            className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black"
+            onClick={(e) => {
+              e.preventDefault();
+              handleCopy?.();
+            }}
+          >
+            <CopyLink className="!sm:dark:fill-black" />
+            <span>Sao chép liên kết</span>
+          </li>
+          <div className="border-b border-divider_l border-0 border-solid dark:border-divider_d mx-3"></div>
+          <li className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black">
+            <ShareMessageIcon className="!sm:dark:fill-black" />
+            <span>Chia sẻ qua tin nhắn</span>
+          </li>
+        </ul>
+        <ul className="list-none w-full p-0 m-0 mt-3 flex flex-col shadow-md rounded-lg overflow-hidden">
+          <li
+            className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] bg-white text-red-500 rounded-lg cursor-pointer text-center font-semibold"
+            onClick={() => {
+              setVisible(false);
+              setTimeout(() => setOpen?.(false), 300); // Delay để đợi animation hoàn thành trước khi đóng
+            }}
+          >
+            Đóng
+          </li>
+        </ul>
+      </div>
+
+      <div
+        className="bg-black/50 fixed top-0 bottom-0 left-0 right-0 z-[1000] transition-opacity duration-200 ease-in-out"
+        style={{ opacity: visible ? 1 : 0 }}
+        onClick={() => {
+          setVisible(false);
+          setTimeout(() => setOpen?.(false), 300); // Delay để đợi animation hoàn thành trước khi đóng
+        }}
+      ></div>
+    </>,
+    document.body,
+  );
+};
+const NotificationAddToBody = () => {
+  return ReactDOM.createPortal(
+    <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-[99999] bg-black/80 text-white py-3 px-5 rounded-lg font-normal text-nowrap">
+      Đã sao chép vào bộ nhớ tạm
+    </div>,
+    document.body,
+  );
+};
 export default ShareComponent;

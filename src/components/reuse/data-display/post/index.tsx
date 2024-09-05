@@ -99,7 +99,7 @@ const PostDetail = ({
     };
   }, [post, rootRef]);
   const imageCount = post?.images?.length || 0;
-
+  const commentCount = post?.comments?.length || 0;
   return (
     <>
       <div
@@ -383,12 +383,11 @@ const PostDetail = ({
           <div className="mt-2">
             <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
             <LikeShareComment setLikeCount={setLikeCount} liked={isLiked} setLiked={setIsLiked} />
-            {!comments ||
-              (comments?.length === 0 && (
-                <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
-              ))}
+            {commentCount > 0 && (
+              <div className="w-full h-[1px] bg-divider_l dark:bg-divider_d"></div>
+            )}
           </div>
-          {comments && comments.length > 0 && (
+          {commentCount > 0 && (
             <div className="mt-4">
               <div className="w-full flex flex-col gap-2">
                 {comments?.map((comment) => (
@@ -406,7 +405,7 @@ const PostDetail = ({
               </div>
             </div>
           )}
-          {comments && comments.length > 0 && (
+          {commentCount > 0 && (
             <div className="mt-4 max-[640px]:hidden">
               <div className="flex justify-between items-center gap-3">
                 <div className="w-10 h-10 rounded-full overflow-hidden">
