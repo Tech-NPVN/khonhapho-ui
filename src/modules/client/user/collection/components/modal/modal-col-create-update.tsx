@@ -1,3 +1,5 @@
+'use client';
+
 import { UploadInput } from '@/components/common';
 import { IMAGE_ACCEPTED, REQUIRED_MSG_SAMPLE } from '@/constants/data';
 import useUpload from '@/hooks/use-upload';

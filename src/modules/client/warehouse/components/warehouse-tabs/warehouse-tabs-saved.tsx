@@ -14,6 +14,7 @@ import { ModalBooking } from '@/common/modal';
 import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
 import NotePopup from '@/components/reuse/data-display/popup/note';
 import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
+import { ModalAddCollection, ModalColCreateUpdate } from '@/modules/client/user/collection';
 
 const dataSource: WarehouseType[] = Array.from({ length: 10 }, () => ({ ...data, saved: false }));
 
@@ -22,6 +23,9 @@ const WarehouseTabsSaved = () => {
   const [openReport, setOpenReport] = useState<boolean>(false);
   const [openNote, setOpenNote] = useState<boolean>(false);
   const [openPostDetails, setOpenPostDetails] = useState<boolean>(false);
+
+  const [openAddCollection, setOpenAddCollection] = useState<boolean>(false);
+  const [openCreateCollection, setOpenCreateCollection] = useState<boolean>(false);
 
   const columns: TableProps<WarehouseType>['columns'] = [
     {
@@ -34,7 +38,11 @@ const WarehouseTabsSaved = () => {
       render: (saved: boolean) => {
         return (
           <div className="flex justify-center">
-            <Button type="text" icon={<BookmarkedIcon />} />
+            <Button
+              type="text"
+              icon={<BookmarkedIcon />}
+              onClick={() => setOpenAddCollection(true)}
+            />
           </div>
         );
       },
@@ -90,7 +98,11 @@ const WarehouseTabsSaved = () => {
       render: () => {
         return (
           <div className="flex justify-center">
-            <Button type="text" icon={<ShareArrowIcon />} onClick={() => setOpenPostDetails(true)} />
+            <Button
+              type="text"
+              icon={<ShareArrowIcon />}
+              onClick={() => setOpenPostDetails(true)}
+            />
           </div>
         );
       },
@@ -112,6 +124,17 @@ const WarehouseTabsSaved = () => {
 
       {/* Xem chi tiết */}
       <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+
+      <ModalAddCollection
+        open={openAddCollection}
+        handleCancel={() => setOpenAddCollection(false)}
+        openCreate={() => setOpenCreateCollection(true)}
+      />
+
+      <ModalColCreateUpdate
+        open={openCreateCollection}
+        handleCancel={() => setOpenCreateCollection(false)}
+      />
     </>
   );
 };

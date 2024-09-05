@@ -47,6 +47,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
   const legal_status = Form.useWatch('legal_status', form);
   const property_type = Form.useWatch('property_type', form);
+  const spec = Form.useWatch('spec', form);
 
   const imagesUpload = useUpload();
   const videosUpload = useUpload();
@@ -104,6 +105,50 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
     },
     [form],
   );
+
+  const getTooltipSpec = useCallback(() => {
+    const parts = spec?.split(' ') ?? [''];
+
+    let landArea, usageArea;
+    if (parts[0].includes('/')) {
+      [landArea, usageArea] = parts[0].split('/');
+    } else {
+      landArea = parts[0];
+      usageArea = parts[0];
+    }
+
+    const numberOfFloors = parts[1] ?? '0';
+    const frontage = parts[2] ?? '0';
+    const price =
+      new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(
+        Number(parts[3]),
+      ) ?? 0;
+
+    return !spec ? (
+      <>
+        Cách nhập thông số nhà: <br />
+        [Diện tích] [Tầng] [Giá tiền(Triệu đồng)] <br />
+        Ví dụ: 90 T5 6500
+      </>
+    ) : (
+      <>
+        Thông số nhập <br />
+        Diện tích đất:{' '}
+        <strong>
+          {landArea}m<sup>2</sup>
+        </strong>{' '}
+        <br />
+        Diện tích sử dụng:{' '}
+        <strong>
+          {usageArea}m<sup>2</sup>
+        </strong>{' '}
+        <br />
+        Số tầng: <strong>{numberOfFloors}</strong> <br />
+        Mặt tiền: <strong>{frontage}m</strong> <br />
+        Giá: <strong>{price}</strong>
+      </>
+    );
+  }, [spec]);
 
   const handleSubmit = async (values: WarehouseFormSchemaType) => {
     console.log(values);
@@ -304,16 +349,7 @@ export const WarehouseForm = ({ id }: { id?: string }): JSX.Element => {
 
                   {/* Thông số nhà */}
                   <Col md={12} xs={24}>
-                    <Tooltip
-                      placement="bottomLeft"
-                      title={
-                        <>
-                          Cách nhập thông số nhà: <br />
-                          [Diện tích] [Tầng] [Giá tiền(Triệu đồng)] <br />
-                          Ví dụ: 90 T5 6500
-                        </>
-                      }
-                    >
+                    <Tooltip placement="bottomLeft" title={getTooltipSpec()} trigger="focus">
                       <Form.Item<WarehouseFormSchemaType>
                         name="spec"
                         label="Thông số nhà:"

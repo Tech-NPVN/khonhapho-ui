@@ -52,10 +52,8 @@ const WarehouseSearch = () => {
           placeholder="Loại hình"
           size="large"
           className="w-full"
-          options={SELECT_PROPERTY_TYPE.map((values) => ({
-            value: values.code,
-            label: values.name,
-          }))}
+          options={[{ name: 'Tất cả', code: 'tat-ca' }, ...SELECT_PROPERTY_TYPE]}
+          fieldNames={{ label: 'name', value: 'code' }}
         />
       </Col>
       <Col flex="20%">
@@ -97,10 +95,8 @@ const WarehouseSearch = () => {
           placeholder="Đặc điểm BĐS"
           size="large"
           className="w-full"
-          options={SELECT_PROPERTY_FEATURE.map((option) => ({
-            label: option.name,
-            value: option.code,
-          }))}
+          options={SELECT_PROPERTY_FEATURE}
+          fieldNames={{ label: 'name', value: 'code' }}
         />
       </Col>
       <Col flex="20%">
