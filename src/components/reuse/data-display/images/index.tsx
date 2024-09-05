@@ -9,6 +9,7 @@ import { Swiper, SwiperClass, SwiperRef, SwiperSlide } from 'swiper/react';
 import {
   ArrowDownLeftAndUpRightToCenterIcon,
   ArrowUpRightAndDownLeftFromCenterIcon,
+  DownLoadIcon,
   Grid2Icon,
   XIcon,
   ZoomInIcon,
@@ -21,6 +22,8 @@ import { ImageWithDimensions } from './image-with-dimensions';
 interface ImageGridProps {
   images: string[];
   onImageClick?: (index: number) => void;
+  maxImagePreview?: number;
+  canDownload?: boolean;
 }
 const Image4 = ({ images, onImageClick }: ImageGridProps) => {
   return (
@@ -400,44 +403,91 @@ export interface SlideProps {
   images?: string[];
   index?: number;
   open?: boolean;
+  canDownload?: boolean;
   onClose?: () => void;
 }
+
+const HASH = '#gallery';
 const ImageSlider = ({
   images,
   videos,
   index = 1,
   open = false,
   className,
+  canDownload = true,
   onClose,
 }: SlideProps) => {
-  const [oldHash, setOldHash] = useState<string>('');
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const [isShowThumbs, setIsShowThumbs] = useState<boolean>((images?.length || 1) > 1);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
   const [scale, setScale] = useState<number>(ZOOM_SETTINGS.minRatio);
   const swiperRef = useRef<SwiperRef | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
-
   useFullscreen(rootRef, isFullScreen, {
     onClose: () => {
       setIsFullScreen(false);
     },
   });
   const handleClose = () => {
-    onClose?.();
-    window.history.pushState(null, '', `${oldHash}`);
+    window.history.back();
   };
+  const handleDownload = async () => {
+    const index = swiperRef.current?.swiper.activeIndex || 0;
+    const videoLength = videos?.length || 0;
+
+    if (index < videoLength) return;
+
+    const fileUrl = images?.[index - videoLength];
+
+    if (!fileUrl) return;
+
+    const getFileType = (fileNameOrBlob: string | Blob): string | null => {
+      if (typeof fileNameOrBlob === 'string') {
+        const regex = /(?:\.([^.]+))?$/;
+        const match = fileNameOrBlob.match(regex);
+        return match && match[1] ? match[1] : null;
+      } else if (fileNameOrBlob instanceof Blob) {
+        const mimeType = fileNameOrBlob.type;
+        const mimeTypesToExtensions: { [key: string]: string } = {
+          'image/jpeg': 'jpg',
+          'image/png': 'png',
+          'image/gif': 'gif',
+          'video/mp4': 'mp4',
+          // Add more MIME types and their corresponding extensions as needed
+        };
+        return mimeTypesToExtensions[mimeType] || null;
+      }
+      return null;
+    };
+
+    const isBlobUrl = (url: string): boolean => {
+      return url.startsWith('blob:');
+    };
+
+    let blob;
+    if (isBlobUrl(fileUrl)) {
+      // If fileUrl is already a blob URL, we don't need to fetch it
+      blob = await fetch(fileUrl).then((response) => response.blob());
+    } else {
+      // Otherwise, fetch the file from the URL
+      const response = await fetch(fileUrl);
+      blob = await response.blob();
+    }
+
+    const fileType = getFileType(blob) || getFileType(fileUrl);
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = 'nha-pho-viet-nam' + (fileType ? '.' + fileType : '');
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   useEffect(() => {
     if (open) {
       document.body.style.overflowY = 'hidden';
-      if (window.location.hash !== '#gallery') {
-        setOldHash(window.location.hash);
-        window.history.pushState(null, '', `#gallery`);
-        history.replaceState(
-          null,
-          document.title,
-          window.location.pathname + window.location.search + `#gallery`,
-        );
+      if (window.location.hash !== HASH) {
+        window.history.pushState(null, '', HASH);
       }
     } else {
       document.body.style.overflowY = '';
@@ -448,14 +498,13 @@ const ImageSlider = ({
   }, [open]);
   useEffect(() => {
     const handleLocationChange = () => {
-      if (window.location.hash !== '#gallery') onClose?.();
+      if (window.location.hash !== HASH) onClose?.();
     };
     window.addEventListener('hashchange', handleLocationChange);
     return () => {
       window.removeEventListener('hashchange', handleLocationChange);
     };
   }, [onClose]);
-
   return (
     <div
       ref={rootRef}
@@ -477,7 +526,7 @@ const ImageSlider = ({
             'slide-class [&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-4 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-4 ',
             'transition-all ease-in-out duration-200',
             'max-sm:[&_.swiper-button-prev]:hidden max-sm:[&_.swiper-button-next]:hidden',
-            isShowThumbs ? 'h-[calc(100%_-_114px)]' : ' h-full w-full ',
+            isShowThumbs ? 'h-[calc(100vh_-_120px)]' : ' h-full w-full ',
           )}
           centeredSlides
           onZoomChange={(_, zoom) => {
@@ -517,7 +566,7 @@ const ImageSlider = ({
         </Swiper>
         <div
           className={clsx(
-            'max-w-full absolute h-[105px] bottom-1 mx-auto my-0 flex justify-center items-center left-0 right-0',
+            'max-w-full fixed h-[105px] bottom-1 mx-auto my-0 flex justify-center items-center left-0 right-0 z-50',
             'transition-all ease-in-out duration-200',
             isShowThumbs ? '' : 'translate-y-[120px]',
           )}
@@ -560,6 +609,15 @@ const ImageSlider = ({
           </Swiper>
         </div>
         <div className="absolute top-0 right-1 z-20 flex">
+          {canDownload && (
+            <button
+              className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"
+              onClick={handleDownload}
+            >
+              <DownLoadIcon className="fill-white" width={20} height={20} />
+            </button>
+          )}
+
           <button
             className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"
             onClick={() => {
@@ -617,7 +675,12 @@ const ImageSlider = ({
     </div>
   );
 };
-const ImageGrid = ({ images, isWarehouse = false }: ImageGridProps & { isWarehouse?: boolean }) => {
+const ImageGrid = ({
+  images,
+  isWarehouse = false,
+  canDownload,
+  maxImagePreview,
+}: ImageGridProps & { isWarehouse?: boolean }) => {
   const [isHorizontally, seIsHorizontally] = useState<boolean>(isWarehouse);
   const [isShowSlider, setIsShowSlider] = useState<boolean>(false);
   const [imageShowIndex, setImageShowIndex] = useState<number>(0);
@@ -656,6 +719,7 @@ const ImageGrid = ({ images, isWarehouse = false }: ImageGridProps & { isWarehou
           images={images}
           open={true}
           index={imageShowIndex}
+          canDownload={canDownload}
           onClose={() => {
             setIsShowSlider(false);
           }}

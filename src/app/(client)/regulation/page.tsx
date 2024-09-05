@@ -1,5 +1,11 @@
+import { RegulationIndex } from '@/modules/client/regulation';
+
 const RegulationPage = () => {
-  return <></>;
+  return (
+    <>
+      <RegulationIndex />
+    </>
+  );
 };
 
 export default RegulationPage;

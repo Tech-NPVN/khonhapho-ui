@@ -48,7 +48,8 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
     height: window.innerHeight,
   });
   const commentsRef = useRef<HTMLDivElement>(null);
-  const handleSendComment = (comment: CommentTypes) => {
+  const handleSendComment = (comment?: CommentTypes) => {
+    if (!comment) return;
     const newComment: CommentTypes = {
       ...comment,
       id: Math.random().toString(),
@@ -112,9 +113,9 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
       <div className="bg-black/50 fixed top-0 left-0 right-0 bottom-0 z-[101] cursor-default"></div>
       <div
         className={clsx(
-          'animate-grow-in fixed z-[120] my-auto top-0 rounded-lg cursor-default',
+          'fixed z-[120] my-auto top-0 cursor-default rounded-none sm:rounded-lg ',
           'w-full sm:w-[620px] md:w-[768px] bg-white text-left',
-          'rounded-none sm:rounded-lg transition-all duration-300 linear',
+          'animate-grow-in  transition-all duration-300 linear',
         )}
         style={{
           minHeight: windowSize.width < 640 ? popupHeight + 'px' : popupHeight + 'px',
@@ -163,7 +164,7 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
           {isLockComment ? (
             <div className="w-full text-center">Chức năng bình luận đã bị khoá</div>
           ) : (
-            <div className="m-3 sticky bottom-0 pb-1 bg-white dark:bg-primary_color_d pt-1">
+            <div className="m-3 sticky bottom-0 bg-white dark:bg-primary_color_d pt-1 pb-2">
               <CommentInput onSendComment={handleSendComment} showAvatar />
             </div>
           )}

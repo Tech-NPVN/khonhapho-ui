@@ -17,7 +17,7 @@ const Marquee: React.FC<{ className?: string; text: string }> = ({ className, te
         textEl.style.animation = '';
       }
     }
-  }, []);
+  }, [text]);
 
   return (
     <Tooltip placement="top" title={text}>
