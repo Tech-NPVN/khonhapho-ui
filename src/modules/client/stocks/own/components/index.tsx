@@ -1,15 +1,16 @@
 'use client';
 
 import { SectionBodyWithDescButton, TabLabelWithBadge } from '@/components/common';
-import { AddIcon, FilterIcon, SearchIcon } from '@/components/icons';
+import { AddIcon, ChangeIcon, FilterIcon, SearchIcon } from '@/components/icons';
 import { SegmentedOptionProps, useSegmented } from '@/components/reuse/data-display';
 import { Breakpoint, Routes } from '@/constants/enums';
-import { Button, Input, Segmented } from 'antd';
-import { useRouter } from 'next/navigation';
+import { Button, Input, Segmented, Select } from 'antd';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 import { useWindowSize } from 'react-use';
 import OwnSearch from './own.search';
 import OwnItem from './own.item';
+import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 
 const STOCKS_OWN_TABS: SegmentedOptionProps[] = [
   {
@@ -38,12 +39,29 @@ export const StocksOwnIndex = () => {
   const router = useRouter();
   const windows = useWindowSize();
   const { value, handleChange } = useSegmented(STOCKS_OWN_TABS);
+  const tab = useSearchParams().get('tab');
 
   const [openFilter, setOpenFilter] = useState<boolean>(false);
 
   const isMobile = useMemo(() => {
     return windows.width < Breakpoint.Lg;
   }, [windows.width]);
+
+  const renderTitleTab = useCallback(() => {
+    switch (tab) {
+      case null:
+      case 'pending':
+        return 'chờ duyệt';
+      case 'approved':
+        return 'đã duyệt';
+      case 'rejected':
+        return 'từ chối';
+      case 'removed':
+        return 'đã xóa';
+      default:
+        return '';
+    }
+  }, [tab]);
 
   const renderAddButton = useCallback(() => {
     return (
@@ -61,7 +79,7 @@ export const StocksOwnIndex = () => {
 
   return (
     <div className="pt-4 lg:pr-4">
-      <SectionBodyWithDescButton title="Kho cá nhân" btn={renderAddButton()} className='mb-4'>
+      <SectionBodyWithDescButton title="Kho cá nhân" btn={renderAddButton()} className="mb-4">
         {isMobile && (
           <div className="flex justify-between gap-5 mb-4">
             <Button
@@ -84,7 +102,9 @@ export const StocksOwnIndex = () => {
         <div className="flex w-full justify-between gap-2">
           <Segmented
             options={STOCKS_OWN_TABS}
-            className={`no-scrollbar dark:!bg-background_d ${isMobile ? 'w-full mb-4' : ''}`}
+            className={`no-scrollbar overflow-x-auto dark:!bg-background_d ${
+              isMobile ? 'w-full mb-4' : ''
+            }`}
             value={value}
             onChange={handleChange}
           />
@@ -98,6 +118,20 @@ export const StocksOwnIndex = () => {
           )}
         </div>
         {!isMobile && <OwnSearch />}
+
+        <div className="flex justify-between mt-1 items-center gap-2">
+          <span>
+            Hiện đang có <strong>20</strong> tin {renderTitleTab()}
+          </span>
+
+          <Select
+            size="large"
+            className="w-72"
+            suffixIcon={<ChangeIcon />}
+            options={SELECT_FILTER_WAREHOUSE}
+            defaultValue={SELECT_FILTER_WAREHOUSE[0].value}
+          />
+        </div>
       </SectionBodyWithDescButton>
 
       {STOCKS_OWN_TABS.find((option) => option.value === value)?.component}

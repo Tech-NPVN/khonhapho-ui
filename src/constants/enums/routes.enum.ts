@@ -10,6 +10,7 @@ enum Routes {
 
   Warehouse = '/warehouse',
   WarehouseCreate = '/warehouse/create',
+  WarehouseUpdate = '/warehouse/update',
 
   Urgently = '/urgently',
 
