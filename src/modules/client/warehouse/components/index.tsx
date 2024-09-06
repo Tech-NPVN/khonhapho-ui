@@ -16,6 +16,7 @@ import {
 } from './warehouse-tabs';
 import { ModalFilterWarehouse, ModalReasonDecs } from '@/common/modal';
 import { useWindowSize } from 'react-use';
+import { ModalAddCollection, ModalColCreateUpdate } from '../../user/collection';
 
 const WAREHOUSE_TABS: SegmentedOptionProps[] = [
   {

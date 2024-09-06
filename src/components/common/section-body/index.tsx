@@ -14,7 +14,7 @@ const SectionBody = ({ title, children, className }: SectionBodyProps) => {
       className={`rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 ${className}`}
     >
       <h3 className="uppercase text-[17px] max-lg:text-sm mb-0">{title}</h3>
-      <Divider className="bg-background_l dark:bg-divider_d/40" />
+      <Divider className="bg-background_l dark:bg-divider_d/40 max-lg:my-3 my-4" />
       {children}
     </section>
   );
@@ -54,11 +54,9 @@ const SectionBodyWithDesc = ({
     >
       <div>
         <h3 className="uppercase text-[17px] max-lg:text-sm mb-0">{title}</h3>
-        <span className="text-xs">
-          {description}
-        </span>
+        <span className="text-xs">{description}</span>
       </div>
-      <Divider className="bg-background_l dark:bg-divider_d/40" />
+      <Divider className="bg-background_l dark:bg-divider_d/40 max-lg:my-3 my-4" />
       {children}
     </section>
   );
@@ -70,19 +68,23 @@ const SectionBodyWithDescButton = ({
   className,
   description,
   btn,
-}: SectionBodyProps & { description: React.ReactNode; btn: React.ReactNode }) => {
+}: SectionBodyProps & { description?: React.ReactNode; btn: React.ReactNode }) => {
   return (
     <section
       className={`rounded-lg bg-primary_color_l dark:bg-primary_color_d px-3 max-lg:px-4 py-5 ${className}`}
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="uppercase text-[17px] max-lg:text-sm mb-1">{title}</h3>
-          <div className="flex gap-2 text-link_text_l dark:text-link_text_d">{description}</div>
+          <h3 className={`uppercase text-[17px] ${description ? 'max-lg:text-sm mb-1' : 'mb-0'}`}>
+            {title}
+          </h3>
+          {description && (
+            <div className="flex gap-2 text-link_text_l dark:text-link_text_d">{description}</div>
+          )}
         </div>
         {btn}
       </div>
-      <Divider className="bg-background_l dark:bg-divider_d/40 max-lg:my-3" />
+      <Divider className="bg-background_l dark:bg-divider_d/40 max-lg:my-3 my-4" />
       {children}
     </section>
   );

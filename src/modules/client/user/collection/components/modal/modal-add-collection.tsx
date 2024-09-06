@@ -1,3 +1,5 @@
+'use client';
+
 import { Button, Checkbox, Divider, Modal } from 'antd';
 import Image from 'next/image';
 import { useState } from 'react';

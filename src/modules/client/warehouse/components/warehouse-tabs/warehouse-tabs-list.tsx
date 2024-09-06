@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { ModalBooking } from '@/common/modal';
 import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
 import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
+import { ModalAddCollection, ModalColCreateUpdate } from '@/modules/client/user/collection';
 
 const dataSource: WarehouseType[] = Array.from({ length: 15 }, () => ({ ...data }));
 
@@ -20,6 +21,9 @@ const WarehouseTabsList = () => {
   const [openBooking, setOpenBooking] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
   const [openPostDetails, setOpenPostDetails] = useState<boolean>(false);
+
+  const [openAddCollection, setOpenAddCollection] = useState<boolean>(false);
+  const [openCreateCollection, setOpenCreateCollection] = useState<boolean>(false);
 
   const columns: TableProps<WarehouseType>['columns'] = [
     {
@@ -32,7 +36,11 @@ const WarehouseTabsList = () => {
       render: (saved: boolean) => {
         return (
           <div className="flex justify-center">
-            <Button type="text" icon={<BookmarkOutlineIcon />} />
+            <Button
+              type="text"
+              icon={<BookmarkOutlineIcon />}
+              onClick={() => setOpenAddCollection(true)}
+            />
           </div>
         );
       },
@@ -97,6 +105,17 @@ const WarehouseTabsList = () => {
 
       {/* Xem chi tiết */}
       <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+
+      <ModalAddCollection
+        open={openAddCollection}
+        handleCancel={() => setOpenAddCollection(false)}
+        openCreate={() => setOpenCreateCollection(true)}
+      />
+
+      <ModalColCreateUpdate
+        open={openCreateCollection}
+        handleCancel={() => setOpenCreateCollection(false)}
+      />
     </>
   );
 };

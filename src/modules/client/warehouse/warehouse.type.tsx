@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 enum WarehouseStatusEnum {
   HaChao = 'ha-chao',
   TangChao = 'tang-chao',
@@ -10,7 +12,7 @@ enum WarehouseStatusEnum {
 
 type WarehouseType = {
   saved: boolean;
-  date: Date | string;
+  date: string | dayjs.Dayjs;
   status: WarehouseStatusEnum;
   address: string;
   city: string;
