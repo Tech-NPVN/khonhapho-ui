@@ -16,6 +16,7 @@ import { ModalCommentList } from './modal-comment-list';
 export interface CommentTypes {
   id?: string;
   user?: {
+    id?: string;
     name?: string;
     email?: string;
     avatar?: string;
@@ -29,7 +30,7 @@ export interface CommentTypes {
 }
 
 export interface ICommentProps {
-  comment: CommentTypes;
+  comment?: CommentTypes;
   isLiked?: boolean;
   isPreview?: boolean;
   className?: string;
@@ -109,7 +110,7 @@ const Comment = ({
   const [isEdit, setIsEdit] = useState(false);
   const [isReply, setIsReply] = useState(false);
   const [isShowThreeDot, setIsShowThreeDot] = useState(false);
-  const handleEditSubmit = (cmt: CommentTypes) => {
+  const handleEditSubmit = (cmt?: CommentTypes) => {
     setIsEdit(false);
     setCurrentComment((prev) => ({ ...prev, ...cmt, isUpdated: true }));
   };
@@ -132,7 +133,8 @@ const Comment = ({
       centered: true,
     });
   };
-  const handleReplySubmit = (cmt: CommentTypes) => {
+  const handleReplySubmit = (cmt?: CommentTypes) => {
+    if (!cmt) return;
     const newComment = {
       ...cmt,
       id: new Date().toString(),
@@ -145,7 +147,7 @@ const Comment = ({
       return;
     }
     // Call api
-    const comments = currentComment.child_comments ? [...currentComment.child_comments] : [];
+    const comments = currentComment?.child_comments ? [...currentComment?.child_comments] : [];
     comments.unshift(newComment);
     setCurrentComment((prev) => ({ ...prev, child_comments: comments }));
   };
@@ -164,8 +166,8 @@ const Comment = ({
               className={clsx('rounded-full mr-3', isChild ? 'w-7 h-7' : 'w-10 h-10')}
               width={40}
               height={40}
-              src={currentComment.user?.avatar || '/images/user-default.jpg'}
-              alt={currentComment.user?.name || 'User'}
+              src={currentComment?.user?.avatar || '/images/user-default.jpg'}
+              alt={currentComment?.user?.name || 'User'}
             />
           </div>
         </Link>
@@ -188,7 +190,7 @@ const Comment = ({
                         e.stopPropagation();
                       }}
                     >
-                      <span>{currentComment.user?.name || 'Nguyễn Văn A'}</span>
+                      <span>{currentComment?.user?.name || 'Nguyễn Văn A'}</span>
                       <span>•</span>
                       <span>NPVN-2019</span>
                     </Link>
@@ -200,7 +202,7 @@ const Comment = ({
                     )}
                   >
                     <TextSeeMore
-                      _html={currentComment.body}
+                      _html={currentComment?.body}
                       maxLine={7}
                       className="max-w-full break-words break-all max-sm:text-base"
                     />
@@ -213,7 +215,7 @@ const Comment = ({
                 </div>
               </div>
               <div className="mt-2">
-                <CommentImage imageUrl={currentComment.image} />
+                <CommentImage imageUrl={currentComment?.image} />
               </div>
               <div className="flex gap-3 mt-1 ms-1 text-primary_text_l/50 dark:text-primary_text_d/50">
                 <button
@@ -237,7 +239,7 @@ const Comment = ({
                   Trả lời
                 </button>
                 <span className="text-[12px]">{getTimeAgo(currentComment?.created_at)}</span>
-                {currentComment.isUpdated && <span className="text-[12px]">Đã chỉnh sửa</span>}
+                {currentComment?.isUpdated && <span className="text-[12px]">Đã chỉnh sửa</span>}
               </div>
             </div>
           </div>
@@ -290,7 +292,7 @@ const Comment = ({
       )}
       <div className="ms-10 sm:ms-[60px]">
         <ListCommentChildren
-          comments={currentComment.child_comments}
+          comments={currentComment?.child_comments}
           handleReplySubmit={handleReplySubmit}
         />
       </div>
@@ -461,16 +463,4 @@ const CommentComponent = () => {
   );
 };
 
-interface CommentInputProps {
-  className?: string;
-  showAvatar?: boolean;
-  defaultComment?: CommentTypes;
-  showCancel?: boolean;
-  disabled?: boolean;
-  autoFocus?: boolean;
-  onSendComment?: (comment: CommentTypes) => void;
-  onCancel?: () => void;
-}
-
 export { Comment, CommentComponent };
-export type { CommentInputProps };

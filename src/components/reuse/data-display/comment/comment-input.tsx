@@ -1,13 +1,26 @@
 'use client';
 import TiptapEditor from '@/common/tiptap';
 import { ImageIcon, SendIcon, SmileyFaceIcon, StickerSelectIcon, XIcon } from '@/components/icons';
+import { Editor } from '@tiptap/core';
 import clsx from 'clsx';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import { CommentInputProps, CommentTypes } from './comment';
+import { CommentTypes } from './comment';
 interface IImage {
   obj?: File;
   thumbUrl?: string;
+}
+interface CommentInputProps {
+  className?: string;
+  showAvatar?: boolean;
+  defaultComment?: CommentTypes;
+  showCancel?: boolean;
+  disabled?: boolean;
+  autoFocus?: boolean;
+  onReady?: (editor: Editor) => void;
+  onSendComment?: (comment?: CommentTypes) => void;
+  onCancel?: () => void;
+  onContentChange?: (comment?: CommentTypes) => void;
 }
 const CommentInput = ({
   className,
@@ -16,8 +29,10 @@ const CommentInput = ({
   showCancel,
   disabled,
   autoFocus,
+  onContentChange,
   onSendComment,
   onCancel,
+  onReady,
 }: CommentInputProps) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const [comment, setComment] = useState<CommentTypes | undefined>(defaultComment);
@@ -66,6 +81,11 @@ const CommentInput = ({
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+  useEffect(() => {
+    if (onContentChange) {
+      onContentChange(comment);
+    }
+  }, [image, comment, onContentChange]);
   const canSend =
     !!(comment && comment.body?.trim().replaceAll(/<p>\s*<\/p>/g, '')) || !!image?.thumbUrl;
   return (
@@ -95,8 +115,9 @@ const CommentInput = ({
               )}
             >
               <TiptapEditor
+                onReady={onReady}
                 content={comment?.body}
-                onChange={(content) => {
+                onChange={(content, text) => {
                   onchange({ ...comment, body: content });
                 }}
                 className="w-full py-1 px-3 text-base"
@@ -212,7 +233,13 @@ const CommentInput = ({
                 unoptimized
               />
               <div className="absolute top-0 -right-7 w-6 h-6 flex justify-center items-center rounded-full bg-black/5 dark:bg-white/5 cursor-pointer">
-                <XIcon width={16} height={16} onClick={() => setImage(undefined)} />
+                <XIcon
+                  width={16}
+                  height={16}
+                  onClick={() => {
+                    setImage(undefined);
+                  }}
+                />
               </div>
             </div>
           </div>
@@ -222,3 +249,4 @@ const CommentInput = ({
   );
 };
 export { CommentInput };
+export type { CommentInputProps };

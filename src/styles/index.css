@@ -26,6 +26,7 @@
   @apply !bg-tiertiary_input_color_l/30 dark:!bg-disable_d/50;
 }
 /* Custom */
+.popup-overflow-y-hidden,
 .comment-overflow-y-hidden {
   overflow-y: hidden !important;
 }

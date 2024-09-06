@@ -1,5 +1,6 @@
 'use client';
 
+import { Editor } from '@tiptap/core';
 import CharacterCount from '@tiptap/extension-character-count';
 import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
@@ -14,6 +15,7 @@ interface IProps {
   disabled?: boolean;
   autoFocus?: boolean;
   onChange?: (content: string, text?: string) => void;
+  onReady?: (editor: Editor) => void;
 }
 
 interface IPropsConfig {
@@ -32,6 +34,7 @@ const TiptapEditor = ({
   autoFocus,
   disabled,
   onChange,
+  onReady,
 }: IProps) => {
   const editor = useEditor({
     extensions: [
@@ -52,7 +55,13 @@ const TiptapEditor = ({
     if (autoFocus) {
       editor?.commands.focus('end');
     }
-  }, [editor, content, autoFocus]);
+    editor?.on('create', () => {
+      onReady?.(editor);
+    });
+    return () => {
+      editor?.off('create');
+    };
+  }, [editor, content, autoFocus, onReady]);
 
   useEffect(() => {
     editor?.on('update', () => {
@@ -60,6 +69,9 @@ const TiptapEditor = ({
       const text = editor?.getText();
       onChange && onChange(content, text);
     });
+    return () => {
+      editor?.off('update');
+    };
   }, [editor, onChange]);
   return (
     <EditorContent
@@ -71,7 +83,7 @@ const TiptapEditor = ({
       disabled={disabled}
     >
       {showCount && (
-        <div className="absolute right-1 bottom-1 text-sm opacity-75">
+        <div className="absolute right-1 bottom-1 text-sm opacity-75 editor-count">
           {editor?.storage.characterCount.characters()} / {config.limit}
         </div>
       )}

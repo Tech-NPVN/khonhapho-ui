@@ -1,3 +1,4 @@
+import TiptapEditor from '@/common/tiptap';
 import { UploadInput } from '@/components/common';
 import useUpload from '@/hooks/use-upload';
 import { FieldFormActivityNewsType } from '@/modules/client/activity-news/department';
@@ -6,22 +7,15 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import TiptapEditor from '../tiptap';
 
-interface ModalActivityNewsFormProps {
+interface RegulationFormProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   defaultValue?: FieldFormActivityNewsType;
   onSuccess?: (post: FieldFormActivityNewsType) => void;
   title?: string;
 }
-const ModalActivityNewsForm = ({
-  defaultValue,
-  open,
-  setOpen,
-  onSuccess,
-  title,
-}: ModalActivityNewsFormProps) => {
+const RegulationForm = ({ defaultValue, open, setOpen, onSuccess, title }: RegulationFormProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [content, setContent] = useState<string>(defaultValue?.content || '');
   const [contentError, setContentError] = useState<string | undefined>();
@@ -94,6 +88,13 @@ const ModalActivityNewsForm = ({
             </div>
           </div>
           <div>
+            <div className="w-full my-3">
+              <input
+                className="w-full border-none outline-none px-2 py-2 bg-black/5 dark:bg-white/10 rounded-lg placeholder:text-[#adb5bd]"
+                type="text"
+                placeholder="Tiêu đề bài viết *"
+              />
+            </div>
             <div
               className={clsx(
                 'bg-black/5 dark:bg-white/10 rounded-lg border border-solid',
@@ -102,7 +103,7 @@ const ModalActivityNewsForm = ({
             >
               <TiptapEditor
                 className="p-2 [&>div.tiptap]:min-h-64 w-full"
-                config={{ limit: 3000, placeholder: 'Bắt đầu một bài viết...' }}
+                config={{ limit: 3000, placeholder: 'Nội dung bài viết *' }}
                 content={content}
                 onChange={(html) => {
                   setContent(html);
@@ -118,7 +119,7 @@ const ModalActivityNewsForm = ({
             <div className="flex dark:[&_.ant-upload.ant-upload-select]:!bg-white/10">
               <UploadInput
                 {...imagesUpload}
-                maxCount={6}
+                maxCount={1}
                 multiple
                 accept=".jpg, .jpeg, .png, .webm, .heic"
               />
@@ -140,5 +141,5 @@ const ModalActivityNewsForm = ({
   );
 };
 
-export { ModalActivityNewsForm };
-export type { ModalActivityNewsFormProps };
+export { RegulationForm };
+export type { RegulationFormProps };
