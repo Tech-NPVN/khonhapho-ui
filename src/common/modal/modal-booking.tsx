@@ -6,14 +6,10 @@ import { DATE_TIME_FORMAT, TIME_FORMAT } from '@/constants/data';
 import { WarehouseBooking } from '@/modules/client/warehouse/warehouse.model';
 import { range } from '@/utilities/func.util';
 import { memo } from 'react';
+import { dateValidate } from '@/lib/zod';
 
 const BookingSchema = z.object({
-  viewed_date: z.preprocess((arg) => {
-    if (dayjs.isDayjs(arg)) {
-      return arg.toDate();
-    }
-    return arg;
-  }, z.date({ message: 'Vui lòng chọn ngày' })),
+  viewed_date: dateValidate,
   description: z.string().optional(),
 });
 
@@ -45,7 +41,6 @@ export const ModalBooking = memo(
         onCancel={handleCancel}
         width={450}
         footer={null}
-        centered
       >
         <Divider className="bg-background_l dark:bg-background_d my-4" />
         <Form
@@ -68,6 +63,7 @@ export const ModalBooking = memo(
               format={DATE_TIME_FORMAT}
               placeholder="Chọn thời gian xem nhà"
               minDate={dayjs(new Date())}
+              classNames={{ popup: '123' }}
               disabledTime={(currentDate) => {
                 const now = dayjs();
                 if (currentDate.isSame(now, 'day')) {
@@ -101,7 +97,12 @@ export const ModalBooking = memo(
             Đặt lịch
           </Button>
 
-          <Button type="default" size="large" className="w-full bg-transparent" onClick={handleCancel}>
+          <Button
+            type="default"
+            size="large"
+            className="w-full bg-transparent"
+            onClick={handleCancel}
+          >
             Đóng
           </Button>
         </Form>

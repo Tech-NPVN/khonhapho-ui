@@ -2,7 +2,7 @@
 
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { ChangeIcon, EyeSlashIcon } from '@/components/icons';
-import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
+import { DATE_FORMAT, SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import useDragScroll from '@/hooks/use-drag-scroll';
 import { Badge, Button, Select, Table, Tag, Tooltip, type TableProps } from 'antd';
 import Image from 'next/image';
@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { memo, useState } from 'react';
 import { WarehouseStatusEnum, WarehouseType } from '../warehouse.type';
 import { compareWarehouseStatus } from '../warehouse.util';
+import dayjs from 'dayjs';
 
 export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
   {
@@ -18,6 +19,7 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     dataIndex: 'date',
     align: 'center',
     className: 'border-0',
+    render: (date: WarehouseType['date']) => dayjs(date).format(DATE_FORMAT),
   },
   {
     title: 'Hiện trạng',
@@ -65,6 +67,37 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
     key: 'params',
     dataIndex: 'params',
     className: 'border-0',
+    render: (params: WarehouseType['params']) => {
+      const parts = params?.split(' ') ?? [''];
+
+      let landArea, usageArea;
+      if (parts[0].includes('/')) {
+        [landArea, usageArea] = parts[0].split('/');
+      } else {
+        landArea = parts[0];
+        usageArea = parts[0];
+      }
+
+      const numberOfFloors = parts[1] ?? '0';
+      const frontage = parts[2] ?? '0';
+
+      return (
+        <Tooltip
+          title={
+            <>
+              Diện tích đất: {landArea}m<sup>2</sup>
+              <br />
+              Diện tích sử dụng: {usageArea}m<sup>2</sup>
+              <br />
+              Số tầng: {numberOfFloors} <br />
+              Mặt tiền: {frontage}m <br />
+            </>
+          }
+        >
+          <span>{params}</span>
+        </Tooltip>
+      );
+    },
   },
   {
     title: 'Giá',
@@ -162,7 +195,7 @@ export const commonWarehouseColumns: TableProps<WarehouseType>['columns'] = [
 
 export const data: WarehouseType = {
   saved: false,
-  date: '22/02/23',
+  date: dayjs(new Date()),
   status: WarehouseStatusEnum.BanManh,
   address: '12',
   city: 'Thái Hà',

@@ -7,23 +7,15 @@ import {
   SELECT_WAREHOUSE_STATUS,
 } from '@/constants/data';
 import { Button, Col, Collapse, InputNumber, Row, Select } from 'antd';
+import { useSearchParams } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 
-const WarehouseSearch = () => {
+const OwnSearch = () => {
   const [expand, setExpand] = useState<string[]>([]);
 
   const renderExpanding = useCallback(() => {
     return (
       <Row gutter={[6, 6]}>
-        <Col flex="20%">
-          <Select placeholder="Chi nhánh" size="large" className="w-full" />
-        </Col>
-        <Col flex="20%">
-          <Select placeholder="Phòng ban" size="large" className="w-full" disabled />
-        </Col>
-        <Col flex="20%">
-          <Select placeholder="Nhập tên tài khoản" size="large" className="w-full" disabled />
-        </Col>
         <Col flex="20%">
           <Button
             icon={<ReloadDownIcon />}
@@ -141,4 +133,4 @@ const WarehouseSearch = () => {
   );
 };
 
-export default memo(WarehouseSearch);
+export default memo(OwnSearch);
