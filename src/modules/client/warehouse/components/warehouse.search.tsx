@@ -37,6 +37,24 @@ const WarehouseSearch = () => {
     );
   }, []);
 
+  const renderLabelCollapse = useCallback(() => {
+    return (
+      <div className="relative">
+        <Button
+          icon={<DoubleArrowBottomIcon className={`${expand.includes('1') ? 'rotate-180' : ''}`} />}
+          type="text"
+          className="dark:bg-background_d py-5"
+        >
+          <span className="absolute flex h-2 w-2 top-0 right-0">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-color_l opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-color_l"></span>
+          </span>
+          {expand.includes('1') ? 'Thu nhỏ' : 'Mở rộng'}
+        </Button>
+      </div>
+    );
+  }, [expand]);
+
   return (
     <Row gutter={[6, 6]} className="mt-5">
       <Col flex="20%">
@@ -113,25 +131,7 @@ const WarehouseSearch = () => {
               key: '1',
               showArrow: false,
               className: 'text-right',
-              label: (
-                <div className="relative">
-                  <Button
-                    icon={
-                      <DoubleArrowBottomIcon
-                        className={`${expand.includes('1') ? 'rotate-180' : ''}`}
-                      />
-                    }
-                    type="text"
-                    className="dark:bg-background_d py-5"
-                  >
-                    <span className="absolute flex h-2 w-2 top-0 right-0">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-color_l opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-color_l"></span>
-                    </span>
-                    {expand.includes('1') ? 'Thu nhỏ' : 'Mở rộng'}
-                  </Button>
-                </div>
-              ),
+              label: renderLabelCollapse(),
               children: renderExpanding(),
             },
           ]}
