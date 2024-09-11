@@ -1,3 +1,5 @@
+'use client';
+
 import { DoubleArrowBottomIcon, ReloadDownIcon } from '@/components/icons';
 import { SelectAddon } from '@/components/reuse/data-entry';
 import {
