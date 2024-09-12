@@ -1,5 +1,11 @@
+import { LibKnowledgeIndex } from '@/modules/client/lib-nhapho';
+
 const KnowledgePage = () => {
-  return <></>;
+  return (
+    <>
+      <LibKnowledgeIndex />
+    </>
+  );
 };
 
 export default KnowledgePage;

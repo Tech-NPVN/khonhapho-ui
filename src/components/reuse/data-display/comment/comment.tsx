@@ -37,7 +37,7 @@ export interface ICommentProps {
   isChild?: boolean;
   onClick?: () => void;
   onLike?: () => void;
-  onReplyClick?: () => void;
+  onReplyClick?: (e?: React.MouseEvent<HTMLButtonElement>) => boolean | void;
   onEdit?: (comment?: CommentTypes) => void;
   onDelete?: (comment?: CommentTypes) => void;
   onReply?: (comment?: CommentTypes) => void;
@@ -231,9 +231,9 @@ const Comment = ({
                 </button>
                 <button
                   className="border-none bg-transparent cursor-pointer text-[12px] font-semibold"
-                  onClick={() => {
-                    onReplyClick?.();
-                    setIsReply(true);
+                  onClick={(e) => {
+                    const check = onReplyClick?.(e);
+                    if (!check) setIsReply(true);
                   }}
                 >
                   Trả lời

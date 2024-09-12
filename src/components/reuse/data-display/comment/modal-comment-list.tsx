@@ -110,7 +110,10 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
   const popupHeight = windowSize.width < 640 ? windowSize.height : windowSize.height - 180;
   return (
     <>
-      <div className="bg-black/50 fixed top-0 left-0 right-0 bottom-0 z-[101] cursor-default"></div>
+      <div
+        className="bg-black/50 fixed top-0 left-0 right-0 bottom-0 z-[101] cursor-default"
+        onClick={handleClose}
+      ></div>
       <div
         className={clsx(
           'fixed z-[120] my-auto top-0 cursor-default rounded-none sm:rounded-lg ',

@@ -1,5 +1,11 @@
+import { LibOwnerIndex } from '@/modules/client/lib-nhapho';
+
 const OwnerPage = () => {
-  return <></>;
+  return (
+    <>
+      <LibOwnerIndex />
+    </>
+  );
 };
 
 export default OwnerPage;
