@@ -399,6 +399,7 @@ const PostDetail = ({
                     }}
                     onReplyClick={() => {
                       setIsOpenModalComment(true);
+                      return true;
                     }}
                   />
                 ))}

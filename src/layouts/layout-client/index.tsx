@@ -29,8 +29,11 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
   };
   const isShowGroupChat = () => {
     const arr = [
+      // Trang chủ
       Routes.Home,
+      // Khách cần mua gấp
       Routes.Urgently,
+      //Tin hoạt động
       Routes.ActivityNews,
       Routes.ActivityNewsAll,
       Routes.ActivityNewsBranch,
@@ -38,7 +41,15 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
       Routes.ActivityNewsDeals,
       Routes.ActivityNewsDepartment,
       Routes.ActivityNewsGroup,
+      // Quy định hướng dẫn
       Routes.Regulation,
+      // Thư viện nhà phố
+      Routes.LibNhaPho,
+      Routes.LibKnowledge,
+      Routes.ShareSkill,
+      Routes.LibManager,
+      Routes.LibOwner,
+      Routes.LibAssist,
     ];
     return arr.includes(pathname as Routes);
   };

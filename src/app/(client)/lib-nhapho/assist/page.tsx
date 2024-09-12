@@ -1,5 +1,11 @@
+import { LibAssistIndex } from '@/modules/client/lib-nhapho';
+
 const AssistPage = () => {
-  return <></>;
+  return (
+    <>
+      <LibAssistIndex />
+    </>
+  );
 };
 
 export default AssistPage;

@@ -421,6 +421,7 @@ const ImageSlider = ({
   const [isShowThumbs, setIsShowThumbs] = useState<boolean>((images?.length || 1) > 1);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
   const [scale, setScale] = useState<number>(ZOOM_SETTINGS.minRatio);
+  const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
   const swiperRef = useRef<SwiperRef | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   useFullscreen(rootRef, isFullScreen, {
@@ -434,13 +435,9 @@ const ImageSlider = ({
   const handleDownload = async () => {
     const index = swiperRef.current?.swiper.activeIndex || 0;
     const videoLength = videos?.length || 0;
-
     if (index < videoLength) return;
-
     const fileUrl = images?.[index - videoLength];
-
     if (!fileUrl) return;
-
     const getFileType = (fileNameOrBlob: string | Blob): string | null => {
       if (typeof fileNameOrBlob === 'string') {
         const regex = /(?:\.([^.]+))?$/;
@@ -459,11 +456,9 @@ const ImageSlider = ({
       }
       return null;
     };
-
     const isBlobUrl = (url: string): boolean => {
       return url.startsWith('blob:');
     };
-
     let blob;
     if (isBlobUrl(fileUrl)) {
       // If fileUrl is already a blob URL, we don't need to fetch it
@@ -473,7 +468,6 @@ const ImageSlider = ({
       const response = await fetch(fileUrl);
       blob = await response.blob();
     }
-
     const fileType = getFileType(blob) || getFileType(fileUrl);
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
@@ -482,7 +476,31 @@ const ImageSlider = ({
     link.click();
     document.body.removeChild(link);
   };
+  useEffect(() => {
+    const updateHeight = () => {
+      setWindowHeight(window.innerHeight);
+    };
+    const handleKeyDown = (e: KeyboardEvent) => {
+      console.log(e.key);
 
+      if (e.key === 'Escape') {
+        handleClose();
+      }
+      if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        swiperRef.current?.swiper.slidePrev();
+      }
+      if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+        swiperRef.current?.swiper.slideNext();
+      }
+      if (e.key.match(/\d/)) swiperRef.current?.swiper.slideTo(parseInt(e.key) - 1);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    window.addEventListener('resize', updateHeight);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('resize', updateHeight);
+    };
+  }, []);
   useEffect(() => {
     if (open) {
       document.body.style.overflowY = 'hidden';
@@ -514,7 +532,7 @@ const ImageSlider = ({
         className,
       )}
     >
-      <div className="relative h-full w-full">
+      <div className="relative h-screen w-screen select-none">
         <Swiper
           ref={swiperRef}
           spaceBetween={10}
@@ -526,8 +544,10 @@ const ImageSlider = ({
             'slide-class [&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-4 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-4 ',
             'transition-all ease-in-out duration-200',
             'max-sm:[&_.swiper-button-prev]:hidden max-sm:[&_.swiper-button-next]:hidden',
-            isShowThumbs ? 'h-[calc(100vh_-_120px)]' : ' h-full w-full ',
           )}
+          style={{
+            height: isShowThumbs ? `${windowHeight - 120}px` : `${windowHeight}px`,
+          }}
           centeredSlides
           onZoomChange={(_, zoom) => {
             setScale(zoom);
