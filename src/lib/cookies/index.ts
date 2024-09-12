@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
  * Set a cookie
  * @param {string} key - The name of the cookie.
  * @param {string} value - The value to be stored in the cookie.
- * @param {number} days - Number of days until the cookie expires (default is 7 days).
+ * @param {Cookies.CookieAttributes} options - Options cookies attribute.
  */
 export const setCookie = (key: string, value: string, options?: Cookies.CookieAttributes): void => {
   Cookies.set(key, value, { ...options, expires: options?.expires ?? 7 });

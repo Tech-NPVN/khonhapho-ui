@@ -4,7 +4,7 @@ import { Avatar, Divider, Modal, Tag } from 'antd';
 import dayjs from 'dayjs';
 import Image from 'next/image';
 
-export const ModalAppointmentĐetails = ({
+export const ModalAppointmentDetails = ({
   open,
   handleCancel,
 }: {
