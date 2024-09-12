@@ -1,4 +1,5 @@
-import { RegulationTypes } from './post';
+import { LibNhaPhoTypes } from './lib.types';
+
 const CATEGORY_SAMPLE = [
   { value: 'danh-gia-Bat-dong-san', label: 'Đánh giá Bất động sản' },
   { value: 'ky-nang-co-ban', label: 'Kỹ năng cơ bản' },
@@ -6,7 +7,7 @@ const CATEGORY_SAMPLE = [
   { value: 'ky-nang-tuong-tac-khach-hang', label: 'Kỹ năng Tương tác khách hàng' },
   { value: 'phap-ly', label: 'Pháp lý' },
 ];
-const POSTS_SAMPLE: RegulationTypes[] = [
+const POSTS_SAMPLE: LibNhaPhoTypes[] = [
   {
     id: 'lib-1',
     category: CATEGORY_SAMPLE[0].label,
