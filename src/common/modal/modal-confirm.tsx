@@ -16,7 +16,15 @@ const modalError = (props: ModalFuncProps) => {
         >
           {props.cancelText ?? 'Huỷ'}
         </Button>
-        <Button onClick={props.onOk} type="primary" danger className='dark:!bg-error_d'>
+        <Button
+          onClick={() => {
+            props.onOk?.();
+            Modal.destroyAll();
+          }}
+          type="primary"
+          danger
+          className="dark:!bg-error_d"
+        >
           {props.okText ?? 'Đồng ý'}
         </Button>
       </div>

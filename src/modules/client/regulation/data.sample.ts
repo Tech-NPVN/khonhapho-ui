@@ -26,6 +26,7 @@ const POSTS_SAMPLE: RegulationTypes[] = [
         },
       },
     ],
+    tags: ['npvn'],
     comment_count: 2,
     like_count: 12,
     view_count: 98,
