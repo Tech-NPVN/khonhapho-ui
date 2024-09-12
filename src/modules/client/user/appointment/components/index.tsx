@@ -4,7 +4,7 @@ import { DATE_TIME_FORMAT } from '@/constants/data';
 import { Avatar } from 'antd';
 import dayjs from 'dayjs';
 import { memo, useCallback, useState } from 'react';
-import { ModalAppointmentĐetails } from './modal';
+import { ModalAppointmentDetails } from './modal';
 
 const AppointmentItem = memo(({ type }: { type?: 'reject' | 'confirm' | 'new' | 'recall' }) => {
   const [openDetails, setOpenDetails] = useState<boolean>(false);
@@ -71,7 +71,7 @@ const AppointmentItem = memo(({ type }: { type?: 'reject' | 'confirm' | 'new' | 
         </div>
       </div>
 
-      <ModalAppointmentĐetails open={openDetails} handleCancel={() => setOpenDetails(false)} />
+      <ModalAppointmentDetails open={openDetails} handleCancel={() => setOpenDetails(false)} />
     </>
   );
 });
