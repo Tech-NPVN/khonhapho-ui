@@ -11,7 +11,7 @@ interface IProps extends ModalProps {
 }
 type FieldFormUrgentlyPopupType = {
   city?: string;
-  district?: string;
+  districts?: string;
   price?: string;
   area?: string;
   request?: string;
@@ -112,7 +112,7 @@ const FormUrgentlyPopup = ({
               </Form.Item>
               <Form.Item<FieldFormUrgentlyPopupType>
                 label="Quận/Huyện"
-                name="district"
+                name="districts"
                 rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
               >
                 <Select
