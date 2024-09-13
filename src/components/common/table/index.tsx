@@ -98,8 +98,9 @@ const PopoverVisibilityColumns = <T,>({
           <Col span={24}>
             <Button
               onClick={resetColumnVisibility}
-              className="w-full mt-3 bg-transparent"
-              icon={<ReloadDownIcon />}
+              className="w-full mt-3"
+              type='primary'
+              icon={<ReloadDownIcon width='14' height='14' className="[&>path]:fill-primary_color_l" />}
             >
               Đặt lại
             </Button>
