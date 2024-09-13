@@ -3,6 +3,10 @@
   @apply !bg-transparent;
 }
 
+.ant-modal-wrap {
+  @apply md:py-5
+}
+
 .ant-modal .ant-modal-content {
   @apply dark:!bg-background_d;
 }
