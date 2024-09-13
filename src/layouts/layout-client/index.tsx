@@ -2,6 +2,7 @@
 
 import { Routes } from '@/constants/enums';
 import { FloatButton, Layout } from 'antd';
+import clsx from 'clsx';
 import { usePathname } from 'next/navigation';
 import LayoutClientGroupChat from './layout-client.group-chat';
 import LayoutClientHeader from './layout-client.header';
@@ -59,7 +60,9 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
         <LayoutClientHeader />
         <Layout className="main-bg gap-4 flex" hasSider>
           {isSidebarHidden() && <LayoutClientSidebar />}
-          <Layout className="main-bg mt-16 flex-1">{children}</Layout>
+          <Layout className={clsx('main-bg mt-16 flex-1', isShowGroupChat() ? 'lg:ml-5' : '')}>
+            {children}
+          </Layout>
           {isShowGroupChat() && <LayoutClientGroupChat />}
         </Layout>
       </Layout>

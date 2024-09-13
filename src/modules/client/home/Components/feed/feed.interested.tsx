@@ -52,7 +52,6 @@ const FeedInterested = () => {
     const fetchCities = async () => {
       try {
         const res = await locationApi.getCities();
-        console.log(res);
         setCities(res);
       } catch (error) {
         console.error('Error fetching cities:', error);

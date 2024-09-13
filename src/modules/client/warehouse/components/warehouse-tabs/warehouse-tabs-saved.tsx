@@ -1,6 +1,4 @@
-import { Button, type TableProps } from 'antd';
-import { WarehouseTable, commonWarehouseColumns, data } from '../warehouse.table';
-import { WarehouseType } from '../../warehouse.type';
+import { ModalBooking } from '@/common/modal';
 import {
   AlarmSmallIcon,
   BookmarkedIcon,
@@ -8,13 +6,15 @@ import {
   ItemViewIcon,
   ShareArrowIcon,
 } from '@/components/icons';
-import { ColumnsType } from 'antd/es/table';
-import { useState } from 'react';
-import { ModalBooking } from '@/common/modal';
 import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
 import NotePopup from '@/components/reuse/data-display/popup/note';
 import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import { ModalAddCollection, ModalColCreateUpdate } from '@/modules/client/user/collection';
+import { Button, type TableProps } from 'antd';
+import { ColumnsType } from 'antd/es/table';
+import { useState } from 'react';
+import { WarehouseType } from '../../warehouse.type';
+import { WarehouseTable, commonWarehouseColumns, data } from '../warehouse.table';
 
 const dataSource: WarehouseType[] = Array.from({ length: 10 }, () => ({ ...data, saved: false }));
 
@@ -120,7 +120,12 @@ const WarehouseTabsSaved = () => {
       <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
 
       {/* Báo cáo dẫn khách */}
-      <FormReportPopup open={openReport} setOpen={setOpenReport} />
+      <FormReportPopup
+        open={openReport}
+        onClose={() => {
+          setOpenReport(false);
+        }}
+      />
 
       {/* Xem chi tiết */}
       <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
