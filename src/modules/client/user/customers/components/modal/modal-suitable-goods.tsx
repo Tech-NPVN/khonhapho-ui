@@ -1,12 +1,4 @@
-import { memo, useState } from 'react';
-import { Button, Col, Divider, Flex, Modal, Row, Select, Table, TableProps } from 'antd';
-import { CustomerSchemaType } from '../../customers.schema';
-import {
-  SELECT_FILTER_WAREHOUSE,
-  SELECT_PROPERTY_FEATURE,
-  SELECT_PROPERTY_TYPE,
-  SELECT_WAREHOUSE_STATUS,
-} from '@/constants/data';
+import { ModalBooking, ModalNote } from '@/common/modal';
 import {
   AlarmSmallIcon,
   BookmarkOutlineIcon,
@@ -15,16 +7,24 @@ import {
   ReloadDownIcon,
   ShareArrowIcon,
 } from '@/components/icons';
+import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
+import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
+import {
+  SELECT_FILTER_WAREHOUSE,
+  SELECT_PROPERTY_FEATURE,
+  SELECT_PROPERTY_TYPE,
+  SELECT_WAREHOUSE_STATUS,
+} from '@/constants/data';
 import useDragScroll from '@/hooks/use-drag-scroll';
 import {
   commonWarehouseColumns,
   data as dataWarehouse,
   WarehouseType,
 } from '@/modules/client/warehouse';
+import { Button, Col, Divider, Flex, Modal, Row, Select, Table, TableProps } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import { ModalBooking, ModalNote } from '@/common/modal';
-import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
+import { memo, useState } from 'react';
+import { CustomerSchemaType } from '../../customers.schema';
 
 const dataSource: WarehouseType[] = Array.from({ length: 8 }, () => ({ ...dataWarehouse }));
 
@@ -217,7 +217,12 @@ export const ModalSuitableGoods = memo(
         <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
 
         {/* Báo cáo dẫn khách */}
-        <FormReportPopup open={openReport} setOpen={setOpenReport} />
+        <FormReportPopup
+          open={openReport}
+          onClose={() => {
+            setOpenReport(false);
+          }}
+        />
 
         {/* Xem chi tiết */}
         <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />

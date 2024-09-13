@@ -44,8 +44,11 @@ const CommentInput = ({
   const onchange = (comment: CommentTypes) => {
     setComment(comment);
   };
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+    handleFileChange(file);
+  };
+  const handleFileChange = (file?: File) => {
     if (!file) return;
     const thumbUrl = URL.createObjectURL(file);
     setImage({ obj: file, thumbUrl });
@@ -127,6 +130,7 @@ const CommentInput = ({
                 }}
                 disabled={disabled}
                 autoFocus={autoFocus}
+                onImagePaste={handleFileChange}
               />
             </div>
             <div className={clsx('flex me-2 items-center', isMobile ? 'hidden' : '')}>
@@ -135,7 +139,7 @@ const CommentInput = ({
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={handleImageChange}
+                  onChange={handleInputChange}
                   className="hidden"
                 />
               </label>
@@ -181,7 +185,7 @@ const CommentInput = ({
           <div className="flex me-2 items-center">
             <label className="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-center cursor-pointer p-1">
               <ImageIcon />
-              <input type="file" accept="image/*" onChange={handleImageChange} className="hidden" />
+              <input type="file" accept="image/*" onChange={handleInputChange} className="hidden" />
             </label>
             <label className="w-8 h-8 rounded-full hover:bg-black/5 dark:hover:bg-white/5 flex items-center justify-center cursor-pointer p-1">
               <StickerSelectIcon />

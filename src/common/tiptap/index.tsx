@@ -16,6 +16,7 @@ interface IProps {
   autoFocus?: boolean;
   onChange?: (content: string, text?: string) => void;
   onReady?: (editor: Editor) => void;
+  onImagePaste?: (image: File) => void;
 }
 
 interface IPropsConfig {
@@ -35,6 +36,7 @@ const TiptapEditor = ({
   disabled,
   onChange,
   onReady,
+  onImagePaste,
 }: IProps) => {
   const editor = useEditor({
     extensions: [
@@ -81,6 +83,15 @@ const TiptapEditor = ({
         className,
       )}
       disabled={disabled}
+      onPaste={(e) => {
+        const items = e.clipboardData.items;
+        if (items && items[0] && items[0].kind === 'file' && items[0].getAsFile()) {
+          const blob = items[0].getAsFile();
+          if (blob) onImagePaste?.(blob);
+        } else {
+          e.preventDefault();
+        }
+      }}
     >
       {showCount && (
         <div className="absolute right-1 bottom-1 text-sm opacity-75 editor-count">

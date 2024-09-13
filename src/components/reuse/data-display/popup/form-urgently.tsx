@@ -1,5 +1,6 @@
 'use client';
 
+import useFetchLocation from '@/hooks/use-fetch-location';
 import { Form, FormProps, Input, Modal, Select } from 'antd';
 import { ModalProps } from 'antd/lib';
 import { Dispatch, SetStateAction, useEffect } from 'react';
@@ -10,7 +11,7 @@ interface IProps extends ModalProps {
 }
 type FieldFormUrgentlyPopupType = {
   city?: string;
-  district?: string;
+  districts?: string;
   price?: string;
   area?: string;
   request?: string;
@@ -26,6 +27,8 @@ const FormUrgentlyPopup = ({
   isUpdate,
 }: IProps) => {
   const [form] = Form.useForm<FieldFormUrgentlyPopupType>();
+
+  const { cities, districts, fetchCities, fetchDistricts } = useFetchLocation();
   const onFinish: FormProps<FieldFormUrgentlyPopupType>['onFinish'] = (values) => {
     console.log('Success:', values);
     setOpen && setOpen(false);
@@ -36,8 +39,18 @@ const FormUrgentlyPopup = ({
     console.log('Failed:', errorInfo);
   };
   useEffect(() => {
+    fetchCities();
+  }, [fetchCities]);
+  useEffect(() => {
+    const a = form.getFieldValue('city');
+    console.log(a);
+  }, [cities, form]);
+  useEffect(() => {
     if (value) form.setFieldsValue(value);
   }, [value, form]);
+
+  const customCity = Form.useWatch('city', form);
+  const customDistricts = Form.useWatch('districts', form);
   return (
     <div>
       <Modal
@@ -47,7 +60,7 @@ const FormUrgentlyPopup = ({
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
         open={open}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 "
+        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 max-w-[760px]"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',
           header:
@@ -66,9 +79,9 @@ const FormUrgentlyPopup = ({
           onOk && onOk(e);
           setOpen && setOpen(false);
         }}
-        width={'auto'}
+        width={'100%'}
       >
-        <div className="w-[750px]">
+        <div className="w-full">
           <Form
             name="report"
             onFinish={onFinish}
@@ -86,24 +99,31 @@ const FormUrgentlyPopup = ({
               >
                 <Select
                   className="h-9 w-full"
-                  placeholder="Chọn thành phố"
-                  onChange={(value) => console.log(value)}
-                >
-                  <Select.Option value="ha-noi">Hà Nội</Select.Option>
-                  <Select.Option value="hai-phong">Hải Phòng</Select.Option>
-                  <Select.Option value="ho-chi-minh">Hồ Chí Minh</Select.Option>
-                </Select>
+                  placeholder="Tỉnh/Thành phố"
+                  onChange={(value) => {
+                    const id = cities.find((item) => item.code === value)?.id;
+                    if (id) fetchDistricts(id);
+                  }}
+                  value={form.getFieldValue('city')}
+                  fieldNames={{ label: 'name', value: 'code' }}
+                  options={cities}
+                  showSearch
+                ></Select>
               </Form.Item>
               <Form.Item<FieldFormUrgentlyPopupType>
                 label="Quận/Huyện"
-                name="district"
+                name="districts"
                 rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
               >
-                <Select className="h-9 w-full" placeholder="Chọn quận huyện">
-                  <Select.Option value="bac-tu-liem">Bắc Từ Liêm</Select.Option>
-                  <Select.Option value="dong-da">Đống Đa</Select.Option>
-                  <Select.Option value="hai-ba-trung">Hai Bà Trưng</Select.Option>
-                </Select>
+                <Select
+                  className="h-9 w-full"
+                  placeholder="Quận/Huyện"
+                  disabled={!customCity || customCity === '-1'}
+                  allowClear
+                  value={form.getFieldValue('districts')}
+                  fieldNames={{ label: 'name', value: 'code' }}
+                  options={districts}
+                ></Select>
               </Form.Item>
               <div className="flex gap-2">
                 <Form.Item<FieldFormUrgentlyPopupType>

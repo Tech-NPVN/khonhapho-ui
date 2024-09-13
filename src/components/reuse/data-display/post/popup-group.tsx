@@ -50,13 +50,7 @@ const SuitableCustomer = () => {
       {isShow && (
         <SuitableCustomerPopup
           open
-          onCancel={() => {
-            setIsShow(false);
-          }}
-          onOk={() => {
-            setIsShow(false);
-          }}
-          setOpen={() => {
+          onClose={() => {
             setIsShow(false);
           }}
         />
@@ -131,7 +125,12 @@ const NewReport = () => {
         <CopyDocumentIcon />
         <span className="ms-1">Báo cáo</span>
       </div>
-      <FormReportPopup open={isShowReport} setOpen={setIsShowReport} />
+      <FormReportPopup
+        open={isShowReport}
+        onClose={() => {
+          setIsShowReport(false);
+        }}
+      />
     </>
   );
 };

@@ -1,5 +1,7 @@
 'use client';
 
+import { IMAGE_ACCEPTED } from '@/constants/data';
+import { dateValidate } from '@/lib/zod';
 import {
   DatePicker,
   Form,
@@ -14,24 +16,34 @@ import {
   UploadFile,
   UploadProps,
 } from 'antd';
-import { ModalProps } from 'antd/lib';
+import { createSchemaFieldRule } from 'antd-zod';
 import clsx from 'clsx';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-interface IProps extends ModalProps {
-  setOpen?: Dispatch<SetStateAction<boolean>>;
-}
+import dayjs, { Dayjs } from 'dayjs';
+import { useEffect, useState } from 'react';
+import { z } from 'zod';
+
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-type FieldType = {
-  customer_name?: string;
-  id_card_number?: string;
-  customer_address?: string;
-  time?: string;
-  purpose?: string;
-  feedback?: string;
-  review?: string;
-  images?: FileType[];
-  note?: string;
-};
+
+const ReportTypesSchema = z.object({
+  customer_name: z.string().min(1, 'Vui lòng nhập trường này'),
+  id_card_number: z
+    .string()
+    .min(1, 'Vui lòng nhập trường này')
+    .refine((value) => /^\d{9}$/.test(value) || /^\d{12}$/.test(value), {
+      message: 'Số căn cước phải có 9 hoặc 12 chữ số',
+    }),
+  customer_address: z.string().max(100, 'Tối đa 100 ký tự'),
+  time: dateValidate,
+  purpose: z.string().min(1, 'Vui lòng nhập trường này'),
+  feedback: z.string().min(1, 'Vui lòng nhập trường này'),
+  review: z.string().min(1, 'Vui lòng nhập trường này'),
+  images: z.array(z.any()),
+  note: z.string().max(1000, 'Tối đa 1000 ký tự'),
+});
+
+type ReportTypes = z.infer<typeof ReportTypesSchema>;
+
+const rule = createSchemaFieldRule(ReportTypesSchema);
 const getBase64 = (file: FileType): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -39,28 +51,59 @@ const getBase64 = (file: FileType): Promise<string> =>
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = (error) => reject(error);
   });
-const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
+const FormComponent = ({
+  open = false,
+  onClose,
+  onOK,
+}: {
+  open?: boolean;
+  onClose: () => void;
+  onOK?: () => void;
+}) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
   const [isFirstCommit, setIsFirstCommit] = useState(false);
-  const [form] = Form.useForm<FieldType>();
+  const [form] = Form.useForm<ReportTypes>();
   const [purposeOther, setPurposeOther] = useState('');
   const [feedbackOther, setFeedbackOther] = useState('');
   const [reviewOther, setReviewOther] = useState('');
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+  const disabledDate = (current: Dayjs) => {
+    // Vô hiệu hóa các ngày trong tương lai
+    return current && current.isAfter(dayjs().endOf('day'));
+  };
+
+  const disabledDateTime = () => {
+    const now = dayjs();
+    return {
+      disabledHours: () => {
+        const currentHour = now.hour();
+        return Array.from({ length: 24 }, (_, i) => i).filter((hour) => hour > currentHour);
+      },
+      disabledMinutes: () => {
+        const currentMinute = now.minute();
+        return Array.from({ length: 60 }, (_, i) => i).filter((minute) => minute > currentMinute);
+      },
+      disabledSeconds: () => {
+        const currentSecond = now.second();
+        return Array.from({ length: 60 }, (_, i) => i).filter((second) => second > currentSecond);
+      },
+    };
+  };
+
+  const onFinish: FormProps<ReportTypes>['onFinish'] = (values) => {
     if (!isFirstCommit) setIsFirstCommit(true);
     if (values.purpose === 'other' && !purposeOther) return;
     if (values.feedback === 'other' && !feedbackOther) return;
     if (values.review === 'other' && !reviewOther) return;
     console.log('Success:', values);
-    setIsOpenPopupRate(true);
-    setOpen && setOpen(false);
+    console.log(fileList);
+    onOK?.();
+    onClose?.();
     //
   };
 
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (errorInfo) => {
+  const onFinishFailed: FormProps<ReportTypes>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
     if (!isFirstCommit) setIsFirstCommit(true);
   };
@@ -82,6 +125,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
       <div style={{ marginTop: 8 }}>Upload</div>
     </button>
   );
+
   useEffect(() => {
     form.setFieldsValue({
       purpose: '0',
@@ -94,8 +138,10 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
       note: '',
       images: [],
     });
+    return () => {
+      form.resetFields();
+    };
   }, [form]);
-
   return (
     <div>
       <Modal
@@ -111,17 +157,11 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
           header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-lg !px-3',
           mask: 'dark:!fill-white',
         }}
-        onClose={(e) => {
-          onClose && onClose(e);
-          setOpen && setOpen(false);
+        onClose={() => {
+          onClose?.();
         }}
-        onCancel={(e) => {
-          onCancel && onCancel(e);
-          setOpen && setOpen(false);
-        }}
-        onOk={(e) => {
-          onOk && onOk(e);
-          setOpen && setOpen(false);
+        onCancel={() => {
+          onClose?.();
         }}
         width={'750px'}
       >
@@ -152,37 +192,62 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
             </div>
             <div className="w-full h-[1px] bg-black/5 dark:bg-divider_d"></div>
             <div className="w-full px-5 flex flex-col mt-3">
-              <Form.Item<FieldType>
+              <Form.Item<ReportTypes>
                 label="Họ và tên khách xem nhà"
                 className="[&_label]:min-w-64"
                 name="customer_name"
-                rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                rules={[rule]}
+                required
               >
-                <Input className="py-2 w-full" placeholder="Nhập họ tên của khách" />
+                <Input
+                  className="py-2 w-full"
+                  placeholder="Nhập họ tên của khách"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                    }
+                  }}
+                />
               </Form.Item>
-              <Form.Item<FieldType>
+              <Form.Item<ReportTypes>
                 label="Số CMND/CCCD"
                 className="[&_label]:min-w-64"
                 name="id_card_number"
-                rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                rules={[rule]}
+                required
               >
-                <Input className="py-2 w-full" placeholder="Nhập số CMND hoặc số CCCD của khách" />
+                <Input
+                  className="py-2 w-full"
+                  placeholder="Nhập số CMND hoặc số CCCD của khách"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                    }
+                  }}
+                />
               </Form.Item>
-              <Form.Item<FieldType>
+              <Form.Item<ReportTypes>
                 label="Địa chỉ khách ở"
                 className="[&_label]:min-w-64 [&_label]:ps-2"
                 name="customer_address"
+                rules={[rule]}
               >
                 <Input
                   className="py-2 w-full"
                   placeholder="VD: 102 P. Thái Thịnh, Ngã Tư Sở, Đống Đa, Hà Nội 100000"
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                    }
+                  }}
                 />
               </Form.Item>
-              <Form.Item<FieldType>
+              <Form.Item<ReportTypes>
                 label="Thời gian khách xem nhà"
                 className="[&_label]:min-w-64"
                 name="time"
-                rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                rules={[rule]}
+                required
               >
                 <DatePicker
                   showTime
@@ -190,19 +255,22 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                   showMinute
                   className="py-2 w-full"
                   placeholder="Chọn thời gian khách xem nhà"
+                  disabledDate={disabledDate}
+                  disabledTime={disabledDateTime}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') {
+                      e.preventDefault();
+                    }
+                  }}
                 />
               </Form.Item>
               <div>
-                <Form.Item<FieldType>
+                <Form.Item<ReportTypes>
                   label="Mục đích mua của khách"
                   className="[&_label]:min-w-64 [&_.ant-form-item-explain-error]:pl-16"
                   name="purpose"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Vui lòng nhập trường này',
-                    },
-                  ]}
+                  rules={[rule]}
+                  required
                 >
                   <Radio.Group className="flex gap-2 flex-col ">
                     <Radio value={'0'}>Mua để ở</Radio>
@@ -229,6 +297,11 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                                 : '',
                             )}
                             type="text"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -245,16 +318,12 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
               </div>
 
               <div>
-                <Form.Item<FieldType>
+                <Form.Item<ReportTypes>
                   label="Phản hồi của khách"
                   className="[&_label]:min-w-64 [&_.ant-form-item-explain-error]:pl-16"
                   name="feedback"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Vui lòng nhập trường này',
-                    },
-                  ]}
+                  rules={[rule]}
+                  required
                 >
                   <Radio.Group className="flex gap-2 flex-col ">
                     <Radio value={'0'}>
@@ -284,6 +353,11 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                                 : '',
                             )}
                             type="text"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -299,16 +373,12 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                   )}
               </div>
               <div>
-                <Form.Item<FieldType>
+                <Form.Item<ReportTypes>
                   label="Đánh giá của chủ nhà"
                   className="[&_label]:min-w-64 [&_.ant-form-item-explain-error]:pl-16"
                   name="review"
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Vui lòng nhập trường này',
-                    },
-                  ]}
+                  rules={[rule]}
+                  required
                 >
                   <Radio.Group className="flex gap-2 flex-col ">
                     <Radio value={'0'}>Vui vẻ hợp tác</Radio>
@@ -335,6 +405,11 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                                 : '',
                             )}
                             type="text"
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                              }
+                            }}
                           />
                         </div>
                       </div>
@@ -359,6 +434,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                     onChange={handleChange}
                     maxCount={5}
                     multiple
+                    accept={IMAGE_ACCEPTED}
                   >
                     {fileList.length >= 5 ? null : uploadButton}
                   </Upload>
@@ -376,7 +452,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                   )}
                 </div>
               </div>
-              <Form.Item<FieldType>
+              <Form.Item<ReportTypes>
                 label="Ý kiến của đầu khách"
                 className="[&_label]:min-w-64 [&_label]:ps-2"
                 name="note"
@@ -393,8 +469,7 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
                 className="w-[45%] cursor-pointer border-none py-1 rounded-md bg-background_l_2 text-black"
                 onClick={(e) => {
                   e.preventDefault();
-                  onClose && onClose(e);
-                  setOpen && setOpen(false);
+                  onClose && onClose();
                 }}
               >
                 Huỷ
@@ -406,14 +481,29 @@ const FormReportPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IPr
           </Form>
         </div>
       </Modal>
+    </div>
+  );
+};
+const FormReportPopup = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
+  const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
+  return (
+    <>
+      {open ? (
+        <FormComponent
+          open={open}
+          onClose={onClose}
+          onOK={() => {
+            setIsOpenPopupRate(true);
+          }}
+        />
+      ) : null}
       <RatingPopup
         open={isOpenPopupRate}
-        setOpen={setIsOpenPopupRate}
         onClose={() => {
           setIsOpenPopupRate(false);
         }}
       />
-    </div>
+    </>
   );
 };
 
@@ -427,14 +517,14 @@ const initData = {
   review: '',
   notification: 0, //0 | 1
 };
-const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
+const RatingPopup = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
   const [rate, setRate] = useState(initData);
   const handleSubmit = () => {
     console.log('Success', rate);
-    setOpen && setOpen(false);
     setRate(initData);
+    onClose?.();
   };
-  return (
+  return open ? (
     <Modal
       title="Đánh giá đầu chủ"
       centered
@@ -447,17 +537,14 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
         mask: 'dark:!fill-white',
       }}
       footer={null}
-      onClose={(e) => {
-        onClose && onClose(e);
-        setOpen && setOpen(false);
+      onClose={() => {
+        onClose?.();
       }}
-      onCancel={(e) => {
-        onCancel && onCancel(e);
-        setOpen && setOpen(false);
+      onCancel={() => {
+        onClose?.();
       }}
-      onOk={(e) => {
-        onOk && onOk(e);
-        setOpen && setOpen(false);
+      onOk={() => {
+        onClose?.();
       }}
       width={'auto'}
     >
@@ -553,6 +640,6 @@ const RatingPopup = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
         </div>
       </div>
     </Modal>
-  );
+  ) : null;
 };
 export default FormReportPopup;

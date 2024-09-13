@@ -3,8 +3,8 @@ import { CHAT_PREVIEW_SAMPLE } from '@/constants/data';
 
 function LayoutClientGroupChat() {
   return (
-    <div className="w-[250px] h-full relative lg:flex hidden">
-      <div className="flex-1 fixed top-[68px]">
+    <div className="w-[250px] h-screen relative lg:flex hidden">
+      <div className="w-[250px] fixed top-[68px] px-4">
         <div className="w-full">
           <h5 className="mt-3 font-semibold text-black text-sm dark:text-[#daefff]">
             Người liên hệ

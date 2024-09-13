@@ -1,7 +1,7 @@
-import type { Metadata, Viewport } from 'next';
-import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { sfProPlayFont } from '@/configs/font.config';
 import AppProvider from '@/provider';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import type { Metadata, Viewport } from 'next';
 import Favicon from '~public/favicon.ico';
 
 import '@/styles/globals.css';
@@ -35,7 +35,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
+    <html lang="vi" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
       <head />
       <body className={sfProPlayFont.className} id="app">
         <AntdRegistry>

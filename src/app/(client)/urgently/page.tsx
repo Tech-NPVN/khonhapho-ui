@@ -36,7 +36,7 @@ const UrgentlyPage = () => {
                   setDefaultValue({
                     area: '',
                     city: undefined,
-                    district: undefined,
+                    districts: undefined,
                     price: '',
                     request: '',
                   });
@@ -93,7 +93,7 @@ const UrgentlyPage = () => {
                     setIsOpenForm(true);
                     setDefaultValue({
                       city: 'ha-noi',
-                      district: 'dong-da',
+                      districts: 'dong-da',
                       area: '102m²',
                       price: '15 tỷ',
                       request: 'Mua để ở',

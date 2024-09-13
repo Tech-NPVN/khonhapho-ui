@@ -174,7 +174,7 @@ const OwnItem = () => {
               <div className="mb-2 flex items-center gap-1">
                 SĐT chủ nhà: <MaskedInformation info="0123456789" />
               </div>
-              <div className='mb-2'>
+              <div className="mb-2">
                 Người duyệt: <span className="text-error_l dark:text-error_d">Thư ký</span>
               </div>
               <div>
@@ -257,17 +257,16 @@ const OwnItem = () => {
         </Col>
       </Row>
 
-      <FormReportPopup open={openReport} setOpen={setOpenReport} />
+      <FormReportPopup
+        open={openReport}
+        onClose={() => {
+          setOpenReport(false);
+        }}
+      />
 
       <SuitableCustomerPopup
         open={openSuitableCustomer}
-        onCancel={() => {
-          setOpenSuitableCustomer(false);
-        }}
-        onOk={() => {
-          setOpenSuitableCustomer(false);
-        }}
-        setOpen={() => {
+        onClose={() => {
           setOpenSuitableCustomer(false);
         }}
       />

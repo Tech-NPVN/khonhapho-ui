@@ -109,7 +109,7 @@ const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
               <div className="h-10 w-10"></div>
             </div>
           </div>
-          <div className="w-full flex md:min-h-[500px] lg:h-[780px] max-lg:flex-wrap max-sm:pt-[42px]">
+          <div className="w-full flex md:min-h-[500px] lg:h-[90vh] 2xl:h-[80vh] max-lg:flex-wrap max-sm:pt-[42px]">
             <div className="w-full lg:w-1/2 h-[400px] lg:h-full overflow-hidden max-sm:rounded-none max-lg:rounded-t-lg lg:rounded-s-lg bg-black relative">
               <Swiper
                 ref={swiperRef}
@@ -576,13 +576,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
         {isShowModalSuitableCustomerPopup && (
           <SuitableCustomerPopup
             open={true}
-            onCancel={() => {
-              setIsShowModalSuitableCustomerPopup(false);
-            }}
-            onOk={() => {
-              setIsShowModalSuitableCustomerPopup(false);
-            }}
-            setOpen={() => {
+            onClose={() => {
               setIsShowModalSuitableCustomerPopup(false);
             }}
           />
@@ -599,7 +593,12 @@ const Right = ({ post }: { post?: IPostDetail }) => {
           setIsShowNotePopup(false);
         }}
       />
-      <FormReportPopup open={isShowReport} setOpen={setIsShowReport} />
+      <FormReportPopup
+        open={isShowReport}
+        onClose={() => {
+          setIsShowReport(false);
+        }}
+      />
       <ModalBooking
         open={isShowBooking}
         handleCancel={() => {
