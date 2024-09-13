@@ -1,6 +1,12 @@
 'use client';
 
 import { TextSeeMore } from '@/components/common';
+import {
+  MessengerImage,
+  MessengerKNPImage,
+  PhoneImage,
+  ZaloImage,
+} from '@/components/common/image-components';
 import { BlueEyeIcon, HeartRedIcon } from '@/components/icons';
 import {
   Comment,
@@ -11,59 +17,50 @@ import {
 import LikeShareComment from '@/components/reuse/data-display/post/like-share-comment';
 import { ThreeDot, ThreeDotEventProps } from '@/components/reuse/data-display/post/three-dot';
 import { Routes } from '@/constants/enums';
+import { convertYouTubeLinksToIframe } from '@/utilities/func.text';
 import { getTimeAgo } from '@/utilities/func.time';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-
-interface RegulationTypes {
-  id?: string;
-  title?: string;
-  content?: string;
-  author?: string;
-  created_at?: string;
-  updated_at?: string;
-  category?: string;
-  tags?: string[];
-  images?: string[];
-  view_count?: number;
-  comment_count?: number;
-  like_count?: number;
-  comments?: CommentTypes[];
-}
+import { LibNhaPhoTypes } from './lib.types';
 
 type IPostDetailProps = {
-  post?: RegulationTypes;
+  post?: LibNhaPhoTypes;
   classNames?: {
     root?: string;
   };
-  isWarehouse?: boolean;
-  isUrgently?: boolean;
   className?: string;
   threeDot?: boolean;
   threeDotEvents?: ThreeDotEventProps;
+  isCompanyPost?: boolean;
 };
 
-const RegulationPost = ({
-  post,
-  isWarehouse,
-  isUrgently,
-  threeDotEvents,
-  className,
-}: IPostDetailProps) => {
+const LibNhaPhoPost = ({ post, threeDotEvents, className, isCompanyPost }: IPostDetailProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(post?.like_count || 0);
   const [comments, setComments] = useState<CommentTypes[]>();
+  const [postWidth, setPostWidth] = useState<number>(0);
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     setLikeCount(post?.like_count || 0);
     setComments(post?.comments);
   }, [post]);
+  useEffect(() => {
+    const handleResize = () => {
+      setPostWidth(rootRef.current?.clientWidth || 0);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [post, rootRef]);
   const commentCount = post?.comments?.length || 0;
   const imagesCount = post?.images?.length || 0;
 
+  const contentReplaceYoutube = convertYouTubeLinksToIframe(post?.content || '');
   return (
     <>
       <div
@@ -94,7 +91,7 @@ const RegulationPost = ({
                   Nhà Phố Việt Nam
                 </Link>
                 <div className="[&_span]:text-sm text-secondary_text_l dark:text-primary_text_d flex gap-[10px]">
-                  <span className={clsx('gap-[10px]', isWarehouse ? 'hidden' : 'flex')}>
+                  <span className={clsx('gap-[10px] flex')}>
                     <span>{getTimeAgo(post?.created_at)}</span>
                     <span>•</span>
                     <span>{post?.category}</span>
@@ -103,15 +100,15 @@ const RegulationPost = ({
               </div>
             </div>
 
-            <div className={clsx('absolute top-0 right-0', isWarehouse ? 'hidden' : '')}>
-              <ThreeDot isUrgently={isUrgently} threeDotEvents={threeDotEvents} />
+            <div className={clsx('absolute top-0 right-0')}>
+              <ThreeDot threeDotEvents={threeDotEvents} />
             </div>
           </div>
-          <div className="mt-2 font-semibold">{post?.title}</div>
-          <div className="mt-2">
-            <TextSeeMore _html={post?.content} maxLine={5} className="[&_p]:mb-[2px]" />
+          <div className="mt-2 font-semibold text-base">{post?.title}</div>
+          <div className="">
+            <TextSeeMore _html={contentReplaceYoutube} maxLine={3} className="[&_p]:mb-[2px]" />
           </div>
-          <div className={clsx('mt-2')}>
+          <div className={clsx('mt-2', imagesCount)}>
             <div className={'flex-wrap gap-2 flex'}>
               {post?.tags?.map((tag) => (
                 <span
@@ -126,17 +123,11 @@ const RegulationPost = ({
         </div>
         <div className={clsx('mt-2', imagesCount > 0 ? '' : 'hidden')}>
           <div>
-            <ImageGrid images={post?.images || []} isWarehouse={isWarehouse} />
+            <ImageGrid images={post?.images || []} />
           </div>
         </div>
         <div className="w-full px-3 sm:px-4">
-          <div
-            className={clsx(
-              imagesCount > 0 ? 'mt-1' : 'mt-2',
-              !likeCount && !post?.view_count ? 'hidden' : 'mb-2',
-              likeCount === 0 && post?.view_count === 0 ? 'hidden' : '',
-            )}
-          >
+          <div className={clsx(imagesCount > 0 ? 'mt-1' : 'mt-2', 'mb-2')}>
             <div className="flex justify-between">
               <div className="flex gap-3">
                 {post?.view_count && post?.view_count > 0 && (
@@ -151,6 +142,58 @@ const RegulationPost = ({
                     <span className="text-sm">{likeCount}</span>
                   </div>
                 )}
+              </div>
+              <div className={clsx('flex gap-0', isCompanyPost ? 'hidden' : 'flex')}>
+                <a
+                  href="https://www.facebook.com/messages/t/100010636721382"
+                  target="_blank"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                >
+                  <MessengerKNPImage className="w-4 h-4" />
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Chat
+                  </span>
+                </a>
+                <a
+                  href="https://www.facebook.com/messages/t/100010636721382"
+                  target="_blank"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                >
+                  <MessengerImage className="w-4 h-4" />
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Messenger
+                  </span>
+                </a>
+                <a
+                  href="https://zalo.me/0389619050"
+                  target="_blank"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                >
+                  <ZaloImage className="w-4 h-4" />
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Zalo
+                  </span>
+                </a>
+
+                <a
+                  href="tel:0389619050"
+                  className="flex gap-1 items-center hover:bg-background_l_2 rounded-md px-2 py-2 text-sm dark:text-primary_text_d text-secondary_text_l dark:hover:text-primary_text_d dark:hover:bg-background_d"
+                >
+                  <div className="w-4 h-4">
+                    <PhoneImage />
+                  </div>
+                  <span
+                    className={clsx('inline-block text-nowrap', postWidth < 480 ? 'hidden' : '')}
+                  >
+                    Điện thoại
+                  </span>
+                </a>
               </div>
             </div>
           </div>
@@ -205,5 +248,5 @@ const RegulationPost = ({
     </>
   );
 };
-export { RegulationPost };
-export type { IPostDetailProps, RegulationTypes };
+export { LibNhaPhoPost };
+export type { IPostDetailProps };

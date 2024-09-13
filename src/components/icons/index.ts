@@ -66,6 +66,7 @@ export * from './history.icon';
 export * from './mail.icon';
 export * from './main-info-warehouse.icon';
 export * from './meeting-schedule.icon';
+export * from './message-reply.icon';
 export * from './menu.icon';
 export * from './messenger-multi-color.icon';
 export * from './messenger.icon';
@@ -109,6 +110,7 @@ export * from './trash.icon';
 export * from './upload.icon';
 export * from './user.icon';
 
+export * from './verified.icon';
 export * from './view.icon';
 
 export * from './warehouse-management.icon';

@@ -1,5 +1,11 @@
+import { LibSkillIndex } from '@/modules/client/lib-nhapho';
+
 const SkillPage = () => {
-  return <></>;
+  return (
+    <>
+      <LibSkillIndex />
+    </>
+  );
 };
 
 export default SkillPage;

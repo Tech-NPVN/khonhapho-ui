@@ -17,13 +17,14 @@ const TextSeeMore = ({ maxLine, className, _html }: IProps) => {
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (contentRef.current) {
+    if (contentRef.current && !isShowMore) {
       if (!maxLine || (maxLine && maxLine < 1)) setIsHidden(false);
       else setIsHidden(isTextClamped(contentRef.current));
     }
-  }, [contentRef, maxLine]);
+  }, [contentRef, maxLine, _html, isShowMore]);
+
   return (
-    <div className="">
+    <div className="[&_p]:mb-[2px]">
       <div
         ref={contentRef}
         className={clsx(
@@ -33,6 +34,7 @@ const TextSeeMore = ({ maxLine, className, _html }: IProps) => {
         )}
         style={{
           lineClamp: maxLine,
+          WebkitLineClamp: maxLine,
         }}
         dangerouslySetInnerHTML={{ __html: _html || '' }}
       ></div>
