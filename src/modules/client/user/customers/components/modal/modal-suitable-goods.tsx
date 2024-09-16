@@ -1,4 +1,4 @@
-import { ModalBooking, ModalNewReport, ModalNote, ModalWarehouseDetails } from '@/common/modal';
+import { ModalBooking, ModalNote, ModalWarehouseDetails } from '@/common/modal';
 import {
   AlarmSmallIcon,
   BookmarkOutlineIcon,
@@ -7,12 +7,6 @@ import {
   ReloadDownIcon,
   ShareArrowIcon,
 } from '@/components/icons';
-import {
-  SELECT_FILTER_WAREHOUSE,
-  SELECT_PROPERTY_FEATURE,
-  SELECT_PROPERTY_TYPE,
-  SELECT_WAREHOUSE_STATUS,
-} from '@/constants/data';
 import useDragScroll from '@/hooks/use-drag-scroll';
 import {
   commonWarehouseColumns,
@@ -215,12 +209,7 @@ export const ModalSuitableGoods = memo(
         <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
 
         {/* Báo cáo dẫn khách */}
-        <ModalNewReport
-          open={openReport}
-          onClose={() => {
-            setOpenReport(false);
-          }}
-        />
+        <FormReportPopup open={openReport} setOpen={setOpenReport} />
 
         {/* Xem chi tiết */}
         <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />

@@ -6,31 +6,31 @@ import { BookmarkButton } from '@/components/bookmark';
 import { TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
 import {
-    MessengerImage,
-    MessengerKNPImage,
-    PhoneImage,
-    ZaloImage,
+  MessengerImage,
+  MessengerKNPImage,
+  PhoneImage,
+  ZaloImage,
 } from '@/components/common/image-components';
 import {
-    AlarmIcon,
-    ArrowBackIcon,
-    BlueEyeIcon,
-    ClockIcon,
-    CommentIcon,
-    CopyDocumentIcon,
-    HeartRedIcon,
-    HistoryIcon,
-    NoteIcon,
-    PeopleGroup,
-    XIcon,
+  AlarmIcon,
+  ArrowBackIcon,
+  BlueEyeIcon,
+  ClockIcon,
+  CommentIcon,
+  CopyDocumentIcon,
+  HeartRedIcon,
+  HistoryIcon,
+  NoteIcon,
+  PeopleGroup,
+  XIcon,
 } from '@/components/icons';
 import {
-    Comment,
-    CommentInput,
-    CommentTypes,
-    ImageSlider,
-    IPostDetail,
-    VideoTag,
+  Comment,
+  CommentInput,
+  CommentTypes,
+  ImageSlider,
+  IPostDetail,
+  VideoTag,
 } from '@/components/reuse/data-display';
 import LikeComponent from '@/components/reuse/data-display/like';
 import { Marquee } from '@/components/reuse/data-display/post/marquee';
@@ -612,4 +612,3 @@ const Right = ({ post }: { post?: IPostDetail }) => {
   );
 };
 export { ModalWarehouseDetails };
-
