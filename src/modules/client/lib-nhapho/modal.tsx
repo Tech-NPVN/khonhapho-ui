@@ -141,16 +141,14 @@ const LibNhaPhoForm = ({ defaultValue, open, setOpen, onSuccess, title }: LibNha
           </div>
           <div>
             <div className="w-full my-3">
-              <input
+              <TiptapEditor
                 className={clsx(
                   'w-full outline-none px-2 py-2 bg-black/5 dark:bg-white/10 rounded-lg placeholder:text-[#adb5bd] border border-solid',
                   error?.title ? 'border-error_l dark:border-error_d' : 'border-transparent',
                 )}
-                value={data.title}
-                type="text"
-                placeholder="Tiêu đề bài viết *"
-                onChange={(e) => {
-                  const value = e.target.value;
+                content={data.title}
+                onChange={(html, text) => {
+                  const value = text;
                   setData((prev) => ({
                     ...prev,
                     title: value,
@@ -171,6 +169,10 @@ const LibNhaPhoForm = ({ defaultValue, open, setOpen, onSuccess, title }: LibNha
                       ...prev,
                       title: 'Vui lòng nhập trường này',
                     }));
+                }}
+                config={{
+                  limit: 1000,
+                  placeholder: 'Tiêu đề bài viết *',
                 }}
               />
               {error?.title && <div className="text-error_l dark:text-error_d">{error?.title}</div>}

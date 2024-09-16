@@ -1,15 +1,15 @@
+import { ModalWarehouseDetails } from '@/common/modal';
 import { PopoverVisibilityColumns, useColumnVisibility } from '@/components/common';
 import { ChangeIcon, EyeSlashIcon, ShareArrowIcon } from '@/components/icons';
 import { DATE_FORMAT, SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import useDragScroll from '@/hooks/use-drag-scroll';
+import { WarehouseStatusEnum } from '@/modules/client/warehouse';
+import { compareWarehouseStatus } from '@/modules/client/warehouse/warehouse.util';
 import { Badge, Button, Image, Select, Table, Tag, Tooltip, type TableProps } from 'antd';
+import dayjs from 'dayjs';
+import Link from 'next/link';
 import { useState } from 'react';
 import { NovendorType } from '../novendors.type';
-import dayjs from 'dayjs';
-import { WarehouseStatusEnum } from '@/modules/client/warehouse';
-import Link from 'next/link';
-import { compareWarehouseStatus } from '@/modules/client/warehouse/warehouse.util';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 
 export const data: NovendorType = {
   date: dayjs(new Date()),
@@ -319,7 +319,7 @@ export const NovendorsTable = () => {
       </div>
 
       {/* Xem chi tiết */}
-      <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+      <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
     </>
   );
 };

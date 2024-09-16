@@ -4,7 +4,7 @@ import { OpenFullIcon, SearchIcon } from '@/components/icons';
 import { Button, Modal, Table, TableProps } from 'antd';
 import { ModalProps } from 'antd/lib';
 import { useState } from 'react';
-import ReportDetailPopup from './report-detail';
+import { ModalReportDetails } from './modal-report-details';
 
 const convertReportingTime = (reportingTime: string): string => {
   const date = new Date(reportingTime);
@@ -31,7 +31,7 @@ interface DataType {
   guest_name: string;
 }
 
-const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
+const ModalListOfReports = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const columns: TableProps<DataType>['columns'] = [
     {
@@ -67,7 +67,7 @@ const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
             >
               <OpenFullIcon className="fill-link_text_l" />
             </Button>
-            <ReportDetailPopup open={isOpenDetail} setOpen={setIsOpenDetail} />
+            <ModalReportDetails open={isOpenDetail} setOpen={setIsOpenDetail} />
           </>
         );
       },
@@ -140,4 +140,4 @@ const ListOfReportsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
   );
 };
 
-export default ListOfReportsPopup;
+export { ModalListOfReports };

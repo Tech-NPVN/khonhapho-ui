@@ -1,28 +1,40 @@
 'use client';
 
-import { ModalBooking } from '@/common/modal';
+import { ModalBooking, ModalNewReport, ModalNoteForm } from '@/common/modal';
+import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
 import { BookmarkButton } from '@/components/bookmark';
 import { TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
 import {
-  MessengerImage,
-  MessengerKNPImage,
-  PhoneImage,
-  ZaloImage,
+    MessengerImage,
+    MessengerKNPImage,
+    PhoneImage,
+    ZaloImage,
 } from '@/components/common/image-components';
 import {
-  AlarmIcon,
-  ArrowBackIcon,
-  BlueEyeIcon,
-  ClockIcon,
-  CommentIcon,
-  CopyDocumentIcon,
-  HeartRedIcon,
-  HistoryIcon,
-  NoteIcon,
-  PeopleGroup,
-  XIcon,
+    AlarmIcon,
+    ArrowBackIcon,
+    BlueEyeIcon,
+    ClockIcon,
+    CommentIcon,
+    CopyDocumentIcon,
+    HeartRedIcon,
+    HistoryIcon,
+    NoteIcon,
+    PeopleGroup,
+    XIcon,
 } from '@/components/icons';
+import {
+    Comment,
+    CommentInput,
+    CommentTypes,
+    ImageSlider,
+    IPostDetail,
+    VideoTag,
+} from '@/components/reuse/data-display';
+import LikeComponent from '@/components/reuse/data-display/like';
+import { Marquee } from '@/components/reuse/data-display/post/marquee';
+import ShareComponent from '@/components/reuse/data-display/share';
 import { Routes } from '@/constants/enums';
 import { Editor } from '@tiptap/core';
 import { Divider, Empty, Modal, Rate, Tag } from 'antd';
@@ -32,15 +44,6 @@ import Link from 'next/link';
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
 import { FreeMode, Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
-import { Comment, CommentInput, CommentTypes } from '../comment';
-import { ImageSlider, VideoTag } from '../images';
-import LikeComponent from '../like';
-import { IPostDetail } from '../post';
-import { Marquee } from '../post/marquee';
-import ShareComponent from '../share';
-import FormReportPopup from './form-report';
-import NotePopup from './note';
-import SuitableCustomerPopup from './suitable-customer';
 
 interface IProps {
   post?: IPostDetail;
@@ -48,7 +51,7 @@ interface IProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 const HASH = '#modal-warehouse';
-const WarehouseDetailsPopup = ({ open, setOpen, post }: IProps) => {
+const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
   const [sliderIndex, setSliderIndex] = useState<number>(-1);
   const swiperRef = useRef<SwiperRef | null>(null);
   const handleClose = () => {
@@ -265,7 +268,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
   const isMobile = width < 480;
   return (
     <>
-      <div ref={contentRef} className="max-h-full overflow-y-auto flex-1">
+      <div ref={contentRef} className="max-h-full overflow-y-auto flex-1 dark:bg-primary_color_d ">
         <div className={clsx('px-3 py-4', isMobile ? 'pt-0' : '')}>
           <div className={clsx('bg-white dark:bg-primary_color_d rounded-lg w-full')}>
             <div
@@ -574,7 +577,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
           />
         </div>
         {isShowModalSuitableCustomerPopup && (
-          <SuitableCustomerPopup
+          <ModalSuitableCustomer
             open={true}
             onClose={() => {
               setIsShowModalSuitableCustomerPopup(false);
@@ -583,7 +586,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
         )}
       </div>
 
-      <NotePopup
+      <ModalNoteForm
         open={isShowNotePopup}
         onCancel={() => setIsShowNotePopup(false)}
         onOk={() => {
@@ -593,7 +596,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
           setIsShowNotePopup(false);
         }}
       />
-      <FormReportPopup
+      <ModalNewReport
         open={isShowReport}
         onClose={() => {
           setIsShowReport(false);
@@ -608,5 +611,5 @@ const Right = ({ post }: { post?: IPostDetail }) => {
     </>
   );
 };
-export default WarehouseDetailsPopup;
-export { WarehouseDetailsPopup };
+export { ModalWarehouseDetails };
+

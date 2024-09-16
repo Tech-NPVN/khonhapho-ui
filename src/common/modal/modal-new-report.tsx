@@ -3,18 +3,18 @@
 import { IMAGE_ACCEPTED } from '@/constants/data';
 import { dateValidate } from '@/lib/zod';
 import {
-  DatePicker,
-  Form,
-  FormProps,
-  GetProp,
-  Image,
-  Input,
-  Modal,
-  Radio,
-  Rate,
-  Upload,
-  UploadFile,
-  UploadProps,
+    DatePicker,
+    Form,
+    FormProps,
+    GetProp,
+    Image,
+    Input,
+    Modal,
+    Radio,
+    Rate,
+    Upload,
+    UploadFile,
+    UploadProps,
 } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import clsx from 'clsx';
@@ -484,7 +484,7 @@ const FormComponent = ({
     </div>
   );
 };
-const FormReportPopup = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
+const ModalNewReport = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
   const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
   return (
     <>
@@ -642,4 +642,5 @@ const RatingPopup = ({ open = false, onClose }: { open?: boolean; onClose: () =>
     </Modal>
   ) : null;
 };
-export default FormReportPopup;
+export { ModalNewReport };
+
