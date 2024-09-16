@@ -22,29 +22,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
-
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
-const ReportTypesSchema = z.object({
-  customer_name: z.string().min(1, 'Vui lòng nhập trường này'),
-  id_card_number: z
-    .string()
-    .min(1, 'Vui lòng nhập trường này')
-    .refine((value) => /^\d{9}$/.test(value) || /^\d{12}$/.test(value), {
-      message: 'Số căn cước phải có 9 hoặc 12 chữ số',
-    }),
-  customer_address: z.string().max(100, 'Tối đa 100 ký tự'),
-  time: dateValidate,
-  purpose: z.string().min(1, 'Vui lòng nhập trường này'),
-  feedback: z.string().min(1, 'Vui lòng nhập trường này'),
-  review: z.string().min(1, 'Vui lòng nhập trường này'),
-  images: z.array(z.any()),
-  note: z.string().max(1000, 'Tối đa 1000 ký tự'),
-});
-
-type ReportTypes = z.infer<typeof ReportTypesSchema>;
-
-const rule = createSchemaFieldRule(ReportTypesSchema);
 
 const ReportTypesSchema = z.object({
   customer_name: z.string().min(1, 'Vui lòng nhập trường này'),
@@ -503,6 +481,22 @@ const FormComponent = ({
           </Form>
         </div>
       </Modal>
+    </div>
+  );
+};
+const ModalNewReport = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
+  const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
+  return (
+    <>
+      {open ? (
+        <FormComponent
+          open={open}
+          onClose={onClose}
+          onOK={() => {
+            setIsOpenPopupRate(true);
+          }}
+        />
+      ) : null}
       <RatingPopup
         open={isOpenPopupRate}
         onClose={() => {
@@ -649,4 +643,3 @@ const RatingPopup = ({ open = false, onClose }: { open?: boolean; onClose: () =>
   ) : null;
 };
 export { ModalNewReport };
-
