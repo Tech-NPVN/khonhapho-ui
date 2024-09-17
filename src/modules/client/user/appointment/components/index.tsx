@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { memo, useCallback, useState } from 'react';
 import { ModalAppointmentDetails } from './modal';
 
-const AppointmentItem = memo(({ type }: { type?: 'reject' | 'confirm' | 'new' | 'recall' }) => {
+export const AppointmentItem = memo(({ type }: { type?: 'reject' | 'confirm' | 'new' | 'recall' }) => {
   const [openDetails, setOpenDetails] = useState<boolean>(false);
 
   const getAppointment = useCallback(() => {

@@ -1,51 +1,18 @@
-'use client';
-
-import { memo, useState } from 'react';
-import { ReviewType } from '../review.type';
-import dayjs from 'dayjs';
-import useDragScroll from '@/hooks/use-drag-scroll';
-import { Button, Table, type TableProps } from 'antd';
-import { DATE_TIME_FORMAT } from '@/constants/data';
 import { BadgeNewIcon, ShareArrowIcon } from '@/components/icons';
-import { ModalReviewDetails } from './modal';
+import { DATE_TIME_FORMAT } from '@/constants/data';
+import useDragScroll from '@/hooks/use-drag-scroll';
+import {
+  dataSource,
+  fakeData as fakeDateReview,
+  ModalReviewDetails,
+  ReviewType,
+} from '@/modules/client/user/review';
+import { Avatar, Button, Table, TableProps } from 'antd';
+import dayjs from 'dayjs';
+import Link from 'next/link';
+import { memo, useState } from 'react';
 
-export const fakeData: ReviewType = {
-  customer: {
-    customer_address: 'Đống Đa',
-    customer_identity: '0478293748167',
-    customer_name: 'Test',
-    customer_reply: 'Đẹp trai và nhát gái',
-    customer_purpose: 'Mua để ở',
-  },
-  saler: {
-    saler_contact: '0123456789',
-    saler_name: 'Test Đẹp Trai',
-    saler_opinition: '',
-    saler_avatar:
-      'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600',
-  },
-  visit_time: dayjs(new Date()),
-  report_time: dayjs(new Date()),
-  report_images: [
-    'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600',
-    'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600',
-  ],
-  rate_house_owner: '',
-  address_visited: `
-    <p style="margin-bottom:4px;">250.12.25 Khương Trung 50 3 3.5 6.3 tỷ Thanh Xuân HĐ ĐC Trần Thành Lâm NPHN-6268, 0927749999, X3, nguồn ĐC Trần Thành Lâm, 6 đến 9, #ĐC2</p>
-    <p style="margin-bottom:0;">Mô tả: 
-      <a href="#">#khuongtrung</a>, 
-      <a href="#">#thanhxuan6den9</a>, 
-      <a href="#">#dctranthanhlam6268</a>, 
-      <a href="#">#nphn6268</a>, 
-      <a href="#">#thocu</a>
-    </p>`,
-};
-
-export const dataSource: ReviewType[] = Array.from({ length: 10 }, () => ({ ...fakeData }));
-
-export const UserReviewTable = memo(() => {
+export const StocksReviewTable = memo(() => {
   const [openReportDetails, setOpenReportDetails] = useState<boolean>(false);
   const dragScrollHandlers = useDragScroll();
 
@@ -57,6 +24,19 @@ export const UserReviewTable = memo(() => {
       render: (report_time: ReviewType['report_time']) => (
         <div className="flex items-center gap-2">
           {dayjs(report_time).format(DATE_TIME_FORMAT)} <BadgeNewIcon />
+        </div>
+      ),
+    },
+    {
+      title: 'Họ tên đầu khách',
+      dataIndex: 'saler',
+      key: 'saler',
+      render: (saler: ReviewType['saler']) => (
+        <div className="flex items-center gap-2">
+          <Avatar src={saler.saler_avatar} alt="" className="flex-shrink-0" />
+          <Link href="#" className="text-link_text_l dark:text-link_text_d">
+            {saler.saler_name}
+          </Link>
         </div>
       ),
     },
@@ -123,10 +103,10 @@ export const UserReviewTable = memo(() => {
       <ModalReviewDetails
         open={openReportDetails}
         handleCancel={() => setOpenReportDetails(false)}
-        reviewDetails={fakeData}
+        reviewDetails={fakeDateReview}
       />
     </>
   );
 });
 
-UserReviewTable.displayName = UserReviewTable.name;
+StocksReviewTable.displayName = StocksReviewTable.name;
