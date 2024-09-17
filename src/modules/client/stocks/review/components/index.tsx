@@ -3,12 +3,12 @@
 import { SectionBody } from '@/components/common';
 import { SearchIcon } from '@/components/icons';
 import { Input } from 'antd';
-import { UserReviewTable } from './review.table';
+import { StocksReviewTable } from './review.table';
 
-export const UserReviewIndex = () => {
+export const StocksReviewIndex = () => {
   return (
     <div className="pt-4 lg:pr-4">
-      <SectionBody title="Lịch sử báo cáo dẫn khách">
+      <SectionBody title="Lịch sử Đầu khách báo cáo">
         <div className="flex w-full justify-end">
           <Input
             size="large"
@@ -18,7 +18,7 @@ export const UserReviewIndex = () => {
           />
         </div>
 
-        <UserReviewTable />
+        <StocksReviewTable />
       </SectionBody>
     </div>
   );
