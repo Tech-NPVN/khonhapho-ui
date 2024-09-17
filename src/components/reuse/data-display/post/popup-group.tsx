@@ -1,4 +1,5 @@
-import { ModalBooking } from '@/common/modal';
+import { ModalBooking, ModalListOfReports, ModalNewReport, ModalNoteForm } from '@/common/modal';
+import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
 import {
   AlarmIcon,
   BookmarkIcon,
@@ -7,17 +8,13 @@ import {
   PeopleGroup,
 } from '@/components/icons';
 import { useState } from 'react';
-import FormReportPopup from '../popup/form-report';
-import ListOfReportsPopup from '../popup/list-of-reports';
-import NotePopup from '../popup/note';
-import SuitableCustomerPopup from '../popup/suitable-customer';
 
 const PopupGroup = () => {
   const [isShowReportPopup, setIsShowReportPopup] = useState<boolean>(false);
 
   return (
     <>
-      <ListOfReportsPopup
+      <ModalListOfReports
         open={isShowReportPopup}
         onCancel={() => {
           setIsShowReportPopup(false);
@@ -48,7 +45,7 @@ const SuitableCustomer = () => {
         </span>
       </div>
       {isShow && (
-        <SuitableCustomerPopup
+        <ModalSuitableCustomer
           open
           onClose={() => {
             setIsShow(false);
@@ -99,7 +96,7 @@ const Note = () => {
         <NoteIcon className="fill-[#FFB547]" />
         <span className="ms-1">Ghi chú</span>
       </div>
-      <NotePopup
+      <ModalNoteForm
         open={isShowNotePopup}
         onCancel={() => setIsShowNotePopup(false)}
         onOk={() => {
@@ -125,7 +122,7 @@ const NewReport = () => {
         <CopyDocumentIcon />
         <span className="ms-1">Báo cáo</span>
       </div>
-      <FormReportPopup
+      <ModalNewReport
         open={isShowReport}
         onClose={() => {
           setIsShowReport(false);

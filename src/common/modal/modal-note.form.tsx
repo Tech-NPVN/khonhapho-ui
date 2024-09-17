@@ -1,21 +1,30 @@
 'use client';
 
 import { Modal } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 import { ModalProps } from 'antd/lib';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect, useRef } from 'react';
 interface IProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
-const OwnerReview = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
+const ModalNoteForm = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps) => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    if (open && textareaRef.current) {
+      setTimeout(() => {
+        textareaRef?.current?.focus();
+      }, 100);
+    }
+  }, [open]);
   return (
     <div>
       <Modal
-        title="Đánh giá đầu chủ"
+        title="Ghi chú"
         centered
+        okText="Lưu"
         cancelButtonProps={{ style: { display: 'none' } }}
-        okButtonProps={{ style: { display: 'none' } }}
         open={open}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white"
+        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white max-md:!max-w-[calc(100%-16px)]"
         classNames={{
           content: 'dark:bg-background_d dark:text-primary_text_d',
           header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-lg',
@@ -33,12 +42,14 @@ const OwnerReview = ({ open = false, onClose, onCancel, setOpen, onOk }: IProps)
           onOk && onOk(e);
           setOpen && setOpen(false);
         }}
-        width={'auto'}
+        width={'550px'}
       >
-        <div className="w-[550px]"></div>
+        <div>
+          <TextArea ref={textareaRef} rows={10} placeholder="Nhập ghi chú"></TextArea>
+        </div>
       </Modal>
     </div>
   );
 };
 
-export default OwnerReview;
+export { ModalNoteForm };

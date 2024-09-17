@@ -1,3 +1,5 @@
+import { ModalNewReport } from '@/common/modal';
+import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
 import {
   BlueEyeIcon,
   BookmarkedIcon,
@@ -13,8 +15,6 @@ import {
   TrashIcon,
 } from '@/components/icons';
 import { ImageGrid } from '@/components/reuse/data-display';
-import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
-import SuitableCustomerPopup from '@/components/reuse/data-display/popup/suitable-customer';
 import { Marquee } from '@/components/reuse/data-display/post/marquee';
 import { DATE_TIME_FORMAT } from '@/constants/data';
 import { Routes } from '@/constants/enums';
@@ -257,14 +257,14 @@ const OwnItem = () => {
         </Col>
       </Row>
 
-      <FormReportPopup
+      <ModalNewReport
         open={openReport}
         onClose={() => {
           setOpenReport(false);
         }}
       />
 
-      <SuitableCustomerPopup
+      <ModalSuitableCustomer
         open={openSuitableCustomer}
         onClose={() => {
           setOpenSuitableCustomer(false);

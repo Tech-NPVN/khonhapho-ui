@@ -1,4 +1,4 @@
-import { ModalBooking } from '@/common/modal';
+import { ModalBooking, ModalNewReport, ModalNoteForm, ModalWarehouseDetails } from '@/common/modal';
 import {
   AlarmSmallIcon,
   BookmarkedIcon,
@@ -6,9 +6,6 @@ import {
   ItemViewIcon,
   ShareArrowIcon,
 } from '@/components/icons';
-import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
-import NotePopup from '@/components/reuse/data-display/popup/note';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import { ModalAddCollection, ModalColCreateUpdate } from '@/modules/client/user/collection';
 import { Button, type TableProps } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -114,13 +111,13 @@ const WarehouseTabsSaved = () => {
       <WarehouseTable columns={columns} data={dataSource} />
 
       {/* Ghi chú */}
-      <NotePopup open={openNote} onCancel={() => setOpenNote(false)} />
+      <ModalNoteForm open={openNote} onCancel={() => setOpenNote(false)} />
 
       {/* Đặt lịch  */}
       <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
 
       {/* Báo cáo dẫn khách */}
-      <FormReportPopup
+      <ModalNewReport
         open={openReport}
         onClose={() => {
           setOpenReport(false);
@@ -128,7 +125,7 @@ const WarehouseTabsSaved = () => {
       />
 
       {/* Xem chi tiết */}
-      <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+      <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
 
       <ModalAddCollection
         open={openAddCollection}

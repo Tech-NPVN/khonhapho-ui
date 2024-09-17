@@ -1,12 +1,10 @@
-import { ModalBooking } from '@/common/modal';
+import { ModalBooking, ModalNewReport, ModalWarehouseDetails } from '@/common/modal';
 import {
   AlarmSmallIcon,
   BookmarkOutlineIcon,
   CopyDocumentIcon,
   ShareArrowIcon,
 } from '@/components/icons';
-import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import { ModalAddCollection, ModalColCreateUpdate } from '@/modules/client/user/collection';
 import { Button } from 'antd';
 import { ColumnsType } from 'antd/es/table';
@@ -101,15 +99,10 @@ const WarehouseTabsList = () => {
       <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
 
       {/* Báo cáo dẫn khách */}
-      <FormReportPopup
-        open={openReport}
-        onClose={() => {
-          setOpenReport(false);
-        }}
-      />
+      <ModalNewReport open={openReport} onClose={() => setOpenReport(false)} />
 
       {/* Xem chi tiết */}
-      <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+      <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
 
       <ModalAddCollection
         open={openAddCollection}

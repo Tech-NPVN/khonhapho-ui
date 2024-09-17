@@ -1,7 +1,6 @@
 'use client';
-import FormUrgentlyPopup, {
-  FieldFormUrgentlyPopupType,
-} from '@/components/reuse/data-display/popup/form-urgently';
+
+import { ModalUrgently, ModalUrgentlyType } from '@/common/modal';
 import PostDetail from '@/components/reuse/data-display/post';
 import Image from 'next/image';
 import { useState } from 'react';
@@ -9,7 +8,7 @@ import { useState } from 'react';
 const UrgentlyPage = () => {
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
-  const [defaultValue, setDefaultValue] = useState<FieldFormUrgentlyPopupType>();
+  const [defaultValue, setDefaultValue] = useState<ModalUrgentlyType>();
   return (
     <>
       <div className="w-full sm:px-3">
@@ -105,7 +104,7 @@ const UrgentlyPage = () => {
           </div>
         </div>
       </div>
-      <FormUrgentlyPopup
+      <ModalUrgently
         open={isOpenForm}
         value={defaultValue}
         setOpen={setIsOpenForm}

@@ -1,4 +1,4 @@
-import { ModalBooking, ModalNote } from '@/common/modal';
+import { ModalBooking, ModalNewReport, ModalNote, ModalWarehouseDetails } from '@/common/modal';
 import {
   AlarmSmallIcon,
   BookmarkOutlineIcon,
@@ -7,8 +7,6 @@ import {
   ReloadDownIcon,
   ShareArrowIcon,
 } from '@/components/icons';
-import FormReportPopup from '@/components/reuse/data-display/popup/form-report';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import {
   SELECT_FILTER_WAREHOUSE,
   SELECT_PROPERTY_FEATURE,
@@ -217,7 +215,7 @@ export const ModalSuitableGoods = memo(
         <ModalBooking open={openBooking} handleCancel={() => setOpenBooking(false)} />
 
         {/* Báo cáo dẫn khách */}
-        <FormReportPopup
+        <ModalNewReport
           open={openReport}
           onClose={() => {
             setOpenReport(false);
@@ -225,7 +223,7 @@ export const ModalSuitableGoods = memo(
         />
 
         {/* Xem chi tiết */}
-        <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+        <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
 
         {/* Lọc (responsive) */}
         <ModalSuitableGoodsSearch open={openFilter} handleCancel={() => setOpenFilter(false)} />

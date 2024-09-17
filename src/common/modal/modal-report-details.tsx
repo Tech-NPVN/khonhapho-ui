@@ -28,7 +28,7 @@ interface ListOfReportProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
-const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
+const ModalReportDetails = ({ open = false, onClose, onCancel, setOpen }: ListOfReportProps) => {
   return (
     <div>
       <Modal
@@ -211,4 +211,4 @@ const ReportDetailsPopup = ({ open = false, onClose, onCancel, setOpen }: ListOf
   );
 };
 
-export default ReportDetailsPopup;
+export { ModalReportDetails };

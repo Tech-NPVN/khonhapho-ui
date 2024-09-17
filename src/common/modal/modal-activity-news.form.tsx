@@ -56,7 +56,7 @@ const ModalActivityNewsForm = ({
       classNames={{
         header: 'text-center sm:[&>div]:!text-xl' + (!loading ? '' : ' opacity-30'),
       }}
-      width={700}
+      width={'100%'}
       onCancel={() => {
         !loading && setOpen(false);
       }}
@@ -64,6 +64,8 @@ const ModalActivityNewsForm = ({
         !loading && setOpen(false);
       }}
       footer={null}
+      maskClosable={false}
+      className="max-w-[98vw] sm:max-w-[520px] md:max-w-[680] lg:max-w-[760px]"
     >
       <Spin spinning={loading} size="large">
         <div className="flex flex-col gap-5">

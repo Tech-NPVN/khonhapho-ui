@@ -6,10 +6,10 @@ import { ModalProps } from 'antd/lib';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 interface IProps extends ModalProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
-  value?: FieldFormUrgentlyPopupType;
+  value?: ModalUrgentlyType;
   isUpdate?: boolean;
 }
-type FieldFormUrgentlyPopupType = {
+type ModalUrgentlyType = {
   city?: string;
   districts?: string;
   price?: string;
@@ -17,7 +17,7 @@ type FieldFormUrgentlyPopupType = {
   request?: string;
 };
 
-const FormUrgentlyPopup = ({
+const ModalUrgently = ({
   open = false,
   onClose,
   onCancel,
@@ -26,16 +26,16 @@ const FormUrgentlyPopup = ({
   value,
   isUpdate,
 }: IProps) => {
-  const [form] = Form.useForm<FieldFormUrgentlyPopupType>();
+  const [form] = Form.useForm<ModalUrgentlyType>();
 
   const { cities, districts, fetchCities, fetchDistricts } = useFetchLocation();
-  const onFinish: FormProps<FieldFormUrgentlyPopupType>['onFinish'] = (values) => {
+  const onFinish: FormProps<ModalUrgentlyType>['onFinish'] = (values) => {
     console.log('Success:', values);
     setOpen && setOpen(false);
     //
   };
 
-  const onFinishFailed: FormProps<FieldFormUrgentlyPopupType>['onFinishFailed'] = (errorInfo) => {
+  const onFinishFailed: FormProps<ModalUrgentlyType>['onFinishFailed'] = (errorInfo) => {
     console.log('Failed:', errorInfo);
   };
   useEffect(() => {
@@ -92,7 +92,7 @@ const FormUrgentlyPopup = ({
           >
             <div className="w-full h-[1px] bg-black/5 dark:bg-divider_d"></div>
             <div className="w-full px-5 flex flex-col mt-3">
-              <Form.Item<FieldFormUrgentlyPopupType>
+              <Form.Item<ModalUrgentlyType>
                 label="Thành phố"
                 name="city"
                 rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
@@ -110,7 +110,7 @@ const FormUrgentlyPopup = ({
                   showSearch
                 ></Select>
               </Form.Item>
-              <Form.Item<FieldFormUrgentlyPopupType>
+              <Form.Item<ModalUrgentlyType>
                 label="Quận/Huyện"
                 name="districts"
                 rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
@@ -126,7 +126,7 @@ const FormUrgentlyPopup = ({
                 ></Select>
               </Form.Item>
               <div className="flex gap-2">
-                <Form.Item<FieldFormUrgentlyPopupType>
+                <Form.Item<ModalUrgentlyType>
                   className="flex-1"
                   label="Tài chính"
                   name="price"
@@ -134,7 +134,7 @@ const FormUrgentlyPopup = ({
                 >
                   <Input className="py-2 w-full" placeholder="10-13 tỷ" />
                 </Form.Item>
-                <Form.Item<FieldFormUrgentlyPopupType>
+                <Form.Item<ModalUrgentlyType>
                   className="flex-1"
                   label="Diện tích"
                   name="area"
@@ -144,7 +144,7 @@ const FormUrgentlyPopup = ({
                 </Form.Item>
               </div>
 
-              <Form.Item<FieldFormUrgentlyPopupType>
+              <Form.Item<ModalUrgentlyType>
                 className="flex-1"
                 label="Yêu cầu"
                 name="request"
@@ -165,5 +165,5 @@ const FormUrgentlyPopup = ({
   );
 };
 
-export default FormUrgentlyPopup;
-export type { FieldFormUrgentlyPopupType };
+export { ModalUrgently };
+export type { ModalUrgentlyType };

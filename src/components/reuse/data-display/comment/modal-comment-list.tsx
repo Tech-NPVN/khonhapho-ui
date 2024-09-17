@@ -32,6 +32,8 @@ const initComments: CommentTypes[] = [
         updated_at: new Date('2024-08-09').toISOString(),
       },
     ],
+    like_count: 10,
+    isLiked: true,
   },
   {
     id: '2',
@@ -117,7 +119,7 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
       <div
         className={clsx(
           'fixed z-[120] my-auto top-0 cursor-default rounded-none sm:rounded-lg ',
-          'w-full sm:w-[620px] md:w-[768px] bg-white text-left',
+          'w-full sm:w-[620px] md:w-[768px] bg-white dark:bg-primary_color_d text-left',
           'animate-grow-in  transition-all duration-300 linear',
         )}
         style={{

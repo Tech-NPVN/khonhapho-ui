@@ -484,7 +484,7 @@ const FormComponent = ({
     </div>
   );
 };
-const FormReportPopup = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
+const ModalNewReport = ({ open = false, onClose }: { open?: boolean; onClose: () => void }) => {
   const [isOpenPopupRate, setIsOpenPopupRate] = useState(false);
   return (
     <>
@@ -642,4 +642,4 @@ const RatingPopup = ({ open = false, onClose }: { open?: boolean; onClose: () =>
     </Modal>
   ) : null;
 };
-export default FormReportPopup;
+export { ModalNewReport };

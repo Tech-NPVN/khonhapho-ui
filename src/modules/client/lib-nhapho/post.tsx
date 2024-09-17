@@ -34,9 +34,16 @@ type IPostDetailProps = {
   threeDot?: boolean;
   threeDotEvents?: ThreeDotEventProps;
   isCompanyPost?: boolean;
+  conHashtagClick?: (hashtag?: string) => void;
 };
 
-const LibNhaPhoPost = ({ post, threeDotEvents, className, isCompanyPost }: IPostDetailProps) => {
+const LibNhaPhoPost = ({
+  post,
+  threeDotEvents,
+  className,
+  isCompanyPost,
+  conHashtagClick,
+}: IPostDetailProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(post?.like_count || 0);
@@ -114,6 +121,9 @@ const LibNhaPhoPost = ({ post, threeDotEvents, className, isCompanyPost }: IPost
                 <span
                   key={tag}
                   className="text-link_text_l cursor-pointer hover:underline lowercase"
+                  onClick={() => {
+                    if (conHashtagClick) conHashtagClick(tag);
+                  }}
                 >
                   #{tag}
                 </span>
@@ -218,6 +228,7 @@ const LibNhaPhoPost = ({ post, threeDotEvents, className, isCompanyPost }: IPost
                       setIsOpenModalComment(true);
                       return true;
                     }}
+                    isPreview
                   />
                 )}
               </div>

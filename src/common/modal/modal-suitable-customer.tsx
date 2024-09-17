@@ -223,7 +223,7 @@ const data: DataType[] = [
   },
 ];
 const ModalSuitableCustomerHash = '#suitable-customer';
-const SuitableCustomerPopup = ({
+const ModalSuitableCustomer = ({
   open = false,
   onClose,
 }: {
@@ -470,5 +470,4 @@ const ModalSuitableCustomerDetails: React.FC<{
     </>
   );
 };
-export default SuitableCustomerPopup;
-export { ModalSuitableCustomerDetails, SuitableCustomerPopup };
+export { ModalSuitableCustomer, ModalSuitableCustomerDetails };

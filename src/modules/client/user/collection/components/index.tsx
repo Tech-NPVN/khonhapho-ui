@@ -1,8 +1,7 @@
 'use client';
 
-import { modalError } from '@/common/modal';
+import { modalError, ModalWarehouseDetails } from '@/common/modal';
 import { SearchIcon, ThreeDotIcon, XIcon } from '@/components/icons';
-import WarehouseDetailsPopup from '@/components/reuse/data-display/popup/warehouse-details';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import { Breakpoint } from '@/constants/enums';
 import { Button, Divider, Dropdown, Input, Select, type MenuProps } from 'antd';
@@ -319,7 +318,7 @@ export const UserCollectionIndex = () => {
         handleCancel={() => setOpenCreateCollection(false)}
       />
 
-      <WarehouseDetailsPopup open={openPostDetails} setOpen={setOpenPostDetails} />
+      <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
     </>
   );
 };

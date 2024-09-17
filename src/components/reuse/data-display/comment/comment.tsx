@@ -24,6 +24,8 @@ export interface CommentTypes {
   child_comments?: CommentTypes[];
   body?: string;
   image?: string;
+  like_count?: number;
+  isLiked?: boolean;
   isUpdated?: boolean;
   created_at?: string;
   updated_at?: string;
@@ -151,6 +153,9 @@ const Comment = ({
     comments.unshift(newComment);
     setCurrentComment((prev) => ({ ...prev, child_comments: comments }));
   };
+  const isShowLiked = currentComment?.body && currentComment.body != '<p></p>';
+  console.log(isShowThreeDot);
+
   return (
     <div className={clsx('w-full', className)}>
       <div
@@ -179,67 +184,94 @@ const Comment = ({
                   className="bg-background_l_2 dark:bg-background_d p-2 rounded-lg flex flex-col relative"
                   onClick={() => {
                     onClick && onClick();
-                    console.log('Click');
                   }}
                 >
-                  <div className="font-semibold text-sm dark:text-primary_text_d">
-                    <Link
-                      className="text-black dark:text-primary_text_d flex gap-2 hover:underline"
-                      href={'/user/0389619050'}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
+                  <div>
+                    <div className="font-semibold text-sm dark:text-primary_text_d">
+                      <Link
+                        className="text-black dark:text-primary_text_d flex gap-2 hover:underline"
+                        href={'/user/0389619050'}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                      >
+                        <span>{currentComment?.user?.name || 'Nguyễn Văn A'}</span>
+                        <span>•</span>
+                        <span>NPVN-2019</span>
+                      </Link>
+                    </div>
+                    <div
+                      className={clsx(
+                        ' text-gray-800 dark:text-primary_text_d font-normal text-sm [&_p]:mb-0',
+                        currentComment?.body && currentComment?.body != '<p></p>' ? 'mt-1' : 'mt-0',
+                      )}
                     >
-                      <span>{currentComment?.user?.name || 'Nguyễn Văn A'}</span>
-                      <span>•</span>
-                      <span>NPVN-2019</span>
-                    </Link>
+                      <TextSeeMore
+                        _html={currentComment?.body}
+                        maxLine={7}
+                        className="max-w-full break-words break-all max-sm:text-base"
+                      />
+                    </div>
                   </div>
-                  <div
-                    className={clsx(
-                      ' text-gray-800 dark:text-primary_text_d font-normal text-sm [&_p]:mb-0',
-                      currentComment?.body && currentComment?.body != '<p></p>' ? 'mt-1' : 'mt-0',
-                    )}
-                  >
-                    <TextSeeMore
-                      _html={currentComment?.body}
-                      maxLine={7}
-                      className="max-w-full break-words break-all max-sm:text-base"
-                    />
-                  </div>
-                  {liked && (
-                    <div className="absolute -bottom-1 -right-1 bg-white p-[1px] rounded-full w-4 h-4 flex justify-center items-center dark:bg-primary_color_d">
-                      <HeartRedIcon />
+                  {isShowLiked && (liked || comment?.like_count) && (
+                    <div className="absolute -bottom-1 right-0 translate-x-1/2 bg-white h-4 min-w-4 rounded-full flex justify-center items-center dark:bg-primary_color_d shadow">
+                      <div className="w-4 h-4">
+                        <HeartRedIcon width={16} height={16} />
+                      </div>
+                      {comment?.like_count && comment.like_count + (liked ? 1 : 0) > 1 && (
+                        <span className="min-w-4 h-4 justify-center flex">
+                          {comment.like_count + (liked ? 1 : 0)}
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
+                {!isEdit && !isPreview && (
+                  <div className="w-10 min-w-10 flex justify-center items-start">
+                    <div className="flex justify-center items-center flex-col three-dot">
+                      {isShowThreeDot && (
+                        <ThreeDotComment
+                          onEdit={() => {
+                            setIsEdit(true);
+                            if (isReply) setIsReply(false);
+                          }}
+                          onDelete={() => {
+                            handleDelete();
+                          }}
+                        />
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="mt-2">
-                <CommentImage imageUrl={currentComment?.image} />
+                <CommentImage comment={currentComment} liked={liked} />
               </div>
-              <div className="flex gap-3 mt-1 ms-1 text-primary_text_l/50 dark:text-primary_text_d/50">
-                <button
-                  className={clsx(
-                    'border-none bg-transparent cursor-pointer text-[12px] font-semibold',
-                    liked ? 'text-[#F95E73] dark:text-[#F95E73]' : ' dark:text-primary_text_d',
-                  )}
-                  onClick={() => {
-                    setLiked(!liked);
-                  }}
-                >
-                  Thích
-                </button>
-                <button
-                  className="border-none bg-transparent cursor-pointer text-[12px] font-semibold"
-                  onClick={(e) => {
-                    const check = onReplyClick?.(e);
-                    if (!check) setIsReply(true);
-                  }}
-                >
-                  Trả lời
-                </button>
-                <span className="text-[12px]">{getTimeAgo(currentComment?.created_at)}</span>
-                {currentComment?.isUpdated && <span className="text-[12px]">Đã chỉnh sửa</span>}
+              <div className="min-h-4 items-center mt-1 ms-1">
+                <div className="flex gap-3 text-primary_text_l/50 dark:text-primary_text_d/50">
+                  <button
+                    className={clsx(
+                      'border-none bg-transparent cursor-pointer text-[12px] font-semibold',
+                      liked ? 'text-[#F95E73] dark:text-[#F95E73]' : ' dark:text-primary_text_d',
+                    )}
+                    onClick={() => {
+                      setLiked(!liked);
+                    }}
+                  >
+                    Thích
+                  </button>
+                  <button
+                    className="border-none bg-transparent cursor-pointer text-[12px] font-semibold"
+                    onClick={(e) => {
+                      const check = onReplyClick?.(e);
+                      if (!check) setIsReply(true);
+                    }}
+                  >
+                    Trả lời
+                  </button>
+                  <span className="text-[12px]">{getTimeAgo(currentComment?.created_at)}</span>
+                  {currentComment?.isUpdated && <span className="text-[12px]">Đã chỉnh sửa</span>}
+                </div>
               </div>
             </div>
           </div>
@@ -253,23 +285,6 @@ const Comment = ({
               onCancel={handleCancelClick}
               autoFocus
             />
-          </div>
-        )}
-        {!isEdit && !isPreview && (
-          <div className="w-10 min-w-10 flex justify-center">
-            <div className="flex justify-center items-center flex-col three-dot">
-              {isShowThreeDot && (
-                <ThreeDotComment
-                  onEdit={() => {
-                    setIsEdit(true);
-                    if (isReply) setIsReply(false);
-                  }}
-                  onDelete={() => {
-                    handleDelete();
-                  }}
-                />
-              )}
-            </div>
           </div>
         )}
       </div>
@@ -368,11 +383,11 @@ const ListCommentChildren = ({
     </>
   );
 };
-const CommentImage = ({ imageUrl }: { imageUrl?: string }) => {
+const CommentImage = ({ liked, comment }: { liked?: boolean; comment?: CommentTypes }) => {
   const imgRef = useRef<HTMLImageElement>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [imgClass, setImgClass] = useState('');
-
+  const isShowLiked = !(comment?.body && comment.body != '<p></p>');
   useEffect(() => {
     const img = imgRef.current;
     if (img && img.naturalWidth > img.naturalHeight) {
@@ -380,29 +395,43 @@ const CommentImage = ({ imageUrl }: { imageUrl?: string }) => {
     } else {
       setImgClass('h-[200px] w-auto');
     }
-  }, [imageUrl]);
-  if (!imageUrl) return null;
+  }, [comment?.image]);
+  if (!comment?.image) return null;
   return (
     <>
-      <div>
-        <Image
-          className={clsx('cursor-pointer object-contain rounded-lg', imgClass)}
-          ref={imgRef}
-          width={200}
-          height={200}
-          src={imageUrl}
-          alt={imageUrl}
-          onClick={() => {
-            setIsOpen(true);
-          }}
-        />
+      <div className="flex">
+        <div className="relative">
+          <Image
+            className={clsx('cursor-pointer object-contain rounded-lg', imgClass)}
+            ref={imgRef}
+            width={200}
+            height={200}
+            src={comment?.image}
+            alt={comment?.image}
+            onClick={() => {
+              setIsOpen(true);
+            }}
+          />
+          {isShowLiked && (liked || comment?.like_count) && (
+            <div className="absolute -bottom-1 right-1 translate-x-1/2 bg-white h-4 min-w-4 rounded-full flex justify-center items-center dark:bg-primary_color_d shadow">
+              <div className="w-4 h-4">
+                <HeartRedIcon width={16} height={16} />
+              </div>
+              {comment?.like_count && comment.like_count + (liked ? 1 : 0) > 1 && (
+                <span className="min-w-4 h-4 justify-center flex">
+                  {comment.like_count + (liked ? 1 : 0)}
+                </span>
+              )}
+            </div>
+          )}
+        </div>
       </div>
       <ModalCustom
         isOpen={isOpen}
         onClose={() => {
           setIsOpen(false);
         }}
-        imageUrl={imageUrl}
+        imageUrl={comment.image}
       />
     </>
   );
