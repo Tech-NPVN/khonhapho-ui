@@ -18,7 +18,7 @@ type ModalUrgentlyType = {
   request?: string;
 };
 
-const ModalUrgently = ({
+const CustomModal = ({
   open = false,
   onClose,
   onCancel,
@@ -120,6 +120,7 @@ const ModalUrgently = ({
                   className="h-9 w-full"
                   placeholder="Quận/Huyện"
                   disabled={!customCity || customCity === '-1'}
+                  loading={!!customCity && customCity !== '-1' && !districts.length}
                   allowClear
                   value={form.getFieldValue('districts')}
                   fieldNames={{ label: 'name', value: 'code' }}
@@ -165,6 +166,21 @@ const ModalUrgently = ({
     </div>
   );
 };
-
+const ModalUrgently = ({ open = false, onClose, onCancel, setOpen, value, isUpdate }: IProps) => {
+  return (
+    <>
+      {open ? (
+        <CustomModal
+          open={open}
+          onClose={onClose}
+          onCancel={onCancel}
+          setOpen={setOpen}
+          value={value}
+          isUpdate={isUpdate}
+        />
+      ) : null}
+    </>
+  );
+};
 export { ModalUrgently };
 export type { ModalUrgentlyType };

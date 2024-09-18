@@ -62,7 +62,7 @@ const ShareComponent = ({ content }: IProps) => {
               isOpen ? '' : 'hidden',
             )}
           >
-            <ul className="list-none w-full p-0 m-0 bg-white sm:dark:bg-background_d flex flex-col shadow-md rounded-lg overflow-hidden">
+            <ul className="list-none w-full p-0 m-0 bg-white sm:dark:bg-background_d border dark:border-solid border-white/5 flex flex-col shadow-md rounded-lg overflow-hidden">
               <li
                 className="m-0 px-2 py-3 my-1 mx-1 text-base sm:text-sm sm:py-2 w-[calc(100%-8px)] max-sm:justify-center flex gap-2 items-center hover:bg-black/5 dark:hover:bg-white/5 rounded-lg max-sm:text-black"
                 onClick={(e) => {

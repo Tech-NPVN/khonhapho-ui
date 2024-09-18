@@ -1,5 +1,6 @@
 'use client';
 
+import { ModalEditHistory } from '@/common/modal';
 import CopyButton from '@/components/common/copy-button';
 import {
   MessengerImage,
@@ -7,7 +8,7 @@ import {
   PhoneImage,
   ZaloImage,
 } from '@/components/common/image-components';
-import { BlueEyeIcon, HeartRedIcon, PhoneIcon } from '@/components/icons';
+import { BlueEyeIcon, HeartRedIcon } from '@/components/icons';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { Routes } from '@/constants/enums';
@@ -68,6 +69,7 @@ const PostDetail = ({
   const [isHidden, setIsHidden] = useState<boolean>(false);
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
+  const [isOpenModalEditHistory, setIsOpenModalEditHistory] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(post?.like_count || 0);
   const [comments, setComments] = useState<CommentTypes[]>();
   const [postWidth, setPostWidth] = useState<number>(0);
@@ -117,7 +119,12 @@ const PostDetail = ({
               <ClockIcon />
               <span className="inline-block leading-4 text-[12px] ">17/01/2024 11:49:53</span>
             </span>
-            <button className="border-none bg-transparent cursor-pointer flex items-center gap-2">
+            <button
+              className="border-none bg-transparent cursor-pointer flex items-center gap-2"
+              onClick={() => {
+                setIsOpenModalEditHistory(true);
+              }}
+            >
               <HistoryIcon />
               <span className="inline-block leading-4 text-[12px]">Lịch sử chỉnh sửa</span>
             </button>
@@ -163,25 +170,18 @@ const PostDetail = ({
                     </span>
                     <span className="text-primary_text_l dark:text-primary_text_d">•</span>
                     <Link href="/Messenger/id">
-                      <div className="w-4">
-                        <MessengerKNPImage />
-                      </div>
+                      <MessengerKNPImage className="w-4 h-4" />
                     </Link>
                     <a href="https://www.facebook.com/messages/t/100010636721382" target="_blank">
-                      <div className="w-4">
-                        <MessengerImage />
+                      <div>
+                        <MessengerImage className="w-4 h-4" />
                       </div>
                     </a>
                     <a href="https://zalo.me/0389619050" target="_blank" className="">
-                      <Image
-                        width={15}
-                        height={15}
-                        src={'/images/zalo.png'}
-                        alt="/images/zalo.png"
-                      />
+                      <ZaloImage className="w-4 h-4" />
                     </a>
                     <a href="tel:0389619050">
-                      <PhoneIcon />
+                      <PhoneImage className="w-4 h-4" />
                     </a>
                   </div>
                 </div>
@@ -428,6 +428,10 @@ const PostDetail = ({
         </div>
       </div>
       {isOpenModalComment && <ModalCommentList open onClose={() => setIsOpenModalComment(false)} />}
+      <ModalEditHistory
+        open={isOpenModalEditHistory}
+        onClose={() => setIsOpenModalEditHistory(false)}
+      />
     </>
   );
 };
