@@ -60,7 +60,7 @@ const PinItem = () => {
       <div className="absolute -top-2 -right-1 rotate-[38.55deg] text-lg group-hover:hidden">
         📍
       </div>
-      <div className="absolute -top-1 -right-1 bg-white shadow w-6 h-6 hidden group-hover:flex justify-center items-center cursor-pointer rounded-sm">
+      <div className="absolute -top-1 -right-1 bg-white dark:bg-white/20 shadow w-6 h-6 hidden group-hover:flex justify-center items-center cursor-pointer rounded-sm">
         <XIcon width={20} height={20} className="fill-red-500" />
       </div>
     </div>
