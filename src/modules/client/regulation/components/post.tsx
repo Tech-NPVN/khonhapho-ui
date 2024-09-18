@@ -107,8 +107,10 @@ const RegulationPost = ({
               <ThreeDot isUrgently={isUrgently} threeDotEvents={threeDotEvents} />
             </div>
           </div>
-          <div className="mt-2 font-semibold">{post?.title}</div>
           <div className="mt-2">
+            <TextSeeMore _html={post?.title} className="[&_p]:mb-[2px]" />
+          </div>
+          <div className="">
             <TextSeeMore _html={post?.content} maxLine={5} className="[&_p]:mb-[2px]" />
           </div>
           <div className={clsx('mt-2')}>
@@ -175,6 +177,7 @@ const RegulationPost = ({
                       setIsOpenModalComment(true);
                       return true;
                     }}
+                    isPreview
                   />
                 )}
               </div>

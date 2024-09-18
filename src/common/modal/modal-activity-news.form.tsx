@@ -1,4 +1,5 @@
 import { UploadInput } from '@/components/common';
+import { MsgValidation } from '@/constants/enums';
 import useUpload from '@/hooks/use-upload';
 import { FieldFormActivityNewsType } from '@/modules/client/activity-news/department';
 import { Button, message, Modal, Spin } from 'antd';
@@ -28,7 +29,7 @@ const ModalActivityNewsForm = ({
   const imagesUpload = useUpload(defaultValue?.images);
   const handleSubmit = () => {
     if (!content) {
-      setContentError('Vui lòng nhập trường này');
+      setContentError(MsgValidation.REQUIRED);
       return;
     }
     setLoading(true);

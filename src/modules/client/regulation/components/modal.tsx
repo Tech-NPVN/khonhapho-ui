@@ -1,6 +1,7 @@
 'use client';
 import TiptapEditor from '@/common/tiptap';
 import { UploadInput } from '@/components/common';
+import { MsgValidation } from '@/constants/enums';
 import useUpload from '@/hooks/use-upload';
 import { Button, message, Modal, Spin } from 'antd';
 import clsx from 'clsx';
@@ -25,20 +26,23 @@ const RegulationForm = ({ defaultValue, open, setOpen, onSuccess, title }: Regul
   const [error, setError] = useState<{ title?: string; content?: string }>();
   const imagesUpload = useUpload(defaultValue?.images);
   const handleSubmit = () => {
+    let isError = false;
+    if (!data.title?.replaceAll(/<p>\s*<\/p>/g, '').trim()) {
+      setError((prev) => ({
+        ...prev,
+        title: MsgValidation.REQUIRED,
+      }));
+      isError = true;
+    }
     if (!data.content?.replaceAll(/<p>\s*<\/p>/g, '').trim()) {
       setError((prev) => ({
         ...prev,
-        content: 'Vui lòng nhập trường này',
+        content: MsgValidation.REQUIRED,
       }));
-      return;
+      isError = true;
     }
-    if (data.title && data.title?.trim().length < 50) {
-      setError((prev) => ({
-        ...prev,
-        title: 'Tiêu đề cần tối thiểu 50 ký tự',
-      }));
-      return;
-    }
+    if (isError) return;
+
     setLoading(true);
     console.log(imagesUpload.fileList);
 
@@ -106,38 +110,34 @@ const RegulationForm = ({ defaultValue, open, setOpen, onSuccess, title }: Regul
           </div>
           <div>
             <div className="w-full my-3">
-              <input
+              <TiptapEditor
                 className={clsx(
                   'w-full outline-none px-2 py-2 bg-black/5 dark:bg-white/10 rounded-lg placeholder:text-[#adb5bd] border border-solid',
                   error?.title ? 'border-error_l dark:border-error_d' : 'border-transparent',
                 )}
-                value={data.title}
-                type="text"
-                placeholder="Tiêu đề bài viết *"
-                onChange={(e) => {
-                  const value = e.target.value;
+                content={data.title}
+                config={{
+                  placeholder: 'Tiêu đề bài viết *',
+                  limit: 1000,
+                }}
+                onChange={(html, text) => {
                   setData((prev) => ({
                     ...prev,
-                    title: value,
+                    title: html,
                   }));
-                  if (value) {
-                    if (value.length > 1000)
-                      setError((prev) => ({
-                        ...prev,
-                        title: 'Tiêu đề tối đa 1000 ký tự',
-                      }));
-                    else
-                      setError((prev) => ({
-                        ...prev,
-                        title: '',
-                      }));
-                  } else
+                  if (text)
                     setError((prev) => ({
                       ...prev,
-                      title: 'Vui lòng nhập trường này',
+                      title: '',
+                    }));
+                  else
+                    setError((prev) => ({
+                      ...prev,
+                      title: MsgValidation.REQUIRED,
                     }));
                 }}
               />
+
               {error?.title && <div className="text-error_l dark:text-error_d">{error?.title}</div>}
             </div>
             <div

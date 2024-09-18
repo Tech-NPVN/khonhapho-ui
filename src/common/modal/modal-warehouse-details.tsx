@@ -1,6 +1,6 @@
 'use client';
 
-import { ModalBooking, ModalNewReport, ModalNoteForm } from '@/common/modal';
+import { ModalBooking, ModalEditHistory, ModalNewReport, ModalNoteForm } from '@/common/modal';
 import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
 import { BookmarkButton } from '@/components/bookmark';
 import { TextSeeMore } from '@/components/common';
@@ -22,8 +22,10 @@ import {
   HistoryIcon,
   NoteIcon,
   PeopleGroup,
+  UserConfirmStatusIcon,
   XIcon,
 } from '@/components/icons';
+import { TriangleWarningIcon } from '@/components/icons/warning.icon';
 import {
   Comment,
   CommentInput,
@@ -89,10 +91,10 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
           wrapper: 'bg-black/50 m-0 p-0 h-full w-full',
         }}
         onClose={() => {
-          setOpen && setOpen(false);
+          handleClose();
         }}
         onCancel={() => {
-          setOpen && setOpen(false);
+          handleClose();
         }}
         width="100%"
         footer={null}
@@ -249,6 +251,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
   const [isShowNotePopup, setIsShowNotePopup] = useState<boolean>(false);
   const [isShowReport, setIsShowReport] = useState<boolean>(false);
   const [isShowBooking, setIsShowBooking] = useState<boolean>(false);
+  const [isShowEditHistory, setIsShowEditHistory] = useState<boolean>(false);
   const TiptapEditorRef = useRef<Editor | null>(null);
   const [comments, setComments] = useState<CommentTypes[]>(post?.comments || []);
   const contentRef = useRef<HTMLDivElement | null>(null);
@@ -263,6 +266,11 @@ const Right = ({ post }: { post?: IPostDetail }) => {
     window.addEventListener('resize', updateWidth);
     return () => {
       window.removeEventListener('resize', updateWidth);
+      setIsShowModalSuitableCustomerPopup(false);
+      setIsShowNotePopup(false);
+      setIsShowReport(false);
+      setIsShowBooking(false);
+      setIsShowEditHistory(false);
     };
   }, []);
   const isMobile = width < 480;
@@ -287,7 +295,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
                     'min-w-10 flex gap-1 items-center justify-center rounded-md relative cursor-pointer',
                   )}
                   onClick={() => {
-                    setIsShowModalSuitableCustomerPopup(true);
+                    setIsShowEditHistory(true);
                   }}
                 >
                   <HistoryIcon width={12} height={12} />
@@ -410,16 +418,24 @@ const Right = ({ post }: { post?: IPostDetail }) => {
                     <TextSeeMore _html={post?.content} />
                   </div>
                 </div>
-                <div className={'mt-2'}>
+                <div className={'mt-2 flex justify-between'}>
                   <CopyButton content={post?.content} />
+                  <div className="flex gap-2 items-center">
+                    <Tag color="red">Có sổ đỏ - Thiếu Seri Sổ</Tag>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className={'mt-2 flex justify-between'}>
-              <div className="flex gap-2 items-center">
-                <Tag color="red">Có sổ đỏ - Thiếu Seri Sổ</Tag>
-              </div>
-              <div className="flex gap-1">
+            <div className={'mt-2 flex justify-end'}>
+              <div className="flex gap-1 items-center">
+                <button className="px-2 py-1 border-none bg-color_l dark:bg-color_l text-white rounded-md flex gap-2 cursor-pointer items-center">
+                  <UserConfirmStatusIcon
+                    width={14}
+                    height={18}
+                    className="!fill-white dark:!fill-white"
+                  />
+                  Xác nhận còn bán
+                </button>
                 <div
                   className="min-w-10 flex gap-1 items-center justify-center hover:bg-background_l_2 rounded-md dark:hover:bg-background_d relative cursor-pointer p-2"
                   onClick={() => {
@@ -440,7 +456,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
                     isMobile ? 'hidden' : '',
                   )}
                   onClick={() => {
-                    setIsShowModalSuitableCustomerPopup(true);
+                    setIsShowEditHistory(true);
                   }}
                 >
                   <HistoryIcon width={16} height={16} />
@@ -448,7 +464,16 @@ const Right = ({ post }: { post?: IPostDetail }) => {
                 </div>
               </div>
             </div>
-
+            <div className="mt-2 p-1 gap-1 text-center border border-solid rounded-lg border-error_l dark:border-r-error_d flex items-center justify-center text-error_l dark:text-error_d text-base">
+              <span>
+                <TriangleWarningIcon
+                  width={18}
+                  height={16}
+                  className="fill-error_l dark:fill-error_d"
+                />{' '}
+                Cảnh báo: Đã 100 ngày chưa có tương tác. Đầu chủ chưa xác thực tình trạng còn bán.
+              </span>
+            </div>
             <div className={clsx((post?.images || []).length > 0 ? 'mt-1' : 'mt-2')}>
               <div className="flex justify-between">
                 <div className="flex gap-3">
@@ -608,6 +633,7 @@ const Right = ({ post }: { post?: IPostDetail }) => {
           setIsShowBooking(false);
         }}
       />
+      <ModalEditHistory open={isShowEditHistory} onClose={() => setIsShowEditHistory(false)} />
     </>
   );
 };

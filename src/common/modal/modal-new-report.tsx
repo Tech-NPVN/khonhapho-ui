@@ -1,6 +1,7 @@
 'use client';
 
 import { IMAGE_ACCEPTED } from '@/constants/data';
+import { MsgValidation } from '@/constants/enums';
 import { dateValidate } from '@/lib/zod';
 import {
   DatePicker,
@@ -23,20 +24,20 @@ import { useEffect, useState } from 'react';
 import { z } from 'zod';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
-
+MsgValidation;
 const ReportTypesSchema = z.object({
-  customer_name: z.string().min(1, 'Vui lòng nhập trường này'),
+  customer_name: z.string().min(1, MsgValidation.REQUIRED),
   id_card_number: z
     .string()
-    .min(1, 'Vui lòng nhập trường này')
+    .min(1, MsgValidation.REQUIRED)
     .refine((value) => /^\d{9}$/.test(value) || /^\d{12}$/.test(value), {
       message: 'Số căn cước phải có 9 hoặc 12 chữ số',
     }),
   customer_address: z.string().max(100, 'Tối đa 100 ký tự'),
   time: dateValidate,
-  purpose: z.string().min(1, 'Vui lòng nhập trường này'),
-  feedback: z.string().min(1, 'Vui lòng nhập trường này'),
-  review: z.string().min(1, 'Vui lòng nhập trường này'),
+  purpose: z.string().min(1, MsgValidation.REQUIRED),
+  feedback: z.string().min(1, MsgValidation.REQUIRED),
+  review: z.string().min(1, MsgValidation.REQUIRED),
   images: z.array(z.any()),
   note: z.string().max(1000, 'Tối đa 1000 ký tự'),
 });
@@ -151,10 +152,10 @@ const FormComponent = ({
         cancelButtonProps={{ style: { display: 'none' } }}
         okButtonProps={{ style: { display: 'none' } }}
         open={open}
-        className="dark:bg-background_d dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 max-md:!max-w-[calc(100%-16px)]"
+        className="dark:text-primary_text_d dark:[&_.ant-modal-close-icon_svg]:fill-white p-0 my-5 max-md:!max-w-[calc(100%-16px)] overflow-hidden"
         classNames={{
-          content: 'dark:bg-background_d dark:text-primary_text_d !px-0 !py-3',
-          header: 'dark:bg-background_d dark:[&>div]:!text-primary_text_d [&>div]:!text-lg !px-3',
+          content: 'dark:!bg-primary_color_d dark:text-primary_text_d !px-0 !py-3',
+          header: 'dark:[&>div]:!text-primary_text_d [&>div]:!text-lg !px-3',
           mask: 'dark:!fill-white',
         }}
         onClose={() => {
@@ -200,7 +201,7 @@ const FormComponent = ({
                 required
               >
                 <Input
-                  className="py-2 w-full"
+                  className="py-2 w-full dark:!bg-background_d"
                   placeholder="Nhập họ tên của khách"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
@@ -217,7 +218,7 @@ const FormComponent = ({
                 required
               >
                 <Input
-                  className="py-2 w-full"
+                  className="py-2 w-full dark:!bg-background_d"
                   placeholder="Nhập số CMND hoặc số CCCD của khách"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
@@ -233,7 +234,7 @@ const FormComponent = ({
                 rules={[rule]}
               >
                 <Input
-                  className="py-2 w-full"
+                  className="py-2 w-full dark:!bg-background_d"
                   placeholder="VD: 102 P. Thái Thịnh, Ngã Tư Sở, Đống Đa, Hà Nội 100000"
                   onKeyDown={(e) => {
                     if (e.key === 'Enter') {
@@ -253,7 +254,7 @@ const FormComponent = ({
                   showTime
                   showHour
                   showMinute
-                  className="py-2 w-full"
+                  className="py-2 w-full dark:!bg-background_d"
                   placeholder="Chọn thời gian khách xem nhà"
                   disabledDate={disabledDate}
                   disabledTime={disabledDateTime}
@@ -312,7 +313,7 @@ const FormComponent = ({
                   purposeOther === '' &&
                   isFirstCommit && (
                     <div className="text-red-500 text-sm sm:ms-[320px] -mt-4 mb-3">
-                      Vui lòng nhập trường này
+                      {MsgValidation.REQUIRED}
                     </div>
                   )}
               </div>
@@ -368,7 +369,7 @@ const FormComponent = ({
                   feedbackOther === '' &&
                   isFirstCommit && (
                     <div className="text-red-500 text-sm sm:ms-[320px] -mt-4 mb-3">
-                      Vui lòng nhập trường này
+                      {MsgValidation.REQUIRED}
                     </div>
                   )}
               </div>
@@ -420,7 +421,7 @@ const FormComponent = ({
                   reviewOther === '' &&
                   isFirstCommit && (
                     <div className="text-red-500 text-sm sm:ms-[320px] -mt-4 mb-3">
-                      Vui lòng nhập trường này
+                      {MsgValidation.REQUIRED}
                     </div>
                   )}
               </div>

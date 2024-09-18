@@ -8,7 +8,7 @@ const HeartSolidIcon = (props: React.SVGProps<SVGSVGElement>) => {
       viewBox="0 0 471.701 471.701"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className={clsx('fill-divider_d', props.className)}
+      className={clsx('fill-divider_d dark:fill-primary_text_d', props.className)}
       {...props}
     >
       <g>

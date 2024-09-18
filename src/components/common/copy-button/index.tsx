@@ -23,6 +23,7 @@ function CopyButton({ content }: { content?: string }) {
       disabled={isCopied}
       className={clsx(
         'py-[2px] px-1 text-base border-black/20 dark:border-primary_text_d_2 rounded bg-transparent cursor-pointer flex justify-between items-center gap-2 border',
+        isCopied ? '!border-color_l' : '',
       )}
     >
       <CopyIcon className={isCopied ? '!fill-color_l' : ''} />

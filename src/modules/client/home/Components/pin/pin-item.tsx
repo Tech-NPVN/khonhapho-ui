@@ -1,3 +1,4 @@
+import { XIcon } from '@/components/icons';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,7 +13,7 @@ const PinItem = () => {
   }, []);
 
   return (
-    <div className="m-1 shadow-md dark:bg-[#151e2f] rounded-lg w-[255px]  relative">
+    <div className="m-1 shadow-md dark:bg-[#151e2f] rounded-lg w-[255px] relative group border-t border-solid border-0 border-black/5">
       <div className="flex px-3 pt-3">
         <div className="w-10 h-10 rounded-full overflow-hidden">
           <Link href={'/'}>
@@ -56,7 +57,12 @@ const PinItem = () => {
           ></Image>
         </div>
       </div>
-      <div className="absolute -top-2 -right-1 rotate-[38.55deg] text-lg">📍</div>
+      <div className="absolute -top-2 -right-1 rotate-[38.55deg] text-lg group-hover:hidden">
+        📍
+      </div>
+      <div className="absolute -top-1 -right-1 bg-white shadow w-6 h-6 hidden group-hover:flex justify-center items-center cursor-pointer rounded-sm">
+        <XIcon width={20} height={20} className="fill-red-500" />
+      </div>
     </div>
   );
 };

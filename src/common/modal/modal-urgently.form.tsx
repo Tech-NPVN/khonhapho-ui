@@ -1,5 +1,6 @@
 'use client';
 
+import { MsgValidation } from '@/constants/enums';
 import useFetchLocation from '@/hooks/use-fetch-location';
 import { Form, FormProps, Input, Modal, Select } from 'antd';
 import { ModalProps } from 'antd/lib';
@@ -95,7 +96,7 @@ const ModalUrgently = ({
               <Form.Item<ModalUrgentlyType>
                 label="Thành phố"
                 name="city"
-                rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                rules={[{ required: true, message: MsgValidation.REQUIRED }]}
               >
                 <Select
                   className="h-9 w-full"
@@ -113,7 +114,7 @@ const ModalUrgently = ({
               <Form.Item<ModalUrgentlyType>
                 label="Quận/Huyện"
                 name="districts"
-                rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                rules={[{ required: true, message: MsgValidation.REQUIRED }]}
               >
                 <Select
                   className="h-9 w-full"
@@ -130,7 +131,7 @@ const ModalUrgently = ({
                   className="flex-1"
                   label="Tài chính"
                   name="price"
-                  rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                  rules={[{ required: true, message: MsgValidation.REQUIRED }]}
                 >
                   <Input className="py-2 w-full" placeholder="10-13 tỷ" />
                 </Form.Item>
@@ -138,7 +139,7 @@ const ModalUrgently = ({
                   className="flex-1"
                   label="Diện tích"
                   name="area"
-                  rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                  rules={[{ required: true, message: MsgValidation.REQUIRED }]}
                 >
                   <Input className="py-2 w-full" placeholder="102m²" />
                 </Form.Item>
@@ -148,7 +149,7 @@ const ModalUrgently = ({
                 className="flex-1"
                 label="Yêu cầu"
                 name="request"
-                rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}
+                rules={[{ required: true, message: MsgValidation.REQUIRED }]}
               >
                 <Input.TextArea rows={4} placeholder="Nhập yêu cầu" />
               </Form.Item>

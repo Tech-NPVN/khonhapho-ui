@@ -1,6 +1,7 @@
 'use client';
 import { CityType, DistrictType, locationApi } from '@/apis/location';
 import { CaretDown } from '@/components/icons/caret-down.icon';
+import { MsgValidation } from '@/constants/enums';
 import { Button, Collapse, Form, Select } from 'antd';
 import clsx from 'clsx';
 import { useEffect, useState } from 'react';
@@ -98,7 +99,7 @@ const FeedInterested = () => {
                   <Form.Item<FieldType>
                     label=""
                     name="city"
-                    rules={[{ required: true, message: 'Yêu cầu nhập trường này' }]}
+                    rules={[{ required: true, message: MsgValidation.REQUIRED }]}
                     style={{ marginBottom: '8px' }}
                   >
                     <Select
@@ -115,7 +116,7 @@ const FeedInterested = () => {
                   <Form.Item<FieldType>
                     label=""
                     name="districts"
-                    rules={[{ required: true, message: 'Yêu cầu nhập trường này' }]}
+                    rules={[{ required: true, message: MsgValidation.REQUIRED }]}
                     style={{ marginBottom: '8px' }}
                   >
                     <Select
@@ -145,7 +146,7 @@ const FeedInterested = () => {
                   <Form.Item<FieldType>
                     label=""
                     name="price_range"
-                    rules={[{ required: true, message: 'Yêu cầu nhập trường này' }]}
+                    rules={[{ required: true, message: MsgValidation.REQUIRED }]}
                     style={{ marginBottom: '8px' }}
                   >
                     <Select placeholder="Chọn phân khúc" mode="multiple">

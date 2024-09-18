@@ -87,7 +87,7 @@ const ThreeDotComment = ({
         title=""
         trigger="click"
         placement="bottom"
-        rootClassName="[&_.ant-popover-inner]:!p-1"
+        rootClassName="[&_.ant-popover-inner]:!p-1 "
       >
         <div className="w-full h-full p-2 flex justify-center items-center">
           <ThreeDotIcon height={3} width={18} className="rotate-90" />
