@@ -5,10 +5,6 @@ import { StyleProvider } from '@ant-design/cssinjs';
 import { type ThemeConfig, theme as themeAntd, ConfigProvider as ConfigProviderAntd } from 'antd';
 import { useTheme } from 'next-themes';
 import locale from 'antd/locale/vi_VN';
-import dayjs from 'dayjs';
-import 'dayjs/locale/vi';
-
-dayjs.locale('vi');
 
 const themeConfig: ThemeConfig = {
   token: {
