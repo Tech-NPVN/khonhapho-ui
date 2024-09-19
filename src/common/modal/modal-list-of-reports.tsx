@@ -1,25 +1,12 @@
 'use client';
 
 import { OpenFullIcon, SearchIcon } from '@/components/icons';
+import { convertReportingTime } from '@/utilities/func.time';
 import { Button, Modal, Table, TableProps } from 'antd';
 import { ModalProps } from 'antd/lib';
 import { useState } from 'react';
 import { ModalReportDetails } from './modal-report-details';
 
-const convertReportingTime = (reportingTime: string): string => {
-  const date = new Date(reportingTime);
-  return date
-    .toLocaleString('en-US', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-    })
-    .slice(0, -3)
-    .replace(',', ' ');
-};
 interface ListOfReportProps extends ModalProps {
   setOpen: () => void;
 }

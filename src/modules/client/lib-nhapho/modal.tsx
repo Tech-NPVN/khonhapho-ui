@@ -1,6 +1,7 @@
 'use client';
 import TiptapEditor from '@/common/tiptap';
 import { UploadInput } from '@/components/common';
+import { MsgValidation } from '@/constants/enums';
 import useUpload from '@/hooks/use-upload';
 import { Button, message, Modal, Select, Spin } from 'antd';
 import clsx from 'clsx';
@@ -26,13 +27,13 @@ interface libNhaPhoData {
 const validate = (data: libNhaPhoData) => {
   const error: { title?: string; content?: string; category?: string } = {};
   if (!data.title?.replaceAll(/<p>\s*<\/p>/g, '').trim()) {
-    error.title = 'Vui lòng nhập trường này';
+    error.title = MsgValidation.REQUIRED;
   }
   if (!data.content?.replaceAll(/<p>\s*<\/p>/g, '').trim()) {
-    error.content = 'Vui lòng nhập trường này';
+    error.content = MsgValidation.REQUIRED;
   }
   if (!data.category) {
-    error.category = `Vui lòng nhập trường này`;
+    error.category = MsgValidation.REQUIRED;
   }
   return error;
 };
@@ -167,7 +168,7 @@ const LibNhaPhoForm = ({ defaultValue, open, setOpen, onSuccess, title }: LibNha
                   } else
                     setError((prev) => ({
                       ...prev,
-                      title: 'Vui lòng nhập trường này',
+                      title: MsgValidation.REQUIRED,
                     }));
                 }}
                 config={{
@@ -197,6 +198,11 @@ const LibNhaPhoForm = ({ defaultValue, open, setOpen, onSuccess, title }: LibNha
                       setError((prev) => ({
                         ...prev,
                         content: '',
+                      }));
+                    else
+                      setError((prev) => ({
+                        ...prev,
+                        content: MsgValidation.REQUIRED,
                       }));
                   }}
                   showCount

@@ -47,4 +47,22 @@ const UserPasswordGreenIcon = (props: React.SVGProps<SVGSVGElement>) => {
   );
 };
 
-export { UserIcon, UserPasswordGreenIcon };
+const UserConfirmStatusIcon = (props: React.SVGProps<SVGSVGElement>) => {
+  return (
+    <svg
+      width="12"
+      height="14"
+      viewBox="0 0 12 14"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="#344142"
+      className="dark:fill-primary_text_d"
+      {...props}
+    >
+      <path d="M5.15149 6.64632C3.77574 6.64632 2.6601 5.0324 2.6601 3.65666V3.15838C2.6601 1.78264 3.77574 0.666992 5.15149 0.666992C6.52723 0.666992 7.64288 1.78264 7.64288 3.15838V3.65666C7.64288 5.0324 6.52723 6.64632 5.15149 6.64632Z" />
+      <path d="M6.64632 10.6325C6.64632 9.58317 7.11171 8.64441 7.84518 8.00512C7.09676 7.8088 6.16698 7.64288 5.15149 7.64288C3.74435 7.64288 2.49617 7.96078 1.6765 8.23732C1.0706 8.44211 0.666992 9.01264 0.666992 9.65193V11.6291H6.79281C6.69864 11.3132 6.64632 10.9788 6.64632 10.6325Z" />
+      <path d="M9.13771 12.3337L7.43659 10.6325L8.14115 9.92798L9.13771 10.9245L11.6291 8.43314L12.3337 9.13771L9.13771 12.3337Z" />
+    </svg>
+  );
+};
+
+export { UserConfirmStatusIcon, UserIcon, UserPasswordGreenIcon };

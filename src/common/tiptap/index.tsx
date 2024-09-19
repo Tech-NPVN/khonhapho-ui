@@ -2,6 +2,7 @@
 
 import { Editor } from '@tiptap/core';
 import CharacterCount from '@tiptap/extension-character-count';
+import TipTapLink from '@tiptap/extension-link';
 import Placeholder from '@tiptap/extension-placeholder';
 import { EditorContent, useEditor } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
@@ -47,6 +48,10 @@ const TiptapEditor = ({
       Placeholder.configure({
         placeholder: config.placeholder,
         emptyEditorClass: 'is-editor-empty',
+      }),
+      TipTapLink.configure({
+        openOnClick: false,
+        linkOnPaste: true, // Tự động chuyển link khi dán
       }),
     ],
     content: content,
