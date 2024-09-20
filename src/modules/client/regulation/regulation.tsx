@@ -1,6 +1,6 @@
 'use client';
 
-import { SearchIcon } from '@/components/icons';
+import { MiniSearch } from '@/components/common';
 import { Empty } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -11,6 +11,10 @@ import { POSTS_SAMPLE } from './data.sample';
 
 type RegulationProps = {};
 const RegulationIndex: React.FC<RegulationProps> = ({}) => {
+  const [searchData, setSearchData] = useState<{
+    text?: string;
+    hashtag?: string;
+  }>();
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [defaultValue, setDefaultValue] = useState<RegulationTypes>();
   const [posts, setPosts] = useState<RegulationTypes[]>(POSTS_SAMPLE);
@@ -46,22 +50,17 @@ const RegulationIndex: React.FC<RegulationProps> = ({}) => {
               </div>
             </div>
           </div>
-          <div
-            className={clsx(
-              'mt-4 bg-white h-[42px] dark:bg-primary_color_d rounded-lg shadow-sm flex items-center ',
-              'sm:w-full w-[calc(100%_-_24px)] mx-3 sm:mx-0',
-            )}
-          >
-            <div className="w-full flex">
-              <div className="w-10 h-[42px] flex items-center justify-center">
-                <SearchIcon width={18} height={18} />
-              </div>
-              <input
-                className="flex-1 outline-none border-none bg-transparent pe-3"
-                type="text"
-                placeholder="Nhập nội dung tìm kiếm"
-              />
-            </div>
+          <div className={clsx('mt-4', 'sm:w-full w-[calc(100%_-_24px)] mx-3 sm:mx-0')}>
+            <MiniSearch
+              defaultValue={searchData?.text}
+              hashtag={searchData?.hashtag}
+              onTagChange={(value) => {
+                setSearchData((prev) => ({
+                  ...prev,
+                  hashtag: value,
+                }));
+              }}
+            />
           </div>
           <div className="w-full mt-4 gap-6 flex flex-col">
             {posts.map((post, index) => (
@@ -76,6 +75,12 @@ const RegulationIndex: React.FC<RegulationProps> = ({}) => {
                   deleteEvent() {
                     deleteEvent(post.id);
                   },
+                }}
+                onHashtagClick={(hashtag) => {
+                  setSearchData((prev) => ({
+                    ...prev,
+                    hashtag,
+                  }));
                 }}
               />
             ))}

@@ -1,5 +1,5 @@
 'use client';
-import { isTextClamped } from '@/utilities/func.text';
+import { isTextClamped, replaceAnchorWithIframe } from '@/utilities/func.text';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 
@@ -36,7 +36,7 @@ const TextSeeMore = ({ maxLine, className, _html }: IProps) => {
           lineClamp: maxLine,
           WebkitLineClamp: maxLine,
         }}
-        dangerouslySetInnerHTML={{ __html: _html || '' }}
+        dangerouslySetInnerHTML={{ __html: replaceAnchorWithIframe(_html || '') }}
       ></div>
       <button
         onClick={() => {

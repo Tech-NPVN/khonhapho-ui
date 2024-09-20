@@ -68,10 +68,11 @@ const RegulationForm = ({ defaultValue, open, setOpen, onSuccess, title }: Regul
       open={open}
       centered
       title={defaultValue?.id ? 'Cập nhật bài viết' : 'Tạo bài viết'}
+      className="sm:max-w-[640px]"
       classNames={{
         header: 'text-center sm:[&>div]:!text-xl' + (!loading ? '' : ' opacity-30'),
       }}
-      width={700}
+      width={'100%'}
       onCancel={() => {
         !loading && setOpen(false);
       }}

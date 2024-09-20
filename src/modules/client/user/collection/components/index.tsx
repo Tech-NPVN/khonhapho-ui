@@ -318,7 +318,12 @@ export const UserCollectionIndex = () => {
         handleCancel={() => setOpenCreateCollection(false)}
       />
 
-      <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
+      <ModalWarehouseDetails
+        open={openPostDetails}
+        onClose={() => {
+          setOpenPostDetails(false);
+        }}
+      />
     </>
   );
 };

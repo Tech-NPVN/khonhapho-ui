@@ -154,7 +154,6 @@ const Comment = ({
     setCurrentComment((prev) => ({ ...prev, child_comments: comments }));
   };
   const isShowLiked = currentComment?.body && currentComment.body != '<p></p>';
-  console.log(isShowThreeDot);
 
   return (
     <div className={clsx('w-full', className)}>

@@ -2,8 +2,6 @@ const isTextClamped = (elm: HTMLDivElement): boolean => {
   return elm?.scrollHeight > elm?.clientHeight || elm?.scrollWidth > elm?.clientWidth;
 };
 
-const youtubeIdRegex: RegExp =
-  /(?:https?:\/\/(?:www\.)?youtube\.com\/watch\?v=|https?:\/\/youtu\.be\/)([\w-]+)/g;
 function convertYouTubeLinksToIframe(text: string): string {
   const regex =
     /(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/(watch\?v=|embed\/|v\/|.+\?v=)?([^&=%\?]{11})/g;
@@ -22,5 +20,12 @@ function convertYouTubeLinksToIframe(text: string): string {
       </iframe>`;
   });
 }
+const replaceAnchorWithIframe = (htmlString: string): string => {
+  const regex =
+    /<a [^>]*href="(https:\/\/youtu\.be\/([A-Za-z0-9_\-]+)|https:\/\/www\.youtube\.com\/watch\?v=([A-Za-z0-9_\-]+))"[^>]*>[^<]*<\/a>/gi;
 
-export { convertYouTubeLinksToIframe, isTextClamped };
+  return htmlString.replace(regex, (match, videoLink) => {
+    return convertYouTubeLinksToIframe(videoLink);
+  });
+};
+export { convertYouTubeLinksToIframe, isTextClamped, replaceAnchorWithIframe };

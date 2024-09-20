@@ -125,7 +125,12 @@ const WarehouseTabsSaved = () => {
       />
 
       {/* Xem chi tiết */}
-      <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
+      <ModalWarehouseDetails
+        open={openPostDetails}
+        onClose={() => {
+          setOpenPostDetails(false);
+        }}
+      />
 
       <ModalAddCollection
         open={openAddCollection}
