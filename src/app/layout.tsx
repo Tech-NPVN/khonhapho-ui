@@ -4,6 +4,8 @@ import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata, Viewport } from 'next';
 import Favicon from '~public/favicon.ico';
 
+import '@/lib/dayjs';
+
 import '@/styles/globals.css';
 import '@/styles/index.css';
 
