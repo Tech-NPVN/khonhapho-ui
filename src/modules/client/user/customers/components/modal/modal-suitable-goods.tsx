@@ -223,7 +223,12 @@ export const ModalSuitableGoods = memo(
         />
 
         {/* Xem chi tiết */}
-        <ModalWarehouseDetails open={openPostDetails} setOpen={setOpenPostDetails} />
+        <ModalWarehouseDetails
+          open={openPostDetails}
+          onClose={() => {
+            setOpenPostDetails(false);
+          }}
+        />
 
         {/* Lọc (responsive) */}
         <ModalSuitableGoodsSearch open={openFilter} handleCancel={() => setOpenFilter(false)} />

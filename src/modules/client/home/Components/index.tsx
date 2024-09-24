@@ -1,27 +1,26 @@
 'use client';
 import { Segmented } from '@/components/reuse/data-display';
-import { useEffect, useState } from 'react';
 import { FeedBanner, FeedHome, FeedInterested } from './feed';
 import { ListShortcuts } from './shortcuts';
 
 const HomeIndex = () => {
-  const [viewportHeight, setViewportHeight] = useState(0);
-  useEffect(() => {
-    const handleResize = () => {
-      setViewportHeight(window.innerHeight);
-    };
+  // const [viewportHeight, setViewportHeight] = useState(0);
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setViewportHeight(window.innerHeight);
+  //   };
 
-    // Set initial height
-    setViewportHeight(window.innerHeight);
+  //   // Set initial height
+  //   setViewportHeight(window.innerHeight);
 
-    // Listen for resize events (including when keyboard opens)
-    window.addEventListener('resize', handleResize);
+  //   // Listen for resize events (including when keyboard opens)
+  //   window.addEventListener('resize', handleResize);
 
-    // Clean up the event listener
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  //   // Clean up the event listener
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
   return (
     <>
       <div className="flex w-full justify-between gap-4 pb-10">

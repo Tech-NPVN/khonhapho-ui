@@ -41,7 +41,12 @@ const TiptapEditor = ({
 }: IProps) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        bulletList: false,
+        orderedList: false,
+        listItem: false,
+        code: false,
+      }),
       CharacterCount.configure({
         limit: config.limit,
       }),

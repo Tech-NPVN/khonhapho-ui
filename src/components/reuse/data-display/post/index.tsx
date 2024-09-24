@@ -1,6 +1,7 @@
 'use client';
 
 import { ModalEditHistory } from '@/common/modal';
+import { TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
 import {
   MessengerImage,
@@ -12,7 +13,6 @@ import { BlueEyeIcon, HeartRedIcon } from '@/components/icons';
 import { ClockIcon } from '@/components/icons/clock.icon';
 import { HistoryIcon } from '@/components/icons/history.icon';
 import { Routes } from '@/constants/enums';
-import { isTextClamped } from '@/utilities/func.text';
 import { getTimeAgo } from '@/utilities/func.time';
 import { Rate, Tag } from 'antd';
 import clsx from 'clsx';
@@ -46,7 +46,7 @@ export interface IPostDetail {
   comments?: CommentTypes[];
 }
 
-export interface IPostDetailProps {
+export interface PostDetailProps {
   post?: IPostDetail;
   classNames?: {
     root?: string;
@@ -56,6 +56,7 @@ export interface IPostDetailProps {
   className?: string;
   threeDot?: boolean;
   threeDotEvents?: ThreeDotEventProps;
+  onHashtagClick?: (hashtag?: string) => void;
 }
 
 const PostDetail = ({
@@ -64,9 +65,8 @@ const PostDetail = ({
   isUrgently,
   threeDotEvents,
   className,
-}: IPostDetailProps) => {
-  const [isShowMore, setIsShowMore] = useState<boolean>(isUrgently || false);
-  const [isHidden, setIsHidden] = useState<boolean>(false);
+  onHashtagClick,
+}: PostDetailProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
   const [isOpenModalEditHistory, setIsOpenModalEditHistory] = useState<boolean>(false);
@@ -74,18 +74,7 @@ const PostDetail = ({
   const [comments, setComments] = useState<CommentTypes[]>();
   const [postWidth, setPostWidth] = useState<number>(0);
   const rootRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const handleResize = () => {
-      if (isShowMore) return;
-      setIsHidden(isTextClamped(contentRef.current as HTMLDivElement));
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isShowMore, post?.content]);
+
   useEffect(() => {
     setLikeCount(post?.like_count || 0);
     setComments(post?.comments);
@@ -107,7 +96,7 @@ const PostDetail = ({
       <div
         ref={rootRef}
         className={clsx(
-          'bg-white dark:bg-primary_color_d w-full sm:rounded-lg rounded-none py-4 sm:py-6',
+          'bg-white dark:bg-primary_color_d w-full sm:rounded-lg rounded-none py-4',
           isWarehouse ? '!pt-0' : '',
           !comments || comments?.length === 0 ? '!pb-0' : '',
           className,
@@ -223,60 +212,74 @@ const PostDetail = ({
               <div className={clsx('gap-1 mt-2', isWarehouse ? 'flex' : 'hidden')}>
                 <div>Mô tả:</div>
                 <div className={clsx('flex-wrap gap-2 flex')}>
-                  <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+                  <span
+                    className="text-link_text_l cursor-pointer hover:underline lowercase"
+                    onClick={() => {
+                      onHashtagClick?.('npvn');
+                    }}
+                  >
                     #NPVN
                   </span>
-                  <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+                  <span
+                    className="text-link_text_l cursor-pointer hover:underline lowercase"
+                    onClick={() => {
+                      onHashtagClick?.('np781');
+                    }}
+                  >
                     #NP781
                   </span>
-                  <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+                  <span
+                    className="text-link_text_l cursor-pointer hover:underline lowercase"
+                    onClick={() => {
+                      onHashtagClick?.('np92193');
+                    }}
+                  >
                     #NP92193
                   </span>
                 </div>
               </div>
               <div className="flex w-full items-end flex-wrap">
-                <div
-                  ref={contentRef}
-                  className={clsx(
-                    'text-base dark:text-primary_text_d',
-                    isWarehouse ? 'mt-4' : '',
-                    isShowMore
-                      ? 'w-full'
-                      : imageCount === 0 && !isWarehouse
-                      ? 'overflow-hidden line-clamp-[9]'
+                <TextSeeMore
+                  className={clsx('text-base dark:text-primary_text_d', isWarehouse ? 'mt-4' : '')}
+                  _html={post?.content}
+                  maxLine={
+                    imageCount === 0 && !isWarehouse
+                      ? 0
                       : imageCount === 0 && isWarehouse
-                      ? 'overflow-hidden line-clamp-[3]'
+                      ? 3
                       : imageCount > 0 && isWarehouse
-                      ? 'overflow-hidden line-clamp-[1]'
-                      : 'overflow-hidden line-clamp-[7]',
-                  )}
-                >
-                  <div dangerouslySetInnerHTML={{ __html: post?.content || '' }}></div>
-                </div>
-                <button
-                  onClick={() => {
-                    setIsShowMore((prev) => !prev);
-                  }}
-                  className={clsx(
-                    isHidden ? 'block' : 'hidden',
-                    'py-[2px] px-0 text-base rounded-lg font-medium text-link_text_l hover:underline bg-transparent border-0 cursor-pointer',
-                  )}
-                >
-                  {isShowMore ? 'Thu gọn' : 'Xem thêm'}
-                </button>
+                      ? 1
+                      : 7
+                  }
+                />
               </div>
               <div className={'mt-2'}>
                 <CopyButton content={post?.content || ''} />
               </div>
             </div>
             <div className={clsx('mt-3 flex-wrap gap-2', isWarehouse ? 'hidden' : 'flex')}>
-              <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+              <span
+                className="text-link_text_l cursor-pointer hover:underline lowercase"
+                onClick={() => {
+                  onHashtagClick?.('npvn');
+                }}
+              >
                 #NPVN
               </span>
-              <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+              <span
+                className="text-link_text_l cursor-pointer hover:underline lowercase"
+                onClick={() => {
+                  onHashtagClick?.('np781');
+                }}
+              >
                 #NP781
               </span>
-              <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+              <span
+                className="text-link_text_l cursor-pointer hover:underline lowercase"
+                onClick={() => {
+                  onHashtagClick?.('np92193');
+                }}
+              >
                 #NP92193
               </span>
             </div>

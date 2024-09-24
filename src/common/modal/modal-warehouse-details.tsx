@@ -43,21 +43,20 @@ import { Divider, Empty, Modal, Rate, Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FreeMode, Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 interface IProps {
   post?: IPostDetail;
   open?: boolean;
-  setOpen?: Dispatch<SetStateAction<boolean>>;
+  onClose?: () => void;
+  onHashtagClick?: (hashtag: string) => void;
 }
 const HASH = '#modal-warehouse';
-const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
-  const [sliderIndex, setSliderIndex] = useState<number>(-1);
-  const swiperRef = useRef<SwiperRef | null>(null);
+const ModalWarehouseDetails = ({ open, post, onClose, onHashtagClick }: IProps) => {
   const handleClose = () => {
-    setOpen?.(false);
+    onClose?.();
     window.history.back();
   };
   useEffect(() => {
@@ -69,21 +68,30 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
   }, [open]);
   useEffect(() => {
     const handleLocationChange = () => {
-      if (window.location.hash !== HASH) setOpen?.(false);
+      if (window.location.hash !== HASH) onClose?.();
     };
     window.addEventListener('hashchange', handleLocationChange);
     return () => {
       window.removeEventListener('hashchange', handleLocationChange);
     };
-  }, [setOpen]);
+  }, [onClose]);
+  return open ? (
+    <CustomModal post={post} onClose={handleClose} onHashtagClick={onHashtagClick} />
+  ) : null;
+};
+const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
+  const [sliderIndex, setSliderIndex] = useState<number>(-1);
+  const swiperRef = useRef<SwiperRef | null>(null);
+  const mediaCount = (post?.images?.length ?? 0) + (post?.videos?.length ?? 0);
   return (
     <>
       <Modal
         centered
-        okButtonProps={{ style: { display: 'none' } }}
-        cancelButtonProps={{ style: { display: 'none' } }}
-        open={open}
-        className="dark:bg-primary_color_d dark:text-primary_text_d !p-0 [&_.ant-modal-close]:!hidden my-0 mx-0 sm:my-5 w-full sm:!w-[calc(100vw_-_100px)] xl:!w-[1200px] 2xl:!w-[1380px] max-w-none"
+        open
+        className={clsx(
+          'dark:bg-primary_color_d dark:text-primary_text_d !p-0 [&_.ant-modal-close]:!hidden my-0 mx-0 sm:my-5 w-full max-w-none sm:!w-[calc(100vw_-_100px)]',
+          mediaCount === 0 ? 'md:!w-[680px] xl:!w-[720px]' : 'xl:!w-[1200px] 2xl:!w-[1380px]',
+        )}
         classNames={{
           content: 'dark:bg-primary_color_d dark:text-primary_text_d !p-0 max-sm:rounded-none',
           header: '!hidden',
@@ -91,10 +99,10 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
           wrapper: 'bg-black/50 m-0 p-0 h-full w-full',
         }}
         onClose={() => {
-          handleClose();
+          onClose?.();
         }}
         onCancel={() => {
-          handleClose();
+          onClose?.();
         }}
         width="100%"
         footer={null}
@@ -104,7 +112,7 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
             <div className="h-[42px] flex items-center justify-between px-4">
               <button
                 onClick={() => {
-                  handleClose();
+                  onClose?.();
                 }}
                 className="h-10 w-10 text-black dark:text-white bg-transparent border-none flex items-center cursor-pointer"
               >
@@ -114,8 +122,18 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
               <div className="h-10 w-10"></div>
             </div>
           </div>
-          <div className="w-full flex md:min-h-[500px] lg:h-[90vh] 2xl:h-[80vh] max-lg:flex-wrap max-sm:pt-[42px]">
-            <div className="w-full lg:w-1/2 h-[400px] lg:h-full overflow-hidden max-sm:rounded-none max-lg:rounded-t-lg lg:rounded-s-lg bg-black relative">
+          <div
+            className={clsx(
+              'w-full flex md:min-h-[500px] lg:h-[90vh] 2xl:h-[80vh] max-lg:flex-wrap max-sm:pt-[42px]',
+              mediaCount === 0 ? 'max-sm:min-h-screen' : '',
+            )}
+          >
+            <div
+              className={clsx(
+                'w-full lg:w-1/2 h-[400px] lg:h-full overflow-hidden max-sm:rounded-none max-lg:rounded-t-lg lg:rounded-s-lg bg-black relative',
+                mediaCount === 0 ? 'hidden' : '',
+              )}
+            >
               <Swiper
                 ref={swiperRef}
                 spaceBetween={3}
@@ -174,56 +192,23 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
                     </div>
                   </SwiperSlide>
                 ))}
-                <SwiperSlide
-                  key={'abc-1'}
-                  className="h-full w-full flex justify-center"
-                  onClick={() => {
-                    setSliderIndex(0);
-                  }}
-                >
-                  <div className="swiper-zoom-container w-full h-full select-none">
-                    <Image
-                      className="w-auto max-w-full max-h-full h-full object-cover"
-                      width={0}
-                      height={0}
-                      src={'/images/post-1.jpeg'}
-                      alt={'demo'}
-                      quality={100}
-                      unoptimized
-                    />
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide
-                  key={'abc-2'}
-                  className="h-full w-full flex justify-center"
-                  onClick={() => {
-                    setSliderIndex(0);
-                  }}
-                >
-                  <div className="swiper-zoom-container w-full h-full select-none">
-                    <Image
-                      className="w-auto max-w-full max-h-full h-full object-cover"
-                      width={0}
-                      height={0}
-                      src={'/images/post-2.jpeg'}
-                      alt={'demo'}
-                      quality={100}
-                      unoptimized
-                    />
-                  </div>
-                </SwiperSlide>
               </Swiper>
               <div
                 className="max-sm:hidden absolute top-2 left-2 z-10 w-8 h-8 flex justify-center items-center cursor-pointer hover:bg-white/10 rounded-full"
                 onClick={() => {
-                  handleClose();
+                  onClose?.();
                 }}
               >
                 <XIcon width={20} height={20} className="!fill-white" />
               </div>
             </div>
-            <div className="w-full lg:w-1/2 h-full relative flex flex-col max-h-full overflow-hidden max-sm:rounded-none rounded-lg">
-              <Right post={post} />
+            <div
+              className={clsx(
+                'w-full h-full relative flex flex-col max-h-full overflow-hidden max-sm:rounded-none rounded-lg',
+                mediaCount === 0 ? '' : 'lg:w-1/2',
+              )}
+            >
+              <Right post={post} onHashtagClick={onHashtagClick} />
             </div>
           </div>
         </div>
@@ -242,8 +227,13 @@ const ModalWarehouseDetails = ({ open, setOpen, post }: IProps) => {
     </>
   );
 };
-
-const Right = ({ post }: { post?: IPostDetail }) => {
+const Right = ({
+  post,
+  onHashtagClick,
+}: {
+  post?: IPostDetail;
+  onHashtagClick?: (hashtag: string) => void;
+}) => {
   const [width, setWidth] = useState<number>(0);
   const [spaceHeight, setSpaceHeight] = useState<number>(112);
   const [isShowModalSuitableCustomerPopup, setIsShowModalSuitableCustomerPopup] =
@@ -402,14 +392,13 @@ const Right = ({ post }: { post?: IPostDetail }) => {
                 <div className={'flex gap-1'}>
                   <div>Mô tả:</div>
                   <div className={'flex-wrap gap-2 flex'}>
-                    <span className="text-link_text_l cursor-pointer hover:underline lowercase">
+                    <span
+                      className="text-link_text_l cursor-pointer hover:underline lowercase"
+                      onClick={() => {
+                        onHashtagClick?.('npvn');
+                      }}
+                    >
                       #NPVN
-                    </span>
-                    <span className="text-link_text_l cursor-pointer hover:underline lowercase">
-                      #NP781
-                    </span>
-                    <span className="text-link_text_l cursor-pointer hover:underline lowercase">
-                      #NP92193
                     </span>
                   </div>
                 </div>

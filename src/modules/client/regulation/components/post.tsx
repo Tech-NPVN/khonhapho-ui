@@ -43,6 +43,7 @@ type IPostDetailProps = {
   className?: string;
   threeDot?: boolean;
   threeDotEvents?: ThreeDotEventProps;
+  onHashtagClick?: (hashtag?: string) => void;
 };
 
 const RegulationPost = ({
@@ -51,6 +52,7 @@ const RegulationPost = ({
   isUrgently,
   threeDotEvents,
   className,
+  onHashtagClick,
 }: IPostDetailProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
@@ -119,6 +121,9 @@ const RegulationPost = ({
                 <span
                   key={tag}
                   className="text-link_text_l cursor-pointer hover:underline lowercase"
+                  onClick={() => {
+                    onHashtagClick?.(tag);
+                  }}
                 >
                   #{tag}
                 </span>
@@ -134,7 +139,7 @@ const RegulationPost = ({
         <div className="w-full px-3 sm:px-4">
           <div
             className={clsx(
-              imagesCount > 0 ? 'mt-1' : 'mt-2',
+              imagesCount > 0 ? 'mt-2' : 'mt-2',
               !likeCount && !post?.view_count ? 'hidden' : 'mb-2',
               likeCount === 0 && post?.view_count === 0 ? 'hidden' : '',
             )}
