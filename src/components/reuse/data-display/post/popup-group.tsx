@@ -29,7 +29,7 @@ const PopupGroup = () => {
     </>
   );
 };
-const SuitableCustomer = () => {
+const SuitableCustomer = ({ label }: { label?: string }) => {
   const [isShow, setIsShow] = useState<boolean>(false);
   return (
     <>
@@ -40,9 +40,10 @@ const SuitableCustomer = () => {
         }}
       >
         <PeopleGroup />
-        <span className="flex items-center justify-center absolute text-[8px] bg-red-500 text-white rounded-full w-3 h-3 top-0 right-0 select-none">
+        <span className="flex items-center justify-center absolute text-[8px] bg-red-500 text-white rounded-full w-3 h-3 top-0 left-5 select-none">
           10
         </span>
+        <span className="text-primary_text_l dark:text-primary_text_d">{label ?? ''}</span>
       </div>
       {isShow && (
         <ModalSuitableCustomer

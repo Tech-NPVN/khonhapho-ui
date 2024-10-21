@@ -12,7 +12,9 @@ const POSTS_SAMPLE: LibNhaPhoTypes[] = [
     id: 'lib-1',
     category: CATEGORY_SAMPLE[0].label,
     title: 'Quy định hướng dẫn',
-    content: 'Quy định hướng dẫn',
+    content: `<p>Hướng dẫn sử dụng Chức năng BẠN QUAN TÂM để nhận thông báo kho hàng tối ưu nhất.</p>
+    <p>https://youtu.be/9wYwCRKKduI</p>
+    `,
     comments: [
       {
         id: 'comment-1',
@@ -43,6 +45,18 @@ const POSTS_SAMPLE: LibNhaPhoTypes[] = [
     category: CATEGORY_SAMPLE[2].label,
     title: 'Thư viện kiến thức title',
     content: 'Thư viện kiến thức content',
+    comments: [],
+    tags: ['npvn-999', 'dev'],
+    images: ['/images/post-6.jpeg'],
+    comment_count: 0,
+    like_count: 2344,
+    view_count: 6754,
+  },
+  {
+    id: 'lib-3',
+    category: CATEGORY_SAMPLE[2].label,
+    title: 'Thư viện kiến thức title',
+    content: 'HƯỚNG DẪN SỬ DỤNG CÔNG CỤ TÌM KIẾM & BỘ LỌC KHO TÀI NGUYÊN',
     comments: [],
     tags: ['npvn-999', 'dev'],
     comment_count: 0,

@@ -1,7 +1,7 @@
 'use client';
 
 import { ModalEditHistory } from '@/common/modal';
-import { TextSeeMore } from '@/components/common';
+import { MarqueeText, TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
 import {
   MessengerImage,
@@ -22,7 +22,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Comment, CommentTypes, ModalCommentList } from '../comment';
 import { ImageGrid } from '../images';
 import LikeShareComment from './like-share-comment';
-import { Marquee } from './marquee';
 import { Booking, NewReport, Note, SuitableCustomer } from './popup-group';
 import { ThreeDot, ThreeDotEventProps } from './three-dot';
 
@@ -198,9 +197,9 @@ const PostDetail = ({
                 <span className="text-nowrap">255.152tr/m</span>
               </div>
               <Tag className="!text-[14px] lg:!text-sm font-semibold bg-background_l dark:bg-background_d border-none overflow-hidden">
-                <Marquee
-                  className={clsx(postWidth > 580 ? 'w-[280px]' : 'w-[200px]')}
-                  text={'Nhà mặt phố, 3 tầng có ban công, sân thượng '}
+                <MarqueeText
+                  className={clsx(postWidth > 580 ? 'max-w-[280px]' : 'max-w-[200px]')}
+                  text={'Nhà mặt phố, 3 tầng có ban công, sân thượng, ngõ ô tô có thể kinh doanh'}
                 />
               </Tag>
             </div>
@@ -438,5 +437,5 @@ const PostDetail = ({
     </>
   );
 };
-
+export { PostDetail };
 export default PostDetail;

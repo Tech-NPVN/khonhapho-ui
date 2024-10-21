@@ -11,6 +11,7 @@ import {
   ArrowUpRightAndDownLeftFromCenterIcon,
   DownLoadIcon,
   Grid2Icon,
+  RotateRightIcon,
   XIcon,
   ZoomInIcon,
   ZoomOutIcon,
@@ -348,7 +349,10 @@ const VideoTag = ({
       ></video>
       <div
         ref={processRef}
-        className="w-[calc(100%_-_20px)] h-[3px] my-0 mx-auto rounded bg-white/20 absolute bottom-2 left-0 right-0 hidden"
+        className={clsx(
+          'w-[calc(100%_-_20px)] h-[3px] my-0 mx-auto rounded bg-white/20 absolute bottom-2 left-0 right-0 hidden',
+          isHiddenButton ? '!hidden' : '',
+        )}
       >
         <div className="relative w-full h-full">
           <div className="w-full h-full absolute top-0">
@@ -409,8 +413,8 @@ export interface SlideProps {
 
 const HASH = '#gallery';
 const ImageSlider = ({
-  images,
-  videos,
+  images = [],
+  videos = [],
   index = 1,
   open = false,
   className,
@@ -420,8 +424,14 @@ const ImageSlider = ({
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperClass | null>(null);
   const [isShowThumbs, setIsShowThumbs] = useState<boolean>((images?.length || 1) > 1);
   const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [scale, setScale] = useState<number>(ZOOM_SETTINGS.minRatio);
   const [windowHeight, setWindowHeight] = useState<number>(window.innerHeight);
+  const [mediaRotate, setMediaRotate] = useState<number[]>(
+    Array.from({
+      length: images.length + videos.length,
+    }).fill(0) as number[],
+  );
   const swiperRef = useRef<SwiperRef | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
   useFullscreen(rootRef, isFullScreen, {
@@ -541,9 +551,10 @@ const ImageSlider = ({
           modules={[FreeMode, Navigation, Thumbs, Zoom]}
           zoom={ZOOM_SETTINGS}
           className={clsx(
-            'slide-class [&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-4 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-4 ',
+            'slide-class [&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-4 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-4',
             'transition-all ease-in-out duration-200',
             'max-sm:[&_.swiper-button-prev]:hidden max-sm:[&_.swiper-button-next]:hidden',
+            'w-full',
           )}
           style={{
             height: isShowThumbs ? `${windowHeight - 120}px` : `${windowHeight}px`,
@@ -562,28 +573,64 @@ const ImageSlider = ({
           }}
           slidesPerView={1}
           direction="horizontal"
+          onInit={() => {
+            setIsLoading(false);
+          }}
         >
-          {videos?.map((video) => (
-            <SwiperSlide key={video} className="h-full w-full flex justify-center">
+          {videos?.map((video, index) => (
+            <SwiperSlide
+              style={{
+                rotate: `${mediaRotate[index]}deg`,
+              }}
+              key={video}
+              className="h-full w-full flex justify-center transition-all ease-in-out duration-200"
+            >
               <VideoTag video={video} />
             </SwiperSlide>
           ))}
-          {images?.map((image) => (
-            <SwiperSlide key={image} className="h-full w-full flex justify-center">
-              <div className="swiper-zoom-container w-full h-full">
-                <Image
-                  className="w-auto max-w-full max-h-full h-full object-contain"
-                  width={0}
-                  height={0}
-                  src={image}
-                  alt={image}
-                  quality={100}
-                  unoptimized
-                />
-              </div>
-            </SwiperSlide>
-          ))}
+
+          {images?.map((image, index) => {
+            const rotateReal = mediaRotate[index + (videos?.length || 0)];
+            const rotateValue = rotateReal % 360;
+            const rotated = [90, 270].includes(rotateValue);
+            const calculatedHeight = isShowThumbs ? `${windowHeight - 120}px` : `${windowHeight}px`;
+            return (
+              <SwiperSlide
+                key={image}
+                className={clsx(
+                  'h-full w-full flex justify-center items-center ',
+                  isLoading ? 'transition-none' : 'transition-all ease-in-out duration-200',
+                )}
+              >
+                <div
+                  className={clsx(
+                    'swiper-zoom-container flex justify-center items-center',
+                    rotated ? 'w-auto h-full' : 'w-full h-full',
+                  )}
+                  style={{
+                    width: rotated ? calculatedHeight : '100%',
+                  }}
+                >
+                  <Image
+                    style={{
+                      rotate: `${rotateReal}deg`,
+                    }}
+                    className={clsx(
+                      'transition-all duration-200 ease-in-out object-contain',
+                      rotated ? 'h-full max-h-full w-auto' : 'w-full h-auto',
+                    )}
+                    width={0}
+                    height={0}
+                    src={image}
+                    alt={image}
+                    unoptimized
+                  />
+                </div>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
+
         <div
           className={clsx(
             'max-w-full fixed h-[105px] bottom-1 mx-auto my-0 flex justify-center items-center left-0 right-0 z-50',
@@ -637,7 +684,19 @@ const ImageSlider = ({
               <DownLoadIcon className="fill-white" width={20} height={20} />
             </button>
           )}
-
+          <button
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"
+            onClick={() => {
+              setMediaRotate((prev) => {
+                const newRotate = prev.map((rotate, index) =>
+                  index === swiperRef.current?.swiper.activeIndex ? rotate + 90 : rotate,
+                );
+                return newRotate;
+              });
+            }}
+          >
+            <RotateRightIcon className="fill-white" width={16} height={16} />
+          </button>
           <button
             className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"
             onClick={() => {
@@ -709,19 +768,10 @@ const ImageGrid = ({
     setImageShowIndex(index);
     setIsShowSlider(true);
   };
-
   useEffect(() => {
-    const handleResize = () => {
-      if (rootRef.current?.clientWidth && rootRef.current?.clientWidth > 768) {
-        seIsHorizontally(true);
-      } else if (!isWarehouse) seIsHorizontally(false);
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isWarehouse, rootRef]);
+    seIsHorizontally(isWarehouse);
+  }, [isWarehouse]);
+
   return (
     <div ref={rootRef} className="w-full">
       {!isHorizontally && images.length >= 4 && (

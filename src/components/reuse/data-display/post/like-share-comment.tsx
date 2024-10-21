@@ -28,5 +28,5 @@ const LikeShareComment = ({ liked, setLikeCount, setLiked }: IProps) => {
     </div>
   );
 };
-
+export { LikeShareComment };
 export default LikeShareComment;

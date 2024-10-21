@@ -1,3 +1,4 @@
+'use client';
 import { HeartRedIcon } from '@/components/icons';
 import { HeartSolidIcon } from '@/components/icons/heart-solid.icon';
 import clsx from 'clsx';

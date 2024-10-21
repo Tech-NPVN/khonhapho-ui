@@ -2,7 +2,7 @@
 
 import { ModalUrgently, ModalUrgentlyType } from '@/common/modal';
 import { MiniSearch } from '@/components/common';
-import PostDetail from '@/components/reuse/data-display/post';
+import { FeedDetail } from '@/components/reuse/data-display/post';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -64,16 +64,20 @@ const UrgentlyPage = () => {
           </div>
           <div className="w-full mt-6 gap-6 flex flex-col">
             {Array.from({ length: 10 }).map((_, index) => (
-              <PostDetail
+              <FeedDetail
                 key={'post-' + index}
                 post={{
-                  content: `Tôi có khách cần mua gấp, kính nhờ anh chị
-                              em tìm hộ giúp tôi. Tiêu chí khách:<br/>
-                              <b>Khu vực</b>: Hà Nội
-                              `,
-                  images: ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg'],
+                  content: `<p><b>Tôi có khách cần mua gấp, kính nhờ anh chị em tìm hộ giúp tôi. Tiêu chí khách:</b></p>
+                            <p><b>Khu vực</b>: Hà Nội</p>
+                            <p><b>Quận</b>: Cầu Giấy, Tây Hồ</p>
+                            <p><b>Tài chính</b>: 10 tỷ</p>
+                            <p><b>Diện tích</b>: 40m2</p>
+                            <p><b>Mục đích</b>: Để ở</p>
+                            <p><b>Yêu cầu</b>: Ngõ ô tô</p>`,
+                  view_count: 2139,
+                  like_count: 134,
                 }}
-                isUrgently
+                type="urgently"
                 threeDotEvents={{
                   editEvent() {
                     setIsUpdate(true);

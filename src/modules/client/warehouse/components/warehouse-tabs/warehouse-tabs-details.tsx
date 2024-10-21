@@ -1,5 +1,5 @@
 import { ChangeIcon } from '@/components/icons';
-import PostDetail from '@/components/reuse/data-display/post';
+import { PostDetail } from '@/components/reuse/data-display/';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import { Select } from 'antd';
 
@@ -25,7 +25,12 @@ const WarehouseTabsDetails = () => {
           <PostDetail
             isWarehouse
             post={{
-              images: ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg', '/images/post-4.jpeg'],
+              images: [
+                '/images/post-1.jpeg',
+                '/images/post-2.jpeg',
+                '/images/post-3.jpeg',
+                '/images/post-4.jpeg',
+              ],
             }}
           />
         </div>
@@ -34,4 +39,4 @@ const WarehouseTabsDetails = () => {
   );
 };
 
-export { WarehouseTabsDetailsFilter, WarehouseTabsDetails };
+export { WarehouseTabsDetails, WarehouseTabsDetailsFilter };

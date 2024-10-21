@@ -26,6 +26,7 @@ const POSTS_SAMPLE: RegulationTypes[] = [
         },
       },
     ],
+    images: ['/images/post-6.jpeg'],
     tags: ['npvn'],
     comment_count: 2,
     like_count: 12,
