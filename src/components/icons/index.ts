@@ -66,8 +66,8 @@ export * from './history.icon';
 export * from './mail.icon';
 export * from './main-info-warehouse.icon';
 export * from './meeting-schedule.icon';
-export * from './message-reply.icon';
 export * from './menu.icon';
+export * from './message-reply.icon';
 export * from './messenger-multi-color.icon';
 export * from './messenger.icon';
 export * from './mnt-guest.icon';
@@ -92,6 +92,7 @@ export * from './regulation.icon';
 export * from './reload-down.icon';
 export * from './reload-right.icon';
 export * from './resource-warehouse.icon';
+export * from './rotate-right.icon';
 
 export * from './search.icon';
 export * from './send.icon';

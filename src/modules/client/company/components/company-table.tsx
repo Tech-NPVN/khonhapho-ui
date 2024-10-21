@@ -1,10 +1,11 @@
 'use client';
 
-import { Rate, Table, type TableProps } from 'antd';
-import { CompanyType } from '../types';
-import Image from 'next/image';
 import { IMAGE_SAMPLE } from '@/constants/data';
+import useDragScroll from '@/hooks/use-drag-scroll';
+import { Rate, Table, type TableProps } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
+import { CompanyType } from '../types';
 
 const columns: TableProps<CompanyType>['columns'] = [
   {
@@ -84,17 +85,26 @@ const data: CompanyType = {
 const dataSource: CompanyType[] = Array.from({ length: 10 }, () => ({ ...data }));
 
 export const CompanyTable = () => {
+  const dragScrollHandlers = useDragScroll();
+
   return (
-    <Table
-      dataSource={dataSource}
-      columns={columns}
-      size="small"
-      pagination={false}
-      rowClassName={(_, index) =>
-        index % 2 === 0
-          ? 'bg-primary_color_l dark:bg-primary_color_d'
-          : 'bg-background_l_2 dark:bg-background_d'
-      }
-    />
+    <div
+      {...dragScrollHandlers}
+      className="overflow-x-auto overflow-y-hidden mt-6"
+      style={{ cursor: dragScrollHandlers.cursor }}
+    >
+      <Table
+        dataSource={dataSource}
+        tableLayout="auto"
+        columns={columns}
+        size="small"
+        pagination={false}
+        rowClassName={(_, index) =>
+          index % 2 === 0
+            ? 'bg-primary_color_l dark:bg-primary_color_d'
+            : 'bg-background_l_2 dark:bg-background_d'
+        }
+      />
+    </div>
   );
 };

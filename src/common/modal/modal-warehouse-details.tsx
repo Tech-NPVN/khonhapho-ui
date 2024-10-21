@@ -47,6 +47,8 @@ import { useEffect, useRef, useState } from 'react';
 import { FreeMode, Navigation } from 'swiper/modules';
 import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
+const IMAGES_DEMO = ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg'];
+
 interface IProps {
   post?: IPostDetail;
   open?: boolean;
@@ -68,7 +70,8 @@ const ModalWarehouseDetails = ({ open, post, onClose, onHashtagClick }: IProps) 
   }, [open]);
   useEffect(() => {
     const handleLocationChange = () => {
-      if (window.location.hash !== HASH) onClose?.();
+      if (window.location.hash !== HASH && window.location.hash != '#suitable-customer')
+        onClose?.();
     };
     window.addEventListener('hashchange', handleLocationChange);
     return () => {
@@ -82,7 +85,7 @@ const ModalWarehouseDetails = ({ open, post, onClose, onHashtagClick }: IProps) 
 const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
   const [sliderIndex, setSliderIndex] = useState<number>(-1);
   const swiperRef = useRef<SwiperRef | null>(null);
-  const mediaCount = (post?.images?.length ?? 0) + (post?.videos?.length ?? 0);
+  const mediaCount = (post?.images?.length ?? 0) + (post?.videos?.length ?? 0) + IMAGES_DEMO.length; //+3 demo
   return (
     <>
       <Modal
@@ -99,10 +102,14 @@ const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
           wrapper: 'bg-black/50 m-0 p-0 h-full w-full',
         }}
         onClose={() => {
+          console.log('Close');
+
           onClose?.();
         }}
         onCancel={() => {
-          onClose?.();
+          console.log('Cancel');
+
+          window.location.hash != HASH && onClose?.();
         }}
         width="100%"
         footer={null}
@@ -192,6 +199,28 @@ const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
                     </div>
                   </SwiperSlide>
                 ))}
+                {/* Demovideo */}
+                {IMAGES_DEMO.map((image, index) => (
+                  <SwiperSlide
+                    key={image}
+                    className="h-full w-full flex justify-center"
+                    onClick={() => {
+                      setSliderIndex(index + (post?.videos?.length ?? 0));
+                    }}
+                  >
+                    <div className="swiper-zoom-container w-full h-full select-none">
+                      <Image
+                        className="w-auto max-w-full max-h-full h-full object-cover"
+                        width={0}
+                        height={0}
+                        src={image}
+                        alt={image}
+                        quality={100}
+                        unoptimized
+                      />
+                    </div>
+                  </SwiperSlide>
+                ))}
               </Swiper>
               <div
                 className="max-sm:hidden absolute top-2 left-2 z-10 w-8 h-8 flex justify-center items-center cursor-pointer hover:bg-white/10 rounded-full"
@@ -216,7 +245,7 @@ const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
       {sliderIndex >= 0 && (
         <ImageSlider
           videos={post?.videos}
-          images={post?.images}
+          images={[...(post?.images || []), ...IMAGES_DEMO]}
           open={sliderIndex >= 0}
           onClose={() => {
             setSliderIndex(-1);

@@ -38,7 +38,9 @@ const HOME_POSTS = Array.from({ length: 10 }).map((_, i) => ({
     '/images/post-5.jpeg',
   ],
   created_at: getRandomDate().toISOString(),
+  updated_at: getRandomDate().toISOString(),
   view_count: getRandomInt(),
   like_count: getRandomInt(),
+  tags: ['npvn' + i, 'npvn' + getRandomInt()],
 })) as IPostDetail[];
 export { HOME_POSTS };

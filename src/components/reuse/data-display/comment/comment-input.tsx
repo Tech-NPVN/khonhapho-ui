@@ -131,6 +131,7 @@ const CommentInput = ({
                 disabled={disabled}
                 autoFocus={autoFocus}
                 onImagePaste={handleFileChange}
+                canShowSuggestions
               />
             </div>
             <div className={clsx('flex me-2 items-center', isMobile ? 'hidden' : '')}>

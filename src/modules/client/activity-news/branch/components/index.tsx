@@ -2,7 +2,7 @@
 
 import { ModalActivityNewsForm } from '@/common/modal';
 import { MiniSearch } from '@/components/common';
-import PostDetail from '@/components/reuse/data-display/post';
+import { PostDetail } from '@/components/reuse/data-display/post';
 import { Empty, Modal } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
