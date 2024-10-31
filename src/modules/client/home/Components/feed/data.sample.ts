@@ -1,4 +1,4 @@
-import { IPostDetail } from '@/components/reuse/data-display';
+import { PostDetailTypes } from '@/components/reuse/data-display';
 function getRandomDate() {
   const startDate = new Date(2020, 0, 1);
   const endDate = new Date(2024, 8, 31);
@@ -42,5 +42,5 @@ const HOME_POSTS = Array.from({ length: 10 }).map((_, i) => ({
   view_count: getRandomInt(),
   like_count: getRandomInt(),
   tags: ['npvn' + i, 'npvn' + getRandomInt()],
-})) as IPostDetail[];
+})) as PostDetailTypes[];
 export { HOME_POSTS };

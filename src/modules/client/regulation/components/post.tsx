@@ -33,7 +33,7 @@ interface RegulationTypes {
   comments?: CommentTypes[];
 }
 
-type IPostDetailProps = {
+type PostDetailTypesProps = {
   post?: RegulationTypes;
   classNames?: {
     root?: string;
@@ -53,7 +53,7 @@ const RegulationPost = ({
   threeDotEvents,
   className,
   onHashtagClick,
-}: IPostDetailProps) => {
+}: PostDetailTypesProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(post?.like_count || 0);
@@ -133,7 +133,7 @@ const RegulationPost = ({
         </div>
         <div className={clsx('mt-2', imagesCount > 0 ? '' : 'hidden')}>
           <div>
-            <ImageGrid images={post?.images || []} isWarehouse={isWarehouse} />
+            <ImageGrid images={post?.images || []} horizontally={isWarehouse} />
           </div>
         </div>
         <div className="w-full px-3 sm:px-4">
@@ -214,4 +214,4 @@ const RegulationPost = ({
   );
 };
 export { RegulationPost };
-export type { IPostDetailProps, RegulationTypes };
+export type { PostDetailTypesProps, RegulationTypes };

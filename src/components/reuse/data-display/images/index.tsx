@@ -26,7 +26,7 @@ interface ImageGridProps {
   maxImagePreview?: number;
   canDownload?: boolean;
 }
-const Image4 = ({ images, onImageClick }: ImageGridProps) => {
+const Image4 = ({ images, maxImagePreview = 4, onImageClick }: ImageGridProps) => {
   return (
     <div className="flex flex-wrap gap-[1px] sm:gap-[2px]">
       <div className="w-full flex gap-[1px] sm:gap-[2px]">
@@ -56,66 +56,46 @@ const Image4 = ({ images, onImageClick }: ImageGridProps) => {
         </div>
       </div>
       <div className="w-full flex gap-[1px] sm:gap-[2px]">
-        <div className="flex-1 aspect-square relative overflow-hidden">
-          <Image
-            onClick={() => {
-              onImageClick && onImageClick(2);
-            }}
-            className="absolute top-0 left-0 w-full h-full object-cover"
-            width={600}
-            height={600}
-            src={images[2]}
-            alt={images[2]}
-          />
-        </div>
-        <div className="flex-1 aspect-square relative overflow-hidden">
-          <Image
-            onClick={() => {
-              onImageClick && onImageClick(3);
-            }}
-            className="absolute top-0 left-0 w-full h-full object-cover"
-            width={600}
-            height={600}
-            src={images[3]}
-            alt={images[3]}
-          />
-        </div>
-        {images.length > 4 && (
-          <div
-            className="flex-1 aspect-square relative overflow-hidden"
-            onClick={() => {
-              onImageClick && onImageClick(4);
-            }}
-          >
-            <Image
-              className="absolute top-0 left-0 w-full h-full object-cover z-0"
-              width={600}
-              height={600}
-              src={images[4]}
-              alt={images[4]}
-            />
-            <div
-              className={clsx(
-                'absolute inset-0 bg-black/60 z-10 flex justify-center items-center',
-                images.length <= 5 ? 'hidden' : '',
-              )}
-            >
-              <span className="text-white text-2xl font-bold flex items-center">
-                <span className="mt-1 h-5 w-5 flex justify-center items-center">
-                  <svg
-                    className="w-full h-full"
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"
-                    fill="white"
-                  >
-                    <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                  </svg>
-                </span>
-                <span>{images.length - 5}</span>
-              </span>
-            </div>
-          </div>
-        )}
+        {images.slice(2, maxImagePreview).map((image, index) => {
+          return (
+            <>
+              <div
+                className="flex-1 aspect-square relative overflow-hidden"
+                onClick={() => {
+                  onImageClick && onImageClick(3 + index);
+                }}
+              >
+                <Image
+                  className="absolute top-0 left-0 w-full h-full object-cover z-0"
+                  width={600}
+                  height={600}
+                  src={image}
+                  alt={image}
+                />
+                <div
+                  className={clsx(
+                    'absolute inset-0 bg-black/60 z-10 flex justify-center items-center',
+                    3 + index < maxImagePreview ? 'hidden' : '',
+                  )}
+                >
+                  <span className="text-white text-2xl font-bold flex items-center">
+                    <span className="mt-1 h-5 w-5 flex justify-center items-center">
+                      <svg
+                        className="w-full h-full"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 448 512"
+                        fill="white"
+                      >
+                        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                      </svg>
+                    </span>
+                    <span>{images.length - maxImagePreview}</span>
+                  </span>
+                </div>
+              </div>
+            </>
+          );
+        })}
       </div>
     </div>
   );
@@ -222,8 +202,8 @@ const Image2 = ({ images, onImageClick }: ImageGridProps) => {
   );
 };
 
-const ImageHorizontally = ({ images, onImageClick }: ImageGridProps) => {
-  const imageList = images.slice(0, 4);
+const ImageHorizontally = ({ images, maxImagePreview = 4, onImageClick }: ImageGridProps) => {
+  const imageList = images.slice(0, maxImagePreview);
   return (
     <div className="flex gap-[1px] sm:gap-[2px]">
       {imageList.map((image, index) => (
@@ -266,7 +246,7 @@ const ImageHorizontally = ({ images, onImageClick }: ImageGridProps) => {
             <ImageWithDimensions className="z-10" src={image} alt={image} />
           )}
 
-          {index === 3 && images.length > 4 && (
+          {index === maxImagePreview - 1 && images.length > maxImagePreview && (
             <div className="absolute inset-0 bg-black/60 z-10 flex justify-center items-center cursor-default">
               <span className="text-white sm:text-3xl lg:text-2xl xl:text-3xl 2xl:text-5xl">
                 +{images.length - 4}
@@ -756,11 +736,11 @@ const ImageSlider = ({
 };
 const ImageGrid = ({
   images,
-  isWarehouse = false,
+  horizontally = false,
   canDownload,
-  maxImagePreview,
-}: ImageGridProps & { isWarehouse?: boolean }) => {
-  const [isHorizontally, seIsHorizontally] = useState<boolean>(isWarehouse);
+  maxImagePreview = 5,
+}: ImageGridProps & { horizontally?: boolean }) => {
+  const [isHorizontally, seIsHorizontally] = useState<boolean>(horizontally);
   const [isShowSlider, setIsShowSlider] = useState<boolean>(false);
   const [imageShowIndex, setImageShowIndex] = useState<number>(0);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -769,13 +749,12 @@ const ImageGrid = ({
     setIsShowSlider(true);
   };
   useEffect(() => {
-    seIsHorizontally(isWarehouse);
-  }, [isWarehouse]);
-
+    seIsHorizontally(horizontally);
+  }, [horizontally]);
   return (
     <div ref={rootRef} className="w-full">
-      {!isHorizontally && images.length >= 4 && (
-        <Image4 images={images} onImageClick={handleImageClick} />
+      {!isHorizontally && images.length >= 4 && maxImagePreview >= 4 && (
+        <Image4 images={images} onImageClick={handleImageClick} maxImagePreview={maxImagePreview} />
       )}
       {!isHorizontally && images.length == 3 && (
         <Image3 images={images} onImageClick={handleImageClick} />
@@ -783,7 +762,13 @@ const ImageGrid = ({
       {!isHorizontally && images.length <= 2 && (
         <Image2 images={images} onImageClick={handleImageClick} />
       )}
-      {isHorizontally && <ImageHorizontally images={images} onImageClick={handleImageClick} />}
+      {isHorizontally && (
+        <ImageHorizontally
+          images={images}
+          onImageClick={handleImageClick}
+          maxImagePreview={maxImagePreview}
+        />
+      )}
       {isShowSlider && (
         <ImageSlider
           images={images}

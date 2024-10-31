@@ -2,7 +2,7 @@
 
 import { ModalActivityNewsForm } from '@/common/modal';
 import { MiniSearch } from '@/components/common';
-import { PostDetail } from '@/components/reuse/data-display/post';
+import { FeedDetail } from '@/components/reuse/data-display/post';
 import { Empty, Modal } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
@@ -73,7 +73,7 @@ const DealsIndex = () => {
           </div>
           <div className="w-full mt-4 gap-6 flex flex-col">
             {posts.map((post, index) => (
-              <PostDetail
+              <FeedDetail
                 key={post.id}
                 post={post}
                 onHashtagClick={(hashtag) => {

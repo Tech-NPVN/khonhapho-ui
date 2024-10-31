@@ -1,5 +1,6 @@
-import { ModalNewReport } from '@/common/modal';
+import { ModalEditHistory, ModalNewReport } from '@/common/modal';
 import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
+import { MarqueeText } from '@/components/common';
 import {
   BlueEyeIcon,
   BookmarkedIcon,
@@ -15,13 +16,13 @@ import {
   TrashIcon,
 } from '@/components/icons';
 import { ImageGrid } from '@/components/reuse/data-display';
-import { Marquee } from '@/components/reuse/data-display/post/marquee';
 import { DATE_TIME_FORMAT } from '@/constants/data';
 import { Routes } from '@/constants/enums';
 import { Badge, Button, Col, Dropdown, Row, Tag } from 'antd';
 import dayjs from 'dayjs';
 import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
+import { useWindowSize } from 'react-use';
 
 const MaskedInformation = ({ info }: { info: string }) => {
   const [isMasked, setIsMasked] = useState<boolean>(true);
@@ -54,16 +55,18 @@ const OwnItem = () => {
   const [openSuitableCustomer, setOpenSuitableCustomer] = useState<boolean>(false);
   const [openUpdateHistory, setOpenUpdateHistory] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
-
+  const { width } = useWindowSize();
   return (
     <>
       <Row className="bg-primary_color_l dark:bg-primary_color_d rounded-lg overflow-hidden">
         <Col xl={6} lg={8} xs={24} className="flex items-center bg-slate-100/50 dark:bg-black/50">
           <ImageGrid
-            images={Array.from({ length: 4 }).map(
+            images={Array.from({ length: 6 }).map(
               (_) =>
                 'https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&w=600',
             )}
+            maxImagePreview={4}
+            horizontally={width > 480 && width <= 991}
           />
         </Col>
         <Col xl={18} lg={16} xs={24} className="p-3 flex flex-col gap-4">
@@ -136,7 +139,7 @@ const OwnItem = () => {
                 className="lg:!text-sm font-semibold bg-background_l dark:bg-background_d overflow-hidden ml-4"
                 bordered={false}
               >
-                <Marquee
+                <MarqueeText
                   text="Mặt phố, kinh doanh, có tầng thượng, penhouse"
                   className="max-w-52"
                 />
@@ -268,6 +271,12 @@ const OwnItem = () => {
         open={openSuitableCustomer}
         onClose={() => {
           setOpenSuitableCustomer(false);
+        }}
+      />
+      <ModalEditHistory
+        open={openUpdateHistory}
+        onClose={() => {
+          setOpenUpdateHistory(false);
         }}
       />
     </>

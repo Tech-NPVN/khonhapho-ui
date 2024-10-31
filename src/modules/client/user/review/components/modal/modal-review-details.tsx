@@ -1,9 +1,9 @@
-import { Avatar, Divider, Modal, Table, Typography } from 'antd';
-import { ReviewType } from '../../review.type';
-import dayjs from 'dayjs';
-import { DATE_TIME_FORMAT } from '@/constants/data';
-import Link from 'next/link';
 import { ImageGrid } from '@/components/reuse/data-display';
+import { DATE_TIME_FORMAT } from '@/constants/data';
+import { Avatar, Divider, Modal, Table, Typography } from 'antd';
+import dayjs from 'dayjs';
+import Link from 'next/link';
+import { ReviewType } from '../../review.type';
 
 export const ModalReviewDetails = ({
   open,
@@ -88,7 +88,7 @@ export const ModalReviewDetails = ({
       label: 'Ảnh:',
       value: (
         <div className="py-2">
-          <ImageGrid images={report_images} isWarehouse />
+          <ImageGrid images={report_images} horizontally />
         </div>
       ),
     },

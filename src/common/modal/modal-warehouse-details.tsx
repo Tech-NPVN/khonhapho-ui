@@ -31,7 +31,7 @@ import {
   CommentInput,
   CommentTypes,
   ImageSlider,
-  IPostDetail,
+  PostDetailTypes,
   VideoTag,
 } from '@/components/reuse/data-display';
 import LikeComponent from '@/components/reuse/data-display/like';
@@ -50,7 +50,7 @@ import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 const IMAGES_DEMO = ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg'];
 
 interface IProps {
-  post?: IPostDetail;
+  post?: PostDetailTypes;
   open?: boolean;
   onClose?: () => void;
   onHashtagClick?: (hashtag: string) => void;
@@ -260,7 +260,7 @@ const Right = ({
   post,
   onHashtagClick,
 }: {
-  post?: IPostDetail;
+  post?: PostDetailTypes;
   onHashtagClick?: (hashtag: string) => void;
 }) => {
   const [width, setWidth] = useState<number>(0);

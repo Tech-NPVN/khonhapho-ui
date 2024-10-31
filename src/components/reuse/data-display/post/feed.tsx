@@ -321,7 +321,12 @@ const Warehouse: React.FC<
 
       <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
         <div>
-          <ImageGrid images={post?.images || []} canDownload isWarehouse={width >= 480} />
+          <ImageGrid
+            images={post?.images || []}
+            canDownload
+            horizontally={width >= 520}
+            maxImagePreview={width >= 888 || width <= 520 ? 5 : 4}
+          />
         </div>
       </div>
     </>
@@ -375,7 +380,12 @@ const Default: React.FC<
       </div>
       <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
         <div>
-          <ImageGrid images={post?.images || []} canDownload isWarehouse={width >= 720} />
+          <ImageGrid
+            images={post?.images || []}
+            canDownload
+            horizontally={width >= 720}
+            maxImagePreview={width >= 720 ? 4 : 5}
+          />
         </div>
       </div>
     </>
