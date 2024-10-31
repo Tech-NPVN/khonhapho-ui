@@ -25,7 +25,7 @@ import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { LibNhaPhoTypes } from './lib.types';
 
-type IPostDetailProps = {
+type PostDetailTypesProps = {
   post?: LibNhaPhoTypes;
   classNames?: {
     root?: string;
@@ -43,7 +43,7 @@ const LibNhaPhoPost = ({
   className,
   isCompanyPost,
   conHashtagClick,
-}: IPostDetailProps) => {
+}: PostDetailTypesProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [isOpenModalComment, setIsOpenModalComment] = useState<boolean>(false);
   const [likeCount, setLikeCount] = useState<number>(post?.like_count || 0);
@@ -260,4 +260,4 @@ const LibNhaPhoPost = ({
   );
 };
 export { LibNhaPhoPost };
-export type { IPostDetailProps };
+export type { PostDetailTypesProps };

@@ -1,5 +1,3 @@
-'use client';
-
 import { CommentTypes } from '../comment';
 import { ThreeDotEventProps } from './three-dot';
 
