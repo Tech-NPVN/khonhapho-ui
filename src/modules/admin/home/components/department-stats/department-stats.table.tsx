@@ -2,6 +2,7 @@ import { IMAGE_SAMPLE } from '@/constants/data';
 import { DepartmentStatsType } from './department-stats.type';
 import { Table, TableProps } from 'antd';
 import Image from 'next/image';
+import useDragScroll from '@/hooks/use-drag-scroll';
 
 const columns: TableProps<DepartmentStatsType>['columns'] = [
   {
@@ -127,25 +128,32 @@ const data: DepartmentStatsType = {
 const dataSource: DepartmentStatsType[] = Array.from({ length: 12 }, () => ({ ...data }));
 
 export const DepartmentStatsTable = () => {
+  const dragScrollHandlers = useDragScroll();
+
   return (
     <>
-      <p className='mt-5'>
+      <p className="mt-5">
         Tổng số lượng phòng: <span className="font-semibold">177</span>
       </p>
-      
-      <Table
-        bordered
-        className="mt-5"
-        dataSource={dataSource}
-        columns={columns}
-        size="small"
-        pagination={false}
-        rowClassName={(_, index) =>
-          index % 2 === 0
-            ? 'bg-primary_color_l dark:bg-primary_color_d'
-            : 'bg-background_l_2 dark:bg-background_d'
-        }
-      />
+
+      <div
+        {...dragScrollHandlers}
+        className="overflow-x-auto overflow-y-hidden mt-6"
+        style={{ cursor: dragScrollHandlers.cursor }}
+      >
+        <Table
+          bordered
+          dataSource={dataSource}
+          columns={columns}
+          size="small"
+          pagination={false}
+          rowClassName={(_, index) =>
+            index % 2 === 0
+              ? 'bg-primary_color_l dark:bg-primary_color_d'
+              : 'bg-background_l_2 dark:bg-background_d'
+          }
+        />
+      </div>
     </>
   );
 };

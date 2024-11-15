@@ -17,7 +17,6 @@ const userRoutesAccept = [
 
 export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
-  console.log(pathname);
 
   const isSidebarHidden = () => {
     if (pathname.startsWith(Routes.User)) {
@@ -28,6 +27,7 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
     }
     return true;
   };
+
   const isShowGroupChat = () => {
     const arr = [
       // Trang chủ
@@ -54,6 +54,7 @@ export const LayoutClient = ({ children }: { children: React.ReactNode }) => {
     ];
     return arr.includes(pathname as Routes);
   };
+  
   return (
     <>
       <Layout>

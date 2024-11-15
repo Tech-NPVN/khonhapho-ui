@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import slugify from 'slugify';
 
 /**
  * Use in date/time picker
@@ -58,4 +59,13 @@ const formatMoneyVN = (price: number): string => {
   }
 };
 
-export { range, disablePastTime, debounce, formatMoneyVN };
+const convertSlugify = (input: string, replacement?: string): string => {
+  return slugify(input, {
+    replacement: replacement ?? '-',
+    trim: true,
+    locale: 'vi',
+    lower: true,
+  });
+};
+
+export { range, disablePastTime, debounce, formatMoneyVN, convertSlugify };

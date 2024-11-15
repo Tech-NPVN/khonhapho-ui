@@ -1,6 +1,6 @@
 import { ModalEditHistory, ModalNewReport } from '@/common/modal';
 import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
-import { MarqueeText } from '@/components/common';
+import { MarqueeText, MaskedText } from '@/components/common';
 import {
   BlueEyeIcon,
   BookmarkedIcon,
@@ -24,31 +24,6 @@ import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 import { useWindowSize } from 'react-use';
 
-const MaskedInformation = ({ info }: { info: string }) => {
-  const [isMasked, setIsMasked] = useState<boolean>(true);
-
-  const getMaskedValue = (value: string) => {
-    return value.slice(0, 3) + '*'.repeat(value.length - 6) + value.slice(-3);
-  };
-
-  const displayedValue = isMasked ? getMaskedValue(info) : info;
-
-  const onMasked = () => {
-    setIsMasked((prev) => !prev);
-  };
-
-  return (
-    <div className="flex items-center gap-3">
-      <span className="text-link_text_l dark:text-link_text_d">{displayedValue}</span>
-      {isMasked ? (
-        <EyeSlashIcon className="cursor-pointer" onClick={onMasked} />
-      ) : (
-        <EyeIcon className="cursor-pointer" onClick={onMasked} />
-      )}
-    </div>
-  );
-};
-
 const OwnItem = () => {
   const router = useRouter();
 
@@ -56,6 +31,7 @@ const OwnItem = () => {
   const [openUpdateHistory, setOpenUpdateHistory] = useState<boolean>(false);
   const [openReport, setOpenReport] = useState<boolean>(false);
   const { width } = useWindowSize();
+
   return (
     <>
       <Row className="bg-primary_color_l dark:bg-primary_color_d rounded-lg overflow-hidden">
@@ -175,7 +151,7 @@ const OwnItem = () => {
 
             <div className="bg-[#F2F7F8] dark:bg-background_d px-4 py-3 rounded">
               <div className="mb-2 flex items-center gap-1">
-                SĐT chủ nhà: <MaskedInformation info="0123456789" />
+                SĐT chủ nhà: <MaskedText text="0123456789" />
               </div>
               <div className="mb-2">
                 Người duyệt: <span className="text-error_l dark:text-error_d">Thư ký</span>

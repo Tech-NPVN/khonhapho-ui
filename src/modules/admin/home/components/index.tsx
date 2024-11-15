@@ -19,8 +19,8 @@ const TABS: SegmentedOptionProps[] = [
 
 export const AdminHomeIndex = () => {
   return (
-    <div className="pr-3 pt-5">
-      <Segmented options={TABS} />
+    <div className="pt-4 lg:pr-4">
+      <Segmented options={TABS} wrapperCn='max-lg:px-4' />
     </div>
   );
 };

@@ -20,11 +20,16 @@ const themeConfig: ThemeConfig = {
 export const ConfigProvider = ({ children }: { children: React.ReactNode }) => {
   const { theme } = useTheme();
 
+  const isDarkTheme = theme === 'dark';
+
   return (
     <ConfigProviderAntd
       theme={{
-        ...themeConfig,
-        algorithm: theme === 'dark' ? themeAntd.darkAlgorithm : themeAntd.defaultAlgorithm,
+        token: {
+          ...themeConfig.token,
+          colorText: isDarkTheme ? '#DAEFFF' : '#344142',
+        },
+        algorithm: isDarkTheme ? themeAntd.darkAlgorithm : themeAntd.defaultAlgorithm,
       }}
       locale={locale}
     >

@@ -2,7 +2,7 @@ import Loading from '@/app/loading';
 import dynamic from 'next/dynamic';
 
 const AdminWarehouseDynamic = dynamic(
-  () => import('@/modules/admin/warehouse/components').then((res) => res.AdminWarehouseIndex),
+  () => import('@/modules/admin/warehouse').then((res) => res.AdminWarehouseIndex),
   {
     ssr: false,
     loading: () => <Loading />,
