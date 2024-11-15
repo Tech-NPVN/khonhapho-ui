@@ -1,4 +1,5 @@
 import Loading from '@/app/loading';
+import { SidebarProvider } from '@/components/reuse/navigation';
 import dynamic from 'next/dynamic';
 
 const LayoutAdminDynamic = dynamic(() => import('@/layouts').then((res) => res.LayoutAdmin), {
@@ -7,7 +8,11 @@ const LayoutAdminDynamic = dynamic(() => import('@/layouts').then((res) => res.L
 });
 
 const ClientLayout = ({ children }: { children: React.ReactNode }) => {
-  return <LayoutAdminDynamic>{children}</LayoutAdminDynamic>;
+  return (
+    <LayoutAdminDynamic>
+      <SidebarProvider>{children}</SidebarProvider>
+    </LayoutAdminDynamic>
+  );
 };
 
 export default ClientLayout;

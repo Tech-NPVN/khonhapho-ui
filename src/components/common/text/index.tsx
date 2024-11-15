@@ -1,4 +1,5 @@
 'use client';
+import { EyeIcon, EyeSlashIcon } from '@/components/icons';
 import { isTextClamped, replaceAnchorWithIframe } from '@/utilities/func.text';
 import { Tooltip } from 'antd';
 import clsx from 'clsx';
@@ -108,4 +109,30 @@ const MarqueeText: React.FC<{ className?: string; text: string }> = ({ className
     </Tooltip>
   );
 };
-export { MarqueeText, TextSeeMore };
+
+const MaskedText = ({ text }: { text: string }) => {
+  const [isMasked, setIsMasked] = useState<boolean>(true);
+
+  const getMaskedValue = (value: string) => {
+    return value.slice(0, 3) + '*'.repeat(value.length - 6) + value.slice(-3);
+  };
+
+  const displayedValue = isMasked ? getMaskedValue(text) : text;
+
+  const onMasked = () => {
+    setIsMasked((prev) => !prev);
+  };
+
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-link_text_l dark:text-link_text_d">{displayedValue}</span>
+      {isMasked ? (
+        <EyeSlashIcon className="cursor-pointer" onClick={onMasked} />
+      ) : (
+        <EyeIcon className="cursor-pointer" onClick={onMasked} />
+      )}
+    </div>
+  );
+};
+
+export { MarqueeText, TextSeeMore, MaskedText };

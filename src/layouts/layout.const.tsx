@@ -30,6 +30,7 @@ import {
 } from '@/components/icons';
 import { MenuType } from './layout.type';
 import { getItem } from './layout.util';
+import { TabLabelWithBadge } from '@/components/common';
 
 const MenuLabel = ({ label }: { label: string }) => {
   return (
@@ -296,7 +297,7 @@ const itemsAdmin: MenuType[] = [
     'sidebar-item',
   ),
   getItem(
-    Navigations.AdminWarehouse,
+    <TabLabelWithBadge title={Navigations.AdminWarehouse} count={2} className="justify-between" />,
     Routes.AdminWarehouse,
     <AdminWarehouseIcon className="w-8" />,
     undefined,
@@ -332,7 +333,7 @@ const itemsAdmin: MenuType[] = [
   ),
   getItem(
     Navigations.DataWarehouse,
-    Routes.DataWarehouse,
+    Routes.DataWarehouse  + '/legal-status',
     <DataWarehouseIcon className="w-8" />,
     undefined,
     'sidebar-item',

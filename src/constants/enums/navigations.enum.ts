@@ -61,6 +61,19 @@ enum Navigations {
   AdminRefferal = 'Mã giới thiệu',
 
   DataWarehouse = 'Dữ liệu kho hàng',
+  DataWarehouseLegalStatus = 'Tình trạng pháp lý',
+  DataWarehousePriceRange = 'Khoảng giá',
+  DataWarehouseAreaRange = 'Khoảng diện tích',
+  DataWarehouseSaleStatus = 'Trạng thái mua bán',
+  DataWarehouseContractType = 'Loại hợp đồng',
+  DataWarehousePropertyType = 'Loại hình BĐS',
+  DataWarehousePurpose = 'Mục đích sử dụng',
+  DataWarehousePropertyFeat = 'Đặc điểm BĐS',
+  DataWarehouseProject = 'Dự án',
+  DataWarehouseCities = 'Tỉnh/Thành',
+  DataWarehouseDistricts = 'Quận/Huyện',
+  DataWarehouseStreets = 'Đường',
+  DataWarehouseConsignment = 'Phản hồi Tin chính chủ',
 
   DataUsers = 'Dữ liệu thành viên',
 

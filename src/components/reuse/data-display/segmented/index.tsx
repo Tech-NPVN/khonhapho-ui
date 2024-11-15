@@ -10,6 +10,7 @@ type SegmentedProps = {
   size?: 'small' | 'middle' | 'large';
   children?: React.ReactNode;
   className?: string;
+  wrapperCn?: string;
   notRedirect?: boolean;
 };
 
@@ -46,13 +47,14 @@ const Segmented = ({
   size = 'middle',
   children,
   className,
+  wrapperCn,
   notRedirect,
 }: SegmentedProps) => {
   const { value, handleChange } = useSegmented(options, notRedirect);
 
   return (
     <>
-      <div>
+      <div className={wrapperCn}>
         <SegmentedAntd
           options={options}
           block={block}
@@ -74,6 +76,7 @@ const SegmentedWithNode = ({
   size = 'middle',
   children,
   className,
+  wrapperCn,
   element,
   notRedirect,
 }: SegmentedProps & { element: React.ReactNode }) => {
@@ -81,7 +84,7 @@ const SegmentedWithNode = ({
 
   return (
     <>
-      <div className="flex w-full justify-between">
+      <div className={`flex w-full justify-between ${wrapperCn}`}>
         <SegmentedAntd
           options={options}
           block={block}
