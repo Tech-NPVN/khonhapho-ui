@@ -1,3 +1,4 @@
+export * from './card';
 export * from './categories';
 export * from './deals';
 export * from './lib-assist';

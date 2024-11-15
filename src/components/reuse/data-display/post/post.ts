@@ -3,7 +3,7 @@ import { ThreeDotEventProps } from './three-dot';
 
 export interface PostDetailTypes {
   id?: string;
-  user?: {
+  author?: {
     name?: string;
     email?: string;
     avatar?: string;

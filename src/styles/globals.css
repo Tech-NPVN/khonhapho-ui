@@ -171,4 +171,11 @@
   .animate-grow-in {
     animation: grow-in 0.2s ease-out forwards;
   }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Ẩn trên trình duyệt WebKit */
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* Ẩn trên IE và Edge */
+    scrollbar-width: none; /* Ẩn trên Firefox */
+  }
 }
