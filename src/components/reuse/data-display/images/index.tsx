@@ -21,6 +21,7 @@ import { useFullscreen } from 'react-use';
 import { ImageWithDimensions } from './image-with-dimensions';
 
 interface ImageGridProps {
+  className?: string;
   images: string[];
   onImageClick?: (index: number) => void;
   maxImagePreview?: number;
@@ -58,42 +59,41 @@ const Image4 = ({ images, maxImagePreview = 4, onImageClick }: ImageGridProps) =
       <div className="w-full flex gap-[1px] sm:gap-[2px]">
         {images.slice(2, maxImagePreview).map((image, index) => {
           return (
-            <>
+            <div
+              className="flex-1 aspect-square relative overflow-hidden"
+              onClick={() => {
+                onImageClick && onImageClick(3 + index);
+              }}
+              key={image}
+            >
+              <Image
+                className="absolute top-0 left-0 w-full h-full object-cover z-0"
+                width={600}
+                height={600}
+                src={image}
+                alt={image}
+              />
               <div
-                className="flex-1 aspect-square relative overflow-hidden"
-                onClick={() => {
-                  onImageClick && onImageClick(3 + index);
-                }}
+                className={clsx(
+                  'absolute inset-0 bg-black/60 z-10 flex justify-center items-center',
+                  index + 3 == maxImagePreview && images.length > maxImagePreview ? '' : 'hidden',
+                )}
               >
-                <Image
-                  className="absolute top-0 left-0 w-full h-full object-cover z-0"
-                  width={600}
-                  height={600}
-                  src={image}
-                  alt={image}
-                />
-                <div
-                  className={clsx(
-                    'absolute inset-0 bg-black/60 z-10 flex justify-center items-center',
-                    3 + index < maxImagePreview ? 'hidden' : '',
-                  )}
-                >
-                  <span className="text-white text-2xl font-bold flex items-center">
-                    <span className="mt-1 h-5 w-5 flex justify-center items-center">
-                      <svg
-                        className="w-full h-full"
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 448 512"
-                        fill="white"
-                      >
-                        <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
-                      </svg>
-                    </span>
-                    <span>{images.length - maxImagePreview}</span>
+                <span className="text-white text-2xl font-bold flex items-center">
+                  <span className="mt-1 h-5 w-5 flex justify-center items-center">
+                    <svg
+                      className="w-full h-full"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 448 512"
+                      fill="white"
+                    >
+                      <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+                    </svg>
                   </span>
-                </div>
+                  <span>{images.length - maxImagePreview}</span>
+                </span>
               </div>
-            </>
+            </div>
           );
         })}
       </div>
@@ -205,7 +205,7 @@ const Image2 = ({ images, onImageClick }: ImageGridProps) => {
 const ImageHorizontally = ({ images, maxImagePreview = 4, onImageClick }: ImageGridProps) => {
   const imageList = images.slice(0, maxImagePreview);
   return (
-    <div className="flex gap-[1px] sm:gap-[2px]">
+    <div className="flex gap-[1px] sm:gap-[2px] w-full">
       {imageList.map((image, index) => (
         <div
           className={clsx(
@@ -215,7 +215,7 @@ const ImageHorizontally = ({ images, maxImagePreview = 4, onImageClick }: ImageG
               : 'max-h-[600px] min-h-[200px] flex justify-center w-full',
           )}
           style={{
-            width: `${100 / imageList.length}%`,
+            width: `${100 / (imageList.length > 4 ? imageList.length : 4)}%`,
           }}
           key={image}
           onClick={() => {
@@ -249,7 +249,7 @@ const ImageHorizontally = ({ images, maxImagePreview = 4, onImageClick }: ImageG
           {index === maxImagePreview - 1 && images.length > maxImagePreview && (
             <div className="absolute inset-0 bg-black/60 z-10 flex justify-center items-center cursor-default">
               <span className="text-white sm:text-3xl lg:text-2xl xl:text-3xl 2xl:text-5xl">
-                +{images.length - 4}
+                +{images.length - maxImagePreview}
               </span>
             </div>
           )}
@@ -735,6 +735,7 @@ const ImageSlider = ({
   );
 };
 const ImageGrid = ({
+  className,
   images,
   horizontally = false,
   canDownload,
@@ -752,7 +753,7 @@ const ImageGrid = ({
     seIsHorizontally(horizontally);
   }, [horizontally]);
   return (
-    <div ref={rootRef} className="w-full">
+    <div ref={rootRef} className={clsx('w-full', className)}>
       {!isHorizontally && images.length >= 4 && maxImagePreview >= 4 && (
         <Image4 images={images} onImageClick={handleImageClick} maxImagePreview={maxImagePreview} />
       )}

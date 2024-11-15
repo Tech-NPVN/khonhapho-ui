@@ -1,4 +1,5 @@
 import { IChatPreview } from '@/components/chat/chat-preview';
+import { PostDetailTypes } from '@/components/reuse/data-display';
 
 const IMAGE_SAMPLE =
   'https://s3-alpha-sig.figma.com/img/206c/4897/28b7b0c60958131808a8471ce60ce66c?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=Gou9Y9BF1LpeSzG0pfVuHFV7cgEyhhTWF3BGDmhfKJ9KQFujWYps9njFX9DX0BamSqCgV92IREejdMdq0MY9~-NBeWahRP84U69HbHtLEUhZ~GctgjBlFU16rU5N~M~IYYYacM42WQl3zP2cbTJs2jk6uTJLgUacIZn5tZnw3XEl4GI3FW6TycihjEGQOoqh30bfb2hXnWa9DrZRanN2EBeyYbfsnmXFt11RYXq0WowpD1dhKr3NaUFAFDH6QOYD4muQyAGHcbf8W44pNKmObG6kR7j6uaiMYQ-GIeuiGaoeXFMwdj2RjWzHB2zFKKuPtsH56LpJaZyhlweEXz9rxQ__';
@@ -115,10 +116,105 @@ const CUSTOMER_QUESTION_18 = `
 
 const REQUIRED_MSG_SAMPLE = 'Vui lòng không bỏ trống.';
 
+const DEALS_FEED: PostDetailTypes = {
+  id: 'id-deals',
+  author: {
+    name: 'Nguyễn Văn A - Hà Nội',
+    avatar: '/images/post-1.jpeg',
+    phone: '00987654321',
+    message: '-',
+  },
+  content: `<p>🌹🌹🌹<b>BÙM💥BÙM💥BÙM</b>🌹🌹🌹</p>
+            <p>❤️<b>THÁNG 7 VU LAN</b> ❤️</p>
+            <p>❤️<b>LONG BIÊN NỞ HOA</b>❤️</p>
+            <p>💶💶 <b>CHỐT NHÀ NỬA TRIỆU ĐÔ</b> 💶💶</p>
+            <p>🔥🥰NHÀ PHỐ 698 ( LIÊN MINH SIÊU CHỐT 698-385-3333-6888) YÊU THƯƠNG NP 3968🥰🔥</p>
+            <p>🧨 Kính thưa Chủ tịch, Kính thưa Tổng Giám đốc và các Giám Đốc, Phó Giám Đốc, Trưởng Phòng, cùng toàn thể anh chị em Tập đoàn Nhà Phố Việt Nam.</p>
+            <p>Tôi, GĐKD Tuấn Hùng - Nhà Phố 698 vui mừng thông báo vụ Chốt thành công 1 em siêu phẩm đâu đó tại Long Biên của phu thê PP CNLB Nguyễn Hùng - Trịnh Thủy NP 698 trên cương vị đầu khách cùng Đầu chủ Viết Tuân Nhà Phố 3968, đã cùng nhau phối hợp ăn ý, cùng nhau hạ gục em siêu phẩm đâu đó tại Long Biên.</p>
+            <p>🤝Chúc mừng phu thê PP CNLB Nguyễn Hùng - Trịnh Thủy chiến thần siêu chốt. Phu thê PP Nguyễn Hùng- Trịnh Thuỷ vừa hoạt động sôi nổi ký nhiều siêu phẩm về công ty mà còn giỏi trên cương vị Đầu khách đã cùng Đầu chủ Viết Tuân chốt hạ siêu phẩm đâu đó tại Long Biên.</p>
+            <p>🌹 Thay mặt Trưởng phòng Hoàng Nhung Nhà Phố 3968, Đầu chủ Viết Tuân Nhà Phố 3968 cùng ACE NP 698, Cảm ơn Lãnh đạo Tập Đoàn Nhà Phố Việt Nam.</p>
+            <p>🤝 Cảm ơn Chủ tịch và Tổng Giám Đốc và Tập Đoàn Nhà Phố Việt Nam.</p>
+            <p>🤝 Cảm ơn ĐC Viết Tuân.</p>
+            <p>Chúc ACE Nhà Phố Việt Nam đăng nhiều tin, dẫn nhiều khách - <b>CHỐT NHÀ RỰC RỠ, LIÊN HOÀN CHỐT NHÀ TRIỆU ĐÔ, NHIỀU TRIỆU ĐÔ</b>.💥💥💥🌹🌹🌹🌹🌹🌹🌹🌹🌹🌹</p>
+            <p>Trân Trọng cảm ơn 🌹🌹🌹🌹🌹🌹</p>
+            <p><b>GĐCNLB - TUẤN HÙNG - NHÀ PHỐ 698</b>.</p>
+            `,
+  images: [
+    '/images/post-1.jpeg',
+    '/images/post-2.jpeg',
+    '/images/post-3.jpeg',
+    '/images/post-4.jpeg',
+    '/images/banner.png',
+    '/images/post-6.jpeg',
+  ],
+  tags: ['nguyen-van-a', 'deals', 'test'],
+  view_count: 73242,
+  like_count: 2552,
+  created_at: new Date('2023-10-11').toISOString(),
+  updated_at: new Date('2023-10-11').toISOString(),
+};
+const URGENTLY_FEED: PostDetailTypes = {
+  id: 'id-urgently',
+  author: {
+    name: 'Trần Thị B - Đà Nẵng',
+    avatar: '/images/post-2.jpeg',
+    phone: '0098768283',
+    message: '-',
+  },
+  content: `
+            <p>Tôi có khách cần mua gấp, kính nhờ anh chị em tìm hộ giúp tôi. Tiêu chí khách:</p>
+            <p><b>Khu vực:</b> Hà Nội</p>
+            <p><b>Quận:</b> Cầu Giấy, Tây Hồ</p>
+            <p><b>Tài chính:</b> 10 tỷ</p>
+            <p><b>Diện tích:</b> 40m2</p>
+            <p><b>Mục đích:</b> Để ở</p>
+            <p><b>Yêu cầu:</b> Ngõ ô tô</p>`,
+  tags: ['tran-thi-b', 'urgently', 'test'],
+  view_count: 42425,
+  like_count: 5252,
+  created_at: new Date('2024-09-11').toISOString(),
+  updated_at: new Date('2024-09-11').toISOString(),
+};
+const SKILL_FEED: PostDetailTypes = {
+  id: 'id-skill',
+  author: {
+    name: 'Đặng Thị C - Hồ Chí Minh',
+    avatar: '/images/post-3.jpeg',
+    phone: '0098768242',
+    message: '-',
+  },
+  content: `<p><b>Đây là feed của Đặng Thị C</p></b>
+            <p>Chia sẻ kỹ năng</p>
+            <p><strong>1. HỢP ĐỒNG ĐẶT CỌC 2024</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=1RcIuBXCPR5cNgwrqvfQ1O7cHi9gAJpXK" target="_blank">https://drive.google.com/uc?export=view&id=1RcIuBXCPR5cNgwrqvfQ1O7cHi9gAJpXK</a></p>
+            <p><strong>2. HỢP ĐỒNG TRÍCH THƯỞNG 2024</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=151ZYxjq4ebtZVkPvKmx3BanI0zmVGMeU" target="_blank">https://drive.google.com/uc?export=view&id=151ZYxjq4ebtZVkPvKmx3BanI0zmVGMeU</a></p>
+            <p><strong>3. PHIẾU YÊU CẦU CUNG CẤP DỊCH VỤ 2024</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=17Q_uEDGjjdRj5VpOI_hbISlCATJjnfrQ" target="_blank">https://drive.google.com/uc?export=view&id=17Q_uEDGjjdRj5VpOI_hbISlCATJjnfrQ</a></p>
+            <p><strong>4. BIÊN BẢN SỰ VỤ</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=14dIse1VomGw6eZWbKcMjTtHRdSNoftXe" target="_blank">https://drive.google.com/uc?export=view&id=14dIse1VomGw6eZWbKcMjTtHRdSNoftXe</a></p>
+            <p><strong>5. BIÊN BẢN XÁC NHẬN GIẢM HOA HỒNG</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=1jQsmqsLQ3s2Q4EIHZohg1fz7KAdElaEP" target="_blank">https://drive.google.com/uc?export=view&id=1jQsmqsLQ3s2Q4EIHZohg1fz7KAdElaEP</a></p>
+            <p><strong>6. BIÊN BẢN XÁC NHẬN HOA HỒNG</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=1f3hlxR0Y16GvFd0IFb0YbbnS7eyFuVIk" target="_blank">https://drive.google.com/uc?export=view&id=1f3hlxR0Y16GvFd0IFb0YbbnS7eyFuVIk</a></p>
+            <p><strong>7. BIÊN BẢN XÁC NHẬN HOÀN TRẢ PHÍ MÔI GIỚI</strong></p>
+            <p><a href="https://drive.google.com/uc?export=view&id=1LLdfQi5vDhAQD80qviYhk1giKRx-NTPW" target="_blank">https://drive.google.com/uc?export=view&id=1LLdfQi5vDhAQD80qviYhk1giKRx-NTPW</a></p>`,
+  tags: ['dang-thi-c', 'skill', 'test'],
+  view_count: 563,
+  like_count: 44,
+  created_at: new Date('2024-10-11').toISOString(),
+  updated_at: new Date('2024-10-11').toISOString(),
+};
+const FEEDS_DEMO = {
+  deals: DEALS_FEED,
+  urgently: URGENTLY_FEED,
+  skill: SKILL_FEED,
+};
 export {
   CHAT_PREVIEW_SAMPLE,
-  IMAGE_SAMPLE,
-  WAREHOUSE_REASON_CONTENT_SAMPLE,
   CUSTOMER_QUESTION_18,
+  FEEDS_DEMO,
+  IMAGE_SAMPLE,
   REQUIRED_MSG_SAMPLE,
+  WAREHOUSE_REASON_CONTENT_SAMPLE,
 };

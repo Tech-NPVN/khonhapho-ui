@@ -1,5 +1,11 @@
+import { MeetingScheduleIndex } from '@/modules/admin/meeting-schedule';
+
 const MeetingSchedulePage = () => {
-  return <></>;
+  return (
+    <>
+      <MeetingScheduleIndex />
+    </>
+  );
 };
 
 export default MeetingSchedulePage;

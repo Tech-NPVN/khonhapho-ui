@@ -57,6 +57,7 @@ export * from './image.icon';
 export * from './library.icon';
 export * from './light.icon';
 export * from './list-company.icon';
+export * from './location.icon';
 export * from './lock.icon';
 export * from './logout.icon';
 
