@@ -1,12 +1,14 @@
 {
   "extends": "next/core-web-vitals",
-  "react/no-unescaped-entities": [
-    "error",
-    {
-      "forbid": [
-        ">",
-        "}"
-      ]
-    }
-  ]
+  "rules": {
+    "react/no-unescaped-entities": [
+      "error",
+      {
+        "forbid": [
+          ">",
+          "}"
+        ]
+      }
+    ]
+  }
 }
