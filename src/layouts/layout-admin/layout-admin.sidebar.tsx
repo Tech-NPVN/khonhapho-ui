@@ -30,7 +30,7 @@ const LayoutAdminSidebar = () => {
     <Layout.Sider
       collapsed={collapsed}
       onCollapse={(value) => setCollapsed(value)}
-      className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] mt-16 sticky top-16 bottom-0 left-0"
+      className="bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-64px)] overflow-hidden mt-16 sticky top-16 bottom-0 left-0 lg:block hidden"
       width={250}
     >
       <div className="flex flex-col pt-3 pb-2 px-3 h-full relative">

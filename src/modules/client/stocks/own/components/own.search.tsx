@@ -7,7 +7,6 @@ import {
   SELECT_WAREHOUSE_STATUS,
 } from '@/constants/data';
 import { Button, Col, Collapse, InputNumber, Row, Select } from 'antd';
-import { useSearchParams } from 'next/navigation';
 import { memo, useCallback, useState } from 'react';
 
 const OwnSearch = () => {

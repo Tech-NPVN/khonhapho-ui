@@ -70,6 +70,7 @@ export * from './meeting-schedule.icon';
 export * from './menu.icon';
 export * from './message-reply.icon';
 export * from './messenger-multi-color.icon';
+export * from './messenger-nhapho.icon';
 export * from './messenger.icon';
 export * from './mnt-guest.icon';
 export * from './money-group.icon';
