@@ -1,3 +1,5 @@
+'use client';
+
 import { CopyIcon } from '@/components/icons';
 import clsx from 'clsx';
 import { useState } from 'react';
