@@ -20,7 +20,7 @@ import { DATE_TIME_FORMAT } from '@/constants/data';
 import { Routes } from '@/constants/enums';
 import { Badge, Button, Col, Dropdown, Row, Tag } from 'antd';
 import dayjs from 'dayjs';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { memo, useState } from 'react';
 import { useWindowSize } from 'react-use';
 

@@ -11,7 +11,8 @@ import { useState } from 'react';
 import { PopoverNotification, PopoverUser } from '../popover';
 import DrawerMenu from '../drawer-menu';
 import ScrollContainer from 'react-indiana-drag-scroll';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { itemsAdmin } from '../layout.const';
 
 const LayoutAdminHeader = () => {

@@ -10,7 +10,7 @@ import {
 } from '@/components/icons';
 import Link from 'next/link';
 import { Routes } from '@/constants/enums';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 
 export const PopoverUser = memo(({ children, open, setOpen }: PopoverProps) => {
   const router = useRouter();

@@ -1,29 +1,29 @@
 'use client';
 
-import { Button, Popconfirm, Table, type TableProps } from 'antd';
-import { LegalStatusSchemaType } from './legal-status.schema';
-import useDragScroll from '@/hooks/use-drag-scroll';
-import { PenIcon, TrashIcon } from '@/components/icons';
 import { useState } from 'react';
-import { LegalStatusForm } from './legal-status.form';
+import { AreaRangeSchemaType } from './area-range.schema';
+import useDragScroll from '@/hooks/use-drag-scroll';
+import { Button, Popconfirm, Table, type TableProps } from 'antd';
+import { PenIcon, TrashIcon } from '@/components/icons';
+import { AreaRangeForm } from './area-range.form.';
 
-const data: LegalStatusSchemaType = {
-  name: 'Sổ đỏ/sổ hồng',
-  code: 'so-do-so-hong',
-  description: 'Tình trạng pháp lý của Sổ đỏ/sổ hồng',
+const data: AreaRangeSchemaType = {
+  name: 'Dưới 3m2',
+  code: 'duoi-3m2',
+  description: '<30',
   order: 1,
 };
 
-const dataSource: LegalStatusSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: AreaRangeSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
 
-export const LegalStatusTable = () => {
-  const [currentState, setCurrentState] = useState<LegalStatusSchemaType | undefined>(undefined);
+export const AreaRangeTable = () => {
+  const [currentState, setCurrentState] = useState<AreaRangeSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<LegalStatusSchemaType>['columns'] = [
+  const columns: TableProps<AreaRangeSchemaType>['columns'] = [
     {
-      title: 'Tình trạng pháp lý',
+      title: 'Khoảng diện tích',
       dataIndex: 'name',
       key: 'name',
     },
@@ -91,7 +91,7 @@ export const LegalStatusTable = () => {
         />
       </div>
 
-      <LegalStatusForm
+      <AreaRangeForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}

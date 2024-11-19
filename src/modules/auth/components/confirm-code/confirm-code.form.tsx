@@ -2,13 +2,13 @@
 
 import { createSchemaFieldRule } from 'antd-zod';
 import { ConfirmCodeSchema, ConfirmCodeSchemaType } from './confirm-code.schema';
-import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Alert, Button, Form, Input } from 'antd';
 import Image from 'next/image';
 import { ArrowRightIcon, UserIcon } from '@/components/icons';
 import { Routes } from '@/constants/enums';
 import { useState } from 'react';
+import { useRouter } from 'next-nprogress-bar';
 
 const rule = createSchemaFieldRule(ConfirmCodeSchema);
 

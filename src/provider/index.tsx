@@ -2,6 +2,7 @@
 
 import ThemeProvider from './theme.provider';
 import { ConfigProvider } from './config.provider';
+import { NProgressProvider } from './nprogress.provider';
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -11,7 +12,9 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
       defaultTheme="light"
       disableTransitionOnChange
     >
-      <ConfigProvider>{children}</ConfigProvider>
+      <ConfigProvider>
+        <NProgressProvider>{children}</NProgressProvider>
+      </ConfigProvider>
     </ThemeProvider>
   );
 };

@@ -1,29 +1,29 @@
 'use client';
 
 import { Button, Popconfirm, Table, type TableProps } from 'antd';
-import { LegalStatusSchemaType } from './legal-status.schema';
-import useDragScroll from '@/hooks/use-drag-scroll';
+import { PriceRangeSchemaType } from './price-range.schema';
+import { PriceRangeForm } from './price-range.form';
 import { PenIcon, TrashIcon } from '@/components/icons';
 import { useState } from 'react';
-import { LegalStatusForm } from './legal-status.form';
+import useDragScroll from '@/hooks/use-drag-scroll';
 
-const data: LegalStatusSchemaType = {
-  name: 'Sổ đỏ/sổ hồng',
-  code: 'so-do-so-hong',
-  description: 'Tình trạng pháp lý của Sổ đỏ/sổ hồng',
+const data: PriceRangeSchemaType = {
+  name: 'Dưới 3 tỷ',
+  code: 'duoi-3-ty',
+  description: '<30',
   order: 1,
 };
 
-const dataSource: LegalStatusSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: PriceRangeSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
 
-export const LegalStatusTable = () => {
-  const [currentState, setCurrentState] = useState<LegalStatusSchemaType | undefined>(undefined);
+export const PriceRangeTable = () => {
+  const [currentState, setCurrentState] = useState<PriceRangeSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<LegalStatusSchemaType>['columns'] = [
+  const columns: TableProps<PriceRangeSchemaType>['columns'] = [
     {
-      title: 'Tình trạng pháp lý',
+      title: 'Khoảng giá',
       dataIndex: 'name',
       key: 'name',
     },
@@ -91,7 +91,7 @@ export const LegalStatusTable = () => {
         />
       </div>
 
-      <LegalStatusForm
+      <PriceRangeForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}

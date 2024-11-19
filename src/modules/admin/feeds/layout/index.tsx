@@ -3,10 +3,11 @@
 import { Button, Layout, Menu, type MenuTheme } from 'antd';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { useTheme } from 'next-themes';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { itemsAdminFeeds } from '../feeds.const';
 import { CollapseIcon } from '@/components/icons';
 import { useFeeds } from '../context';
+import { useRouter } from 'next-nprogress-bar';
 
 export const AdminFeedsLayout = ({ children }: { children: React.ReactNode }) => {
   const { theme } = useTheme();

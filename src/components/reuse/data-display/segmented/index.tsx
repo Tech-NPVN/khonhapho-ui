@@ -1,6 +1,7 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { Segmented as SegmentedAntd } from 'antd';
 import { useCallback, useState } from 'react';
 
