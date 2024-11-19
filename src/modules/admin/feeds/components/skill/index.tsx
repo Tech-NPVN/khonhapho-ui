@@ -3,12 +3,12 @@
 import { SectionBody, TabLabelWithBadge } from '@/components/common';
 import { CollapseIcon, SearchIcon, XIcon } from '@/components/icons';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
+import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Select, Tooltip } from 'antd';
 import clsx from 'clsx';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useFeeds } from '../../context';
 import SkillApprovedIndex from './skill-approved';
 import SkillPendingIndex from './skill-pending';
 import SkillRejectIndex from './skill-reject';
@@ -143,7 +143,7 @@ export const SkillIndex = () => {
   const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
   const [tabs, setTabs] = useState(TAB_INFO);
   const [tabString, setTabString] = useState(searchParams.get('tab') || TAB_INFO[0].value);
-  const { collapsed, toggleCollapse } = useFeeds();
+  const { collapsed, toggleCollapse } = useSidebar();
 
   //
   const renderTitle = useCallback(() => {
@@ -162,7 +162,11 @@ export const SkillIndex = () => {
       );
     }
 
-    return 'Duyệt tin chia sẻ kỹ năng';
+    return (
+      <div className="flex items-center h-8">
+        <span>Duyệt tin chia sẻ kỹ năng</span>
+      </div>
+    );
   }, [collapsed, toggleCollapse]);
 
   // Call api hay làm gì đó
