@@ -2,7 +2,8 @@
 
 import { useTheme } from 'next-themes';
 import { useSidebar } from './sidebar.context';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { Button, Layout, Menu, MenuTheme } from 'antd';
 import { CollapseIcon } from '@/components/icons';
 import ScrollContainer from 'react-indiana-drag-scroll';

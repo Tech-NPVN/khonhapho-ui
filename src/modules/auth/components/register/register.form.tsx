@@ -13,11 +13,11 @@ import { Routes } from '@/constants/enums';
 import { Button, Form, Input, message } from 'antd';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { RegisterSchema, RegisterSchemaType } from './register.schema';
 import { useCallback, useState } from 'react';
 import { createSchemaFieldRule } from 'antd-zod';
 import { AuthRegister } from '../../auth.model';
+import { useRouter } from 'next-nprogress-bar';
 
 const rule = createSchemaFieldRule(RegisterSchema);
 

@@ -4,11 +4,11 @@ import { MailIcon } from '@/components/icons';
 import { Button, Form, Input } from 'antd';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { ForgotPasswordSchema, ForgotPasswordSchemaType } from './forgot-password.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Routes } from '@/constants/enums';
 import { AuthForgotPassword } from '../../auth.model';
+import { useRouter } from 'next-nprogress-bar';
 
 const rule = createSchemaFieldRule(ForgotPasswordSchema);
 

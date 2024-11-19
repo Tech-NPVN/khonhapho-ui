@@ -6,12 +6,13 @@ import { SegmentedOptionProps } from '@/components/reuse/data-display';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Select, Tooltip } from 'antd';
 import clsx from 'clsx';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFeeds } from '../../context';
 import SkillApprovedIndex from './skill-approved';
 import SkillPendingIndex from './skill-pending';
 import SkillRejectIndex from './skill-reject';
+import { useRouter } from 'next-nprogress-bar';
 
 type HeaderProps = {
   segmentedValue: string;

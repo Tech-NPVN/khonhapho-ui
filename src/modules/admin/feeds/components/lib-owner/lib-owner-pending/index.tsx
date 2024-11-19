@@ -1,8 +1,8 @@
 'use client';
 import { FEEDS_DEMO } from '@/constants/data';
 import { Routes } from '@/constants/enums';
-import { useRouter } from 'next/navigation';
 import { AdminFeedsCard } from '../../card';
+import { useRouter } from 'next-nprogress-bar';
 
 const LibOwnerPendingIndex = () => {
   const router = useRouter();

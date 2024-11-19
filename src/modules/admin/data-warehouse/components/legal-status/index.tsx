@@ -7,11 +7,12 @@ import { Navigations } from '@/constants/enums';
 import { Button, Input, Tooltip } from 'antd';
 import { useCallback, useState } from 'react';
 import { LegalStatusForm } from './legal-status.form';
+import { LegalStatusTable } from './legal-status.table';
 
 const TITLE = Navigations.DataWarehouseLegalStatus;
 
 export const LegalStatusIndex = () => {
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const { collapsed, toggleCollapse } = useSidebar();
 
@@ -40,7 +41,7 @@ export const LegalStatusIndex = () => {
         icon={<AddIcon className="mr-1" />}
         type="primary"
         className="px-5 max-lg:text-[13px]"
-        onClick={() => setOpenModal(true)}
+        onClick={() => setOpenCreate(true)}
       >
         Thêm mới
       </Button>
@@ -50,7 +51,7 @@ export const LegalStatusIndex = () => {
   return (
     <>
       <SectionBodyWithDescButton title={renderTitle()} btn={renderAddButton()}>
-        <div className='flex justify-end'>
+        <div className="flex justify-end">
           <Input
             size="large"
             placeholder="Nhập nội dung tìm kiếm"
@@ -58,9 +59,11 @@ export const LegalStatusIndex = () => {
             className="sm:w-[320px] w-full border-0 shadow-btn dark:!bg-background_d rounded-xl"
           />
         </div>
+
+        <LegalStatusTable />
       </SectionBodyWithDescButton>
 
-      <LegalStatusForm open={openModal} onClose={() => setOpenModal(false)} />
+      <LegalStatusForm open={openCreate} onClose={() => setOpenCreate(false)} />
     </>
   );
 };
