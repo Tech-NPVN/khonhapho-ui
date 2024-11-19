@@ -4,7 +4,7 @@ import { LinkIcon, SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, FilterIcon, SearchIcon } from '@/components/icons';
 import { SegmentedOptionProps, SegmentedWithNode } from '@/components/reuse/data-display';
 import { Button, Input } from 'antd';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import WarehouseSearch from './warehouse.search';
 import { Breakpoint, Routes } from '@/constants/enums';
 import { useCallback, useMemo, useState } from 'react';
@@ -17,6 +17,7 @@ import {
 import { ModalFilterWarehouse, ModalReasonDecs } from '@/common/modal';
 import { useWindowSize } from 'react-use';
 import { ModalAddCollection, ModalColCreateUpdate } from '../../user/collection';
+import { useRouter } from 'next-nprogress-bar';
 
 const WAREHOUSE_TABS: SegmentedOptionProps[] = [
   {

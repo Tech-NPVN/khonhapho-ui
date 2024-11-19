@@ -6,7 +6,7 @@ import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import { Breakpoint } from '@/constants/enums';
 import { Button, Divider, Dropdown, Input, Select, type MenuProps } from 'antd';
 import Image from 'next/image';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { useWindowSize } from 'react-use';
 import slugify from 'slugify';
@@ -16,6 +16,7 @@ import {
   ModalColCreateUpdate,
   ModalColNote,
 } from './modal';
+import { useRouter } from 'next-nprogress-bar';
 
 const CollectionBox = ({
   collection,

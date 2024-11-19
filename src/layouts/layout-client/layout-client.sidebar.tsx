@@ -2,11 +2,12 @@
 
 import { useMemo, useState } from 'react';
 import { Layout, Menu, type MenuTheme } from 'antd';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useTheme } from 'next-themes';
 import { Routes } from '@/constants/enums';
 import { itemsBottom, itemsClient } from '../layout.const';
 import ScrollContainer from 'react-indiana-drag-scroll';
+import { useRouter } from 'next-nprogress-bar';
 
 const LayoutClientSidebar = () => {
   const router = useRouter();

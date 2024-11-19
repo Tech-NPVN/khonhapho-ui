@@ -3,8 +3,9 @@
 import { CollapseIcon } from '@/components/icons';
 import { useSidebar } from '@/components/reuse/navigation';
 import { Button, Layout, Menu, type MenuTheme } from 'antd';
+import { useRouter } from 'next-nprogress-bar';
 import { useTheme } from 'next-themes';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import ScrollContainer from 'react-indiana-drag-scroll';
 import { itemsAdminFeeds } from '../feeds.const';
 

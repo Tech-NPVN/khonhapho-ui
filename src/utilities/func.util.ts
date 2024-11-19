@@ -59,13 +59,13 @@ const formatMoneyVN = (price: number): string => {
   }
 };
 
-const convertSlugify = (input: string, replacement?: string): string => {
+const convertSlugify = (input: string, replacement: string = '-'): string => {
   return slugify(input, {
-    replacement: replacement ?? '-',
+    replacement,
     trim: true,
     locale: 'vi',
     lower: true,
-  });
+  }).replace(/[\s]+/g, replacement);
 };
 
 export { range, disablePastTime, debounce, formatMoneyVN, convertSlugify };

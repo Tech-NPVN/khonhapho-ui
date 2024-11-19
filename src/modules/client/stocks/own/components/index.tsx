@@ -5,12 +5,13 @@ import { AddIcon, ChangeIcon, FilterIcon, SearchIcon } from '@/components/icons'
 import { SegmentedOptionProps, useSegmented } from '@/components/reuse/data-display';
 import { Breakpoint, Routes } from '@/constants/enums';
 import { Button, Input, Segmented, Select } from 'antd';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useMemo, useState } from 'react';
 import { useWindowSize } from 'react-use';
 import OwnSearch from './own.search';
 import OwnItem from './own.item';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
+import { useRouter } from 'next-nprogress-bar';
 
 const STOCKS_OWN_TABS: SegmentedOptionProps[] = [
   {

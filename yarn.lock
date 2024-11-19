@@ -3586,6 +3586,7 @@ __metadata:
     eslint: "npm:^8"
     eslint-config-next: "npm:14.2.4"
     next: "npm:14.2.4"
+    next-nprogress-bar: "npm:^2.3.15"
     next-themes: "npm:^0.3.0"
     postcss: "npm:^8"
     react: "npm:^18"
@@ -3994,6 +3995,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"next-nprogress-bar@npm:^2.3.15":
+  version: 2.3.15
+  resolution: "next-nprogress-bar@npm:2.3.15"
+  dependencies:
+    nprogress: "npm:^0.2.0"
+  checksum: 10c0/b65b0a4da41104c7abce0e4f92fa6834bdf7523fb46cc33ea2a85f2d7d706ad0fd79383df0fe8907898cf20be09f5b062e13026e7f643899f26ff59bee541531
+  languageName: node
+  linkType: hard
+
 "next-themes@npm:^0.3.0":
   version: 0.3.0
   resolution: "next-themes@npm:0.3.0"
@@ -4104,6 +4114,13 @@ __metadata:
   version: 3.0.0
   resolution: "normalize-path@npm:3.0.0"
   checksum: 10c0/e008c8142bcc335b5e38cf0d63cfd39d6cf2d97480af9abdbe9a439221fd4d749763bab492a8ee708ce7a194bb00c9da6d0a115018672310850489137b3da046
+  languageName: node
+  linkType: hard
+
+"nprogress@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "nprogress@npm:0.2.0"
+  checksum: 10c0/eab9a923a1ad1eed71a455ecfbc358442dd9bcd71b9fa3fa1c67eddf5159360b182c218f76fca320c97541a1b45e19ced04e6dcb044a662244c5419f8ae9e821
   languageName: node
   linkType: hard
 

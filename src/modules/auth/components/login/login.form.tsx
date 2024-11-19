@@ -7,9 +7,9 @@ import { EyeIcon, EyeSlashIcon, PasswordIcon, UserIcon } from '@/components/icon
 import { useCallback, useState } from 'react';
 import { LoginSchema, LoginSchemaType } from './login.schema';
 import { createSchemaFieldRule } from 'antd-zod';
-import { useRouter } from 'next/navigation';
 import { Routes } from '@/constants/enums';
 import { AuthLogin } from '../../auth.model';
+import { useRouter } from 'next-nprogress-bar';
 
 const rule = createSchemaFieldRule(LoginSchema);
 
