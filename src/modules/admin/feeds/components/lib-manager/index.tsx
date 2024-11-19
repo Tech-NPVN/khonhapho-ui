@@ -3,12 +3,13 @@
 import { SectionBody, TabLabelWithBadge } from '@/components/common';
 import { CollapseIcon, SearchIcon, XIcon } from '@/components/icons';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
-import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Select, Tooltip } from 'antd';
 import clsx from 'clsx';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next-nprogress-bar';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { useFeeds } from '../../context';
 import LibManagerApprovedIndex from './lib-manager-approved';
 import LibManagerPendingIndex from './lib-manager-pending';
 import LibManagerRejectIndex from './lib-manager-reject';
@@ -141,7 +142,11 @@ export const LibManagerIndex = () => {
   const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
   const [tabs, setTabs] = useState(TAB_INFO);
   const [tabString, setTabString] = useState(searchParams.get('tab') || TAB_INFO[0].value);
+<<<<<<< HEAD
   const { collapsed, toggleCollapse } = useSidebar();
+=======
+  const { collapsed, toggleCollapse } = useFeeds();
+>>>>>>> 1c79b711ed88a0ab3f191cc2127c61607a4294b0
 
   //
   const renderTitle = useCallback(() => {
