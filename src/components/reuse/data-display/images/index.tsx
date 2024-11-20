@@ -215,7 +215,9 @@ const ImageHorizontally = ({ images, maxImagePreview = 4, onImageClick }: ImageG
               : 'max-h-[600px] min-h-[200px] flex justify-center w-full',
           )}
           style={{
-            width: `${100 / (imageList.length > 4 ? imageList.length : 4)}%`,
+            width: `${
+              100 / (imageList.length > maxImagePreview ? imageList.length : maxImagePreview)
+            }%`,
           }}
           key={image}
           onClick={() => {

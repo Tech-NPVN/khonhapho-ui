@@ -1,7 +1,7 @@
 'use client';
 
 import { ModalWithHash } from '@/common/modal';
-import { QRCodeDownload, QRCodeDownloadProps } from '@/common/qrcode/qrcode-download';
+import { QRCodeDownload, QRCodeDownloadProps } from '@/common/qrcode';
 import { QRCodeIconFill } from '@/components/icons';
 import { Button } from 'antd';
 import React, { useRef, useState } from 'react';

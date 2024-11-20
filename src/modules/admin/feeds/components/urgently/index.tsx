@@ -6,13 +6,13 @@ import { SegmentedOptionProps } from '@/components/reuse/data-display';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Tooltip } from 'antd';
 import clsx from 'clsx';
+import { useRouter } from 'next-nprogress-bar';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFeeds } from '../../context';
 import UrgentlyApprovedIndex from './urgently-approved';
 import UrgentlyPendingIndex from './urgently-pending';
 import UrgentlyRejectIndex from './urgently-reject';
-import { useRouter } from 'next-nprogress-bar';
 
 type HeaderProps = {
   segmentedValue: string;
@@ -150,7 +150,11 @@ export const UrgentlyIndex = () => {
       );
     }
 
-    return 'Duyệt tin khách cần mua gấp';
+    return (
+      <div className="flex items-center h-8">
+        <span>Duyệt tin khách cần mua gấp</span>
+      </div>
+    );
   }, [collapsed, toggleCollapse]);
 
   // Call api hay làm gì đó

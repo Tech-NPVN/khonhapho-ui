@@ -45,7 +45,7 @@ const ModalWithHash: React.FC<ModalWithHashProps> = React.memo(
           width="100%"
           {...antdModalProps}
           className={clsx(
-            'dark:text-primary_text_d b !p-0 sm:my-5 sm:!w-[calc(100vw_-_100px)] md:max-w-[620px] lg:max-w-[720px] 2xl:max-w-[1024px]',
+            'dark:text-primary_text_d b !p-0 sm:my-5 sm:w-[calc(100vw_-_100px)] md:max-w-[620px] lg:max-w-[720px] 2xl:max-w-[1024px]',
             fullScreenInMobile ? 'my-0 mx-0 w-full max-w-none' : '',
             antdModalProps.className,
           )}

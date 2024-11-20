@@ -3,14 +3,14 @@
 import { TrainingFeedCategoryModal } from '@/common/modal';
 import { SectionBody } from '@/components/common';
 import { AddIcon, CollapseIcon } from '@/components/icons';
+import { useSidebar } from '@/components/reuse/navigation';
 import { Button, Tooltip } from 'antd';
 import { useCallback, useState } from 'react';
-import { useFeeds } from '../../context';
 import { CategoriesSearch } from './categories.search';
 import { CategoriesTable } from './categories.table';
 
 export const CategoriesIndex = () => {
-  const { collapsed, toggleCollapse } = useFeeds();
+  const { collapsed, toggleCollapse } = useSidebar();
   const [modalVisible, setModalVisible] = useState(false);
   const renderTitle = useCallback(() => {
     if (collapsed) {

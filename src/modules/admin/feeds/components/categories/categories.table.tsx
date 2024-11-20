@@ -1,5 +1,6 @@
 import { FormTrainingFeedCategoryTypes, TrainingFeedCategoryModal } from '@/common/modal';
 import { ArrowTopIcon, PenIcon, TrashIcon } from '@/components/icons';
+import useDragScroll from '@/hooks/use-drag-scroll';
 import { Button, Modal, Select, Table, type TableProps } from 'antd';
 import { useState } from 'react';
 import { FeedCategoryType } from './categories.type';
@@ -51,34 +52,57 @@ const columns: TableProps<FeedCategoryType>['columns'] = [
     key: 'type',
     dataIndex: 'type',
     className: 'text-center !py-3',
+    render: (type: FeedCategoryType['type']) => (
+      <span className="!cursor-tex block text-center w-full">{type}</span>
+    ),
   },
   {
     title: 'Tên danh mục',
     key: 'name',
     dataIndex: 'name',
     className: 'text-center',
+    render(value, _record, index) {
+      return (
+        <span className="!cursor-text block text-center w-full">
+          {value} {index + 1}
+        </span>
+      );
+    },
   },
   {
     title: 'Mô tả',
     key: 'description',
     dataIndex: 'description',
     className: 'text-center',
+    render(value, _record, index) {
+      return (
+        <span className="!cursor-text block text-center w-full">
+          {value} {index + 1}
+        </span>
+      );
+    },
   },
   {
     title: 'Thứ tự',
     key: 'no',
     dataIndex: 'no',
     className: 'text-center',
-    render: (no: FeedCategoryType['no']) => <span className="block text-center w-full">{no}</span>,
+    render(value, _record, index) {
+      return <span className="!cursor-text block text-center w-full">{value}</span>;
+    },
   },
   {
     title: 'Trạng thái',
     key: 'status',
     dataIndex: 'status',
     className: 'text-center',
-    render: (status: FeedCategoryType['status']) => (
-      <span className="block text-center w-full">{status === 'active' ? 'Hiển thị' : 'Ẩn'}</span>
-    ),
+    render(value, _record, index) {
+      return (
+        <span className="!cursor-text block text-center w-full">
+          {value === 'active' ? 'Hiển thị' : 'Ẩn'}
+        </span>
+      );
+    },
   },
   {
     title: 'Hành động',
@@ -100,15 +124,20 @@ const data: FeedCategoryType = {
 const dataSource: FeedCategoryType[] = Array.from({ length: 12 }, () => ({ ...data }));
 
 export const CategoriesTable = () => {
+  const dragScrollHandlers = useDragScroll();
   return (
-    <>
+    <div
+      {...dragScrollHandlers}
+      className="overflow-x-auto overflow-y-hidden"
+      style={{ cursor: dragScrollHandlers.cursor }}
+    >
       <Table
         className="mt-5"
         dataSource={dataSource}
         columns={columns}
         size="small"
         pagination={false}
-        scroll={{ x: 'max-content' }}
+        // scroll={{ x: 'max-content' }}
         rowClassName={(_, index) =>
           index % 2 === 0
             ? 'bg-primary_color_l dark:bg-primary_color_d'
@@ -137,6 +166,6 @@ export const CategoriesTable = () => {
           <Select placeholder="20/Trang" />
         </div>
       </div>
-    </>
+    </div>
   );
 };

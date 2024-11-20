@@ -1,13 +1,13 @@
 import { RequiredSymbolLabel } from '@/components/reuse/data-entry/required-symbol-label';
 import { REQUIRED_MSG_SAMPLE } from '@/constants/data';
-import { ScheduleTypes } from '@/modules/admin/training-schedule/types/types';
+import { ScheduleTypes } from '@/modules/admin/meeting-schedule/types';
 import { Button, DatePicker, Form, Input, Modal, Select, TimePicker } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import TextArea from 'antd/es/input/TextArea';
 import dayjs from 'dayjs';
 import { useEffect } from 'react';
 import { z } from 'zod';
-import { QRCodeDownload } from '../qrcode/qrcode-download';
+import { QRCodeDownload } from '../qrcode';
 import { ModalWithHash } from './modal-with-hash';
 
 type ModalClassInformationProps = {
@@ -29,7 +29,10 @@ const FormSchema = z.object({
     .string({ message: REQUIRED_MSG_SAMPLE })
     .min(1, REQUIRED_MSG_SAMPLE)
     .max(100, 'Tối đa 100 ký tự'),
-  content: z.string({ message: REQUIRED_MSG_SAMPLE }).max(1000, 'Tối đa 1000 ký tự'),
+  content: z
+    .string({ message: REQUIRED_MSG_SAMPLE })
+    .min(1, REQUIRED_MSG_SAMPLE)
+    .max(1000, 'Tối đa 1000 ký tự'),
   schedule_date: z.any().refine((text) => !!text, REQUIRED_MSG_SAMPLE),
   schedule_start_time: z.any().refine((text) => !!text, REQUIRED_MSG_SAMPLE),
   schedule_end_time: z.any().refine((text) => !!text, REQUIRED_MSG_SAMPLE),
@@ -376,24 +379,24 @@ const ModalClassInformation: React.FC<ModalClassInformationProps> = ({
 }) => {
   return (
     <>
-      {open && (
-        <ModalWithHash
-          open
-          onClose={() => {
-            onClose?.();
-          }}
-          hash="modal-class-information"
-          antdModalProps={{
-            title:
-              type === 'create'
-                ? 'Tạo lịch học mới'
-                : type === 'update'
-                ? 'Cập nhật lịch học'
-                : 'Thông tin lớp học',
-            maskClosable: type === 'view',
-            closable: type === 'view',
-          }}
-        >
+      <ModalWithHash
+        open={open}
+        onClose={() => {
+          onClose?.();
+        }}
+        hash="modal-class-information"
+        antdModalProps={{
+          title:
+            type === 'create'
+              ? 'Tạo lịch học mới'
+              : type === 'update'
+              ? 'Cập nhật lịch học'
+              : 'Thông tin lớp học',
+          maskClosable: type === 'view',
+          closable: type === 'view',
+        }}
+      >
+        {open && (
           <div className="flex flex-col py-2 gap-2 ">
             <FormComponent
               type={type}
@@ -403,8 +406,8 @@ const ModalClassInformation: React.FC<ModalClassInformationProps> = ({
               defaultValue={defaultValue}
             />
           </div>
-        </ModalWithHash>
-      )}
+        )}
+      </ModalWithHash>
     </>
   );
 };
