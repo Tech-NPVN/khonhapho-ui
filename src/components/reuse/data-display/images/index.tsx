@@ -62,7 +62,7 @@ const Image4 = ({ images, maxImagePreview = 4, onImageClick }: ImageGridProps) =
             <div
               className="flex-1 aspect-square relative overflow-hidden"
               onClick={() => {
-                onImageClick && onImageClick(3 + index);
+                onImageClick && onImageClick(2 + index);
               }}
               key={image}
             >
