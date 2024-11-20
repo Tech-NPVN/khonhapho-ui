@@ -1,9 +1,9 @@
 import useDragScroll from '@/hooks/use-drag-scroll';
 import { Pagination, Select, Table, Tooltip, type TableProps } from 'antd';
 import dayjs from 'dayjs';
-import { ScheduleTypes } from '../types/types';
-import QrCodeButton from './qrcode';
+import QrCodeButton from '../qrcode';
 import { ThreeDotSchedule } from './schedule.threedot';
+import { ScheduleTypes } from './types';
 
 const columns: TableProps<ScheduleTypes>['columns'] = [
   {

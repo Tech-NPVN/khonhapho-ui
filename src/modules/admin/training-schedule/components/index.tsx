@@ -1,7 +1,10 @@
 'use client';
 
 import { Segmented, SegmentedOptionProps } from '@/components/reuse/data-display';
-import { Schedule } from './schedule';
+import { Breakpoint } from '@/constants/enums';
+import { useWindowSize } from 'react-use';
+import { LessionComponent } from './lessions/lession';
+import { Schedule } from './schedule/schedule';
 
 const TABS: SegmentedOptionProps[] = [
   {
@@ -12,14 +15,15 @@ const TABS: SegmentedOptionProps[] = [
   {
     label: 'Bài giảng',
     value: 'lesson',
-    component: <>2</>,
+    component: <LessionComponent />,
   },
 ];
 
 export const TrainingScheduleIndex = () => {
+  const { width } = useWindowSize();
   return (
-    <div className="pr-3 pt-5">
-      <Segmented options={TABS} />
+    <div className="px-3 lg:ps-0 pt-5 sm:[&_.ant-segmented-item]:min-w-[200px]">
+      <Segmented block={width < Breakpoint.Md} options={TABS} />
     </div>
   );
 };
