@@ -1,12 +1,12 @@
 import { ModalClassMember } from '@/common/modal';
-import { ModalLessionForm } from '@/common/modal/modal-lession.form';
+import { ModalLessionForm } from '@/common/modal/modal-lesson.form';
 import { DownLoadIcon, EyeIcon, PenIcon, ThreeDotIcon, TrashIcon } from '@/components/icons';
 import { Popover } from 'antd';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-import { LessionType } from './types';
+import { LessonType } from './types';
 
-const demo: LessionType = {
+const demo: LessonType = {
   name: 'Đào tạo học viên mới',
   content: 'Cách bán nhà hiệu quả dành cho người mới',
   author: 'TP Nguyễn Kim Ngân',
@@ -15,7 +15,7 @@ const demo: LessionType = {
   updated_at: new Date(Date.now()).toISOString(),
 };
 type ClassInformationTypes = {
-  value?: LessionType;
+  value?: LessonType;
   state?: 'create' | 'update' | 'view';
 };
 const Content = ({

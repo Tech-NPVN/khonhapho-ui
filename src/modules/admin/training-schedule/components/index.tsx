@@ -3,8 +3,8 @@
 import { Segmented, SegmentedOptionProps } from '@/components/reuse/data-display';
 import { Breakpoint } from '@/constants/enums';
 import { useWindowSize } from 'react-use';
-import { LessionComponent } from './lessions/lession';
-import { Schedule } from './schedule/schedule';
+import { LessonComponent } from './lesson';
+import { Schedule } from './schedule';
 
 const TABS: SegmentedOptionProps[] = [
   {
@@ -15,7 +15,7 @@ const TABS: SegmentedOptionProps[] = [
   {
     label: 'Bài giảng',
     value: 'lesson',
-    component: <LessionComponent />,
+    component: <LessonComponent />,
   },
 ];
 

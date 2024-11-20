@@ -2,10 +2,10 @@ import useDragScroll from '@/hooks/use-drag-scroll';
 import { Pagination, Select, Table, Tooltip, type TableProps } from 'antd';
 
 import dayjs from 'dayjs';
-import { ThreeDotLession } from './lession.threedot';
-import { LessionType } from './types';
+import { ThreeDotLession } from './lesson.threedot';
+import { LessonType } from './types';
 
-const columns: TableProps<LessionType>['columns'] = [
+const columns: TableProps<LessonType>['columns'] = [
   {
     title: 'Tên tài liệu',
     key: 'name',
@@ -24,7 +24,7 @@ const columns: TableProps<LessionType>['columns'] = [
     key: 'content',
     dataIndex: 'content',
     className: 'text-left min-w-[150px]',
-    render: (content: LessionType['content']) => (
+    render: (content: LessonType['content']) => (
       <span className="block text-left w-full">
         <Tooltip title={content} placement="top">
           <span className="max-w-[200px] text-ellipsis line-clamp-2 text-wrap cursor-text">
@@ -39,7 +39,7 @@ const columns: TableProps<LessionType>['columns'] = [
     key: 'created_at',
     dataIndex: 'created_at',
     className: 'text-center min-w-[150px]',
-    render: (created_at: LessionType['created_at']) => (
+    render: (created_at: LessonType['created_at']) => (
       <span className="block text-center w-full cursor-text">
         {dayjs(created_at).format('DD/MM/YYYY - HH:mm:ss')}
       </span>
@@ -50,7 +50,7 @@ const columns: TableProps<LessionType>['columns'] = [
     key: 'role',
     dataIndex: 'role',
     className: 'text-center',
-    render: (author: LessionType['author']) => (
+    render: (author: LessonType['author']) => (
       <span className="block text-center w-full cursor-text">{author}</span>
     ),
   },
@@ -68,7 +68,7 @@ const columns: TableProps<LessionType>['columns'] = [
   },
 ];
 
-const demo: LessionType = {
+const demo: LessonType = {
   created_at: new Date(Date.now()).toISOString(),
   name: 'Đào tạo học viên mới',
   content: 'Cách bán nhà hiệu quả dành cho người mới',
@@ -77,7 +77,7 @@ const demo: LessionType = {
   author: 'TP Nguyễn Kim Ngân',
 };
 
-const dataSource: LessionType[] = Array.from({ length: 12 }, () => ({ ...demo }));
+const dataSource: LessonType[] = Array.from({ length: 12 }, () => ({ ...demo }));
 
 export const LessionTable = () => {
   const dragScrollHandlers = useDragScroll();

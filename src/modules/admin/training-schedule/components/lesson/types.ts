@@ -1,4 +1,4 @@
-export type LessionType = {
+export type LessonType = {
   id?: string;
   name?: string;
   content?: string;

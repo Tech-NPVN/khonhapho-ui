@@ -1,5 +1,5 @@
 import { REQUIRED_MSG_SAMPLE } from '@/constants/data';
-import { LessionType } from '@/modules/admin/training-schedule/components/lessions/types';
+import { LessonType } from '@/modules/admin/training-schedule/components/lesson/types';
 import { Button, Form, Input } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import TextArea from 'antd/es/input/TextArea';
@@ -9,7 +9,7 @@ import { z } from 'zod';
 import { ModalWithHash } from './modal-with-hash';
 
 type ModalLessionFormProps = {
-  defaultValue?: LessionType;
+  defaultValue?: LessonType;
   type?: 'create' | 'update' | 'view';
   open?: boolean;
   onClose?: () => void;
@@ -27,7 +27,7 @@ const FormSchema = z.object({
 });
 const rule = createSchemaFieldRule(FormSchema);
 
-type FormTypes = LessionType & {
+type FormTypes = LessonType & {
   schedule_date?: any;
   schedule_start_time?: any;
   schedule_end_time?: any;

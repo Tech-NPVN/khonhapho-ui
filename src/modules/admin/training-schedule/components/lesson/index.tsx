@@ -1,13 +1,13 @@
 'use client';
 
-import { ModalLessionForm } from '@/common/modal/modal-lession.form';
+import { ModalLessionForm } from '@/common/modal/modal-lesson.form';
 import { SectionBody } from '@/components/common';
 import { AddIcon } from '@/components/icons';
 import { SearchInput } from '@/components/reuse/data-entry/input';
 import { Button } from 'antd';
 import { useState } from 'react';
 import { useWindowSize } from 'react-use';
-import { LessionTable } from './lession.table';
+import { LessionTable } from './lesson.table';
 const LessionTitle = () => {
   const [isShowClassInformationModal, setIsShowClassInformationModal] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>('');
@@ -62,7 +62,7 @@ const LessionTitle = () => {
     </>
   );
 };
-export const LessionComponent = () => {
+export const LessonComponent = () => {
   return (
     <div className="my-5">
       <SectionBody className="[&_.ant-divider]:hidden" title={LessionTitle()}>

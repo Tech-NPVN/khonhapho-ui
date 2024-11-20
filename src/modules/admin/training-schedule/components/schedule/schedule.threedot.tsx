@@ -3,7 +3,7 @@ import { EyeIcon, PenIcon, PeopleGroup, ThreeDotIcon, TrashIcon } from '@/compon
 import { Popover } from 'antd';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-import { ScheduleTypes } from '../lessions/schedule/types';
+import { ScheduleTypes } from './types';
 
 const demo: ScheduleTypes = {
   created_at: new Date(Date.now()).toISOString(),
