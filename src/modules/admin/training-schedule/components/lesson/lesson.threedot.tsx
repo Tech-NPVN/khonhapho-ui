@@ -1,31 +1,21 @@
-import { ModalClassInformation, ModalClassMember } from '@/common/modal';
-import { EyeIcon, PenIcon, PeopleGroup, ThreeDotIcon, TrashIcon } from '@/components/icons';
+import { ModalClassMember } from '@/common/modal';
+import { ModalLessionForm } from '@/common/modal/modal-lesson.form';
+import { DownLoadIcon, EyeIcon, PenIcon, ThreeDotIcon, TrashIcon } from '@/components/icons';
 import { Popover } from 'antd';
 import { useRef, useState } from 'react';
 import { useClickAway } from 'react-use';
-import { ScheduleTypes } from '../types/types';
+import { LessonType } from './types';
 
-const demo: ScheduleTypes = {
-  created_at: new Date(Date.now()).toISOString(),
+const demo: LessonType = {
   name: 'Đào tạo học viên mới',
   content: 'Cách bán nhà hiệu quả dành cho người mới',
-  location: 'Hội trường tầng 5 tháp A 102 Thái Thịnh',
-  area: 'Hà Nội',
-  role: ['Học viên', 'Chuyên viên', 'Đầu chủ', 'Thư ký'],
-  time: {
-    date: '11/11/2024',
-    start_time: '10:00',
-    end_time: '12:00',
-  },
+  author: 'TP Nguyễn Kim Ngân',
   id: '1234',
-  qr_code: {
-    check_in: 'CHECK IN',
-    check_out: 'CHECK OUT',
-  },
+  created_at: new Date(Date.now()).toISOString(),
   updated_at: new Date(Date.now()).toISOString(),
 };
 type ClassInformationTypes = {
-  value?: ScheduleTypes;
+  value?: LessonType;
   state?: 'create' | 'update' | 'view';
 };
 const Content = ({
@@ -63,7 +53,7 @@ const Content = ({
           <div className="flex justify-center w-4">
             <PenIcon />
           </div>
-          <span className="max-sm:text-base">Chỉnh sửa lịch đào tạo</span>
+          <span className="max-sm:text-base">Chỉnh sửa</span>
         </div>
         <div
           className="flex gap-4 px-2 py-2 items-center rounded-md cursor-pointer hover:bg-black/5 dark:hover:bg-divider_d"
@@ -72,21 +62,21 @@ const Content = ({
           }}
         >
           <div className="flex justify-center w-4">
-            <PeopleGroup />
+            <DownLoadIcon />
           </div>
-          <span className="max-sm:text-base">Thành viên tham gia</span>
+          <span className="max-sm:text-base">Tải xuống</span>
         </div>
         <div className="flex gap-4 px-2 py-2 items-center rounded-md cursor-pointer hover:bg-black/5 dark:hover:bg-divider_d">
           <div className="flex justify-center w-4" onClick={() => deleteClickEvent?.()}>
             <TrashIcon className="fill-red-500" />
           </div>
-          <span className="max-sm:text-base text-red-500">Xoá lịch đào tạo</span>
+          <span className="max-sm:text-base text-red-500">Xoá</span>
         </div>
       </div>
     </>
   );
 };
-const ThreeDotSchedule = () => {
+const ThreeDotLession = () => {
   const [open, setOpen] = useState<boolean>(false);
   const [isShowClassInformationModal, setIsShowClassInformationModal] = useState<boolean>(false);
   const [isShowClassMemberModal, setIsShowClassMemberModal] = useState<boolean>(false);
@@ -139,7 +129,7 @@ const ThreeDotSchedule = () => {
         </div>
       </Popover>
 
-      <ModalClassInformation
+      <ModalLessionForm
         open={isShowClassInformationModal}
         onClose={() => setIsShowClassInformationModal(false)}
         defaultValue={classInformationRef.current?.value}
@@ -153,4 +143,4 @@ const ThreeDotSchedule = () => {
   );
 };
 
-export { ThreeDotSchedule };
+export { ThreeDotLession };

@@ -14,7 +14,11 @@ const ScheduleTitle = () => {
     <>
       <span className="flex items-center justify-between">
         <span>Lịch đào tạo</span>
-        <Button type="primary" onClick={() => setIsShowClassInformationModal(true)}>
+        <Button
+          className="h-10"
+          type="primary"
+          onClick={() => setIsShowClassInformationModal(true)}
+        >
           <AddIcon /> Thêm mới
         </Button>
       </span>
@@ -31,12 +35,7 @@ const Schedule = () => {
   return (
     <div className="my-5">
       <SectionBody title={ScheduleTitle()}>
-        <div className="grid grid-cols-4 gap-3">
-          <Select
-            placeholder="Khu vực tất cả khu vực"
-            className="h-10 [&_.ant-select-selector]:!rounded-xl"
-          />
-          <Input className="!rounded-xl" placeholder="Hội trường đào tạo" />
+        <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-4 gap-3">
           <SearchInput
             placeholder="Tìm kiếm"
             value={searchInput}
@@ -48,6 +47,11 @@ const Schedule = () => {
             }}
             onChange={(value) => setSearchInput(value)}
           />
+          <Select
+            placeholder="Khu vực tất cả khu vực"
+            className="h-10 [&_.ant-select-selector]:!rounded-xl"
+          />
+          <Input className="!rounded-xl h-10" placeholder="Hội trường đào tạo" />
 
           <Button
             type="dashed"
@@ -59,7 +63,7 @@ const Schedule = () => {
             </span>
           </Button>
         </div>
-        <div className="mt-6">
+        <div className="mt-4">
           <ScheduleTable />
         </div>
       </SectionBody>

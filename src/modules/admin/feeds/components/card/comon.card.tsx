@@ -1,10 +1,17 @@
 import { TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
-import { MessengerImage, PhoneImage, ZaloImage } from '@/components/common/image-components';
+import {
+  MessengerImage,
+  MessengerKNPImage,
+  PhoneImage,
+  ZaloImage,
+} from '@/components/common/image-components';
 import { BlueEyeIcon, HeartRedIcon } from '@/components/icons';
 import { ImageGrid, PostDetailTypes } from '@/components/reuse/data-display';
 import { Routes } from '@/constants/enums';
+import { useDivWidth } from '@/hooks/use-div-width';
 import { getTimeAgo } from '@/utilities/func.time';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -93,8 +100,10 @@ type AdminFeedsCardFooterProps = {
   className?: string;
 };
 const CardFooter: React.FC<AdminFeedsCardFooterProps> = React.memo(({ status }) => {
+  const { divRef, width } = useDivWidth({ delay: 50 });
+  const hiddenLabelContact = width < 580;
   return (
-    <div className="mt-1 flex justify-between">
+    <div ref={divRef} className="mt-1 flex justify-between">
       <div className="flex gap-2">
         <div className="flex items-center gap-1">
           <BlueEyeIcon />
@@ -108,24 +117,43 @@ const CardFooter: React.FC<AdminFeedsCardFooterProps> = React.memo(({ status }) 
       <div className="flex">
         <Link
           href={'tel:0987654321'}
-          className="flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d px-3 py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md"
+          className={clsx(
+            'flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md',
+            hiddenLabelContact ? 'px-2' : 'px-3',
+          )}
         >
           <PhoneImage className="!w-4 !h-4" />
-          <span>Điện thoại</span>
+          <span className={hiddenLabelContact ? 'hidden' : ''}>Điện thoại</span>
         </Link>
         <Link
           href={'https://www.facebook.com/messages/t/100010636721382'}
-          className="flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d px-3 py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md"
+          className={clsx(
+            'flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md',
+            hiddenLabelContact ? 'px-2' : 'px-3',
+          )}
         >
           <MessengerImage className="!w-4 !h-4" />
-          <span>Messenger</span>
+          <span className={hiddenLabelContact ? 'hidden' : ''}>Messenger</span>
         </Link>
         <Link
           href={'tel:0987654321'}
-          className="flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d px-3 py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md"
+          className={clsx(
+            'flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md',
+            hiddenLabelContact ? 'px-2' : 'px-3',
+          )}
         >
           <ZaloImage className="!w-4 !h-4" />
-          <span>Zalo</span>
+          <span className={hiddenLabelContact ? 'hidden' : ''}>Zalo</span>
+        </Link>
+        <Link
+          href={'tel:0987654321'}
+          className={clsx(
+            'flex gap-2 text-secondary_text_l hover:text-primary_text_l dark:hover:text-primary_text_d dark:text-secondary_text_d py-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-md',
+            hiddenLabelContact ? 'px-2' : 'px-3',
+          )}
+        >
+          <MessengerKNPImage className="!w-5 !h-4" />
+          <span className={hiddenLabelContact ? 'hidden' : ''}>Chat</span>
         </Link>
       </div>
     </div>
@@ -152,7 +180,7 @@ const CardBody: React.FC<CardBodyProps> = React.memo(({ post, contentMaxLine, on
         {post?.tags?.map((tag) => (
           <span
             key={tag}
-            className="text-link_text_l dark:text-link_text_d hover:cursor-pointer hover:underline"
+            className="text-link_text_l dark:text-link_text_d hover:cursor-pointer hover:underline font-medium"
             onClick={() => {
               onHashTagClick?.(tag);
             }}
@@ -186,9 +214,10 @@ type ImageBodyProps = {
   images: string[];
 };
 const ImageBody: React.FC<ImageBodyProps> = ({ images }) => {
+  const { divRef, width } = useDivWidth();
   return (
-    <div className="mt-2">
-      <ImageGrid images={images} maxImagePreview={5} canDownload horizontally />
+    <div ref={divRef} className="mt-2">
+      <ImageGrid images={images} maxImagePreview={width < 640 ? 3 : 5} canDownload horizontally />
     </div>
   );
 };

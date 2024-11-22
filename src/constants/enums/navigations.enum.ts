@@ -6,7 +6,7 @@ enum Navigations {
   ActivityNews = 'Tin hoạt động',
   All = 'Công ty',
   Branch = 'Chi nhánh',
-  Deals = 'Vụ chốt',
+  Deals = 'Thông báo vụ chốt',
   Department = 'Phòng ban',
   Group = 'Nhóm',
 

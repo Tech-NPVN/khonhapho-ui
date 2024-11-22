@@ -1,16 +1,16 @@
 'use client';
 
-import { useTheme } from 'next-themes';
-import { useSidebar } from './sidebar.context';
-import { usePathname } from 'next/navigation';
-import { useRouter } from 'next-nprogress-bar';
-import { Button, Layout, Menu, MenuTheme } from 'antd';
 import { CollapseIcon } from '@/components/icons';
-import ScrollContainer from 'react-indiana-drag-scroll';
-import { MenuType } from '@/layouts';
-import { ReactNode, useEffect } from 'react';
-import { useWindowSize } from 'react-use';
 import { Breakpoint } from '@/constants/enums';
+import { MenuType } from '@/layouts';
+import { Button, Layout, Menu, MenuTheme } from 'antd';
+import { useRouter } from 'next-nprogress-bar';
+import { useTheme } from 'next-themes';
+import { usePathname } from 'next/navigation';
+import { ReactNode, useEffect } from 'react';
+import ScrollContainer from 'react-indiana-drag-scroll';
+import { useWindowSize } from 'react-use';
+import { useSidebar } from './sidebar.context';
 
 export const SidebarLayout = ({ menu, children }: { menu: MenuType[]; children: ReactNode }) => {
   const { theme } = useTheme();
@@ -34,8 +34,10 @@ export const SidebarLayout = ({ menu, children }: { menu: MenuType[]; children: 
     <Layout className={`${!collapsed ? 'gap-5' : ''} flex bg-transparent mt-5 lg:pr-4`} hasSider>
       <Layout.Sider
         collapsed={collapsed}
-        className={`bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-100px)] lg:sticky top-[84px] bottom-0 lg:left-0 rounded-md lg:block fixed transition-all ease-linear ${
-          collapsed ? '-left-2/4' : 'z-10 left-0'
+        className={`bg-primary_color_l dark:bg-primary_color_d h-[calc(100vh-100px)] lg:sticky top-[84px] bottom-0 lg:left-0 rounded-md lg:block fixed transition-all ease-in-out z-[999] shadow ${
+          collapsed
+            ? `-left-2/4 ${width < Breakpoint.Lg ? 'duration-700' : 'duration-200'}`
+            : 'left-0 duration-200'
         }`}
         width={220}
         collapsedWidth={0}

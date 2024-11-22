@@ -3,13 +3,13 @@
 import { SectionBody, TabLabelWithBadge } from '@/components/common';
 import { CollapseIcon, SearchIcon, XIcon } from '@/components/icons';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
+import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Select, Tooltip } from 'antd';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next-nprogress-bar';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useFeeds } from '../../context';
 import LibManagerApprovedIndex from './lib-manager-approved';
 import LibManagerPendingIndex from './lib-manager-pending';
 import LibManagerRejectIndex from './lib-manager-reject';
@@ -142,13 +142,13 @@ export const LibManagerIndex = () => {
   const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
   const [tabs, setTabs] = useState(TAB_INFO);
   const [tabString, setTabString] = useState(searchParams.get('tab') || TAB_INFO[0].value);
-  const { collapsed, toggleCollapse } = useFeeds();
+  const { collapsed, toggleCollapse } = useSidebar();
 
   //
   const renderTitle = useCallback(() => {
     if (collapsed) {
       return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 h-8">
           <Tooltip title="Mở rộng" placement="bottom">
             <Button
               type="text"
@@ -160,8 +160,11 @@ export const LibManagerIndex = () => {
         </div>
       );
     }
-
-    return 'Duyệt tin thư viện trưởng phòng';
+    return (
+      <div className="flex items-center h-8">
+        <span>Duyệt tin thư viện trưởng phòng</span>
+      </div>
+    );
   }, [collapsed, toggleCollapse]);
 
   // Call api hay làm gì đó

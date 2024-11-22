@@ -150,7 +150,11 @@ export const UrgentlyIndex = () => {
       );
     }
 
-    return 'Duyệt tin khách cần mua gấp';
+    return (
+      <div className="flex items-center h-8">
+        <span>Duyệt tin khách cần mua gấp</span>
+      </div>
+    );
   }, [collapsed, toggleCollapse]);
 
   // Call api hay làm gì đó

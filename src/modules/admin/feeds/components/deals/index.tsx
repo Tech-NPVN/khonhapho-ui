@@ -3,13 +3,13 @@
 import { SectionBody, TabLabelWithBadge } from '@/components/common';
 import { CollapseIcon, SearchIcon, XIcon } from '@/components/icons';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
+import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Tooltip } from 'antd';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next-nprogress-bar';
+import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useFeeds } from '../../context';
 import DealsApprovedIndex from './deals-approved';
 import DealsPendingIndex from './deals-pending';
 import DealsRejectIndex from './deals-reject';
@@ -131,13 +131,13 @@ export const DealsIndex = () => {
   const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
   const [tabs, setTabs] = useState(TAB_INFO);
   const [tabString, setTabString] = useState(searchParams.get('tab') || TAB_INFO[0].value);
-  const { collapsed, toggleCollapse } = useFeeds();
+  const { collapsed, toggleCollapse } = useSidebar();
 
   //
   const renderTitle = useCallback(() => {
     if (collapsed) {
       return (
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 h-8">
           <Tooltip title="Mở rộng" placement="bottom">
             <Button
               type="text"
@@ -145,12 +145,16 @@ export const DealsIndex = () => {
               onClick={toggleCollapse}
             />
           </Tooltip>
-          <span>Duyệt vụ chốt</span>
+          <span>Duyệt tin thông báo vụ chốt</span>
         </div>
       );
     }
 
-    return 'Duyệt vụ chốt';
+    return (
+      <div className="flex items-center h-8">
+        <span>Duyệt tin thông báo vụ chốt</span>
+      </div>
+    );
   }, [collapsed, toggleCollapse]);
 
   // Call api hay làm gì đó
@@ -184,7 +188,7 @@ export const DealsIndex = () => {
 
   const Component = tabs.find((tab) => tab.value === tabString)?.component;
   return (
-    <>
+    <div className="mx-3 lg:mx-0">
       <SectionBody title={renderTitle()}>
         <Header
           segmentedValue={tabString}
@@ -213,6 +217,6 @@ export const DealsIndex = () => {
         />
       </SectionBody>
       <div className="rounded-lg mt-5">{Component && <Component />}</div>
-    </>
+    </div>
   );
 };
