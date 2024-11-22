@@ -1,7 +1,7 @@
 import { MsgValidation } from '@/constants/enums';
 import { z } from 'zod';
 
-const AreaRangeSchema = z.object({
+const PropertyTypeSchema = z.object({
   name: z
     .string({ message: MsgValidation.REQUIRED })
     .trim()
@@ -11,6 +11,6 @@ const AreaRangeSchema = z.object({
   order: z.coerce.number().default(0).optional(),
 });
 
-type AreaRangeSchemaType = z.infer<typeof AreaRangeSchema>;
+type PropertyTypeSchemaType = z.infer<typeof PropertyTypeSchema>;
 
-export { AreaRangeSchema, type AreaRangeSchemaType };
+export { PropertyTypeSchema, type PropertyTypeSchemaType };

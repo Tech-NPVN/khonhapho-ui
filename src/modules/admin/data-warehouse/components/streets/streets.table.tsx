@@ -1,29 +1,30 @@
 'use client';
 
-import { Button, Popconfirm, Table, type TableProps } from 'antd';
-import { PriceRangeSchemaType } from './price-range.schema';
-import { PriceRangeForm } from './price-range.form';
-import { PenIcon, TrashIcon } from '@/components/icons';
 import { useState } from 'react';
+import { StreetsSchemaType } from './streets.schema';
 import useDragScroll from '@/hooks/use-drag-scroll';
+import { Button, Popconfirm, Table, type TableProps } from 'antd';
+import { PenIcon, TrashIcon } from '@/components/icons';
+import { StreetsForm } from './streets.form';
 
-const data: PriceRangeSchemaType = {
-  name: 'Dưới 3 tỷ',
-  code: 'duoi-3-ty',
-  description: '<30',
-  order: 1,
+const data: StreetsSchemaType = {
+  name: 'Đường Bưởi',
+  code: 'duongbuoi',
+  city: 1,
+  district: 2,
+  slug: 'duong-buoi',
 };
 
-const dataSource: PriceRangeSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: StreetsSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
 
-export const PriceRangeTable = () => {
-  const [currentState, setCurrentState] = useState<PriceRangeSchemaType | undefined>(undefined);
+export const StreetsTable = () => {
+  const [currentState, setCurrentState] = useState<StreetsSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<PriceRangeSchemaType>['columns'] = [
+  const columns: TableProps<StreetsSchemaType>['columns'] = [
     {
-      title: 'Khoảng giá',
+      title: 'Đường',
       dataIndex: 'name',
       key: 'name',
     },
@@ -33,15 +34,11 @@ export const PriceRangeTable = () => {
       key: 'code',
     },
     {
-      title: 'Mô tả',
-      dataIndex: 'description',
-      key: 'description',
+      title: 'Slug',
+      dataIndex: 'slug',
+      key: 'slug',
     },
-    {
-      title: 'Thứ tự',
-      dataIndex: 'order',
-      key: 'order',
-    },
+
     {
       title: 'Hành động',
       key: 'action',
@@ -88,7 +85,7 @@ export const PriceRangeTable = () => {
         />
       </div>
 
-      <PriceRangeForm
+      <StreetsForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}

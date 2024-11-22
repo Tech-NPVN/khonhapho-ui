@@ -50,7 +50,7 @@ export const AreaRangeTable = () => {
       render: () => (
         <div className="flex justify-center items-center gap-1">
           <Button
-            icon={<PenIcon className="fill-error_l dark:fill-error_d" />}
+            icon={<PenIcon className="fill-link_text_l dark:fill-link_text_d" />}
             type="text"
             onClick={() => setCurrentState(data)}
           />
@@ -60,10 +60,7 @@ export const AreaRangeTable = () => {
             cancelText="Không"
             placement="bottomRight"
           >
-            <Button
-              icon={<TrashIcon className="fill-link_text_l dark:fill-link_text_d" />}
-              type="text"
-            />
+            <Button icon={<TrashIcon className="fill-error_l dark:fill-error_d" />} type="text" />
           </Popconfirm>
         </div>
       ),

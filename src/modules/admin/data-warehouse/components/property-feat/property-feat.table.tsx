@@ -1,29 +1,29 @@
 'use client';
 
-import { Button, Popconfirm, Table, type TableProps } from 'antd';
-import { PriceRangeSchemaType } from './price-range.schema';
-import { PriceRangeForm } from './price-range.form';
-import { PenIcon, TrashIcon } from '@/components/icons';
 import { useState } from 'react';
+import { PropertyFeatSchemaType } from './property-feat.schema';
 import useDragScroll from '@/hooks/use-drag-scroll';
+import { Button, Popconfirm, Table, type TableProps } from 'antd';
+import { PenIcon, TrashIcon } from '@/components/icons';
+import { PropertyFeatForm } from './property-feat.form';
 
-const data: PriceRangeSchemaType = {
-  name: 'Dưới 3 tỷ',
-  code: 'duoi-3-ty',
-  description: '<30',
+const data: PropertyFeatSchemaType = {
+  name: 'Mặt phố',
+  code: 'mat-pho',
+  description: '',
   order: 1,
 };
 
-const dataSource: PriceRangeSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: PropertyFeatSchemaType[] = Array.from({ length: 5 }, () => ({ ...data }));
 
-export const PriceRangeTable = () => {
-  const [currentState, setCurrentState] = useState<PriceRangeSchemaType | undefined>(undefined);
+export const PropertyFeatTable = () => {
+  const [currentState, setCurrentState] = useState<PropertyFeatSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<PriceRangeSchemaType>['columns'] = [
+  const columns: TableProps<PropertyFeatSchemaType>['columns'] = [
     {
-      title: 'Khoảng giá',
+      title: 'Đặc điểm BĐS',
       dataIndex: 'name',
       key: 'name',
     },
@@ -88,7 +88,7 @@ export const PriceRangeTable = () => {
         />
       </div>
 
-      <PriceRangeForm
+      <PropertyFeatForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}
