@@ -1,31 +1,42 @@
 'use client';
 
-import { Button, Popconfirm, Table, type TableProps } from 'antd';
-import { PriceRangeSchemaType } from './price-range.schema';
-import { PriceRangeForm } from './price-range.form';
-import { PenIcon, TrashIcon } from '@/components/icons';
 import { useState } from 'react';
+import { ProjectSchemaType } from './project.schema';
 import useDragScroll from '@/hooks/use-drag-scroll';
+import { Button, Popconfirm, Table, type TableProps } from 'antd';
+import { PenIcon, TrashIcon } from '@/components/icons';
+import { ProjectForm } from './project.form';
 
-const data: PriceRangeSchemaType = {
-  name: 'Dưới 3 tỷ',
-  code: 'duoi-3-ty',
-  description: '<30',
-  order: 1,
+const data: ProjectSchemaType = {
+  name: 'C7 Giảng Võ',
+  code: 'c7-giang-vo',
+  city: 1,
+  district: 2,
+  description: '',
 };
 
-const dataSource: PriceRangeSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: ProjectSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
 
-export const PriceRangeTable = () => {
-  const [currentState, setCurrentState] = useState<PriceRangeSchemaType | undefined>(undefined);
+export const ProjectTable = () => {
+  const [currentState, setCurrentState] = useState<ProjectSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<PriceRangeSchemaType>['columns'] = [
+  const columns: TableProps<ProjectSchemaType>['columns'] = [
     {
-      title: 'Khoảng giá',
+      title: 'Tên dự án',
       dataIndex: 'name',
       key: 'name',
+    },
+    {
+      title: 'Thành phố',
+      dataIndex: 'city',
+      key: 'city',
+    },
+    {
+      title: 'Quận/Huyện',
+      dataIndex: 'district',
+      key: 'district',
     },
     {
       title: 'Mã',
@@ -37,11 +48,7 @@ export const PriceRangeTable = () => {
       dataIndex: 'description',
       key: 'description',
     },
-    {
-      title: 'Thứ tự',
-      dataIndex: 'order',
-      key: 'order',
-    },
+
     {
       title: 'Hành động',
       key: 'action',
@@ -88,7 +95,7 @@ export const PriceRangeTable = () => {
         />
       </div>
 
-      <PriceRangeForm
+      <ProjectForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}
