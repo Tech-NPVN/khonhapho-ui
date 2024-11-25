@@ -188,35 +188,39 @@ export const DealsIndex = () => {
 
   const Component = tabs.find((tab) => tab.value === tabString)?.component;
   return (
-    <div className="mx-3 lg:mx-0">
-      <SectionBody title={renderTitle()}>
-        <Header
-          segmentedValue={tabString}
-          tabs={tabs.map((tab) => ({
-            label: <TabLabelWithBadge title={tab.label} count={tab.count} />,
-            value: tab.value,
-            component: <tab.component />,
-          }))}
-          handleSegmentedChange={(value) => {
-            // setTabString(value);
-            const s = tabs.find((tab) => tab.value === value)?.searchQuery;
-            router.push(`?tab=${value}${s ? '&q=' + s : ''}`);
-          }}
-          searchString={tabs.find((tab) => tab.value === tabString)?.searchQuery}
-          onSearchStringChange={(value) => {
-            const updatedParams = new URLSearchParams(searchParams.toString());
-            if (value) updatedParams.set('q', value);
-            else updatedParams.delete('q');
-            setTabs((prev) => {
-              return prev.map((tab) =>
-                tab.value === tabString ? { ...tab, searchQuery: value } : tab,
-              );
-            });
-            router.push(`?${updatedParams.toString()}`, undefined);
-          }}
-        />
-      </SectionBody>
-      <div className="rounded-lg mt-5">{Component && <Component />}</div>
+    <div>
+      <div className="mx-3">
+        <SectionBody title={renderTitle()}>
+          <Header
+            segmentedValue={tabString}
+            tabs={tabs.map((tab) => ({
+              label: <TabLabelWithBadge title={tab.label} count={tab.count} />,
+              value: tab.value,
+              component: <tab.component />,
+            }))}
+            handleSegmentedChange={(value) => {
+              // setTabString(value);
+              const s = tabs.find((tab) => tab.value === value)?.searchQuery;
+              router.push(`?tab=${value}${s ? '&q=' + s : ''}`);
+            }}
+            searchString={tabs.find((tab) => tab.value === tabString)?.searchQuery}
+            onSearchStringChange={(value) => {
+              const updatedParams = new URLSearchParams(searchParams.toString());
+              if (value) updatedParams.set('q', value);
+              else updatedParams.delete('q');
+              setTabs((prev) => {
+                return prev.map((tab) =>
+                  tab.value === tabString ? { ...tab, searchQuery: value } : tab,
+                );
+              });
+              router.push(`?${updatedParams.toString()}`, undefined);
+            }}
+          />
+        </SectionBody>
+      </div>
+      <div className="rounded-lg mt-5 mx-0 min-[480px]:mx-2 sm:mx-4">
+        {Component && <Component />}
+      </div>
     </div>
   );
 };

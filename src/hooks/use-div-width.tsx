@@ -4,7 +4,7 @@ type OptionsTypes = {
   delay?: number;
 };
 const useDivWidth = (
-  options: OptionsTypes = { delay: 300 },
+  options: OptionsTypes = { delay: 100 },
 ): { divRef: RefObject<HTMLDivElement>; width: number } => {
   const divRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
@@ -13,7 +13,7 @@ const useDivWidth = (
     const handleResize = () => {
       if (divRef.current) {
         const newWidth = divRef.current.offsetWidth;
-        if (width === 0) {
+        if (width === 0 || options.delay === 0) {
           setWidth(newWidth);
         } else {
           if (timeoutId.current) {

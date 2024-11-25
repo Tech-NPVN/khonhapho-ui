@@ -38,6 +38,7 @@ import LikeComponent from '@/components/reuse/data-display/like';
 import { Marquee } from '@/components/reuse/data-display/post/marquee';
 import ShareComponent from '@/components/reuse/data-display/share';
 import { Routes } from '@/constants/enums';
+import { useDivWidth } from '@/hooks/use-div-width';
 import { Editor } from '@tiptap/core';
 import { Divider, Empty, Modal, Rate, Tag } from 'antd';
 import clsx from 'clsx';
@@ -263,7 +264,6 @@ const Right = ({
   post?: PostDetailTypes;
   onHashtagClick?: (hashtag: string) => void;
 }) => {
-  const [width, setWidth] = useState<number>(0);
   const [spaceHeight, setSpaceHeight] = useState<number>(112);
   const [isShowModalSuitableCustomerPopup, setIsShowModalSuitableCustomerPopup] =
     useState<boolean>(false);
@@ -273,25 +273,8 @@ const Right = ({
   const [isShowEditHistory, setIsShowEditHistory] = useState<boolean>(false);
   const TiptapEditorRef = useRef<Editor | null>(null);
   const [comments, setComments] = useState<CommentTypes[]>(post?.comments || []);
-  const contentRef = useRef<HTMLDivElement | null>(null);
   const commentInputDivRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const updateWidth = () => {
-      if (contentRef.current) {
-        setWidth(contentRef.current.clientWidth);
-      }
-    };
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => {
-      window.removeEventListener('resize', updateWidth);
-      setIsShowModalSuitableCustomerPopup(false);
-      setIsShowNotePopup(false);
-      setIsShowReport(false);
-      setIsShowBooking(false);
-      setIsShowEditHistory(false);
-    };
-  }, []);
+  const { divRef: contentRef, width } = useDivWidth({ delay: 0 });
   const isMobile = width < 480;
   return (
     <>
