@@ -7,8 +7,8 @@ const LegalStatusSchema = z.object({
     .trim()
     .min(1, { message: MsgValidation.REQUIRED }),
   code: z.string().trim().optional(),
-  description: z.string().trim().optional(),
-  order: z.number().default(0).optional(),
+  description: z.string().optional(),
+  order: z.coerce.number().default(0).optional(),
 });
 
 type LegalStatusSchemaType = z.infer<typeof LegalStatusSchema>;

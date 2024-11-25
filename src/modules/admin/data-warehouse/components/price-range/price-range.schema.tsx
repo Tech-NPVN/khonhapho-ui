@@ -7,7 +7,7 @@ const PriceRangeSchema = z.object({
     .trim()
     .min(1, { message: MsgValidation.REQUIRED }),
   code: z.string().trim().optional(),
-  description: z.string().trim().optional(),
+  description: z.string().optional(),
   order: z.number().default(0).optional(),
 });
 

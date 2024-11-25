@@ -14,7 +14,7 @@ const data: LegalStatusSchemaType = {
   order: 1,
 };
 
-const dataSource: LegalStatusSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: LegalStatusSchemaType[] = Array.from({ length: 3 }, () => ({ ...data }));
 
 export const LegalStatusTable = () => {
   const [currentState, setCurrentState] = useState<LegalStatusSchemaType | undefined>(undefined);
@@ -50,7 +50,7 @@ export const LegalStatusTable = () => {
       render: () => (
         <div className="flex justify-center items-center gap-1">
           <Button
-            icon={<PenIcon className="fill-error_l dark:fill-error_d" />}
+            icon={<PenIcon className="fill-link_text_l dark:fill-link_text_d" />}
             type="text"
             onClick={() => setCurrentState(data)}
           />
@@ -60,10 +60,7 @@ export const LegalStatusTable = () => {
             cancelText="Không"
             placement="bottomRight"
           >
-            <Button
-              icon={<TrashIcon className="fill-link_text_l dark:fill-link_text_d" />}
-              type="text"
-            />
+            <Button icon={<TrashIcon className="fill-error_l dark:fill-error_d" />} type="text" />
           </Popconfirm>
         </div>
       ),

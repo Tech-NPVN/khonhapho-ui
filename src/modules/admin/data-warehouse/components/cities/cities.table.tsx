@@ -1,29 +1,28 @@
 'use client';
 
-import { Button, Popconfirm, Table, type TableProps } from 'antd';
-import { PriceRangeSchemaType } from './price-range.schema';
-import { PriceRangeForm } from './price-range.form';
-import { PenIcon, TrashIcon } from '@/components/icons';
-import { useState } from 'react';
 import useDragScroll from '@/hooks/use-drag-scroll';
+import { Button, Popconfirm, Table, TableProps } from 'antd';
+import { useState } from 'react';
+import { CitiesSchemaType } from './cities.schema';
+import { PenIcon, TrashIcon } from '@/components/icons';
+import { CitiesForm } from './cities.form';
 
-const data: PriceRangeSchemaType = {
-  name: 'Dưới 3 tỷ',
-  code: 'duoi-3-ty',
-  description: '<30',
-  order: 1,
+const data: CitiesSchemaType = {
+  name: 'Hà Nội',
+  code: 'NPHN',
+  slug: 'ha-noi',
 };
 
-const dataSource: PriceRangeSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: CitiesSchemaType[] = Array.from({ length: 8 }, () => ({ ...data }));
 
-export const PriceRangeTable = () => {
-  const [currentState, setCurrentState] = useState<PriceRangeSchemaType | undefined>(undefined);
+export const CitiesTable = () => {
+  const [currentState, setCurrentState] = useState<CitiesSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<PriceRangeSchemaType>['columns'] = [
+  const columns: TableProps<CitiesSchemaType>['columns'] = [
     {
-      title: 'Khoảng giá',
+      title: 'Thành phố',
       dataIndex: 'name',
       key: 'name',
     },
@@ -33,14 +32,9 @@ export const PriceRangeTable = () => {
       key: 'code',
     },
     {
-      title: 'Mô tả',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
-      title: 'Thứ tự',
-      dataIndex: 'order',
-      key: 'order',
+      title: 'Slug',
+      dataIndex: 'slug',
+      key: 'slug',
     },
     {
       title: 'Hành động',
@@ -88,7 +82,7 @@ export const PriceRangeTable = () => {
         />
       </div>
 
-      <PriceRangeForm
+      <CitiesForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}
