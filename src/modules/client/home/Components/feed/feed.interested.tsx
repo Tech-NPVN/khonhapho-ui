@@ -1,7 +1,7 @@
 'use client';
 import { CityType, DistrictType, locationApi } from '@/apis/location';
 import { CaretDown } from '@/components/icons/caret-down.icon';
-import { FeedDetail } from '@/components/reuse/data-display';
+import Feed from '@/components/reuse/data-display/feed';
 import { MsgValidation } from '@/constants/enums';
 import { Button, Collapse, Form, Select } from 'antd';
 import clsx from 'clsx';
@@ -205,7 +205,7 @@ const FeedInterested = () => {
       </div>
       <div className="w-full mt-4 gap-4 flex flex-col sm:mt-6 sm:gap-6">
         {HOME_POSTS.map((post, index) => (
-          <FeedDetail type="warehouse" key={post.id} post={post} />
+          <Feed type="warehouse" key={post.id} post={post} />
         ))}
       </div>
     </>

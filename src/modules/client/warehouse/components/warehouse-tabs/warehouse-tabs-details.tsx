@@ -1,5 +1,5 @@
 import { ChangeIcon } from '@/components/icons';
-import { FeedDetail } from '@/components/reuse/data-display/';
+import Feed from '@/components/reuse/data-display/feed';
 import { SELECT_FILTER_WAREHOUSE } from '@/constants/data';
 import { HOME_POSTS } from '@/modules/client/home/Components/feed/data.sample';
 import { Select } from 'antd';
@@ -23,7 +23,7 @@ const WarehouseTabsDetails = () => {
     <div className="mt-4 flex flex-col gap-4">
       {Array.from({ length: 4 }, (_, i) => (
         <div key={i} className="rounded-lg bg-primary_color_l dark:bg-primary_color_d">
-          <FeedDetail className="max-w-none" type="warehouse" post={HOME_POSTS[0]} />
+          <Feed className="max-w-none" type="warehouse" post={HOME_POSTS[0]} />
         </div>
       ))}
     </div>

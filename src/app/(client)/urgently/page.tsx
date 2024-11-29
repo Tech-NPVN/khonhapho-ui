@@ -2,7 +2,7 @@
 
 import { ModalUrgently, ModalUrgentlyType } from '@/common/modal';
 import { MiniSearch } from '@/components/common';
-import { FeedDetail } from '@/components/reuse/data-display/post';
+import Feed from '@/components/reuse/data-display/feed';
 import Image from 'next/image';
 import { useState } from 'react';
 
@@ -64,7 +64,7 @@ const UrgentlyPage = () => {
           </div>
           <div className="w-full mt-6 gap-6 flex flex-col">
             {Array.from({ length: 10 }).map((_, index) => (
-              <FeedDetail
+              <Feed
                 key={'post-' + index}
                 post={{
                   content: `<p><b>Tôi có khách cần mua gấp, kính nhờ anh chị em tìm hộ giúp tôi. Tiêu chí khách:</b></p>

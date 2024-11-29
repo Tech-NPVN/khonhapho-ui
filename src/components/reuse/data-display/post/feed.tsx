@@ -3,6 +3,7 @@
 import { ModalEditHistory } from '@/common/modal';
 import { MarqueeText, TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
+import { MediaGallery } from '@/components/common/gallery';
 import {
   MessengerImage,
   MessengerKNPImage,
@@ -25,7 +26,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import { Comment, CommentTypes, ModalCommentList } from '../comment';
-import { ImageGrid } from '../images';
 import LikeShareComment from './like-share-comment';
 import { SuitableCustomer } from './popup-group';
 import { ThreeDot, ThreeDotEventProps } from './three-dot';
@@ -61,6 +61,7 @@ type FeedProps = {
   onHashtagClick?: (hashtag?: string) => void;
 };
 
+/** Đã tạo component khác (Feed) */
 const FeedDetail = ({
   post,
   threeDotEvents,
@@ -320,14 +321,22 @@ const Warehouse: React.FC<
       </div>
 
       <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
-        <div>
-          <ImageGrid
-            images={post?.images || []}
-            canDownload
-            horizontally={width >= 520}
-            maxImagePreview={width >= 888 || width <= 520 ? 5 : 4}
-          />
-        </div>
+        <MediaGallery
+          mode={width < 640 ? 'feed' : 'grid'}
+          media={post?.images?.map((img) => ({
+            src: img,
+            type: 'image',
+          }))}
+          configs={{
+            grid: {
+              maxMediaDisplay: width >= 888 || width <= 520 ? 5 : 4,
+              imagePerRow: width >= 888 || width <= 520 ? 5 : 4,
+            },
+            feed: {
+              maxMediaDisplay: 4,
+            },
+          }}
+        />
       </div>
     </>
   );
@@ -352,9 +361,13 @@ const Urgently: React.FC<
         </div>
       </div>
       <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
-        <div>
-          <ImageGrid images={post?.images || []} canDownload />
-        </div>
+        <MediaGallery
+          mode="feed"
+          media={post?.images?.map((img) => ({
+            src: img,
+            type: 'image',
+          }))}
+        />
       </div>
     </>
   );
@@ -379,14 +392,13 @@ const Default: React.FC<
         </div>
       </div>
       <div className={clsx('mt-2', (post?.images || []).length > 0 ? '' : 'hidden')}>
-        <div>
-          <ImageGrid
-            images={post?.images || []}
-            canDownload
-            horizontally={width >= 720}
-            maxImagePreview={width >= 720 ? 4 : 5}
-          />
-        </div>
+        <MediaGallery
+          mode="feed"
+          media={post?.images?.map((img) => ({
+            src: img,
+            type: 'image',
+          }))}
+        />
       </div>
     </>
   );
