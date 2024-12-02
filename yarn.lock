@@ -3592,6 +3592,7 @@ __metadata:
     react: "npm:^18"
     react-dom: "npm:^18"
     react-indiana-drag-scroll: "npm:^2.2.0"
+    react-photo-view: "npm:^1.2.6"
     react-use: "npm:^17.5.1"
     slugify: "npm:^1.6.6"
     swiper: "npm:^11.1.4"
@@ -5374,6 +5375,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-photo-view@npm:^1.2.6":
+  version: 1.2.6
+  resolution: "react-photo-view@npm:1.2.6"
+  peerDependencies:
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10c0/95a1d07688ab5d69282c01b2d3d328ee014081074693bcf0bbd78d6ffe9f7e0dcd9883fc67dc1d27277c0e96aec29f96857ed05b6c930c5b31a0447d32bbc6b8
+  languageName: node
+  linkType: hard
+
 "react-universal-interface@npm:^0.6.2":
   version: 0.6.2
   resolution: "react-universal-interface@npm:0.6.2"
@@ -6391,11 +6402,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
   version: 5.5.3
-  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"
+  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=5adc0c"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/911c7811d61f57f07df79c4a35f56a0f426a65426a020e5fcd792f66559f399017205f5f10255329ab5a3d8c2d1f1d19530aeceffda70758a521fae1d469432e
+  checksum: 10c0/5a437c416251334deeaf29897157032311f3f126547cfdc4b133768b606cb0e62bcee733bb97cf74c42fe7268801aea1392d8e40988cdef112e9546eba4c03c5
   languageName: node
   linkType: hard
 

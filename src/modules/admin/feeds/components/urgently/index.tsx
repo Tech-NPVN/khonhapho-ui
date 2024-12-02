@@ -3,12 +3,12 @@
 import { SectionBody, TabLabelWithBadge } from '@/components/common';
 import { CollapseIcon, SearchIcon, XIcon } from '@/components/icons';
 import { SegmentedOptionProps } from '@/components/reuse/data-display';
+import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Tooltip } from 'antd';
 import clsx from 'clsx';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useFeeds } from '../../context';
 import UrgentlyApprovedIndex from './urgently-approved';
 import UrgentlyPendingIndex from './urgently-pending';
 import UrgentlyRejectIndex from './urgently-reject';
@@ -131,7 +131,7 @@ export const UrgentlyIndex = () => {
   const [firstLoaded, setFirstLoaded] = useState<boolean>(false);
   const [tabs, setTabs] = useState(TAB_INFO);
   const [tabString, setTabString] = useState(searchParams.get('tab') || TAB_INFO[0].value);
-  const { collapsed, toggleCollapse } = useFeeds();
+  const { collapsed, toggleCollapse } = useSidebar();
 
   //
   const renderTitle = useCallback(() => {

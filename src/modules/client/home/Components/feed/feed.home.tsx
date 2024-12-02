@@ -1,7 +1,7 @@
 'use client';
 
 import { MiniSearch } from '@/components/common';
-import { FeedDetail } from '@/components/reuse/data-display/';
+import Feed from '@/components/reuse/data-display/feed';
 import clsx from 'clsx';
 import { useState } from 'react';
 import HomePinComponent from '../pin/pin';
@@ -43,7 +43,7 @@ const FeedHome = () => {
       </div>
       <div className="w-full mt-4 gap-4 flex flex-col sm:mt-6 sm:gap-6">
         {HOME_POSTS.map((post) => (
-          <FeedDetail
+          <Feed
             key={post.id || ''}
             post={post}
             onHashtagClick={(hashtag) =>

@@ -5,6 +5,7 @@ import { ModalSuitableCustomer } from '@/common/modal/modal-suitable-customer';
 import { BookmarkButton } from '@/components/bookmark';
 import { TextSeeMore } from '@/components/common';
 import CopyButton from '@/components/common/copy-button';
+import { MediaGallery } from '@/components/common/gallery';
 import {
   MessengerImage,
   MessengerKNPImage,
@@ -30,22 +31,19 @@ import {
   Comment,
   CommentInput,
   CommentTypes,
-  ImageSlider,
   PostDetailTypes,
-  VideoTag,
 } from '@/components/reuse/data-display';
 import LikeComponent from '@/components/reuse/data-display/like';
 import { Marquee } from '@/components/reuse/data-display/post/marquee';
 import ShareComponent from '@/components/reuse/data-display/share';
 import { Routes } from '@/constants/enums';
+import { useDivWidth } from '@/hooks/use-div-width';
 import { Editor } from '@tiptap/core';
 import { Divider, Empty, Modal, Rate, Tag } from 'antd';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
-import { FreeMode, Navigation } from 'swiper/modules';
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react';
 
 const IMAGES_DEMO = ['/images/post-1.jpeg', '/images/post-2.jpeg', '/images/post-3.jpeg'];
 
@@ -83,8 +81,6 @@ const ModalWarehouseDetails = ({ open, post, onClose, onHashtagClick }: IProps) 
   ) : null;
 };
 const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
-  const [sliderIndex, setSliderIndex] = useState<number>(-1);
-  const swiperRef = useRef<SwiperRef | null>(null);
   const mediaCount = (post?.images?.length ?? 0) + (post?.videos?.length ?? 0) + IMAGES_DEMO.length; //+3 demo
   return (
     <>
@@ -141,87 +137,15 @@ const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
                 mediaCount === 0 ? 'hidden' : '',
               )}
             >
-              <Swiper
-                ref={swiperRef}
-                spaceBetween={3}
-                navigation={true}
-                modules={[FreeMode, Navigation]}
-                className={clsx(
-                  '[&_.swiper-button-prev]:text-white [&_.swiper-button-prev]:ms-1 [&_.swiper-button-next]:text-white [&_.swiper-button-next]:me-1 [&_.swiper-button-next:after]:text-[32px] [&_.swiper-button-prev:after]:text-[32px]',
-                  'transition-all ease-in-out duration-200 h-full',
-                  'warehouse-slider-p',
-                )}
-                centeredSlides
-                onSlideChange={() => {
-                  document.querySelectorAll('.warehouse-slider-p video').forEach((element) => {
-                    if (element instanceof HTMLVideoElement && !element.paused) element.pause();
-                  });
-                }}
-              >
-                {post?.videos?.map((video, index) => (
-                  <SwiperSlide
-                    key={video}
-                    className="h-full w-full flex justify-center"
-                    onClick={() => {}}
-                  >
-                    <VideoTag
-                      video={video}
-                      onClick={() => {
-                        setSliderIndex(index);
-                        document
-                          .querySelectorAll('.warehouse-slider-p video')
-                          .forEach((element) => {
-                            if (element instanceof HTMLVideoElement && !element.paused)
-                              element.pause();
-                          });
-                      }}
-                    />
-                  </SwiperSlide>
-                ))}
-                {post?.images?.map((image, index) => (
-                  <SwiperSlide
-                    key={image}
-                    className="h-full w-full flex justify-center"
-                    onClick={() => {
-                      setSliderIndex(index + (post.videos?.length ?? 0));
-                    }}
-                  >
-                    <div className="swiper-zoom-container w-full h-full select-none">
-                      <Image
-                        className="w-auto max-w-full max-h-full h-full object-cover"
-                        width={0}
-                        height={0}
-                        src={image}
-                        alt={image}
-                        quality={100}
-                        unoptimized
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-                {/* Demovideo */}
-                {IMAGES_DEMO.map((image, index) => (
-                  <SwiperSlide
-                    key={image}
-                    className="h-full w-full flex justify-center"
-                    onClick={() => {
-                      setSliderIndex(index + (post?.videos?.length ?? 0));
-                    }}
-                  >
-                    <div className="swiper-zoom-container w-full h-full select-none">
-                      <Image
-                        className="w-auto max-w-full max-h-full h-full object-cover"
-                        width={0}
-                        height={0}
-                        src={image}
-                        alt={image}
-                        quality={100}
-                        unoptimized
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              <MediaGallery
+                className="w-full h-full"
+                mode="slider"
+                media={IMAGES_DEMO.map((img) => ({
+                  type: 'image',
+                  src: img,
+                  alt: '',
+                }))}
+              />
               <div
                 className="max-sm:hidden absolute top-2 left-2 z-10 w-8 h-8 flex justify-center items-center cursor-pointer hover:bg-white/10 rounded-full"
                 onClick={() => {
@@ -242,17 +166,6 @@ const CustomModal = ({ post, onClose, onHashtagClick }: IProps) => {
           </div>
         </div>
       </Modal>
-      {sliderIndex >= 0 && (
-        <ImageSlider
-          videos={post?.videos}
-          images={[...(post?.images || []), ...IMAGES_DEMO]}
-          open={sliderIndex >= 0}
-          onClose={() => {
-            setSliderIndex(-1);
-          }}
-          index={sliderIndex}
-        />
-      )}
     </>
   );
 };
@@ -263,7 +176,6 @@ const Right = ({
   post?: PostDetailTypes;
   onHashtagClick?: (hashtag: string) => void;
 }) => {
-  const [width, setWidth] = useState<number>(0);
   const [spaceHeight, setSpaceHeight] = useState<number>(112);
   const [isShowModalSuitableCustomerPopup, setIsShowModalSuitableCustomerPopup] =
     useState<boolean>(false);
@@ -273,26 +185,9 @@ const Right = ({
   const [isShowEditHistory, setIsShowEditHistory] = useState<boolean>(false);
   const TiptapEditorRef = useRef<Editor | null>(null);
   const [comments, setComments] = useState<CommentTypes[]>(post?.comments || []);
-  const contentRef = useRef<HTMLDivElement | null>(null);
   const commentInputDivRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    const updateWidth = () => {
-      if (contentRef.current) {
-        setWidth(contentRef.current.clientWidth);
-      }
-    };
-    updateWidth();
-    window.addEventListener('resize', updateWidth);
-    return () => {
-      window.removeEventListener('resize', updateWidth);
-      setIsShowModalSuitableCustomerPopup(false);
-      setIsShowNotePopup(false);
-      setIsShowReport(false);
-      setIsShowBooking(false);
-      setIsShowEditHistory(false);
-    };
-  }, []);
-  const isMobile = width < 480;
+  const { divRef: contentRef, width } = useDivWidth({ delay: 0 });
+  const isMobile = width < 481;
   return (
     <>
       <div ref={contentRef} className="max-h-full overflow-y-auto flex-1 dark:bg-primary_color_d ">

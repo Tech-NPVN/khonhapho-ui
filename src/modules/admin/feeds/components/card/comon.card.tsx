@@ -41,7 +41,7 @@ const CardHeader: React.FC<AdminFeedsCardHeaderProps> = React.memo(
           <div className="flex flex-col">
             <div>
               <Link
-                className="text-base font-medium hover:underline text-primary_text_l dark:text-primary_text_d "
+                className="text-base font-medium hover:underline text-primary_text_l dark:text-primary_text_d line-clamp-1"
                 href={Routes.User + '/' + 1}
               >
                 {post?.author?.name ?? 'Chưa có tên'}

@@ -3,6 +3,7 @@ import { XIcon } from '@/components/icons';
 import { Divider, Empty } from 'antd';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
+import { useWindowSize } from 'react-use';
 import { Comment, CommentTypes } from './comment';
 import { CommentInput } from './comment-input';
 
@@ -45,10 +46,7 @@ const initComments: CommentTypes[] = [
 // modal-comments modal-header
 const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
   const [comments, setComments] = useState<CommentTypes[]>(initComments);
-  const [windowSize, setWindowSize] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
-  });
+  const { width: windowWidth, height: windowHeight } = useWindowSize();
   const commentsRef = useRef<HTMLDivElement>(null);
   const handleSendComment = (comment?: CommentTypes) => {
     if (!comment) return;
@@ -66,19 +64,6 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
     onClose?.();
     history.replaceState(null, document.title, window.location.pathname + window.location.search);
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-    window.addEventListener('resize', handleResize);
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     if (open) {
@@ -109,7 +94,7 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
     };
   }, [onClose]);
 
-  const popupHeight = windowSize.width < 640 ? windowSize.height : windowSize.height - 180;
+  const popupHeight = windowWidth < 640 ? windowHeight : windowHeight - 180;
   return (
     <>
       <div
@@ -123,8 +108,8 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
           'animate-grow-in  transition-all duration-300 linear',
         )}
         style={{
-          minHeight: windowSize.width < 640 ? popupHeight + 'px' : popupHeight + 'px',
-          top: windowSize.width < 640 ? 0 + 'px' : 90 + 'px',
+          minHeight: windowWidth < 640 ? popupHeight + 'px' : popupHeight + 'px',
+          top: windowWidth < 640 ? 0 + 'px' : 90 + 'px',
         }}
       >
         <div className="flex justify-between items-center mx-3 my-3 modal-header">

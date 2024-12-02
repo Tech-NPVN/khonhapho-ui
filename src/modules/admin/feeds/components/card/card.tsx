@@ -30,7 +30,7 @@ const AdminFeedsCard: React.FC<AdminFeedsCardProps> = ({
   return (
     <div
       className={
-        'w-full px-4 py-3 bg-white dark:bg-primary_color_d rounded-lg shadow-sm ' +
+        'w-full px-2 min-[480px]:px-4 py-3 bg-white dark:bg-primary_color_d sm:rounded-lg shadow-sm ' +
         (className ?? '')
       }
     >

@@ -22,7 +22,7 @@ const TABS: SegmentedOptionProps[] = [
 export const TrainingScheduleIndex = () => {
   const { width } = useWindowSize();
   return (
-    <div className="px-3 lg:ps-0 pt-5 sm:[&_.ant-segmented-item]:min-w-[200px]">
+    <div className="px-0 sm:px-3 lg:ps-0 pt-5 sm:[&_.ant-segmented-item]:min-w-[200px]">
       <Segmented block={width < Breakpoint.Md} options={TABS} />
     </div>
   );
