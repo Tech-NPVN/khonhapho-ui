@@ -9,10 +9,14 @@ import {
   SELECT_WAREHOUSE_STATUS,
 } from '@/constants/data';
 import { Button, Col, Collapse, InputNumber, Row, Select } from 'antd';
-import { memo, useCallback, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 const WarehouseSearch = () => {
   const [expand, setExpand] = useState<string[]>([]);
+
+  const isExpand = useMemo(() => {
+    return expand.includes('1');
+  }, [expand]);
 
   const renderExpanding = useCallback(() => {
     return (
@@ -43,7 +47,7 @@ const WarehouseSearch = () => {
     return (
       <div className="relative">
         <Button
-          icon={<DoubleArrowBottomIcon className={`${expand.includes('1') ? 'rotate-180' : ''}`} />}
+          icon={<DoubleArrowBottomIcon className={`${isExpand ? 'rotate-180' : ''}`} />}
           type="text"
           className="dark:bg-background_d py-5"
         >
@@ -51,11 +55,11 @@ const WarehouseSearch = () => {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-color_l opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-color_l"></span>
           </span>
-          {expand.includes('1') ? 'Thu nhỏ' : 'Mở rộng'}
+          {isExpand ? 'Thu nhỏ' : 'Mở rộng'}
         </Button>
       </div>
     );
-  }, [expand]);
+  }, [isExpand]);
 
   return (
     <Row gutter={[6, 6]} className="mt-5">
@@ -120,7 +124,17 @@ const WarehouseSearch = () => {
         />
       </Col>
       <Col flex="20%">
-        <Select placeholder="Dự án/Chung cư" size="large" className="w-full" />
+        {isExpand ? (
+          <Select placeholder="Dự án/Chung cư" size="large" className="w-full" />
+        ) : (
+          <Button
+            icon={<ReloadDownIcon />}
+            size="large"
+            className="w-full bg-transparent dark:bg-background_d dark:border-0 dark:text-primary_text_d"
+          >
+            Đặt lại
+          </Button>
+        )}
       </Col>
       <Col span={24}>
         <Collapse
