@@ -189,7 +189,7 @@ export const DealsIndex = () => {
   const Component = tabs.find((tab) => tab.value === tabString)?.component;
   return (
     <div>
-      <div className="mx-3">
+      <div className="mx-2 sm:mx-4 lg:mx-0">
         <SectionBody title={renderTitle()}>
           <Header
             segmentedValue={tabString}
@@ -218,9 +218,7 @@ export const DealsIndex = () => {
           />
         </SectionBody>
       </div>
-      <div className="rounded-lg mt-5 mx-0 min-[480px]:mx-2 sm:mx-4">
-        {Component && <Component />}
-      </div>
+      <div className="mx-0 sm:mx-4 lg:mx-0 rounded-lg mt-5">{Component && <Component />}</div>
     </div>
   );
 };

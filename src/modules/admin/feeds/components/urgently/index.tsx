@@ -7,12 +7,12 @@ import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Tooltip } from 'antd';
 import clsx from 'clsx';
+import { useRouter } from 'next-nprogress-bar';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import UrgentlyApprovedIndex from './urgently-approved';
 import UrgentlyPendingIndex from './urgently-pending';
 import UrgentlyRejectIndex from './urgently-reject';
-import { useRouter } from 'next-nprogress-bar';
 
 type HeaderProps = {
   segmentedValue: string;
@@ -124,6 +124,11 @@ const Header = ({
     </div>
   );
 };
+
+/** (Admin)
+ *  Quản lý Feed:
+ *  `Khách cần mua gấp`
+ */
 export const UrgentlyIndex = () => {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -189,7 +194,7 @@ export const UrgentlyIndex = () => {
   const Component = tabs.find((tab) => tab.value === tabString)?.component;
   return (
     <>
-      <SectionBody title={renderTitle()}>
+      <SectionBody className="mx-2 sm:mx-4 lg:mx-0" title={renderTitle()}>
         <Header
           segmentedValue={tabString}
           tabs={tabs.map((tab) => ({
@@ -216,7 +221,7 @@ export const UrgentlyIndex = () => {
           }}
         />
       </SectionBody>
-      <div className="rounded-lg mt-5">{Component && <Component />}</div>
+      <div className="mx-0 sm:mx-4 lg:mx-0 rounded-lg mt-5">{Component && <Component />}</div>
     </>
   );
 };

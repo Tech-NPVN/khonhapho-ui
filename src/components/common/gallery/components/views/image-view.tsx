@@ -4,7 +4,6 @@ import { Palette } from 'color-thief-react';
 import Image from 'next/image';
 import React from 'react';
 import { PhotoView } from 'react-photo-view';
-import { BLUR_DATA_URL } from './image-blur';
 
 export type AspectRatio = '1/1' | '16/9' | '9/16' | 'auto';
 
@@ -29,6 +28,7 @@ const ImageView: React.FC<ImageViewProps> = ({
     <PhotoView key={src} src={src}>
       {visibility ? (
         <div className={`overflow-hidden relative flex justify-center items-center ${className}`}>
+          {/* Màu nền theo ảnh */}
           <Palette src={src ?? ''} format="hex">
             {({ data }) => {
               return (
@@ -52,8 +52,9 @@ const ImageView: React.FC<ImageViewProps> = ({
             src={src ?? 'error'}
             alt={src ?? 'error'}
             unoptimized
-            placeholder="blur"
-            blurDataURL={BLUR_DATA_URL}
+            placeholder="empty"
+            loading="lazy"
+            // blurDataURL={BLUR_DATA_URL}
           />
           {numberOverlay > 0 && (
             <div className="absolute flex justify-center items-center top-0 right-0 bottom-0 left-0 bg-black/60 text-white text-5xl cursor-default z-20">

@@ -7,12 +7,12 @@ import { useSidebar } from '@/components/reuse/navigation';
 import { useDivWidth } from '@/hooks/use-div-width';
 import { Button, Segmented, Select, Tooltip } from 'antd';
 import clsx from 'clsx';
+import { useRouter } from 'next-nprogress-bar';
 import { useSearchParams } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import SkillApprovedIndex from './skill-approved';
 import SkillPendingIndex from './skill-pending';
 import SkillRejectIndex from './skill-reject';
-import { useRouter } from 'next-nprogress-bar';
 
 type HeaderProps = {
   segmentedValue: string;
@@ -203,7 +203,7 @@ export const SkillIndex = () => {
 
   return (
     <>
-      <SectionBody title={renderTitle()}>
+      <SectionBody className="mx-2 sm:mx-4 lg:mx-0" title={renderTitle()}>
         <div className="flex justify-between">
           <Header
             segmentedValue={tabString}
@@ -233,7 +233,7 @@ export const SkillIndex = () => {
         </div>
       </SectionBody>
 
-      <div className="rounded-lg mt-5">{Component && <Component />}</div>
+      <div className="mx-0 sm:mx-4 lg:mx-0 rounded-lg mt-5">{Component && <Component />}</div>
     </>
   );
 };

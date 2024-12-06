@@ -201,7 +201,7 @@ export const LibOwnerIndex = () => {
 
   return (
     <>
-      <SectionBody title={renderTitle()}>
+      <SectionBody className="mx-2 sm:mx-4 lg:mx-0" title={renderTitle()}>
         <div className="flex justify-between">
           <Header
             segmentedValue={tabString}
@@ -231,7 +231,7 @@ export const LibOwnerIndex = () => {
         </div>
       </SectionBody>
 
-      <div className="rounded-lg mt-5">{Component && <Component />}</div>
+      <div className="mx-0 sm:mx-4 lg:mx-0 rounded-lg mt-5">{Component && <Component />}</div>
     </>
   );
 };
