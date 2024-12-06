@@ -4,6 +4,7 @@ import {
   ArrowDownLeftAndUpRightToCenterIcon,
   ArrowRightIcon,
   ArrowUpRightAndDownLeftFromCenterIcon,
+  ClockIcon,
   DownLoadIcon,
   Grid2Icon,
   RotateRightIcon,
@@ -11,7 +12,8 @@ import {
   ZoomInIcon,
   ZoomOutIcon,
 } from '@/components/icons';
-import { useEffect, useState } from 'react';
+import dayjs from 'dayjs';
+import React, { useEffect, useState } from 'react';
 import { OverlayRenderProps } from 'react-photo-view/dist/types';
 import { useMedia } from 'react-use';
 import { handleDownloadMedia } from '../helpers/download.func';
@@ -28,7 +30,9 @@ const Config = {
 };
 
 export type MediaOverlayProps = Omit<OverlayRenderProps, 'images'> & {
-  media?: MediaViewProps[];
+  /** Danh sách ảnh hoặc video */
+  media?: Omit<MediaViewProps, 'className' | 'aspect' | 'visibility' | 'numberOverlay'>[];
+  /**Các nút bấm ở xem chi tiết */
   toolbar?: ToolBarOptions;
 };
 
@@ -41,9 +45,10 @@ const ToolbarData: MediaOverlayProps['toolbar'] = {
   download: true,
   thumbnail: true,
   fullscreen: true,
+  time_update: true,
 };
 
-const MediaOverlay = ({
+const MediaOverlay: React.FC<MediaOverlayProps> = ({
   scale,
   index,
   rotate,
@@ -54,13 +59,13 @@ const MediaOverlay = ({
   onIndexChange,
   overlayVisible,
   toolbar: toolbarCustom,
-}: MediaOverlayProps) => {
+}) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [isFullscreen, toggleFullscreen] = useFullscreen();
   const { setHash, clearHash } = useSetHash(() => onClose());
   const [hideFeatures, setHideFeatures] = useState<boolean>(false);
   const [hideThumbnail, setHideThumbnail] = useState<boolean>(media.length === 1);
-  const isMobile = useMedia('(max-width: 480px)');
+  const isMobile = useMedia('(max-width: 520px)');
   const toolbar = { ...ToolbarData, ...toolbarCustom };
   // lấy opacity từ màu nền Backdrop
   useEffect(() => {
@@ -216,18 +221,30 @@ const MediaOverlay = ({
       {/* Đóng */}
       {toolbar?.close && (
         <div
-          className={`absolute top-3 left-3 z-20 ${toolbar.classNames?.close ?? ''} ${
-            hideFeatures ? 'opacity-0' : ' '
-          } `}
+          className={`absolute top-0 left-0 sm:top-3 sm:left-3 z-20 ${
+            toolbar.classNames?.close ?? ''
+          } ${hideFeatures ? 'opacity-0' : ' '} `}
         >
           <button
-            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center rounded-full sm:hover:bg-white/20"
+            className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:rounded-full sm:hover:bg-white/20"
             onClick={() => {
               onClose();
             }}
           >
             <XIcon className="fill-white" width={24} height={24} />
           </button>
+        </div>
+      )}
+      {/* Thời gian tạo / cập nhật của ảnh */}
+      {toolbar?.time_update && media[index]?.time && (
+        <div
+          className={`absolute top-0 sm:top-3 left-12 sm:left-16 z-20 flex items-center h-10 text-white gap-2
+             ${toolbar.classNames?.time_update ?? ''}
+              ${hideFeatures ? 'opacity-0' : ' '}
+              `}
+        >
+          <ClockIcon className="fill-white dark:fill-white scale-125" />
+          <span>{dayjs(media[index]?.time).format('DD/MM/YYYY HH:mm:ss')}</span>
         </div>
       )}
       {/* Đếm index/total */}

@@ -1,0 +1,23 @@
+.media-banner .ant-upload-picture-card-wrapper {
+  width: 100%;
+}
+.media-banner .ant-upload-list-item-container {
+  width: 100% !important;
+}
+.media-banner .ant-upload-list-item-container {
+  height: auto !important;
+}
+.media-banner .ant-upload-list-item {
+  padding: 0 !important;
+}
+.media-banner .ant-upload-list-item::before {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 8px;
+}
+.media-banner .ant-upload-select,
+.media-banner .ant-upload-list-item {
+  aspect-ratio: 23/8 !important;
+  width: 100% !important;
+  height: auto !important;
+}
