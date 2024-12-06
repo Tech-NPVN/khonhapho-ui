@@ -82,7 +82,7 @@ const GalleryList: React.FC<GalleryListProps> = ({ className, display = 'grid' }
           <div className="flex w-28 justify-center">Hành động</div>
         </div>
         <div className="flex flex-col">
-          {Array.from({ length: 12 }).map((img, index) => {
+          {Array.from({ length: 12 }).map((_, index) => {
             return (
               <div
                 className="w-full flex justify-between p-2 hover:bg-gray-500/5 items-center"
@@ -112,9 +112,16 @@ const GalleryList: React.FC<GalleryListProps> = ({ className, display = 'grid' }
                 </div>
                 <div className="flex-[1] text-center">22/03/2024 10:32:24</div>
                 <div className="flex items-center w-28 justify-center">
-                  <Button className="border-none bg-transparent px-2">
-                    <PenIcon className="fill-link_text_d" />
-                  </Button>
+                  <Link
+                    href={`/admin/media/photo-gallery/${index}/edit`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    <Button className="border-none bg-transparent px-2">
+                      <PenIcon className="fill-link_text_d" />
+                    </Button>
+                  </Link>
                   <Button className="border-none bg-transparent px-2">
                     <TrashIcon className="fill-red-500" />
                   </Button>

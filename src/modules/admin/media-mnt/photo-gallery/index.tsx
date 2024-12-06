@@ -2,6 +2,7 @@
 
 import { AddIcon } from '@/components/icons';
 import { Button } from 'antd';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import GalleryList from './gallery-list';
 import SwitchDisplayButton, { SwitchDisplayButtonProps } from './switch-button';
@@ -30,9 +31,11 @@ const PhotoGalleryIndex: React.FC = () => {
               }}
             />
           )}
-          <Button className="h-9 rounded-xl" type="primary" icon={<AddIcon />}>
-            Thêm mới
-          </Button>
+          <Link href={'/admin/media/photo-gallery/new'}>
+            <Button className="h-9 rounded-xl" type="primary" icon={<AddIcon />}>
+              Thêm mới
+            </Button>
+          </Link>
         </div>
       </div>
       <div className="mt-4">{mediaDisplay && <GalleryList display={mediaDisplay} />}</div>

@@ -1,4 +1,4 @@
-import EventIndex from '@/modules/admin/event';
+import EventIndex from '@/modules/admin/media-mnt/event';
 
 const EventPage = () => {
   return <EventIndex />;
