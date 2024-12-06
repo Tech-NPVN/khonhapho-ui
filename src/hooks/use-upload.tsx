@@ -3,7 +3,7 @@
 import { GetProp, UploadFile } from 'antd';
 import { UploadChangeParam } from 'antd/es/upload';
 import { UploadProps } from 'antd/lib';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 type UseUpload = {
@@ -27,14 +27,20 @@ const getBase64 = (file: FileType): Promise<string> =>
 const useUpload = (initialUrls?: string[]): UseUpload => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>(
-    initialUrls?.map((url, index) => ({
-      uid: `-${index}`,
-      name: `image${index}.png`,
-      status: 'done',
-      url,
-    })) ?? [],
-  );
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  useEffect(() => {
+    if (initialUrls) {
+      setFileList(() =>
+        initialUrls?.map((url, index) => ({
+          uid: `-${index}`,
+          name: `image${index}.png`,
+          status: 'done',
+          url,
+        })),
+      );
+    }
+  }, [initialUrls]);
 
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {

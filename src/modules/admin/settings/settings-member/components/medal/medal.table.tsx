@@ -1,47 +1,55 @@
 'use client';
 
-import { Button, Popconfirm, Table, TableProps } from 'antd';
-import { BranchForm } from './branch.form';
+import { Button, Image, Popconfirm, Table, type TableProps } from 'antd';
+import { MedalForm } from './medal.form';
 import { PenIcon, TrashIcon } from '@/components/icons';
-import { BranchSchemaType } from './branch.schema';
+import { MedalSchemaType } from './medal.schema';
 import { useState } from 'react';
 import useDragScroll from '@/hooks/use-drag-scroll';
 
-const data: BranchSchemaType = {
-  name: 'Cầu Giấy',
-  code: 'cau-giay',
-  city: 1,
-  headquarters: true,
+const data: MedalSchemaType = {
+  name: 'Top 10 hoa hậu thế giới',
+  code: 'top-10-hoa-hau-the-gioi',
+  description: 'Xinh đẹp tuyệt vời hú hú khẹc khẹc',
+  order: 1,
+  image: 'https://i.pinimg.com/736x/1e/20/32/1e20329bf9a2487347cfbedfc5c0f03d.jpg',
 };
 
-const dataSource: BranchSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: MedalSchemaType[] = Array.from({ length: 11 }, () => ({ ...data }));
 
-export const BranchTable = () => {
-  const [currentState, setCurrentState] = useState<BranchSchemaType | undefined>(undefined);
+export const MedalTable = () => {
+  const [currentState, setCurrentState] = useState<MedalSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<BranchSchemaType>['columns'] = [
+  const columns: TableProps<MedalSchemaType>['columns'] = [
     {
-      title: 'Tên chi nhánh',
+      title: 'Tên ',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Mã chi nhánh',
+      title: 'Mã',
       dataIndex: 'code',
       key: 'code',
     },
     {
-      title: 'Thành Phố',
-      dataIndex: 'city',
-      key: 'city',
+      title: 'Hình ảnh',
+      dataIndex: 'image',
+      key: 'image',
+      render: (image: MedalSchemaType['image']) => (
+        <Image src={image} alt="Hình ảnh" width={60} className='py-1' />
+      ),
     },
     {
-      title: 'Trụ sở chính',
-      dataIndex: 'headquarters',
-      key: 'headquarters',
-      render: (headquarters) => <span>{headquarters? '✓' : ' '}</span>,
+      title: 'Mô tả',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
+      title: 'Thứ tự',
+      dataIndex: 'order',
+      key: 'order',
     },
     {
       title: 'Hành động',
@@ -94,7 +102,7 @@ export const BranchTable = () => {
         />
       </div>
 
-      <BranchForm
+      <MedalForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}

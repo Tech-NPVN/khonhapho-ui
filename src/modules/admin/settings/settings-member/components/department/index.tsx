@@ -3,14 +3,14 @@
 import { SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, CollapseIcon, SearchIcon } from '@/components/icons';
 import { Button, Input, Tooltip } from 'antd';
-import { BlockTable } from './block.table';
-import { BlockForm } from './block.form';
+import { DepartmentTable } from './department.table';
+import { DepartmentForm } from './department.form';
 import { useCallback, useState } from 'react';
 import { useSidebar } from '@/components/reuse/navigation';
 
-const TITLE = 'Quản lý khối';
+const TITLE = 'Quản lý chi nhánh';
 
-export const BlockIndex = () => {
+export const DepartmentIndex = () => {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const { collapsed, toggleCollapse } = useSidebar();
@@ -59,10 +59,10 @@ export const BlockIndex = () => {
           />
         </div>
 
-        <BlockTable />
+        <DepartmentTable />
       </SectionBodyWithDescButton>
 
-      <BlockForm open={openCreate} onClose={() => setOpenCreate(false)} />
+      <DepartmentForm open={openCreate} onClose={() => setOpenCreate(false)} />
     </>
   );
 };

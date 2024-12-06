@@ -1,47 +1,58 @@
 'use client';
 
-import { Button, Popconfirm, Table, TableProps } from 'antd';
-import { BranchForm } from './branch.form';
+import { Button, Popconfirm, Table, type TableProps } from 'antd';
+import { DepartmentForm } from './department.form';
 import { PenIcon, TrashIcon } from '@/components/icons';
-import { BranchSchemaType } from './branch.schema';
+import { DepartmentSchemaType } from './department.schema';
 import { useState } from 'react';
 import useDragScroll from '@/hooks/use-drag-scroll';
+import dayjs from 'dayjs';
+import { DATE_TIME_FORMAT } from '@/constants/data';
 
-const data: BranchSchemaType = {
-  name: 'Cầu Giấy',
-  code: 'cau-giay',
-  city: 1,
-  headquarters: true,
+const data: DepartmentSchemaType = {
+  name: '001',
+  code: 'hanoi001',
+  branch: 1,
+  author: 'Nguyễn Đẹp Trai',
+  updatedAt: new Date(),
 };
 
-const dataSource: BranchSchemaType[] = Array.from({ length: 10 }, () => ({ ...data }));
+const dataSource: DepartmentSchemaType[] = Array.from({ length: 13 }, () => ({ ...data }));
 
-export const BranchTable = () => {
-  const [currentState, setCurrentState] = useState<BranchSchemaType | undefined>(undefined);
+export const DepartmentTable = () => {
+  const [currentState, setCurrentState] = useState<DepartmentSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<BranchSchemaType>['columns'] = [
+  const columns: TableProps<DepartmentSchemaType>['columns'] = [
     {
-      title: 'Tên chi nhánh',
+      title: 'Tên phòng ban',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Mã chi nhánh',
+      title: 'Mã phòng ban',
       dataIndex: 'code',
       key: 'code',
     },
     {
-      title: 'Thành Phố',
-      dataIndex: 'city',
-      key: 'city',
+      title: 'Chi nhánh',
+      dataIndex: 'branch',
+      key: 'branch',
+      render: (branch) => 'NHÀ PHỐ HÀ NỘI - HÀ NỘI',
     },
     {
-      title: 'Trụ sở chính',
-      dataIndex: 'headquarters',
-      key: 'headquarters',
-      render: (headquarters) => <span>{headquarters? '✓' : ' '}</span>,
+      title: 'Tác giả',
+      dataIndex: 'author',
+      key: 'author',
+    },
+    {
+      title: 'Chỉnh sửa lần cuối',
+      dataIndex: 'updatedAt',
+      key: 'updatedAt',
+      render: (updatedAt: DepartmentSchemaType['updatedAt']) => (
+        <span>{dayjs(updatedAt).format(DATE_TIME_FORMAT)}</span>
+      ),
     },
     {
       title: 'Hành động',
@@ -94,7 +105,7 @@ export const BranchTable = () => {
         />
       </div>
 
-      <BranchForm
+      <DepartmentForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}

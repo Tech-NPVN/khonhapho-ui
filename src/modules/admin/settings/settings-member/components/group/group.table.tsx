@@ -32,6 +32,7 @@ export const GroupTable = () => {
       title: 'Chi nhánh',
       // dataIndex: 'code',
       // key: 'code',
+      render: () => <span>NHÀ PHỐ VIỆT NAM - CHI NHÁNH HÀ NỘI</span>,
     },
     {
       title: 'Phòng ban',
@@ -87,7 +88,12 @@ export const GroupTable = () => {
           tableLayout="auto"
           columns={columns}
           size="small"
-          pagination={false}
+          pagination={{
+            position: ['bottomRight'],
+            showSizeChanger: true,
+            pageSizeOptions: [5, 10, 20, 30],
+            defaultPageSize: 10,
+          }}
           rowClassName={(_, index) =>
             index % 2 === 0
               ? 'bg-primary_color_l dark:bg-primary_color_d'

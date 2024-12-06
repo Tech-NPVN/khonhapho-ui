@@ -3,14 +3,14 @@
 import { SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, CollapseIcon, SearchIcon } from '@/components/icons';
 import { Button, Input, Tooltip } from 'antd';
-import { BlockTable } from './block.table';
-import { BlockForm } from './block.form';
+import { MedalTable } from './medal.table';
+import { MedalForm } from './medal.form';
 import { useCallback, useState } from 'react';
 import { useSidebar } from '@/components/reuse/navigation';
 
-const TITLE = 'Quản lý khối';
+const TITLE = 'Quản lý huy hiệu';
 
-export const BlockIndex = () => {
+export const MedalIndex = () => {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const { collapsed, toggleCollapse } = useSidebar();
@@ -59,10 +59,10 @@ export const BlockIndex = () => {
           />
         </div>
 
-        <BlockTable />
+        <MedalTable />
       </SectionBodyWithDescButton>
 
-      <BlockForm open={openCreate} onClose={() => setOpenCreate(false)} />
+      <MedalForm open={openCreate} onClose={() => setOpenCreate(false)} />
     </>
   );
 };
