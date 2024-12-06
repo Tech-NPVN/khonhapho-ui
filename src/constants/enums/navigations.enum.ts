@@ -75,10 +75,13 @@ enum Navigations {
   DataWarehouseStreets = 'Đường',
   DataWarehouseConsignment = 'Phản hồi Tin chính chủ',
 
-  DataUsers = 'Dữ liệu thành viên',
+  // DataUsers = 'Dữ liệu thành viên',
+  // CompanySetting = 'Cài đặt công ty',
+  // Stickers = 'Stikers',
 
-  CompanySetting = 'Cài đặt công ty',
-  Stickers = 'Stikers',
+  SettingsMember = 'Dữ liệu thành viên',
+  SettingsCompany = 'Cài đặt công ty',
+  SettingsSticker = 'Stickers',
 }
 
 export { Navigations };

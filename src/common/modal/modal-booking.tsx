@@ -1,12 +1,13 @@
+'use client';
+
+import { dateValidate } from '@/lib/zod';
 import { Button, DatePicker, Divider, Form, Input, Modal } from 'antd';
 import { z } from 'zod';
 import { createSchemaFieldRule } from 'antd-zod';
 import dayjs from 'dayjs';
 import { DATE_TIME_FORMAT, TIME_FORMAT } from '@/constants/data';
-import { WarehouseBooking } from '@/modules/client/warehouse/warehouse.model';
 import { range } from '@/utilities/func.util';
 import { memo } from 'react';
-import { dateValidate } from '@/lib/zod';
 
 const BookingSchema = z.object({
   viewed_date: dateValidate,
@@ -45,7 +46,10 @@ export const ModalBooking = memo(
         <Divider className="bg-background_l dark:bg-background_d my-4" />
         <Form
           form={form}
-          initialValues={new WarehouseBooking()}
+          initialValues={{
+            viewed_date: dayjs(new Date()).add(30, 'minute'),
+            description: '',
+          }}
           onFinish={handleSubmit}
           layout="vertical"
         >

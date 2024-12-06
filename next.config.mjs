@@ -4,12 +4,24 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: 'http',
+        hostname: '**',
+        pathname: '/**',
+      },
+      {
         protocol: 'https',
-        hostname: 'images.pexels.com',
-        port: '',
-        pathname: '**',
+        hostname: '**',
+        pathname: '/**',
       },
     ],
+    // remotePatterns: [
+    //   {
+    //     protocol: 'https',
+    //     hostname: 'images.pexels.com',
+    //     port: '',
+    //     pathname: '**',
+    //   },
+    // ],
   },
 };
 

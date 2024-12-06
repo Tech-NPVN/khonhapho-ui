@@ -71,10 +71,12 @@ enum Routes {
 
   DataWarehouse = '/admin/data-warehouse',
 
-  DataUsers = '/admin/data-users',
-
-  CompanySetting = '/admin/company-setting',
-  Stickers = '/admin/stickers',
+  // DataUsers = '/admin/data-users',
+  // CompanySetting = '/admin/company-setting',
+  // Stickers = '/admin/stickers',
+  SettingsMember = '/admin/settings/member',
+  SettingsCompany = '/admin/settings/company',
+  SettingsSticker = '/admin/settings/stickers',
 }
 
 export { Routes };
