@@ -22,6 +22,7 @@ export * from './candidate.icon';
 export * from './change.icon';
 export * from './chat-group.icon';
 export * from './chat-setting-group.icon';
+export * from './check.icon';
 export * from './clock.icon';
 export * from './collapse.icon';
 export * from './collection.icon';

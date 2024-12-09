@@ -1,15 +1,16 @@
 export type ToolBarClassNames = {
-  nav_next?: string;
-  nav_prev?: string;
-  zoom_in?: string;
-  zoom_out?: string;
   count?: string;
   close?: string;
   rotate?: string;
+  zoom_in?: string;
+  zoom_out?: string;
+  nav_next?: string;
   download?: string;
+  nav_prev?: string;
   thumbnail?: string;
-  thumbnail_slider?: string;
   fullscreen?: string;
+  time_update?: string;
+  thumbnail_slider?: string;
 };
 export type ToolBarOptions = {
   nav?: boolean;
@@ -21,4 +22,5 @@ export type ToolBarOptions = {
   thumbnail?: boolean;
   fullscreen?: boolean;
   classNames?: ToolBarClassNames;
+  time_update?: boolean;
 };
