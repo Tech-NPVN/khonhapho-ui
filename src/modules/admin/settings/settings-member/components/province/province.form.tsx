@@ -1,32 +1,33 @@
 'use client';
 
 import { createSchemaFieldRule } from 'antd-zod';
-import { AreaSchema, AreaSchemaType } from './area.schema';
-import { Button, Form, Input, Modal } from 'antd';
+import { ProvinceSchema, ProvinceSchemaType } from './province.schema';
+import { Button, Form, Input, Modal, Select } from 'antd';
 import { convertSlugify, getShortName } from '@/utilities/func.util';
 
-type AreaFormProps = {
+type ProvinceFormProps = {
   open: boolean;
   onClose: () => void;
-  initialValues?: AreaSchemaType;
+  initialValues?: ProvinceSchemaType;
 };
 
-const rule = createSchemaFieldRule(AreaSchema);
+const rule = createSchemaFieldRule(ProvinceSchema);
 
-export const AreaForm = ({ open, onClose, initialValues }: AreaFormProps) => {
-  const [form] = Form.useForm<AreaSchemaType>();
+export const ProvinceForm = ({ open, onClose, initialValues }: ProvinceFormProps) => {
+  const [form] = Form.useForm<ProvinceSchemaType>();
 
-  const handleSubmit = async (values: AreaSchemaType) => {
+  const handleSubmit = async (values: ProvinceSchemaType) => {
     console.log(values);
-    // handle logic register submit
+    // handle submit
     // ...
   };
 
   return (
     <Modal
-      title={`${initialValues ? 'Sửa' : 'Thêm'} khu vực`}
+      title={`${initialValues ? 'Sửa' : 'Thêm'} tỉnh`}
       open={open}
       onCancel={onClose}
+      onClose={onClose}
       width={600}
       footer={null}
     >
@@ -34,11 +35,11 @@ export const AreaForm = ({ open, onClose, initialValues }: AreaFormProps) => {
         form={form}
         initialValues={initialValues}
         onFinish={handleSubmit}
-        layout="horizontal"
+        layout="horizontal" 
         labelCol={{ span: 16, lg: 8, sm: 10 }}
         className="mt-4"
       >
-        <Form.Item<AreaSchemaType> name="name" label="Tên khu vực:" required rules={[rule]}>
+        <Form.Item<ProvinceSchemaType> name="name" label="Tên phòng ban:" required rules={[rule]}>
           <Input
             size="large"
             className="h-10 dark:!bg-primary_color_d"
@@ -49,12 +50,16 @@ export const AreaForm = ({ open, onClose, initialValues }: AreaFormProps) => {
           />
         </Form.Item>
 
-        <Form.Item<AreaSchemaType> name="code" label="Mã:" rules={[rule]}>
+        <Form.Item<ProvinceSchemaType> name="code" label="Mã phòng ban:" required rules={[rule]}>
           <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
-        <Form.Item<AreaSchemaType> name="slug" label="Slug:" rules={[rule]}>
+        <Form.Item<ProvinceSchemaType> name="slug" label="Slug:" required rules={[rule]}>
           <Input size="large" className="h-10 dark:!bg-primary_color_d" />
+        </Form.Item>
+
+        <Form.Item<ProvinceSchemaType> name="area" label="Khu vực:" rules={[rule]} required>
+          <Select size="large" className="w-full" options={[]} showSearch allowClear />
         </Form.Item>
 
         <div className="flex justify-end">

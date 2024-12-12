@@ -4,18 +4,16 @@ import { SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, CollapseIcon, ReloadDownIcon, SearchIcon } from '@/components/icons';
 import { useSidebar } from '@/components/reuse/navigation';
 import { Button, Col, Input, Row, Select, Tooltip } from 'antd';
-import { useCallback, useEffect, useState } from 'react';
-import { BranchTable } from './branch.table';
-import { BranchForm } from './branch.form';
-import useFetchLocation from '@/hooks/use-fetch-location';
+import { useCallback, useState } from 'react';
+import { ProvinceTable } from './province.table';
+import { ProvinceForm } from './province.form';
 
-const TITLE = 'Quản lý chi nhánh';
+const TITLE = 'Quản lý tỉnh';
 
-export const BranchIndex = () => {
+export const ProvinceIndex = () => {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const { collapsed, toggleCollapse } = useSidebar();
-  const { cities, fetchCities } = useFetchLocation();
 
   const renderTitle = useCallback(() => {
     if (collapsed) {
@@ -50,12 +48,6 @@ export const BranchIndex = () => {
     );
   }, []);
 
-  useEffect(() => {
-    if (cities.length === 0) fetchCities();
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
       <SectionBodyWithDescButton title={renderTitle()} btn={renderAddButton()}>
@@ -72,8 +64,8 @@ export const BranchIndex = () => {
             <Select
               size="large"
               className="w-full"
-              placeholder="Chọn thành phố"
-              options={cities}
+              placeholder="Khu vực"
+              options={[]}
               fieldNames={{ label: 'name', value: 'id' }}
               showSearch
               optionFilterProp="name"
@@ -86,15 +78,15 @@ export const BranchIndex = () => {
               size="large"
               className="w-full bg-transparent dark:bg-background_d dark:border-0 dark:text-primary_text_d"
             >
-              Đặt lại
+              Làm mới
             </Button>
           </Col>
         </Row>
 
-        <BranchTable />
+        <ProvinceTable />
       </SectionBodyWithDescButton>
 
-      <BranchForm open={openCreate} onClose={() => setOpenCreate(false)} />
+      <ProvinceForm open={openCreate} onClose={() => setOpenCreate(false)} />
     </>
   );
 };

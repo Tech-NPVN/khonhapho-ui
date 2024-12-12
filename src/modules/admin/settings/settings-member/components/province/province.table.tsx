@@ -1,35 +1,41 @@
 'use client';
 
-import { useState } from 'react';
-import { AreaSchemaType } from './area.schema';
-import useDragScroll from '@/hooks/use-drag-scroll';
-import { Button, Popconfirm, Table, TableProps } from 'antd';
+import { Button, Popconfirm, Table, type TableProps } from 'antd';
+import { ProvinceForm } from './province.form';
 import { PenIcon, TrashIcon } from '@/components/icons';
-import { AreaForm } from './area.form';
+import { ProvinceSchemaType } from './province.schema';
+import { useState } from 'react';
+import useDragScroll from '@/hooks/use-drag-scroll';
 
-const data: AreaSchemaType = {
-  name: 'Miền Bắc',
-  code: 'MB',
-  slug: 'mien-bac',
+const data: ProvinceSchemaType = {
+  name: 'Thành phố Hà Nội',
+  code: 'TPHN',
+  slug: 'thanh-pho-ha-noi',
+  area: 'mien-bac',
 };
 
-const dataSource: AreaSchemaType[] = Array.from({ length: 7 }, () => ({ ...data }));
+const dataSource: ProvinceSchemaType[] = Array.from({ length: 13 }, () => ({ ...data }));
 
-export const AreaTable = () => {
-  const [currentState, setCurrentState] = useState<AreaSchemaType | undefined>(undefined);
+export const ProvinceTable = () => {
+  const [currentState, setCurrentState] = useState<ProvinceSchemaType | undefined>(undefined);
 
   const dragScrollHandlers = useDragScroll();
 
-  const columns: TableProps<AreaSchemaType>['columns'] = [
+  const columns: TableProps<ProvinceSchemaType>['columns'] = [
     {
-      title: 'Tên khu vực',
+      title: 'Tên tỉnh',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Mã khu vực',
+      title: 'Mã tỉnh',
       dataIndex: 'code',
       key: 'code',
+    },
+    {
+      title: 'Khu vực',
+      dataIndex: 'area',
+      key: 'area',
     },
     {
       title: 'Slug',
@@ -87,7 +93,7 @@ export const AreaTable = () => {
         />
       </div>
 
-      <AreaForm
+      <ProvinceForm
         open={Boolean(currentState)}
         onClose={() => setCurrentState(undefined)}
         initialValues={currentState}
