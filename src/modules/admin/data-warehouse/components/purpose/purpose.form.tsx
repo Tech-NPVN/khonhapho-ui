@@ -49,7 +49,7 @@ export const PurposeForm = ({ open, onClose, initialValues }: PurposeFormProps) 
         </Form.Item>
 
         <Form.Item<PurposeSchemaType> name="code" label="Mã:" rules={[rule]}>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <Form.Item<PurposeSchemaType> name="description" label="Mô tả:" rules={[rule]}>

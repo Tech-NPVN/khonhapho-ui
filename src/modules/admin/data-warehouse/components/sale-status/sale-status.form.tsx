@@ -49,7 +49,7 @@ export const SaleStatusForm = ({ open, onClose, initialValues }: SaleStatusFormP
         </Form.Item>
 
         <Form.Item<SaleStatusSchemaType> name="code" label="Mã:" rules={[rule]}>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <Form.Item<SaleStatusSchemaType> name="description" label="Mô tả:" rules={[rule]}>

@@ -1,10 +1,12 @@
 'use client';
 
-import { SectionBodyWithDescButton } from "@/components/common";
-import { AddIcon, CollapseIcon, SearchIcon } from "@/components/icons";
-import { useSidebar } from "@/components/reuse/navigation";
-import { Button, Input, Tooltip } from "antd";
-import { useCallback, useState } from "react";
+import { SectionBodyWithDescButton } from '@/components/common';
+import { AddIcon, CollapseIcon, SearchIcon } from '@/components/icons';
+import { useSidebar } from '@/components/reuse/navigation';
+import { Button, Input, Tooltip } from 'antd';
+import { useCallback, useState } from 'react';
+import { AreaTable } from './area.table';
+import { AreaForm } from './area.form';
 
 const TITLE = 'Khu vực';
 
@@ -39,6 +41,7 @@ export const AreaIndex = () => {
         type="primary"
         className="px-5 max-lg:text-[13px]"
         onClick={() => setOpenCreate(true)}
+        size="large"
       >
         Thêm mới
       </Button>
@@ -57,10 +60,10 @@ export const AreaIndex = () => {
           />
         </div>
 
-        {/* <AreaRangeTable /> */}
+        <AreaTable />
       </SectionBodyWithDescButton>
 
-      {/* <AreaRangeForm open={openCreate} onClose={() => setOpenCreate(false)} /> */}
+      <AreaForm open={openCreate} onClose={() => setOpenCreate(false)} />
     </>
   );
 };

@@ -13,6 +13,7 @@ const modalError = (props: ModalFuncProps) => {
             Modal.destroyAll();
           }}
           type="text"
+          className='rounded-lg'
         >
           {props.cancelText ?? 'Huỷ'}
         </Button>
@@ -23,7 +24,7 @@ const modalError = (props: ModalFuncProps) => {
           }}
           type="primary"
           danger
-          className="dark:!bg-error_d"
+          className="dark:!bg-error_d rounded-lg font-medium"
         >
           {props.okText ?? 'Đồng ý'}
         </Button>

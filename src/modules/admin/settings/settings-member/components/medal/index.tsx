@@ -41,6 +41,7 @@ export const MedalIndex = () => {
         type="primary"
         className="px-5 max-lg:text-[13px]"
         onClick={() => setOpenCreate(true)}
+        size="large"
       >
         Thêm mới
       </Button>

@@ -1,9 +1,9 @@
-'use client'
+'use client';
 
-import { createSchemaFieldRule } from "antd-zod";
-import { AreaSchema, AreaSchemaType } from "./area.schema";
-import { Button, Form, Input, Modal } from "antd";
-import { convertSlugify } from "@/utilities/func.util";
+import { createSchemaFieldRule } from 'antd-zod';
+import { AreaSchema, AreaSchemaType } from './area.schema';
+import { Button, Form, Input, Modal } from 'antd';
+import { convertSlugify, getShortName } from '@/utilities/func.util';
 
 type AreaFormProps = {
   open: boolean;
@@ -24,7 +24,7 @@ export const AreaForm = ({ open, onClose, initialValues }: AreaFormProps) => {
 
   return (
     <Modal
-      title={`${initialValues ? 'Sửa' : 'Thêm'} khoảng diện tích`}
+      title={`${initialValues ? 'Sửa' : 'Thêm'} khu vực`}
       open={open}
       onCancel={onClose}
       width={600}
@@ -38,23 +38,23 @@ export const AreaForm = ({ open, onClose, initialValues }: AreaFormProps) => {
         labelCol={{ span: 16, lg: 8, sm: 10 }}
         className="mt-4"
       >
-        <Form.Item<AreaSchemaType>
-          name="name"
-          label="Khoảng diện tích:"
-          required
-          rules={[rule]}
-        >
+        <Form.Item<AreaSchemaType> name="name" label="Tên khu vực:" required rules={[rule]}>
           <Input
             size="large"
             className="h-10 dark:!bg-primary_color_d"
             onBlur={(e) => {
-              form.setFieldValue('code', convertSlugify(e.target.value));
+              form.setFieldValue('code', getShortName(e.target.value));
+              form.setFieldValue('slug', convertSlugify(e.target.value));
             }}
           />
         </Form.Item>
 
         <Form.Item<AreaSchemaType> name="code" label="Mã:" rules={[rule]}>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
+        </Form.Item>
+
+        <Form.Item<AreaSchemaType> name="slug" label="Slug:" rules={[rule]}>
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <div className="flex justify-end">
@@ -65,4 +65,4 @@ export const AreaForm = ({ open, onClose, initialValues }: AreaFormProps) => {
       </Form>
     </Modal>
   );
-}
+};
