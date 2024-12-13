@@ -1,10 +1,47 @@
-import { Button } from 'antd';
+'use client';
+
+import { Button, Skeleton } from 'antd';
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import PinItem from './pin-item';
 
 const HomePinComponent = ({ className }: { className?: string }) => {
+  const [loading, SetLoading] = useState<boolean>(true);
+  useEffect(() => {
+    setTimeout(() => {
+      SetLoading(false);
+    }, 100);
+  }, []);
+  if (loading)
+    return (
+      <div className="w-full bg-white dark:bg-primary_color_d rounded-lg p-4">
+        <Skeleton.Button active className="w-[98px]"></Skeleton.Button>
+        <div className="flex gap-3">
+          <div className="mt-8 w-[250px]">
+            <div className="flex gap-3">
+              <Skeleton.Avatar size={52} active />
+              <Skeleton paragraph={{ rows: 2 }} title={false} active />
+            </div>
+            <div className="mt-2">
+              <Skeleton paragraph={{ rows: 3 }} title={false} active />
+              <Skeleton.Image className="w-full h-36" active />
+            </div>
+          </div>
+          <div className="mt-8 w-[250px] max-sm:hidden">
+            <div className="flex gap-3">
+              <Skeleton.Avatar size={52} active />
+              <Skeleton paragraph={{ rows: 2 }} title={false} active />
+            </div>
+            <div className="mt-2">
+              <Skeleton paragraph={{ rows: 3 }} title={false} active />
+              <Skeleton.Image className="w-full h-36" active />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   return (
     <div className={clsx('w-full bg-white dark:bg-primary_color_d rounded-lg p-4', className)}>
       <div className="w-full flex justify-between items-center">

@@ -11,6 +11,7 @@
 @import './custom/spin.css';
 @import './custom/table.css';
 @import './custom/upload.css';
+@import './custom/notification.css';
 
 /* Common */
 .ant-input,

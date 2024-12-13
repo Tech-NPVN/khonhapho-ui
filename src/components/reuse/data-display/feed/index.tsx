@@ -14,6 +14,7 @@ import { useMeasure } from 'react-use';
 import { Comment, CommentTypes, ModalCommentList } from '../comment';
 import { LikeShareComment } from '../post';
 import { Default } from './default';
+import FeedLoading from './loading';
 import { FeedProps } from './type';
 import { Urgently } from './urgently';
 import { Warehouse } from './warehouse';
@@ -32,6 +33,7 @@ const Feed: React.FC<FeedProps> = ({
   const [comments, setComments] = useState<CommentTypes[]>();
   const commentCount = post?.comments?.length || 0;
   const [ref, { width }] = useMeasure<HTMLDivElement>();
+  if (!post) return <FeedLoading />;
   return (
     <>
       <div

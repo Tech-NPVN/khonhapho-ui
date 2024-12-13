@@ -1,5 +1,11 @@
+import UsersIndex from '@/modules/admin/users';
+
 const AdminUsersPage = () => {
-  return <></>;
+  return (
+    <>
+      <UsersIndex />
+    </>
+  );
 };
 
 export default AdminUsersPage;

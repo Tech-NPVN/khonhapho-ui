@@ -1,0 +1,31 @@
+tr.ant-table-row:nth-child(2n) {
+  background: rgb(245, 245, 245) !important;
+}
+tr.ant-table-row td.ant-table-cell-fix-right {
+  border-left: 1px solid rgb(236, 236, 236) !important;
+}
+tr.ant-table-row:nth-child(2n) td.ant-table-cell-fix-right {
+  background: rgb(245, 245, 245);
+}
+
+.ant-table-cell-row-hover {
+  background: rgb(235, 235, 235) !important;
+}
+.dark tr.ant-table-row {
+  background: #151e2f;
+}
+.dark tr.ant-table-row:nth-child(2n) {
+  background: #2f3643 !important;
+}
+.dark tr.ant-table-row td.ant-table-cell-fix-right {
+  border-left: 1px solid #2f3643 !important;
+}
+.dark tr.ant-table-row td.ant-table-cell-fix-right {
+  background: #151e2f;
+}
+.dark tr.ant-table-row:nth-child(2n) td.ant-table-cell-fix-right {
+  background: #2f3643;
+}
+.dark .ant-table-cell-row-hover {
+  background: black !important;
+}
