@@ -49,7 +49,7 @@ export const PriceRangeForm = ({ open, onClose, initialValues }: PriceRangeFormP
         </Form.Item>
 
         <Form.Item<PriceRangeSchemaType> name="code" label="Mã:" rules={[rule]}>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <Form.Item<PriceRangeSchemaType> name="description" label="Mô tả:" rules={[rule]}>

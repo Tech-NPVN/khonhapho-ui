@@ -16,3 +16,5 @@ export * from './purpose';
 
 export * from './sale-status';
 export * from './streets';
+
+export * from './wards';

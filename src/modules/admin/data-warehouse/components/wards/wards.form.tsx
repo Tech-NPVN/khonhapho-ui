@@ -1,26 +1,26 @@
 'use client';
 
 import { createSchemaFieldRule } from 'antd-zod';
-import { StreetsSchema, StreetsSchemaType } from './streets.schema';
+import { WardsSchema, WardsSchemaType } from './wards.schema';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import useFetchLocation from '@/hooks/use-fetch-location';
 import { useEffect } from 'react';
 import { convertSlugify, getShortName } from '@/utilities/func.util';
 
-type StreetsFormProps = {
+type WardsFormProps = {
   open: boolean;
   onClose: () => void;
-  initialValues?: StreetsSchemaType;
+  initialValues?: WardsSchemaType;
 };
 
-const rule = createSchemaFieldRule(StreetsSchema);
+const rule = createSchemaFieldRule(WardsSchema);
 
-export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) => {
-  const [form] = Form.useForm<StreetsSchemaType>();
+export const WardsForm = ({ open, onClose, initialValues }: WardsFormProps) => {
+  const [form] = Form.useForm<WardsSchemaType>();
 
   const { cities, districts, fetchCities, fetchDistricts, setDistricts } = useFetchLocation();
 
-  const handleSubmit = async (values: StreetsSchemaType) => {
+  const handleSubmit = async (values: WardsSchemaType) => {
     console.log(values);
     // handle logic register submit
     // ...
@@ -37,7 +37,7 @@ export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) 
 
   return (
     <Modal
-      title={`${initialValues ? 'Sửa' : 'Thêm'} đường`}
+      title={`${initialValues ? 'Sửa' : 'Thêm'} phường`}
       open={open}
       onCancel={onClose}
       width={600}
@@ -51,7 +51,7 @@ export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) 
         labelCol={{ span: 16, lg: 8, sm: 10 }}
         className="mt-4"
       >
-        <Form.Item<StreetsSchemaType> name="city" label="Thành phố:" rules={[rule]} required>
+        <Form.Item<WardsSchemaType> name="city" label="Thành phố:" rules={[rule]} required>
           <Select
             size="large"
             className="w-full"
@@ -74,7 +74,7 @@ export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) 
           />
         </Form.Item>
 
-        <Form.Item<StreetsSchemaType> name="district" label="Quận/Huyện:" rules={[rule]} required>
+        <Form.Item<WardsSchemaType> name="district" label="Quận/Huyện:" rules={[rule]} required>
           <Select
             size="large"
             className="w-full"
@@ -88,7 +88,7 @@ export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) 
           />
         </Form.Item>
 
-        <Form.Item<StreetsSchemaType> name="name" label="Tên:" required rules={[rule]}>
+        <Form.Item<WardsSchemaType> name="name" label="Tên:" required rules={[rule]}>
           <Input
             size="large"
             className="h-10 dark:!bg-primary_color_d"
@@ -99,11 +99,11 @@ export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) 
           />
         </Form.Item>
 
-        <Form.Item<StreetsSchemaType> name="code" label="Mã:" rules={[rule]} required>
+        <Form.Item<WardsSchemaType> name="code" label="Mã:" rules={[rule]} required>
           <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
-        <Form.Item<StreetsSchemaType> name="slug" label="Slug:" rules={[rule]} required>
+        <Form.Item<WardsSchemaType> name="slug" label="Slug:" rules={[rule]} required>
           <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 

@@ -1,18 +1,18 @@
 'use client';
 
-import { SectionBodyWithDescButton } from '@/components/common';
 import { AddIcon, CollapseIcon, ReloadDownIcon, SearchIcon } from '@/components/icons';
-import { useSidebar } from '@/components/reuse/navigation';
 import { Navigations } from '@/constants/enums';
 import { Button, Col, Input, Row, Select, Tooltip } from 'antd';
+import { WardsTable } from './wards.table';
+import { WardsForm } from './wards.form';
+import { SectionBodyWithDescButton } from '@/components/common';
 import { useCallback, useEffect, useState } from 'react';
-import { ProjectTable } from './project.table';
-import { ProjectForm } from './project.form';
+import { useSidebar } from '@/components/reuse/navigation';
 import useFetchLocation from '@/hooks/use-fetch-location';
 
-const TITLE = Navigations.DataWarehouseProject;
+const TITLE = Navigations.DataWarehouseWards;
 
-export const ProjectIndex = () => {
+export const WardsIndex = () => {
   const [openCreate, setOpenCreate] = useState<boolean>(false);
 
   const { collapsed, toggleCollapse } = useSidebar();
@@ -44,7 +44,7 @@ export const ProjectIndex = () => {
         type="primary"
         className="px-5 max-lg:text-[13px]"
         onClick={() => setOpenCreate(true)}
-        size="large"
+        size='large'
       >
         Thêm mới
       </Button>
@@ -107,15 +107,15 @@ export const ProjectIndex = () => {
               size="large"
               className="w-full bg-transparent dark:bg-background_d dark:border-0 dark:text-primary_text_d"
             >
-              Đặt lại
+              Làm mới
             </Button>
           </Col>
         </Row>
 
-        <ProjectTable />
+        <WardsTable />
       </SectionBodyWithDescButton>
 
-      <ProjectForm open={openCreate} onClose={() => setOpenCreate(false)} />
+      <WardsForm open={openCreate} onClose={() => setOpenCreate(false)} />
     </>
   );
 };

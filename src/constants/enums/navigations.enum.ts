@@ -73,6 +73,7 @@ enum Navigations {
   DataWarehouseCities = 'Tỉnh/Thành',
   DataWarehouseDistricts = 'Quận/Huyện',
   DataWarehouseStreets = 'Đường',
+  DataWarehouseWards = 'Phường',
   DataWarehouseConsignment = 'Phản hồi Tin chính chủ',
 
   // DataUsers = 'Dữ liệu thành viên',

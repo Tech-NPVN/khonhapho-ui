@@ -3,7 +3,7 @@
 import { Button, Form, Input, Modal } from 'antd';
 import { createSchemaFieldRule } from 'antd-zod';
 import { CitiesSchema, CitiesSchemaType } from './cities.schema';
-import { convertSlugify } from '@/utilities/func.util';
+import { convertSlugify, getShortName } from '@/utilities/func.util';
 
 type CitiesFormProps = {
   open: boolean;
@@ -43,6 +43,7 @@ export const CitiesForm = ({ open, onClose, initialValues }: CitiesFormProps) =>
             size="large"
             className="h-10 dark:!bg-primary_color_d"
             onBlur={(e) => {
+              form.setFieldValue('code', getShortName(e.target.value));
               form.setFieldValue('slug', convertSlugify(e.target.value));
             }}
           />
@@ -53,7 +54,7 @@ export const CitiesForm = ({ open, onClose, initialValues }: CitiesFormProps) =>
         </Form.Item>
 
         <Form.Item<CitiesSchemaType> name="slug" label="Slug:" rules={[rule]} required>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <div className="flex justify-end">

@@ -3,7 +3,7 @@
 import { createSchemaFieldRule } from 'antd-zod';
 import { AreaRangeSchema, AreaRangeSchemaType } from './area-range.schema';
 import { Button, Form, Input, Modal } from 'antd';
-import { convertSlugify } from '@/utilities/func.util';
+import { convertSlugify, getShortName } from '@/utilities/func.util';
 
 type AreaRangeFormProps = {
   open: boolean;
@@ -48,7 +48,8 @@ export const AreaRangeForm = ({ open, onClose, initialValues }: AreaRangeFormPro
             size="large"
             className="h-10 dark:!bg-primary_color_d"
             onBlur={(e) => {
-              form.setFieldValue('code', convertSlugify(e.target.value));
+              form.setFieldValue('code', getShortName(e.target.value));
+              form.setFieldValue('slug', convertSlugify(e.target.value));
             }}
           />
         </Form.Item>
