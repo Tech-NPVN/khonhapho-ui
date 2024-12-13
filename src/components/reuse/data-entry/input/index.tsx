@@ -1,34 +1,41 @@
 import { SearchIcon, XIcon } from '@/components/icons';
 import clsx from 'clsx';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface SearchInputProps {
+  value?: string;
+  className?: string;
   placeholder?: string;
-  value: string;
-  onSearch?: (value: string) => void;
+  defaultValue?: string;
   onClear?: () => void;
+  onSearch?: (value: string) => void;
   onChange?: (value: string) => void;
 }
 
 const SearchInput: React.FC<SearchInputProps> = ({
-  placeholder = 'Tìm kiếm',
   value,
-  onSearch,
+  className,
+  defaultValue,
+  placeholder = 'Tìm kiếm',
   onClear,
+  onSearch,
   onChange,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const [currentValue, setCurrentValue] = useState<string>(defaultValue || value || '');
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      onSearch?.(value);
+      onSearch?.(currentValue ?? '');
     }
   };
-
+  useEffect(() => {
+    setCurrentValue(value ?? '');
+  }, [value]);
   return (
     <div
       className={clsx(
         'flex bg-white border border-solid border-divider_l dark:border-white/15 rounded-xl overflow-hidden relative dark:bg-transparent min-h-10',
+        className,
       )}
     >
       <input
@@ -36,15 +43,19 @@ const SearchInput: React.FC<SearchInputProps> = ({
         className="border-none pl-3 focus-visible:outline-none bg-transparent dark:bg-transparent flex-1 !min-w-0"
         type="text"
         placeholder={placeholder}
-        value={value}
-        onChange={(e) => onChange?.(e.target.value)}
+        value={currentValue}
+        onChange={(e) => {
+          onChange?.(e.target.value);
+          if (!value) setCurrentValue(e.target.value);
+        }}
         onKeyDown={handleKeyDown}
       />
-      {value && (
+      {currentValue && (
         <button
           className="bg-transparent border-none cursor-pointer mt-[2px]"
           onClick={() => {
             onClear?.();
+            if (!value) setCurrentValue('');
             inputRef.current?.focus();
           }}
         >
@@ -54,7 +65,7 @@ const SearchInput: React.FC<SearchInputProps> = ({
 
       <button
         className="bg-transparent border-transparent border-solid py-1 px-3 [&_path]:hover:!fill-color_l cursor-pointer border-l border-l-divider_l dark:border-l-divider_d"
-        onClick={() => onSearch?.(value)}
+        onClick={() => onSearch?.(currentValue ?? '')}
       >
         <SearchIcon className="mt-[2px]" width={16} height={16} />
       </button>

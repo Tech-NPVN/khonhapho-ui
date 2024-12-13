@@ -1,9 +1,9 @@
 'use client';
 
 import clsx from 'clsx';
+import { useRouter } from 'next-nprogress-bar';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next-nprogress-bar';
 import React from 'react';
 
 type Error404Props = {
@@ -29,6 +29,7 @@ const Error404: React.FC<Error404Props> = ({
           src={'/images/404.png'}
           width={400}
           height={400}
+          loading="lazy"
           alt="404.png"
         />
       </div>

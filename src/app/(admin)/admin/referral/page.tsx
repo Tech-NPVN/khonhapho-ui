@@ -1,5 +1,11 @@
+import Referralindex from '@/modules/admin/referral';
+
 const AdminRefferalPage = () => {
-  return <></>;
+  return (
+    <>
+      <Referralindex />
+    </>
+  );
 };
 
 export default AdminRefferalPage;

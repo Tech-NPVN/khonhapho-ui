@@ -1,0 +1,52 @@
+/* Ghi đè style cho notification */
+.ant-notification {
+  background-color: var(--notification-bg, #1a1a1a); /* Mặc định là Dark Mode */
+  color: var(--notification-text, #ffffff);
+}
+.ant-notification-notice-content > div {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.ant-notification-notice {
+  border-radius: 8px;
+  padding: 16px !important;
+  background-color: transparent;
+}
+
+.ant-notification-notice-wrapper {
+  border-radius: 8px;
+  background: var(--notification-bg, #ffffff) !important;
+  box-shadow: 0 6px 16px 0 var(--notification-shadow, #00000011),
+    0 3px 6px -4px var(--notification-shadow, #00000024),
+    0 9px 28px 8px var(--notification-shadow, #00000011) !important;
+}
+
+.ant-notification-notice-message {
+  color: var(--notification-title, #333333) !important;
+  font-weight: bold;
+  margin-bottom: 0px !important;
+}
+
+.ant-notification-notice-description {
+  color: var(--notification-desc, #484848) !important;
+}
+.ant-notification-notice-close-icon svg {
+  fill: var(--notification-close-icon, #484848) !important;
+}
+
+/* Dark mode hover hiệu ứng */
+/* .ant-notification-notice:hover {
+  background-color: var(--notification-hover-bg, #292929);
+} */
+/* Giao diện Dark Mode */
+.dark .ant-notification {
+  --notification-bg: #2f3643;
+  --notification-text: #ffffff;
+  --notification-desc: #bfbfbf;
+  --notification-title: #e0e0e0;
+  --notification-border: #3a3a3a;
+  --notification-hover-bg: #292929;
+  --notification-close-icon: #ffffff;
+  --notification-shadow: #ffffff08;
+}
