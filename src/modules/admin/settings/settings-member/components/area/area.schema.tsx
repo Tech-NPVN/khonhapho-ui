@@ -7,10 +7,7 @@ const AreaSchema = z.object({
     .trim()
     .min(1, { message: MsgValidation.REQUIRED }),
   code: z.string().trim().optional(),
-  city: z.coerce
-    .number({ message: MsgValidation.REQUIRED })
-    .min(1, { message: MsgValidation.REQUIRED }),
-  headquarters: z.boolean().default(false),
+  slug: z.string().trim().optional(),
 });
 
 type AreaSchemaType = z.infer<typeof AreaSchema>;

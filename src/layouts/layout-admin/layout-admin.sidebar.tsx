@@ -21,10 +21,9 @@ const LayoutAdminSidebar = () => {
   }, [theme]);
 
   const getSelectedKey = useCallback(() => {
-    if (pathname.includes(Routes.Feeds)) {
-      return Routes.Feeds;
-    }
-    return pathname;
+    const routeKeys = [Routes.Feeds, Routes.DataWarehouse, Routes.SettingsMember];
+    const matchedRoute = routeKeys.find((route) => pathname.includes(route));
+    return matchedRoute ?? pathname;
   }, [pathname]);
 
   return (

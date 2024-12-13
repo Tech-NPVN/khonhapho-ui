@@ -87,6 +87,13 @@ const menuWarehouseData: MenuType[] = [
     'sidebar-item',
   ),
   getItem(
+    Navigations.DataWarehouseWards,
+    Routes.DataWarehouse + '/wards',
+    undefined,
+    undefined,
+    'sidebar-item',
+  ),
+  getItem(
     Navigations.DataWarehouseConsignment,
     Routes.DataWarehouse + '/consignment',
     undefined,

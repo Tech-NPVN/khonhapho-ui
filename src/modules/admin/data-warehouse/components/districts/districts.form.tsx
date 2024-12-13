@@ -5,7 +5,7 @@ import { DistrictsSchema, DistrictsSchemaType } from './districts.schema';
 import { createSchemaFieldRule } from 'antd-zod';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import useFetchLocation from '@/hooks/use-fetch-location';
-import { convertSlugify } from '@/utilities/func.util';
+import { convertSlugify, getShortName } from '@/utilities/func.util';
 
 type DistrictsFormProps = {
   open: boolean;
@@ -53,6 +53,7 @@ export const DistrictsForm = ({ open, onClose, initialValues }: DistrictsFormPro
             size="large"
             className="h-10 dark:!bg-primary_color_d"
             onBlur={(e) => {
+              form.setFieldValue('code', getShortName(e.target.value));
               form.setFieldValue('slug', convertSlugify(e.target.value));
             }}
           />
@@ -76,7 +77,7 @@ export const DistrictsForm = ({ open, onClose, initialValues }: DistrictsFormPro
         </Form.Item>
 
         <Form.Item<DistrictsSchemaType> name="slug" label="Slug:" rules={[rule]} required>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <div className="flex justify-end">

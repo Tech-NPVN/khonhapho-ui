@@ -5,7 +5,7 @@ import { StreetsSchema, StreetsSchemaType } from './streets.schema';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import useFetchLocation from '@/hooks/use-fetch-location';
 import { useEffect } from 'react';
-import { convertSlugify } from '@/utilities/func.util';
+import { convertSlugify, getShortName } from '@/utilities/func.util';
 
 type StreetsFormProps = {
   open: boolean;
@@ -93,13 +93,14 @@ export const StreetsForm = ({ open, onClose, initialValues }: StreetsFormProps) 
             size="large"
             className="h-10 dark:!bg-primary_color_d"
             onBlur={(e) => {
+              form.setFieldValue('code', getShortName(e.target.value));
               form.setFieldValue('slug', convertSlugify(e.target.value));
             }}
           />
         </Form.Item>
 
         <Form.Item<StreetsSchemaType> name="code" label="Mã:" rules={[rule]} required>
-          <Input size="large" className="h-10 dark:!bg-primary_color_d" disabled />
+          <Input size="large" className="h-10 dark:!bg-primary_color_d" />
         </Form.Item>
 
         <Form.Item<StreetsSchemaType> name="slug" label="Slug:" rules={[rule]} required>

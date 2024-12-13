@@ -331,19 +331,19 @@ const itemsAdmin: MenuType[] = [
   ),
   getItem(
     Navigations.DataWarehouse,
-    Routes.DataWarehouse + '/legal-status',
+    Routes.DataWarehouse,
     <DataWarehouseIcon className="w-8" />,
     undefined,
     'sidebar-item',
   ),
   getItem(
     Navigations.SettingsCompany,
-    Routes.SettingsCompany,
+    Routes.Settings,
     <SettingCompanyIcon className="w-8" />,
     [
       getItem(
         <MenuLabel label={Navigations.SettingsMember} />,
-        Routes.SettingsMember + '/area',
+        Routes.SettingsMember,
         undefined,
         undefined,
         'sidebar-item',

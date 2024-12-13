@@ -1,4 +1,3 @@
-import { REQUIRED_MSG_SAMPLE } from '@/constants/data';
 import { MsgValidation } from '@/constants/enums';
 import { z } from 'zod';
 
@@ -17,8 +16,8 @@ const MedalSchema = z.object({
     .min(1, { message: MsgValidation.REQUIRED }),
   image: z
     .any()
-    .refine((value) => typeof value === 'string', REQUIRED_MSG_SAMPLE)
-    .refine((value) => value.trim().length > 0, REQUIRED_MSG_SAMPLE),
+    .refine((value) => typeof value === 'string', MsgValidation.IMAGES_REQUIRED)
+    .refine((value) => !value || value.trim().length > 0, MsgValidation.IMAGES_REQUIRED),
 });
 
 type MedalSchemaType = z.infer<typeof MedalSchema>;

@@ -3,7 +3,7 @@ import { getItem, MenuType } from '@/layouts';
 
 export const menuSettingsMember: MenuType[] = [
   getItem('Khu vực', Routes.SettingsMember + '/area', undefined, undefined, 'sidebar-item'),
-  getItem('Tỉnh', Routes.SettingsMember + '/city', undefined, undefined, 'sidebar-item'),
+  getItem('Tỉnh', Routes.SettingsMember + '/province', undefined, undefined, 'sidebar-item'),
   getItem('Chi nhánh', Routes.SettingsMember + '/branch', undefined, undefined, 'sidebar-item'),
   getItem('Khối', Routes.SettingsMember + '/block', undefined, undefined, 'sidebar-item'),
   getItem(
