@@ -3,6 +3,10 @@
   @apply mb-3 mt-1;
 }
 
+.ant-form-item-label {
+  @apply !max-w-full
+}
+
 .ant-form-item-label > label,
 .ant-form-item-required {
   @apply w-full;

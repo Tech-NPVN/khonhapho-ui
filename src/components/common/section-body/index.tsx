@@ -13,7 +13,7 @@ const SectionBody = ({ title, children, className }: SectionBodyProps) => {
     <section
       className={`rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 ${className}`}
     >
-      <h3 className="uppercase text-[17px] max-lg:text-sm mb-0">{title}</h3>
+      <h3 className="uppercase text-base max-lg:text-sm mb-0">{title}</h3>
       <Divider className="bg-background_l dark:bg-divider_d/40 max-lg:my-3 my-4" />
       {children}
     </section>
@@ -53,7 +53,7 @@ const SectionBodyWithDesc = ({
       className={`rounded-lg bg-primary_color_l dark:bg-primary_color_d px-4 py-5 ${className}`}
     >
       <div>
-        <h3 className="uppercase text-[17px] max-lg:text-sm mb-1">{title}</h3>
+        <h3 className="uppercase text-base max-lg:text-sm mb-1">{title}</h3>
         <span className="text-xs">{description}</span>
       </div>
       <Divider className="bg-background_l dark:bg-divider_d/40 max-lg:my-3 my-4" />
@@ -75,7 +75,7 @@ const SectionBodyWithDescButton = ({
     >
       <div className="flex items-center justify-between">
         <div>
-          <h3 className={`uppercase text-[17px] ${description ? 'max-lg:text-sm mb-1' : 'mb-0'}`}>
+          <h3 className={`uppercase text-base ${description ? 'max-lg:text-sm mb-1' : 'mb-0'}`}>
             {title}
           </h3>
           {description && (
