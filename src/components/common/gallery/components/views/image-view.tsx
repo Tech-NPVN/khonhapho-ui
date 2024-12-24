@@ -4,6 +4,7 @@ import { Palette } from 'color-thief-react';
 import Image from 'next/image';
 import React from 'react';
 import { PhotoView } from 'react-photo-view';
+import MediaViewOverlay from './overlay';
 
 export type AspectRatio = '1/1' | '16/9' | '9/16' | 'auto';
 
@@ -56,11 +57,7 @@ const ImageView: React.FC<ImageViewProps> = ({
             loading="lazy"
             // blurDataURL={BLUR_DATA_URL}
           />
-          {numberOverlay > 0 && (
-            <div className="absolute flex justify-center items-center top-0 right-0 bottom-0 left-0 bg-black/60 text-white text-5xl cursor-default z-20">
-              +{numberOverlay}
-            </div>
-          )}
+          <MediaViewOverlay number={numberOverlay} />
         </div>
       ) : undefined}
     </PhotoView>

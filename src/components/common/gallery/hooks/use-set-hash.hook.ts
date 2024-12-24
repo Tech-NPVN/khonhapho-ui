@@ -39,7 +39,7 @@ const useSetHash = (callback?: () => void) => {
   useEffect(() => {
     const handleLocationChange = () => {
       setHashState(window.location.hash); // Cập nhật state khi hash thay đổi
-      if (!window.location.hash) callback?.(); // Gọi callback khi hash bị xóa
+      if (!window.location.hash || window.location.hash !== hash) callback?.(); // Gọi callback khi hash bị xóa
     };
 
     window.addEventListener('popstate', handleLocationChange);

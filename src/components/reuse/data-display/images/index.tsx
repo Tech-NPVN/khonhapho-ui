@@ -304,7 +304,7 @@ const ImageSlider = ({
             ))}
           </Swiper>
         </div>
-        <div className="absolute top-0 right-1 z-20 flex">
+        <div className="absolute top-0 right-0 sm:right-1 z-20 flex">
           {canDownload && (
             <button
               className="w-10 h-10 cursor-pointer bg-black/20 border-none flex justify-center items-center sm:hover:bg-white/20 [&_svg]:disabled:fill-white/50"

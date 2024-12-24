@@ -3598,6 +3598,7 @@ __metadata:
     swiper: "npm:^11.1.4"
     tailwindcss: "npm:^3.4.1"
     typescript: "npm:^5"
+    unicode-emoji: "npm:^2.6.0"
     zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
@@ -6402,11 +6403,11 @@ __metadata:
 
 "typescript@patch:typescript@npm%3A^5#optional!builtin<compat/typescript>":
   version: 5.5.3
-  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=379a07"
+  resolution: "typescript@patch:typescript@npm%3A5.5.3#optional!builtin<compat/typescript>::version=5.5.3&hash=5adc0c"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/911c7811d61f57f07df79c4a35f56a0f426a65426a020e5fcd792f66559f399017205f5f10255329ab5a3d8c2d1f1d19530aeceffda70758a521fae1d469432e
+  checksum: 10c0/5a437c416251334deeaf29897157032311f3f126547cfdc4b133768b606cb0e62bcee733bb97cf74c42fe7268801aea1392d8e40988cdef112e9546eba4c03c5
   languageName: node
   linkType: hard
 
@@ -6433,6 +6434,13 @@ __metadata:
   version: 5.26.5
   resolution: "undici-types@npm:5.26.5"
   checksum: 10c0/bb673d7876c2d411b6eb6c560e0c571eef4a01c1c19925175d16e3a30c4c428181fb8d7ae802a261f283e4166a0ac435e2f505743aa9e45d893f9a3df017b501
+  languageName: node
+  linkType: hard
+
+"unicode-emoji@npm:^2.6.0":
+  version: 2.6.0
+  resolution: "unicode-emoji@npm:2.6.0"
+  checksum: 10c0/821e76578922661f19d503381283f857ae62e6eec4f3aa57334ff5e908c9703af2482f37c1d8c117c7dd0574bfced0d47eec46adbedf5e96daca360f0d075059
   languageName: node
   linkType: hard
 

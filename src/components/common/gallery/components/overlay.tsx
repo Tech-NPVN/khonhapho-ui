@@ -98,7 +98,7 @@ const MediaOverlay: React.FC<MediaOverlayProps> = ({
     if (!loaded || media.length === 1) return;
     setHideThumbnail((prev) => !prev);
   }, [loaded, media.length, overlayVisible]);
-  // Sửa lỗi index = -1 khi thay đổi màn hình mobile > tablet
+  // Sửa lỗi index = -1 khi thay đổi màn hình mobile => tablet
   useEffect(() => {
     if (index === -1) onIndexChange(0);
   }, [index, onIndexChange]);
@@ -252,7 +252,7 @@ const MediaOverlay: React.FC<MediaOverlayProps> = ({
         <div
           className={`absolute top-2 left-1/2 -translate-x-1/2 z-20 text-white text-lg max-sm:hidden ${
             toolbar.classNames?.count ?? ''
-          } ${hideFeatures ? 'opacity-0' : ' '}`}
+          } ${hideFeatures || !loaded ? 'opacity-0' : ' '}`}
         >
           {index + 1}/{media.length}
         </div>
@@ -264,7 +264,7 @@ const MediaOverlay: React.FC<MediaOverlayProps> = ({
             'absolute -translate-y-1/2 top-1/2 right-3 z-20' +
             ` ${toolbar.classNames?.nav_next ?? ''}` +
             ` ${hideFeatures ? 'opacity-0' : ''}` +
-            ` ${(isMobile && hideThumbnail) || media.length === 1 ? 'hidden' : ''}`
+            ` ${(isMobile && hideThumbnail) || media.length === 1 || !loaded ? 'hidden' : ''}`
           }
         >
           <button
@@ -289,7 +289,7 @@ const MediaOverlay: React.FC<MediaOverlayProps> = ({
             'absolute -translate-y-1/2 top-1/2 left-3 z-20' +
             ` ${toolbar.classNames?.nav_prev ?? ''}` +
             ` ${hideFeatures ? ' opacity-0' : ''}` +
-            ` ${(isMobile && hideThumbnail) || media.length === 1 ? ' hidden' : ''}`
+            ` ${(isMobile && hideThumbnail) || media.length === 1 || !loaded ? ' hidden' : ''}`
           }
         >
           <button

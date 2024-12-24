@@ -8,5 +8,7 @@ export type CandidateType = {
   candidate_email?: string;
   candidate_id?: string;
   interview_time?: string;
+  interviewer?: string;
+  duplicate?: boolean;
   images?: any;
 };
