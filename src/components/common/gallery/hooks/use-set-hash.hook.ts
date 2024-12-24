@@ -49,7 +49,7 @@ const useSetHash = (callback?: () => void) => {
       window.removeEventListener('popstate', handleLocationChange);
       window.removeEventListener('hashchange', handleLocationChange);
     };
-  }, [callback]);
+  }, [callback, hash]);
 
   return { hash, setHash, clearHash };
 };
