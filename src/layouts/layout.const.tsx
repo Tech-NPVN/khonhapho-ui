@@ -365,6 +365,42 @@ const itemsAdmin: MenuType[] = [
     ],
     'sidebar-item-dropdown',
   ),
+  getItem(
+    'Cài đặt quyền',
+    Routes.AdminPermission,
+    <ListCompanyIcon className="w-8" />,
+    [
+      getItem(
+        <MenuLabel label="Loại quyền" />,
+        Routes.AdminPermission + '/type',
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label="Quyền" />,
+        Routes.AdminPermission + '/permit',
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label="Nhóm các quyền" />,
+        Routes.AdminPermission + '/group',
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+      getItem(
+        <MenuLabel label="Chức danh" />,
+        Routes.AdminPermission + '/role',
+        undefined,
+        undefined,
+        'sidebar-item',
+      ),
+    ],
+    'sidebar-item-dropdown',
+  ),
   // getItem(
   //   Navigations.DataUsers,
   //   Routes.DataUsers,

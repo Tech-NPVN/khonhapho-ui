@@ -3,7 +3,7 @@
 import { Divider } from 'antd';
 
 type SectionBodyProps = {
-  title: string | React.ReactNode;
+  title: React.ReactNode;
   children: React.ReactNode;
   className?: string;
 };

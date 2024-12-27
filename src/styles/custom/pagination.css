@@ -1,0 +1,4 @@
+/* Pagination */
+.ant-pagination .ant-pagination-item-active {
+  @apply dark:!bg-transparent;
+}
