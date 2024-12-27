@@ -45,7 +45,11 @@ const MediaImageGrid: React.FC<MediaImageGridProps> = React.memo(
           })}
           style={{
             gridTemplateColumns:
-              imagePerRow > 0 ? `repeat(${imagePerRow}, minmax(0, 1fr))` : 'auto',
+              imagePerRow > 0
+                ? `repeat(${imagePerRow}, minmax(0, 1fr))`
+                : `repeat(${
+                    maxMediaDisplay == -1 ? media.length : maxMediaDisplay
+                  }, minmax(0, 1fr))`,
             gap: gap + 'px',
           }}
         >

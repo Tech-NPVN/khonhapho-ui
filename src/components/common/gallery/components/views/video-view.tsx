@@ -3,6 +3,7 @@ import React from 'react';
 import { PhotoView } from 'react-photo-view';
 import { useWindowSize } from 'react-use';
 import { AspectRatio } from './image-view';
+import MediaViewOverlay from './overlay';
 import PlayButton from './play-button';
 import Video from './video';
 
@@ -49,11 +50,7 @@ const VideoView: React.FC<VideoViewProps> = React.memo(
               <div className="absolute top-1/2 -translate-x-1/2 left-1/2 -translate-y-1/2 z-30">
                 <PlayButton />
               </div>
-              {numberOverlay > 0 && (
-                <div className="absolute z-40 flex justify-center items-center top-0 right-0 bottom-0 left-0 bg-black/60 text-white text-5xl cursor-default">
-                  +{numberOverlay}
-                </div>
-              )}
+              <MediaViewOverlay number={numberOverlay} />
             </div>
           ) : undefined}
         </PhotoView>

@@ -1,12 +1,15 @@
 'use client';
 
 import { EyeIcon, EyeSlashIcon, PenIcon, TrashIcon } from '@/components/icons';
+import { Routes } from '@/constants/enums';
 import useDragScroll from '@/hooks/use-drag-scroll';
 import { Button, Modal, Pagination, Select, Table, type TableProps } from 'antd';
 import dayjs from 'dayjs';
+import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { CandidateType } from '../types';
+import DuplicateCandidate from './duplicate-candidate';
 import ModalCandidate from './modal-candidate.form';
 
 const ActionColumn = () => {
@@ -137,11 +140,51 @@ const columns: TableProps<CandidateType>['columns'] = [
     },
   },
   {
+    title: 'Người phỏng vấn',
+    key: 'interviewer',
+    dataIndex: 'interviewer',
+    className: 'text-center',
+    render(value: CandidateType['interviewer']) {
+      return (
+        <Link href={Routes.User + '/' + 1} className="flex gap-3 items-center justify-center">
+          <div className="w-8 h-8">
+            <Image
+              className="w-full object-contain h-full rounded-full"
+              src={'/images/user-default.jpg'}
+              width={40}
+              height={40}
+              alt="."
+            ></Image>
+          </div>
+          <div>{value}</div>
+        </Link>
+      );
+    },
+  },
+  {
+    title: 'Phòng ban',
+    key: 'department',
+    dataIndex: 'department',
+    align: 'center',
+    className: 'text-center',
+    render: (_value, _record, index: number) => (index % 5 == 0 ? '190' + index + 1 : '-'),
+  },
+  {
+    title: 'Trùng',
+    key: 'duplicate',
+    dataIndex: 'duplicate',
+    align: 'center',
+    className: 'text-center',
+    render: (value: CandidateType['duplicate'], record: CandidateType, index: number) => (
+      <DuplicateCandidate candidate_id={index % 9 === 0 ? record.candidate_id : ''} key={index} />
+    ),
+  },
+  {
     title: 'Hành động',
     key: 'action',
     align: 'center',
     className: 'text-center',
-    render: () => <ActionColumn />,
+    render: (_value, _record, index: number) => <ActionColumn key={'action-' + index} />,
   },
 ];
 
@@ -153,6 +196,7 @@ const data: CandidateType = {
   candidate_id: '0102001002345',
   candidate_phone: '034567890',
   interview_time: new Date().toISOString(),
+  interviewer: 'NPVN Nguyễn Văn A',
 };
 
 const dataSource: CandidateType[] = Array.from({ length: 20 }, () => ({ ...data }));

@@ -44,6 +44,12 @@
   --account-d: #374665;
   --frame-blur-d: rgba(56, 56, 56, 0.6);
 }
+@font-face {
+  font-family: 'Noto Color Emoji';
+  src: url('/fonts/NotoColorEmoji-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @layer base {
   body {
@@ -177,5 +183,13 @@
   .scrollbar-hide {
     -ms-overflow-style: none; /* Ẩn trên IE và Edge */
     scrollbar-width: none; /* Ẩn trên Firefox */
+  }
+  .emoji,
+  .emoji-font {
+    font-family: 'Noto Color Emoji', 'apple color emoji', 'segoe ui emoji', 'android emoji',
+      'emojisymbols', 'emojione mozilla', 'twemoji mozilla', 'segoe ui symbol', sans-serif;
+  }
+  .flag-font {
+    font-family: 'Noto Color Emoji', sans-serif;
   }
 }

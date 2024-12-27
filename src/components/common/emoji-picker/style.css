@@ -1,0 +1,13 @@
+.emoji-picker::-webkit-scrollbar {
+  width: 8px; /* Chiều rộng thanh cuộn */
+}
+
+.emoji-picker::-webkit-scrollbar-track {
+  background: #f5f5f5; /* Nền của thanh cuộn */
+}
+
+.emoji-picker::-webkit-scrollbar-thumb {
+  background-color: #9ca3af; /* Màu của thanh kéo */
+  border-radius: 4px; /* Bo góc thanh kéo */
+  border: 2px solid #f5f5f5; /* Viền thanh kéo */
+}
