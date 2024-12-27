@@ -84,4 +84,32 @@ const getShortName = (fullname: string) => {
   return shortName.toUpperCase();
 };
 
-export { range, disablePastTime, debounce, formatMoneyVN, convertSlugify, getShortName };
+/**
+ * Generates a URL query string from an object of parameters.
+ *
+ * @param {Object} params - The object containing parameters to be converted to a query string.
+ * @returns {string} The URL query string generated from the parameters object.
+ * @template T - The type of the object containing parameters. It extends an object with string keys and any values.
+ */
+const getSearchParams = <T extends Record<string, any>>(params: T): string => {
+  const url = new URLSearchParams(window.location.search);
+
+  Object.entries(params).forEach(([key, value]) => {
+    if (!value) {
+      url.delete(key);
+    }
+    url.set(key, value as string);
+  });
+
+  return url.toString();
+};
+
+export {
+  range,
+  disablePastTime,
+  debounce,
+  formatMoneyVN,
+  convertSlugify,
+  getShortName,
+  getSearchParams,
+};

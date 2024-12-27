@@ -5,13 +5,14 @@
 @import './custom/form.css';
 @import './custom/input.css';
 @import './custom/modal.css';
+@import './custom/notification.css';
+@import './custom/pagination.css';
 @import './custom/popover.css';
 @import './custom/segmented.css';
 @import './custom/select.css';
 @import './custom/spin.css';
 @import './custom/table.css';
 @import './custom/upload.css';
-@import './custom/notification.css';
 
 /* Common */
 .ant-input,

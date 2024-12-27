@@ -46,7 +46,7 @@ export const LegalStatusTable = () => {
       title: 'Hành động',
       key: 'action',
       align: 'center',
-      width: 50,
+      width: 120,
       render: () => (
         <div className="flex justify-center items-center gap-1">
           <Button

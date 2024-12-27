@@ -1,4 +1,4 @@
-/* Table */
+/* Table
 .ant-table-container {
   border: 0 !important;
 }
@@ -22,4 +22,25 @@
 
 .ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {
   @apply dark:bg-background_d;
+} */
+
+.ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell {
+  @apply !bg-tiertiary_input_color_l dark:!bg-background_d dark:text-primary_text_d !py-3;
+}
+
+.ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell::before {
+  @apply !bg-divider_l dark:!bg-primary_color_d !h-[1.8rem];
+}
+
+.ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell {
+  @apply dark:!bg-primary_color_d !border-divider_l dark:!border-divider_d/40 !py-[6px];
+}
+
+.ant-table-wrapper .ant-table .ant-table-thead .ant-table-cell,
+.ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell {
+  @apply !px-5;
+}
+
+.ant-table-wrapper .ant-table .ant-table-tbody .ant-table-cell.ant-table-cell-row-hover {
+  @apply dark:!bg-background_d;
 }
