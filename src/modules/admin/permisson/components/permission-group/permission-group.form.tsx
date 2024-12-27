@@ -354,7 +354,7 @@ export const PermissionGroupForm = ({ id }: { id?: string }) => {
             label="Loại quyền:"
             rules={[rule]}
           >
-            <Table<PermissionGroupSchemaType>
+            <Table<Partial<PermissionGroupSchemaType>>
               columns={columns}
               dataSource={dataSource as any}
               className="!mt-0"
