@@ -101,8 +101,8 @@ export const PermissionGroupTable = () => {
         </Form>
       </div>
 
-      <Table<PermissionGroupSchemaType>
-        columns={columns}
+      <Table<Partial<PermissionGroupSchemaType>>
+        columns={columns as any}
         dataSource={dataSource}
         paginationProps={{
           current: Number(page),
