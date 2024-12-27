@@ -1,11 +1,12 @@
 'use client';
+import { Comment } from '@/components/common/comment';
+import { CommentInput } from '@/components/common/comment/input';
+import { CommentType } from '@/components/common/comment/types';
 import { XIcon } from '@/components/icons';
 import { Divider, Empty } from 'antd';
 import clsx from 'clsx';
 import { useEffect, useRef, useState } from 'react';
 import { useWindowSize } from 'react-use';
-import { Comment, CommentTypes } from './comment';
-import { CommentInput } from './comment-input';
 
 interface IProps {
   open?: boolean;
@@ -13,44 +14,55 @@ interface IProps {
   onClose?: () => void;
 }
 
-const initComments: CommentTypes[] = [
+const initComments: CommentType[] = [
   {
     id: '1',
-    body: 'Nhà này rất đẹp nên mua',
+    text: 'Nhà này rất đẹp nên mua',
     created_at: new Date('2024-04-09').toISOString(),
     updated_at: new Date('2024-05-09').toISOString(),
-    child_comments: [
+    replies: [
       {
         id: 'cmm1',
-        body: 'Căn này đã bán chưa chị Căn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chị',
+        text: 'Căn này đã bán chưa chị Căn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chịCăn này đã bán chưa chị',
         created_at: new Date('2024-07-02').toISOString(),
         updated_at: new Date('2024-08-09').toISOString(),
+        author: { id: 999, name: 'Đầu Chủ Hồng Ngọc', avatarSrc: '/images/post-3.jpeg' },
       },
       {
         id: 'cmm3',
-        body: 'Lorem ipsum dolor sit amet',
+        text: 'Lorem ipsum dolor sit amet',
         created_at: new Date('2024-07-02').toISOString(),
         updated_at: new Date('2024-08-09').toISOString(),
+        author: { id: 123, name: 'Đầu Chủ Thuý Kiều', avatarSrc: '/images/post-4.jpeg' },
       },
     ],
     like_count: 10,
-    isLiked: true,
+    author: {
+      id: 456,
+      name: 'Đầu Chủ Mạnh Hà',
+      avatarSrc: '/images/post-1.jpeg',
+    },
   },
   {
     id: '2',
-    body: 'Căn này đã bán chưa chị',
+    text: 'Căn này đã bán chưa chị',
     created_at: new Date('2024-07-02').toISOString(),
     updated_at: new Date('2024-08-09').toISOString(),
+    author: {
+      id: 990,
+      name: 'Đầu Chủ Ngọc Ninh',
+      avatarSrc: '/images/post-5.jpeg',
+    },
   },
 ];
 // modal-comments modal-header
 const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
-  const [comments, setComments] = useState<CommentTypes[]>(initComments);
+  const [comments, setComments] = useState<CommentType[]>(initComments);
   const { width: windowWidth, height: windowHeight } = useWindowSize();
   const commentsRef = useRef<HTMLDivElement>(null);
-  const handleSendComment = (comment?: CommentTypes) => {
+  const handleSendComment = (comment?: CommentType) => {
     if (!comment) return;
-    const newComment: CommentTypes = {
+    const newComment: CommentType = {
       ...comment,
       id: Math.random().toString(),
       created_at: comment.created_at ?? new Date().toISOString(),
@@ -147,7 +159,7 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
             {!comments ||
               (comments.length === 0 && (
                 <div className="w-full h-full flex justify-center items-center">
-                  <Empty className="" description="Chưa có bình luậnn nào" />
+                  <Empty className="" description="Chưa có bình luận nào" />
                 </div>
               ))}
           </div>
@@ -163,5 +175,4 @@ const ModalCommentList = ({ open, isLockComment, onClose }: IProps) => {
     </>
   );
 };
-
 export { ModalCommentList };

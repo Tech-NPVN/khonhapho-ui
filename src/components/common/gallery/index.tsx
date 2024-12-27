@@ -9,7 +9,6 @@ import MediaImageFeed from './components/media-feed';
 import MediaImageGrid from './components/media-grid';
 import MediaSlider from './components/media-slider';
 import { AspectRatio } from './components/views/image-view';
-import { MediaViewProps } from './components/views/media-view';
 import './custom-gallery.css';
 
 type MediaGalleryGridConfig = {
@@ -34,6 +33,11 @@ type MediaGalleryConfig = {
   feed?: MediaGalleryFeedConfig;
 };
 
+export type MediaViewProps = {
+  src: string;
+  time?: string;
+  type: 'image' | 'video';
+};
 type MediaProps = {
   className?: string;
   media?: MediaViewProps[];
