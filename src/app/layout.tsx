@@ -1,4 +1,4 @@
-import { sfProPlayFont } from '@/configs/font.config';
+import { notoColorEmojiFont, sfProPlayFont } from '@/configs/font.config';
 import AppProvider from '@/provider';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import type { Metadata, Viewport } from 'next';
@@ -37,7 +37,7 @@ export default function RootLayout({
   return (
     <html lang="vi" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
       <head />
-      <body className={sfProPlayFont.className} id="app">
+      <body className={sfProPlayFont.className + ' ' + notoColorEmojiFont.variable} id="app">
         <AntdRegistry>
           <AppProvider>{children}</AppProvider>
         </AntdRegistry>
