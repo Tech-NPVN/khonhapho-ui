@@ -83,7 +83,14 @@ const EmojiContent: React.FC<EmojiPickerProps> = ({ onSelect }) => {
   const handleTabClick = (group: string, index: number) => {
     setTabIndex(index);
     const groupRef = groupRefs.current[group]?.current;
-    if (groupRef) groupRef.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const container = groupRef?.closest('.emoji-picker') as HTMLElement | null;
+    if (container && groupRef) {
+      const offsetTop = groupRef.offsetTop - container.offsetTop;
+      container.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth',
+      });
+    }
   };
 
   useEffect(() => {

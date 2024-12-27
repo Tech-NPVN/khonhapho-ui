@@ -50,5 +50,13 @@ const sfProPlayFont = localFont({
   ],
   variable: '--font-sf-pro-display',
 });
+const notoColorEmojiFont = localFont({
+  src: [
+    {
+      path: '../../public/fonts/NotoColorEmoji-Regular.ttf',
+    },
+  ],
+  variable: '--font-noto-color-emoji',
+});
 
-export { sfProPlayFont };
+export { notoColorEmojiFont, sfProPlayFont };
