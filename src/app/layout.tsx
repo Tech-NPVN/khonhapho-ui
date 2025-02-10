@@ -37,7 +37,8 @@ export default function RootLayout({
   return (
     <html lang="vi" style={{ colorScheme: 'light' }} className="light" suppressHydrationWarning>
       <head>
-        <meta name="robots" content="noindex, nofollow" />
+        <meta key="robots" name="robots" content="noindex, nofollow" />
+        <meta key="googlebot" name="googlebot" content="noindex, nofollow" />
       </head>
       <body className={sfProPlayFont.className + ' ' + notoColorEmojiFont.variable} id="app">
         <AntdRegistry>
